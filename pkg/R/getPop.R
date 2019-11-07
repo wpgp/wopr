@@ -4,7 +4,7 @@
 #' @param iso3 The ISO3 country code
 #' @param ver The version of the population estimate
 #' 
-#' @return A list with the mean, median, lower and upper confidence interval for the population total
+#' @return A vector of samples from posterior distributio of the population total
 #' 
 #' @export
 
@@ -18,7 +18,7 @@ getPop <- function(geojson, iso3, ver){
   request <- list(iso3 = iso3,
                   ver = ver,
                   geojson = geojson,
-                  key= "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
+                  key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
                   )
   
   # send request

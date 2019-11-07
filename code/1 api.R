@@ -2,7 +2,7 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); set.seed(42)
 
 # working directory
-setwd('C:/RESEARCH/git/wpgp/gridfree')
+setwd('C:/RESEARCH/git/wpgp/gridFree')
 
 # load packages
 devtools::load_all('pkg')
@@ -14,4 +14,11 @@ geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","propertie
 N <- getPop(geojson=geojson, iso3='NGA', ver='1.2')
 
 # summarize population total
-summaryPop(N, alpha=0.01, tails=2)
+summaryPop(N, alpha=0.05, tails=2)
+
+# coefficient of variation (standardized measure of uncertainty)
+sd(N)/mean(N)
+
+# probability that population exceeds threshold
+thresh <- 5e6
+mean(N > thresh)

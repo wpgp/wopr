@@ -12,13 +12,9 @@ getPop(geojson, iso3, ver)
 \item{iso3}{The ISO3 country code}
 
 \item{ver}{The version of the population estimate}
-
-\item{alpha}{The type 1 error rate for the confidence intervals}
-
-\item{tails}{The number of tails for the confidence intervals}
 }
 \value{
-A list with the mean, median, lower and upper confidence interval for the population total
+A vector of samples from posterior distributio of the population total
 }
 \description{
 Get population estimate from GRID3 server via API request
