@@ -1,0 +1,85 @@
+\documentclass[9pt,twocolumn,twoside,lineno]{pnas-new}
+% Use the lineno option to display guide line numbers if required.
+
+\usepackage{amsmath}
+
+% PNAS template
+% {pnasresearcharticle}=two-column;{pnasmathematics}=one-column mathematics;{pnasinvited}=invited submission
+\templatetype{pnasresearcharticle} 
+
+% Title
+\title{Title of Paper}
+
+% Author list
+\author[a,1]{Lead Author}
+\author[a]{Author 2}
+
+
+% Author affiliations
+\affil[a]{WorldPop, Geography and Environmental Science, University of Southampton, Highfield, Southampton SO17 1BJ, UK.}
+
+% Surname for running footer
+\leadauthor{Lead Author}
+
+% Significance statement
+\significancestatement{}
+
+% Author information
+\authorcontributions{AUTHOR CONTRIBUTIONS HERE}
+
+\authordeclaration{No conflicts of interest.}
+
+\correspondingauthor{\textsuperscript{1}Corresponding author. E-mail: lead_author@email.com}
+
+% Keywords
+\keywords{KEYWORDS HERE} 
+
+% Abstract 250 words
+\begin{abstract}
+250 words
+\end{abstract}
+
+% Compile date
+\dates{This manuscript was compiled on \today}
+
+\doi{\url{www.pnas.org/cgi/doi/10.1073/pnas.XXXXXXXXXX}}
+
+% Formatting
+\begin{document}
+
+\maketitle
+
+\thispagestyle{firststyle}
+
+\ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
+
+%-----------------------------------------------%
+
+% Introduction
+\dropcap{a} INTRODUCTION HERE
+
+\subsection*{Results}
+
+RESULTS HERE
+
+\subsection*{Discussion}
+
+
+
+% Materials and Methods
+\matmethods{ 
+	
+METHODS HERE
+}
+
+\showmatmethods{}
+
+% Acknowledgements
+\acknow{This project was funded by the Bill and Melinda Gates Foundation and the United Kingdom Department of International Development. The authors acknowledge the use of the IRIDIS High Performance Computing Facility, and associated support services at the University of Southampton, in the completion of this work.}
+
+\showacknow{}
+
+% Bibliography
+\bibliography{mybib}
+
+\end{document}

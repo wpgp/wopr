@@ -1,0 +1,10 @@
+Package: pkg
+Title: Package Name
+Version: 0.1.0
+Date: 2019-11-07
+Author: Doug Leasure
+Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
+License: None
+Depends: httr
+Description: Description of the package
+RoxygenNote: 6.1.1
