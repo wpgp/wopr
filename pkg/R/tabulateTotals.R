@@ -20,7 +20,7 @@ tabulateTotals <- function(shapes){
     print(paste0(i,'/',nrow(shapes)))
     
     # get posteriors for population total in feature i
-    N <- getPop(geojson = geojson_json(shapes[i,]), 
+    N <- requestPop(geojson = geojsonio::geojson_json(shapes[i,]), 
                 iso3 = 'NGA', 
                 ver = '1.2')
     

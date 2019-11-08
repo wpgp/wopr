@@ -8,7 +8,7 @@
 #' 
 #' @export
 
-getPop <- function(geojson, iso3, ver, timeout=30){
+requestPop <- function(geojson, iso3, ver, timeout=30){
   
   # server url
   server <- 'https://api.worldpop.org/v1/grid3/stats'
@@ -25,20 +25,27 @@ getPop <- function(geojson, iso3, ver, timeout=30){
   response <- content(POST(url=server, body=request, encode="form"), 
                       as='parsed') 
   
-  # Check result
-  result <- content(GET(file.path(queue, response$taskid)), 
-                    as='parsed')
+  # check status
+  result <- content( GET(file.path(queue, response$taskid)), as='parsed')
   
-  # check status until complete or timeout
+  # note time
   t0 <- Sys.time()
+  
+  # continue checking status until finished
   while(!result$status=='finished'){
+    
+    # timeout
     if((Sys.time() - t0)  > timeout){
-      print(paste0('Task timed out after ',timeout,' seconds (task ID: ',response$taskid,')'))
+      print( paste('Task timed out after',timeout,'seconds (task ID:',response$taskid,')') )
       break
     }
-    result <- content(GET(file.path(queue, response$taskid)), 
-                      as='parsed')
+    
+    # check status
+    result <- content( GET(file.path(queue, response$taskid)), as='parsed')
+    
+    # wait
     Sys.sleep(1)
   }
+  # return result as vector
   return(unlist(result$data$total))
 }
