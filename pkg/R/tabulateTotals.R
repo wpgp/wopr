@@ -12,7 +12,7 @@ tabulateTotals <- function(shapes){
   cols <- c('meanPop','medianPop','lowerPop','upperPop')
   
   # prepare new columns
-  shapes[1:nrow(shapes), cols] <- NA
+  shapes@data[, cols] <- NA
   
   # loop through features
   for(i in 1:nrow(shapes)){
