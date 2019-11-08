@@ -4,7 +4,7 @@
 \alias{getPop}
 \title{Get population estimate from GRID3 server via API request}
 \usage{
-getPop(geojson, iso3, ver)
+getPop(geojson, iso3, ver, timeout = 30)
 }
 \arguments{
 \item{geojson}{A geoJSON to represent the polygon where a population estimate is needed}
