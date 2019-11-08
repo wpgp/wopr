@@ -4,7 +4,7 @@
 \alias{tabulateTotals}
 \title{Tabulate population totals for polygons}
 \usage{
-tabulateTotals(shapes)
+tabulateTotals(shapes, alpha = 0.05, tails = 2)
 }
 \arguments{
 \item{shapes}{SpatialPolygonsDataFrame with polygons to calculate population totals}

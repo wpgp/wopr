@@ -1,32 +1,48 @@
 #' Tabulate population totals for polygons
 #' 
 #' @param shapes SpatialPolygonsDataFrame with polygons to calculate population totals
+#' @param alpha The type 1 error rate for the confidence intervals
+#' @param tails The number of tails for the confidence intervals
 #' 
 #' @return The SpatialPolygonsDataFrame with population totals added into columns: meanPop, medianPop, lowerPop, upperPop
 #' 
 #' @export
 
-tabulateTotals <- function(shapes){
+tabulateTotals <- function(shapes, alpha=0.05, tails=2){
   
-  # column names
-  cols <- c('meanPop','medianPop','lowerPop','upperPop')
-  
-  # prepare new columns
-  shapes@data[, cols] <- NA
-  
-  # loop through features
-  for(i in 1:nrow(shapes)){
-    
-    print(paste0(i,'/',nrow(shapes)))
-    
-    # get posteriors for population total in feature i
-    N <- requestPop(geojson = geojsonio::geojson_json(shapes[i,]), 
-                iso3 = 'NGA', 
-                ver = '1.2')
-    
-    # add summary statistics to data frame
-    shapes[i,cols] <- summaryPop(N, alpha=0.05, tails=2)
+  # function for parallel processing
+  tabulateParallel <- function(shapes){
+    result <- data.frame(matrix(NA,nrow=nrow(shapes),ncol=5))
+    for(i in 1:nrow(shapes)){
+      N <- requestPop(geojson = geojsonio::geojson_json(shapes[i,]), 
+                      iso3 = 'NGA', 
+                      ver = '1.2')
+      result[i,] <- cbind(data.frame(id=shapes@data[i,'id']), summaryPop(N, alpha=alpha, tails=tails))
+    }
+    names(result) <- c('id','mean','median','lower','upper')
+    return(result)
   }
   
-  return(shapes)
+  # setup cluster
+  ncores <- min(detectCores()-1, nrow(shapes))
+  cl <- makeCluster(ncores)
+  registerDoParallel(cl)
+  
+  # shape ids
+  shapes@data$id <- 1:nrow(shapes)
+  
+  # chunk shapes into list for parallel processing
+  dat <- list()
+  groups <- rep(1:ncores, length.out=nrow(shapes))
+  for(i in 1:ncores){
+    dat[[i]] <- shapes[groups==i,]
+  }
+  
+  # process jags data in parallel
+  result <- foreach(i=dat, .combine=rbind, .export=c('requestPop','summaryPop'), .packages=c('httr')) %dopar% tabulateParallel(i)
+  
+  # stop cluster
+  stopCluster(cl)
+  
+  return(result)
 }

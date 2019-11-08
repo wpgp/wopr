@@ -37,7 +37,7 @@ mean(N > thresh)
 shapefile <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # population totals for each polygon
-shapefile <- tabulateTotals(shapefile)
+totals <- tabulateTotals(shapefile)
 
 
 
