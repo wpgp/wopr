@@ -8,7 +8,7 @@
 #' 
 #' @export
 
-tabulateTotals <- function(shapes, alpha=0.05, tails=2){
+tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F){
   
   # function for parallel processing
   tabulateParallel <- function(shapes){
@@ -39,10 +39,18 @@ tabulateTotals <- function(shapes, alpha=0.05, tails=2){
   }
   
   # process jags data in parallel
-  result <- foreach(i=dat, .combine=rbind, .export=c('requestPop','summaryPop'), .packages=c('httr')) %dopar% tabulateParallel(i)
+  if(parallel){
+    result <- foreach(i=dat, .combine=rbind, .export=c('requestPop','summaryPop'), .packages=c('httr')) %dopar% tabulateParallel(i)
+  } else {
+    result <- foreach(i=dat, .combine=rbind, .export=c('requestPop','summaryPop'), .packages=c('httr')) %do% tabulateParallel(i)
+  }
   
   # stop cluster
   stopCluster(cl)
+  
+  # sort by id
+  result <- result[order(result$id),]
+  row.names(result) <- result$id
   
   return(result)
 }

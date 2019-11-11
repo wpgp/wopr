@@ -22,7 +22,7 @@ geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","propertie
 N <- requestPop(geojson=geojson, iso3='NGA', ver='1.2')
 
 # summarize population total
-summaryPop(N, alpha=0.05, tails=2)
+summaryPop(N, alpha=0.01, tails=1)
 
 # coefficient of variation (standardized measure of uncertainty)
 sd(N)/mean(N)
@@ -37,7 +37,22 @@ mean(N > thresh)
 shapefile <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # population totals for each polygon
-totals <- tabulateTotals(shapefile)
+totals <- tabulateTotals(shapefile, parallel=T)
 
+##---- problem polygon ----##
+geojson <- geojsonio::geojson_json(shapefile[172,])
 
+N <- requestPop(geojson = geojson, 
+                iso3 = 'NGA', 
+                ver = '1.2')
 
+server <- 'https://api.worldpop.org/v1/grid3/stats'
+queue <- 'https://api.worldpop.org/v1/tasks'
+
+request <- list(iso3 = 'NGA',
+                ver = '1.2',
+                geojson = geojson,
+                key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD")
+
+response <- content(POST(url=server, body=request, encode="form"), as='parsed')
+result <- content( GET(file.path(queue, response$taskid)), as='parsed')
