@@ -3,12 +3,13 @@
 #' @param shapes SpatialPolygonsDataFrame with polygons to calculate population totals
 #' @param alpha The type 1 error rate for the confidence intervals
 #' @param tails The number of tails for the confidence intervals
+#' @param test Logical indicating whether to use the test server or production server
 #' 
 #' @return The SpatialPolygonsDataFrame with population totals added into columns: meanPop, medianPop, lowerPop, upperPop
 #' 
 #' @export
 
-tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F){
+tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F, test=F){
   
   # function for parallel processing
   tabulateParallel <- function(shapes){
@@ -16,7 +17,8 @@ tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F){
     for(i in 1:nrow(shapes)){
       N <- requestPop(geojson = geojsonio::geojson_json(shapes[i,]), 
                       iso3 = 'NGA', 
-                      ver = '1.2')
+                      ver = '1.2',
+                      test = test)
       result[i,] <- cbind(data.frame(id=shapes@data[i,'id']), summaryPop(N, alpha=alpha, tails=tails))
     }
     names(result) <- c('id','mean','median','lower','upper')

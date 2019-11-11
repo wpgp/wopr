@@ -5,6 +5,6 @@ Date: 2019-11-07
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: None
-Depends: httr, stringi, doParallel, foreach
+Depends: httr, stringi, doParallel, foreach, tools
 Description: Description of the package
 RoxygenNote: 6.1.1
