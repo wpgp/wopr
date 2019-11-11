@@ -12,7 +12,7 @@
 tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F, test=F){
   
   # function for parallel processing
-  tabulateParallel <- function(shapes){
+  tabulateParallel <- function(shapes, alpha=0.05, tails=2){
     result <- data.frame(matrix(NA,nrow=nrow(shapes),ncol=5))
     for(i in 1:nrow(shapes)){
       N <- requestPop(geojson = geojsonio::geojson_json(shapes[i,]), 
@@ -53,6 +53,8 @@ tabulateTotals <- function(shapes, alpha=0.05, tails=2, parallel=F, test=F){
   # sort by id
   result <- result[order(result$id),]
   row.names(result) <- result$id
+  
+  result <- result[,-1]
   
   return(result)
 }

@@ -30,8 +30,8 @@ summaryPop(N, alpha=0.05, tails=1)
 sd(N)/mean(N)
 
 # probability that population exceeds threshold
-thresh <- 5e6
-mean(N > thresh)
+thresh <- 10e6
+mean(N < thresh)
 
 
 
@@ -41,7 +41,7 @@ mean(N > thresh)
 shapefile <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # population totals for each polygon
-totals <- tabulateTotals(shapefile[1:3,], parallel=F)
+totals <- tabulateTotals(shapefile[1:20,], parallel=T, test=T)
 
 
 

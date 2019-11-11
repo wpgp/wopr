@@ -42,7 +42,7 @@ requestPop <- function(geojson, iso3, ver, timeout=30, test=F){
     
     # timeout
     if((Sys.time() - t0)  > timeout){
-      print( paste('Task timed out after',timeout,'seconds. Use checkTask() to retrieve results later.') )
+      print( paste('Task timed out after',timeout,'seconds. Use checkTask(',response$taskid,') to retrieve results later.') )
       return(response$taskid)
       break
     }
