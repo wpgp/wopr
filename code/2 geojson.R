@@ -13,16 +13,18 @@ copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in',
        overwrite=F, 
        OS.type=.Platform$OS.type)
 
-##---- example ----##
+
+
+##---- single geojson example ----##
 
 # create geojson
 geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[3.308258056640625,6.701434474782401],[3.27392578125,6.704162283788004],[3.22723388671875,6.689159145509243],[3.190155029296875,6.6114082535287215],[3.201141357421875,6.5118147063479],[3.264312744140625,6.485889844658782],[3.3563232421875,6.503628052315478],[3.404388427734375,6.558203219021767],[3.37005615234375,6.646875098291585],[3.308258056640625,6.701434474782401]]]}}]}'
 
 # posterior population total
-N <- requestPop(geojson=geojson, iso3='NGA', ver='1.2')
+N <- requestPop(geojson=geojson, iso3='NGA', ver='1.2', test=T)
 
 # summarize population total
-summaryPop(N, alpha=0.01, tails=1)
+summaryPop(N, alpha=0.05, tails=1)
 
 # coefficient of variation (standardized measure of uncertainty)
 sd(N)/mean(N)
@@ -31,28 +33,16 @@ sd(N)/mean(N)
 thresh <- 5e6
 mean(N > thresh)
 
+
+
 ##---- population totals for shapefile polygons ----##
 
 # shapefile with Nigerian local government areas
 shapefile <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # population totals for each polygon
-totals <- tabulateTotals(shapefile, parallel=T)
+totals <- tabulateTotals(shapefile[1:3,], parallel=F)
 
-##---- problem polygon ----##
-geojson <- geojsonio::geojson_json(shapefile[172,])
 
-N <- requestPop(geojson = geojson, 
-                iso3 = 'NGA', 
-                ver = '1.2')
 
-server <- 'https://api.worldpop.org/v1/grid3/stats'
-queue <- 'https://api.worldpop.org/v1/tasks'
 
-request <- list(iso3 = 'NGA',
-                ver = '1.2',
-                geojson = geojson,
-                key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD")
-
-response <- content(POST(url=server, body=request, encode="form"), as='parsed')
-result <- content( GET(file.path(queue, response$taskid)), as='parsed')

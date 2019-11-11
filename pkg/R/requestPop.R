@@ -8,11 +8,16 @@
 #' 
 #' @export
 
-requestPop <- function(geojson, iso3, ver, timeout=30){
+requestPop <- function(geojson, iso3, ver, timeout=30, test=F){
   
-  # server url
-  server <- 'https://api.worldpop.org/v1/grid3/stats'
-  queue <- 'https://api.worldpop.org/v1/tasks'
+  # api grid3 server url
+  if(!test) { 
+    server <- 'https://api.worldpop.org/v1/grid3/stats'
+    queue <- 'https://api.worldpop.org/v1/tasks'
+  } else { 
+    server <- 'http://10.19.100.66/v1/grid3/stats' 
+    queue <- 'http://10.19.100.66/v1/tasks'
+  }
   
   # format request
   request <- list(iso3 = iso3,
@@ -22,11 +27,14 @@ requestPop <- function(geojson, iso3, ver, timeout=30){
                   )
   
   # send request
-  response <- content(POST(url=server, body=request, encode="form"), 
-                      as='parsed') 
+  response <- content( POST(url=server, body=request, encode="form"), as='parsed') 
+  
+  if(test) print(response)
   
   # check status
   result <- content( GET(file.path(queue, response$taskid)), as='parsed')
+  
+  if(test) print(result)
   
   # note time
   t0 <- Sys.time()
