@@ -1,3 +1,9 @@
+#' Get the WorldPop GridFree data catalogue
+#' 
+#' @return A data frame with a row for each item in the data catalogue.
+#' 
+#' @export
+
 getCatalogue <- function(){
   
   server <- 'http://grid3data.worldpop.uk/api/v1.0/data'
