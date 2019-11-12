@@ -17,7 +17,10 @@ downloadData <- function(dat, outdir){
     filepath <- file.path(outdir, dat[i,'country'], dat[i,'category'], dat[i,'version'], dat[i,'file'])
     
     if(!file.exists(filepath) | !dat[i,'hash']==md5sum(filepath)){
+      print(paste('Downloading:', filepath))
       utils::download.file(url = dat[i,'url'], destfile = filepath, mode="wb",  quiet=FALSE, method="auto")  
     }
   }
+  
+  writeCatalogue(outdir)
 }

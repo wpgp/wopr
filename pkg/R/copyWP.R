@@ -5,14 +5,13 @@
 #'
 #' @param srcdir Directory of source files
 #' @param outdir Directory to write output files to
-#' @param overwrite Logical indicating to overwrite local files if they already exist
 #' @param OS.type Type of operating system (see \code{.Platform$OS.type})
 #'
 #' @return Writes input files to disk
 #'
 #' @export
 
-copyWP <- function(srcdir, outdir, overwrite=F, OS.type='windows'){
+copyWP <- function(srcdir, outdir, OS.type='windows'){
 
   # format server name
   if(.Platform$OS.type=="windows"){
@@ -22,6 +21,7 @@ copyWP <- function(srcdir, outdir, overwrite=F, OS.type='windows'){
     srcdir <- file.path('/Volumes/worldpop', srcdir)
   } 
 
+  # check source directory exists
   if(!dir.exists(srcdir)){
     
     print(paste('Source directory does not exist:', srcdir))
@@ -37,9 +37,21 @@ copyWP <- function(srcdir, outdir, overwrite=F, OS.type='windows'){
     # copy files
     for(f in lf){
       
-      if(overwrite | !file.exists(file.path(outdir,f))) print(f)
+      # copy if destination file does not exist
+      toggleCopy <- !file.exists(file.path(outdir,f))
       
-      file.copy(from=file.path(srcdir,f), to=outdir, overwrite=overwrite)
+      # copy if destination file is different than source file
+      if(!toggleCopy){
+        if(!md5sum(file.path(srcdir,f))==md5sum(file.path(outdir,f))){
+          toggleCopy <- T
+        }
+      }
+      
+      # copy the file
+      if(toggleCopy){
+        print(f)
+        file.copy(from=file.path(srcdir,f), to=file.path(outdir), overwrite=T)
+      }
     }
   }
 }

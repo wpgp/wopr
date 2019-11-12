@@ -4,14 +4,12 @@
 \alias{copyWP}
 \title{Copy WorldPop folder to your local working directory.}
 \usage{
-copyWP(srcdir, outdir, overwrite = F, OS.type = "windows")
+copyWP(srcdir, outdir, OS.type = "windows")
 }
 \arguments{
 \item{srcdir}{Directory of source files}
 
 \item{outdir}{Directory to write output files to}
-
-\item{overwrite}{Logical indicating to overwrite local files if they already exist}
 
 \item{OS.type}{Type of operating system (see \code{.Platform$OS.type})}
 }

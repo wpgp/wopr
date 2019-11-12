@@ -10,7 +10,6 @@ devtools::load_all('pkg')
 # copy input folder from worldpop
 copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 
        outdir='in', 
-       overwrite=F, 
        OS.type=.Platform$OS.type)
 
 
