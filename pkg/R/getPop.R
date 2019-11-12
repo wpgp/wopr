@@ -31,6 +31,9 @@ getPop <- function(gj, country, ver, timeout=30){
   # send request
   response <- content( POST(url=server, body=request, encode="form"), as='parsed') 
   
+  # close server connection
+  close(url(server))
+  
   # check status
   result <- content( GET(file.path(queue, response$taskid)), as='parsed')
   
@@ -53,6 +56,9 @@ getPop <- function(gj, country, ver, timeout=30){
     # wait
     Sys.sleep(1)
   }
+  
+  # close queue connection
+  close(url(queue))
   
   # return result as vector
   return(unlist(result$data$total))

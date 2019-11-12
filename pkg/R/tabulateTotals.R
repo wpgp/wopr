@@ -45,6 +45,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, parallel
     result <- data.frame(matrix(NA,nrow=nrow(polygons),ncol=5))
     
     for(i in 1:nrow(polygons)){
+      
       if(verbose) print(paste0(polygons@data[i,'gfid'],'/',npoly,' (',round(i/npoly*100,1),'%)'))
       
       # disaggregate MultiPolygons into separate Polygons
@@ -60,7 +61,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, parallel
       }
       
       # summarize results and add to output data frame
-      result[i,] <- cbind(data.frame(id=polygons@data[i,'gfid']), summaryPop(N, alpha=alpha, tails=tails))
+      result[i,] <- cbind(data.frame(gfid=polygons@data[i,'gfid']), summaryPop(N, alpha=alpha, tails=tails))
     }
     names(result) <- c('gfid','mean','median','lower','upper')
     return(result)
