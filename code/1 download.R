@@ -1,5 +1,6 @@
 # initialize
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); set.seed(42)
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T)
+seed=runif(1,1,42); set.seed(seed)
 
 # working directory
 setwd('C:/RESEARCH/git/wpgp/gridFree')
@@ -7,10 +8,10 @@ setwd('C:/RESEARCH/git/wpgp/gridFree')
 # load packages
 devtools::load_all('pkg')
 
-# copy input folder from worldpop
-copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 
-       outdir='in', 
-       OS.type=.Platform$OS.type)
+# # copy input folder from worldpop
+# copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 
+#        outdir='in', 
+#        OS.type=.Platform$OS.type)
 
 # output folder
 outdir <- 'out'
@@ -24,14 +25,10 @@ downloadData(catalogue, outdir)
 
 # download NGA Population v1.0
 catalogue_sub <- subset(catalogue, 
-                        country %in% c('NGA') & 
-                          category %in% c('Population') & 
-                          version %in% c('v1.0'))
+                        country == 'NGA' & 
+                          category == 'Population' & 
+                          version == 'v1.0')
 downloadData(catalogue_sub, outdir)
 
-# download first item in catalogue
+# download first file in catalogue
 downloadData(catalogue[1,], outdir)
-
-# download first and second item in catalogue
-downloadData(catalogue[1:2,], outdir)
-

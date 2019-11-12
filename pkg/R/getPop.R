@@ -1,8 +1,8 @@
 #' Get population estimate from GRID3 server via API request
 #' 
-#' @param geojson A geoJSON to represent the polygon where a population estimate is needed
-#' @param iso3 The ISO3 country code
-#' @param ver The version of the population estimate
+#' @param gj A geoJSON to represent the polygon where a population estimate is needed
+#' @param country The ISO3 country code
+#' @param ver Version number of the population estimate
 #' @param timeout Seconds until timeout
 #' @param test Logical indicating whether to use the test server or production server
 #' 
@@ -10,10 +10,10 @@
 #' 
 #' @export
 
-requestPop <- function(geojson, iso3, ver, timeout=30, test=F){
+getPop <- function(gj, country, ver, timeout=30){
   
-  # api grid3 server url
-  if(!test) { 
+  # choose api server url (TRUE=production; FALSE=test)
+  if(FALSE) { 
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
   } else { 
@@ -22,9 +22,9 @@ requestPop <- function(geojson, iso3, ver, timeout=30, test=F){
   }
   
   # format request
-  request <- list(iso3 = iso3,
+  request <- list(iso3 = country,
                   ver = ver,
-                  geojson = geojson,
+                  geojson = gj,
                   key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
                   )
   

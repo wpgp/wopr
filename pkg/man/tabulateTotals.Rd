@@ -2,23 +2,33 @@
 % Please edit documentation in R/tabulateTotals.R
 \name{tabulateTotals}
 \alias{tabulateTotals}
-\title{Tabulate population totals for polygons}
+\title{Tabulate population totals for multiple polygons.
+Note: The operation may take a number of seconds per polygon.}
 \usage{
-tabulateTotals(shapes, alpha = 0.05, tails = 2, parallel = F,
-  test = F)
+tabulateTotals(polygons, country, ver, alpha = 0.05, tails = 2,
+  parallel = F, timeout = 30, verbose = F)
 }
 \arguments{
-\item{shapes}{SpatialPolygonsDataFrame with polygons to calculate population totals}
+\item{polygons}{SpatialPolygonsDataFrame with polygons to calculate population totals}
+
+\item{country}{ISO-3 code for the country requested}
+
+\item{ver}{Version number of population estimates}
 
 \item{alpha}{The type 1 error rate for the confidence intervals}
 
 \item{tails}{The number of tails for the confidence intervals}
 
-\item{test}{Logical indicating whether to use the test server or production server}
+\item{parallel}{Logical indicating whether to process polygons in parallel to improve computation time}
+
+\item{timeout}{Seconds until the operation for a single polygon times out}
+
+\item{verbose}{Logical to print status indicator as polygons are processed (not available for parallel processing)}
 }
 \value{
 The SpatialPolygonsDataFrame with population totals added into columns: meanPop, medianPop, lowerPop, upperPop
 }
 \description{
-Tabulate population totals for polygons
+Tabulate population totals for multiple polygons.
+Note: The operation may take a number of seconds per polygon.
 }

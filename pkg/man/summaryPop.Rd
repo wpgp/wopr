@@ -2,7 +2,7 @@
 % Please edit documentation in R/summaryPop.R
 \name{summaryPop}
 \alias{summaryPop}
-\title{Get population estimate from GRID3 server via API request}
+\title{Summarize predicted posterior probability distribution for population estimates}
 \usage{
 summaryPop(N, alpha = 0.05, tails = 2)
 }
@@ -14,8 +14,8 @@ summaryPop(N, alpha = 0.05, tails = 2)
 \item{tails}{The number of tails for the confidence intervals}
 }
 \value{
-A list with the mean, median, lower and upper confidence interval for the population total
+A list with the mean, median, lower and upper confidence intervals for the population total (rounded to integers)
 }
 \description{
-Get population estimate from GRID3 server via API request
+Summarize predicted posterior probability distribution for population estimates
 }

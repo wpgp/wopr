@@ -1,10 +1,10 @@
-#' Get population estimate from GRID3 server via API request
+#' Summarize predicted posterior probability distribution for population estimates
 #' 
 #' @param N Vector of posterior samples for the population total
 #' @param alpha The type 1 error rate for the confidence intervals
 #' @param tails The number of tails for the confidence intervals
 #' 
-#' @return A list with the mean, median, lower and upper confidence interval for the population total
+#' @return A list with the mean, median, lower and upper confidence intervals for the population total (rounded to integers)
 #' 
 #' @export
 
@@ -16,5 +16,8 @@ summaryPop <- function(N, alpha=0.05, tails=2){
                        upper=quantile(N, probs=c(1-alpha/tails)),
                        row.names=1
                        )
+  
+  result <- round(result)
+  
   return(result)
 }

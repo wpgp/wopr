@@ -1,5 +1,6 @@
 # initialize
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); set.seed(42)
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T)
+seed=runif(1,1,42); set.seed(seed)
 
 # working directory
 setwd('C:/RESEARCH/git/wpgp/gridFree')
@@ -15,14 +16,17 @@ copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in',
 
 
 ##---- problem polygon for geojson api ----##
-geojson <- geojsonio::geojson_json(shapefile[172,])
 
-N <- requestPop(geojson = geojson, 
+shapefile <- rgdal::readOGR(dsn='in', layer='lgas')
+
+x <- geojson_json(disaggregate(shapefile[172,]))
+
+N <- requestPop(geojson = x, 
                 iso3 = 'NGA', 
                 ver = '1.2')
 
-server <- 'https://api.worldpop.org/v1/grid3/stats'
-queue <- 'https://api.worldpop.org/v1/tasks'
+server <- 'http://10.19.100.66/v1/grid3/stats' 
+queue <- 'http://10.19.100.66/v1/tasks'
 
 request <- list(iso3 = 'NGA',
                 ver = '1.2',
