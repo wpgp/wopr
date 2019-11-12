@@ -24,7 +24,7 @@ geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","propertie
 N <- requestPop(geojson=geojson, iso3='NGA', ver='1.2', test=T)
 
 # summarize population total
-summaryPop(N, alpha=0.05, tails=1)
+summaryPop(N, alpha=0.05, tails=2)
 
 # coefficient of variation (standardized measure of uncertainty)
 sd(N)/mean(N)

@@ -4,10 +4,17 @@
 \alias{tabulateTotals}
 \title{Tabulate population totals for polygons}
 \usage{
-tabulateTotals(shapes, alpha = 0.05, tails = 2)
+tabulateTotals(shapes, alpha = 0.05, tails = 2, parallel = F,
+  test = F)
 }
 \arguments{
 \item{shapes}{SpatialPolygonsDataFrame with polygons to calculate population totals}
+
+\item{alpha}{The type 1 error rate for the confidence intervals}
+
+\item{tails}{The number of tails for the confidence intervals}
+
+\item{test}{Logical indicating whether to use the test server or production server}
 }
 \value{
 The SpatialPolygonsDataFrame with population totals added into columns: meanPop, medianPop, lowerPop, upperPop

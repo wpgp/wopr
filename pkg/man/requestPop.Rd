@@ -4,7 +4,7 @@
 \alias{requestPop}
 \title{Get population estimate from GRID3 server via API request}
 \usage{
-requestPop(geojson, iso3, ver, timeout = 30)
+requestPop(geojson, iso3, ver, timeout = 30, test = F)
 }
 \arguments{
 \item{geojson}{A geoJSON to represent the polygon where a population estimate is needed}
@@ -12,9 +12,13 @@ requestPop(geojson, iso3, ver, timeout = 30)
 \item{iso3}{The ISO3 country code}
 
 \item{ver}{The version of the population estimate}
+
+\item{timeout}{Seconds until timeout}
+
+\item{test}{Logical indicating whether to use the test server or production server}
 }
 \value{
-A vector of samples from posterior distributio of the population total
+A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 }
 \description{
 Get population estimate from GRID3 server via API request
