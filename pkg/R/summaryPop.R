@@ -10,10 +10,10 @@
 
 summaryPop <- function(N, alpha=0.05, tails=2){
   
-  result <- data.frame(mean=mean(N), 
-                       median=quantile(N, probs=0.5), 
-                       lower=quantile(N, probs=c(alpha/tails)),
-                       upper=quantile(N, probs=c(1-alpha/tails)),
+  result <- data.frame(mean=mean(N, na.rm=T), 
+                       median=quantile(N, probs=0.5, na.rm=T), 
+                       lower=quantile(N, probs=c(alpha/tails), na.rm=T),
+                       upper=quantile(N, probs=c(1-alpha/tails), na.rm=T),
                        row.names=1
                        )
   

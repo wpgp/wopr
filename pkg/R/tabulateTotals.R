@@ -19,7 +19,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, parallel
   # setup cluster
   if(parallel){
     ncores <- min(detectCores(), nrow(polygons))
-    cl <- makeCluster(ncores)
+    cl <- makeCluster(ncores, outfile='log.txt')
     registerDoParallel(cl)
   } else {
     ncores <- 1
@@ -54,10 +54,19 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, parallel
       # sum populations among seperate parts (j) of a MultiPolygon (i)
       N <- 0
       for(j in 1:nrow(polygons_sub)){
-        N <- N + getPop(gj = geojson_json(polygons_sub[j,]), 
-                        country = country, 
-                        ver = ver,
-                        timeout=timeout)
+        
+        # get population for polygon j
+        pop_sub <- getPop(gj = geojson_json(polygons_sub[j,]), 
+                          country = country, 
+                          ver = ver,
+                          timeout=timeout)
+        
+        # add population to populations of other polygons
+        if(is.numeric(pop_sub)){
+          N <- N + pop_sub
+        } else {
+          N <- NA
+        }
       }
       
       # summarize results and add to output data frame

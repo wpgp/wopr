@@ -14,8 +14,6 @@ getPop(gj, country, ver, timeout = 30)
 \item{ver}{Version number of the population estimate}
 
 \item{timeout}{Seconds until timeout}
-
-\item{test}{Logical indicating whether to use the test server or production server}
 }
 \value{
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.

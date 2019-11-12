@@ -4,7 +4,6 @@
 #' @param country The ISO3 country code
 #' @param ver Version number of the population estimate
 #' @param timeout Seconds until timeout
-#' @param test Logical indicating whether to use the test server or production server
 #' 
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' 
@@ -45,7 +44,7 @@ getPop <- function(gj, country, ver, timeout=30){
     
     # timeout
     if((Sys.time() - t0)  > timeout){
-      print( paste('Task timed out after',timeout,'seconds. Use checkTask(',response$taskid,') to retrieve results later.') )
+      print( paste0('Task timed out after ',timeout,' seconds. Use checkTask("',response$taskid,'") to retrieve results later.') )
       return(response$taskid)
       break
     }
