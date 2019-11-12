@@ -32,7 +32,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, parallel
   # randomize
   polygons <- polygons[sample(x=1:nrow(polygons), size=nrow(polygons)),]
   
-  # split polygons into list for parallel processing
+  # split polygons into list for parallel processing (one list item per core)
   dat <- list()
   groups <- rep(1:ncores, length.out=nrow(polygons))
   for(i in 1:ncores){

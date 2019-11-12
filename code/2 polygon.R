@@ -26,6 +26,7 @@ totals <- tabulateTotals(polygons,
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
+                         timeout=60,
                          parallel=T, 
                          verbose=T)
 print(totals)

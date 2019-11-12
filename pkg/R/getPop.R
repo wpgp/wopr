@@ -11,7 +11,7 @@
 
 getPop <- function(gj, country, ver, timeout=30){
   
-  # choose api server url (TRUE=production; FALSE=test)
+  # api server (TRUE=production; FALSE=test)
   if(FALSE) { 
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
