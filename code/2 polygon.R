@@ -20,17 +20,18 @@ devtools::load_all('pkg')
 polygons <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # for testing
-# polygons=polygons[172:182,]
+# polygons=polygons[172:216,]
 # production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
 
+t0 <- Sys.time()
 totals <- tabulateTotals(polygons, 
                          country='NGA', 
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
-                         timeout=30*60
+                         timeout=60*60
                          )
-
+print(Sys.time()-t0)
 # add totals to polygons
 polygons@data <- cbind(polygons@data, totals)
 

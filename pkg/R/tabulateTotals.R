@@ -16,7 +16,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
   t0 <- Sys.time()
   
   # use production server? (TRUE=production; FALSE=test)
-  production <- T
+  production <- F
   if(production) { 
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
