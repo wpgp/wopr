@@ -12,7 +12,7 @@
 #' 
 #' @export
 
-tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthresh=NA, timeout=10*60){
+tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthresh=NA, spatial=T, timeout=10*60){
   t0 <- Sys.time()
   
   # use production server? (TRUE=production; FALSE=test)
@@ -213,6 +213,9 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
   
   # close connection
   close(url(queue))
+  
+  # spatial output
+  if(spatial) output <- cbind(polygons, output)
   
   # format output
   cols <- colnames(output)

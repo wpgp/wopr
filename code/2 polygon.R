@@ -17,10 +17,10 @@ devtools::load_all('pkg')
 ##---- population totals for spatialPolygons ----##
 
 # polygons of Nigerian local government areas
-polygons <- rgdal::readOGR(dsn='in', layer='lgas')
+polygons <- read_sf(dsn='in', layer='lgas')
 
 # for testing
-npoly=2;polygons=rgdal::readOGR(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
+npoly=2;polygons=read_sf(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
 # production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
 
 totals <- tabulateTotals(polygons, 
