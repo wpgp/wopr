@@ -17,10 +17,10 @@ devtools::load_all('pkg')
 ##---- population totals for spatialPolygons ----##
 
 # polygons of Nigerian local government areas
-polygons <- read_sf(dsn='in', layer='lgas')
+polygons <- readOGR(dsn='in', layer='lgas')
 
 # for testing
-npoly=2;polygons=read_sf(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
+npoly=10;polygons=readOGR(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
 # production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
 
 totals <- tabulateTotals(polygons, 
@@ -28,19 +28,24 @@ totals <- tabulateTotals(polygons,
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
-                         popthresh=1e3,
+                         popthresh=1e5,
+                         spatialjoin=T,
                          timeout=60*60
                          )
-print(totals)
+# map results
+library(tmap)
+jpeg('out/map.jpg')
+tm_shape(totals) + tm_fill('mean', palette='Reds', legend.reverse=T)
+dev.off()
 
-# add totals to polygons
-polygons@data <- cbind(polygons@data, totals)
+# save results as csv
+write.csv(totals@data, file='out/poptotals.csv')
 
 # save spatialPolygonDataFrame to disk as geojson
-writeOGR(polygons, layer='poptotals', outdir, driver='geojson')
+writeOGR(totals, dsn='out/poptotals.geojson', layer='out/poptotals.geojson', driver='GeoJSON', overwrite_layer=T)
 
 # cleanup
-rm(polygons, totals, t0);gc()
+rm(polygons, totals);gc()
 
 
 
