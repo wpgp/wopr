@@ -7,4 +7,4 @@ Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: None
 Depends: httr, stringi, tools, geojsonio, sp
 Description: Provides access to the WorldPop GridFree data catalogue and population estimates via REST API.
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
