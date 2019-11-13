@@ -30,6 +30,8 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
   npoly <- nrow(polygons)
   
   ##---- submit tasks to server ----##
+  print(paste('Submitting',npoly,'requests to',server,'...'))
+  
   tasks <- matrix(NA,ncol=4,nrow=0)
   colnames(tasks) <- c('polygon_id','task_id','status','message')
   
@@ -78,6 +80,8 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
   
   
   ##---- retrieve results ----##
+  print(paste('Checking status of',nrow(tasks),'tasks...'))
+  
   output <- matrix(NA, nrow=npoly, ncol=6)
   colnames(output) <- c('polygon_id','mean','median','lower','upper','message')
   output[,1] <- 1:npoly
@@ -92,6 +96,9 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
   
   # tasks that are processing
   tasks_remaining <- sum(tasks[,'status'] == 'created')
+  
+  progress_indicator <- old_progress_indicator <- round(1-(tasks_remaining / nrow(tasks)) * 100, 1)
+  print(paste0('  ',progress_indicator,'% (',round(Sys.time()-t0),'s)'))
   
   while(tasks_remaining > 0){
     
@@ -183,6 +190,14 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
       suppressWarnings(rm(N, task_id, polygon_id, tasks_this_poly))
     }
     tasks_remaining <- sum(tasks[,'status'] %in% c('created','started'))
+    
+    # progress indicator
+    progress_indicator <- round(1-(tasks_remaining / nrow(tasks)) * 100, 1)
+    if(progress_indicator > (old_progress_indicator+10)){
+      print(paste0('  ',progress_indicator,'% (',Sys.time()-t0,')'))
+      old_progress_indicator <- progress_indicator
+    }
+    
     if(tasks_remaining > 0) Sys.sleep(1/tasks_remaining)
   }
   
