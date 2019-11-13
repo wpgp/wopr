@@ -12,7 +12,7 @@
 #' 
 #' @export
 
-tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=10*60){
+tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthresh=NA, timeout=10*60){
   t0 <- Sys.time()
   
   # use production server? (TRUE=production; FALSE=test)
@@ -82,8 +82,8 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
   ##---- retrieve results ----##
   print(paste('Checking status of',nrow(tasks),'tasks...'))
   
-  output <- matrix(NA, nrow=npoly, ncol=6)
-  colnames(output) <- c('polygon_id','mean','median','lower','upper','message')
+  output <- matrix(NA, nrow=npoly, ncol=8)
+  colnames(output) <- c('polygon_id','mean','median','lower','upper','aboveThresh','belowThresh','message')
   output[,1] <- 1:npoly
 
   # tasks with submission errors
@@ -136,6 +136,8 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
           
           # summarize results and add to output data frame
           output[as.numeric(polygon_id),c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
+          output[as.numeric(polygon_id),'belowThresh'] <- mean(N < popThresh)
+          output[as.numeric(polygon_id),'aboveThresh'] <- mean(N > popThresh)
           output[as.numeric(polygon_id),'message'] <-  paste0(result$executionTime,'s')
         }
         if(result$error){
@@ -186,6 +188,8 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, timeout=
           }
           # summarize results and add to output data frame
           output[as.numeric(polygon_id),c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
+          output[as.numeric(polygon_id),'belowThresh'] <- mean(N < popthresh)
+          output[as.numeric(polygon_id),'aboveThresh'] <- mean(N > popthresh)
           output[as.numeric(polygon_id),'message'] <- paste0('MultiPolygon-',length(tasks_this_poly))
             
           # update task id status

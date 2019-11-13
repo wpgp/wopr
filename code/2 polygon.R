@@ -20,7 +20,7 @@ devtools::load_all('pkg')
 polygons <- rgdal::readOGR(dsn='in', layer='lgas')
 
 # for testing
-npoly=100;polygons=rgdal::readOGR(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
+npoly=2;polygons=rgdal::readOGR(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
 # production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
 
 totals <- tabulateTotals(polygons, 
@@ -28,6 +28,7 @@ totals <- tabulateTotals(polygons,
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
+                         popthresh=1e3,
                          timeout=60*60
                          )
 print(totals)
