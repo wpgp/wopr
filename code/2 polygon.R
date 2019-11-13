@@ -14,23 +14,22 @@ devtools::load_all('pkg')
 #        OS.type=.Platform$OS.type)
 
 
-##---- population totals for shapefile polygons ----##
+##---- population totals for spatialPolygons ----##
 
 # polygons of Nigerian local government areas
 polygons <- rgdal::readOGR(dsn='in', layer='lgas')
 
-# population totals for each polygon
-t0 <- Sys.time()
+# for testing
+# polygons=polygons[172:182,]
+# production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
+
 totals <- tabulateTotals(polygons, 
                          country='NGA', 
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
-                         timeout=60,
-                         parallel=T, 
-                         verbose=T)
-print(totals)
-print( Sys.time() - t0 )
+                         timeout=30*60
+                         )
 
 # add totals to polygons
 polygons@data <- cbind(polygons@data, totals)

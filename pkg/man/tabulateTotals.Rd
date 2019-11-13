@@ -6,7 +6,7 @@
 Note: The operation may take a number of seconds per polygon.}
 \usage{
 tabulateTotals(polygons, country, ver, alpha = 0.05, tails = 2,
-  parallel = F, timeout = 30, verbose = F)
+  timeout = 10 * 60)
 }
 \arguments{
 \item{polygons}{SpatialPolygonsDataFrame with polygons to calculate population totals}
@@ -19,14 +19,10 @@ tabulateTotals(polygons, country, ver, alpha = 0.05, tails = 2,
 
 \item{tails}{The number of tails for the confidence intervals}
 
-\item{parallel}{Logical indicating whether to process polygons in parallel to improve computation time}
-
 \item{timeout}{Seconds until the operation for a single polygon times out}
-
-\item{verbose}{Logical to print status indicator as polygons are processed (not available for parallel processing)}
 }
 \value{
-The SpatialPolygonsDataFrame with population totals added into columns: meanPop, medianPop, lowerPop, upperPop
+A data frame with summaries of posterior distribtuions for estimates of total population within each polygon
 }
 \description{
 Tabulate population totals for multiple polygons.
