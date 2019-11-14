@@ -12,7 +12,7 @@
 getPop <- function(gj, country, ver, timeout=30){
   
   # use production server? (TRUE=production; FALSE=test)
-  production <- F
+  production <- T
   if(production) { 
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'

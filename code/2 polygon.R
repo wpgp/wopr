@@ -28,13 +28,13 @@ totals <- tabulateTotals(polygons,
                          ver=1.2,
                          alpha=0.05,
                          tails=2,
-                         popthresh=1e5,
+                         popthresh=NA,
                          spatialjoin=T,
-                         timeout=60*60
+                         timeout=2*60*60
                          )
 # map results
 library(tmap)
-jpeg('out/map.jpg')
+jpeg('out/map.jpg', width=480*1.5, height=480*1.5)
 tm_shape(totals) + tm_fill('mean', palette='Reds', legend.reverse=T)
 dev.off()
 

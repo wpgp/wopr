@@ -85,14 +85,14 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
   output_cols <- c('polygon_id','mean','median','lower','upper','aboveThresh','message')
   output <- matrix(NA, nrow=npoly, ncol=length(output_cols))
   colnames(output) <- output_cols
-  output[,1] <- 1:npoly
+  rownames(output) <- output[,'polygon_id'] <- 1:npoly
 
   # tasks with submission errors
   for(i in which(!tasks[,'status']=='created')){
     task_id <- tasks[i,'task_id']
     polygon_id <- tasks[i,'polygon_id']
     
-    output[as.numeric(polygon_id),'message'] <- tasks[i,'message']
+    output[polygon_id,'message'] <- tasks[i,'message']
   }
   
   # tasks that are processing
@@ -136,12 +136,12 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
           N <- unlist(result$data$total)
           
           # summarize results and add to output data frame
-          output[as.numeric(polygon_id),c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
-          output[as.numeric(polygon_id),'aboveThresh'] <- mean(N > popthresh)
-          output[as.numeric(polygon_id),'message'] <-  paste0(result$executionTime,'s')
+          output[polygon_id,c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
+          output[polygon_id,'aboveThresh'] <- mean(N > popthresh)
+          output[polygon_id,'message'] <-  paste0(result$executionTime,'s')
         }
         if(result$error){
-          output[as.numeric(polygon_id),'message'] <-  result$error_message
+          output[polygon_id,'message'] <-  result$error_message
         }
         # update task id status
         tasks[i,'status'] <- result$status
@@ -163,7 +163,7 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
           }
           
           if(!results[[j]]$status %in% c('created','started','finished')){
-            output[as.numeric(polygon_id),'message'] <- result$error_message
+            output[polygon_id,'message'] <- result$error_message
             tasks[tasks[,'task_id'] %in% tasks_this_poly,'status'] <- results[[j]]$status
             all_abort <- T
             break
@@ -187,9 +187,9 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
             }
           }
           # summarize results and add to output data frame
-          output[as.numeric(polygon_id),c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
-          output[as.numeric(polygon_id),'aboveThresh'] <- mean(N > popthresh)
-          output[as.numeric(polygon_id),'message'] <- paste0('MultiPolygon-',length(tasks_this_poly))
+          output[polygon_id,c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
+          output[polygon_id,'aboveThresh'] <- mean(N > popthresh)
+          output[polygon_id,'message'] <- paste0('MultiPolygon-',length(tasks_this_poly))
             
           # update task id status
           tasks[tasks[,'task_id'] %in% tasks_this_poly,'status'] <- 'finished'
