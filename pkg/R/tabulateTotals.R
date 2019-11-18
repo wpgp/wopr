@@ -21,16 +21,22 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
   } else { 
-    server <- 'http://10.19.100.66/v1/grid3/stats' 
+    server <- 'http://10.19.100.66/v1/grid3' # '/stats' 
     queue <- 'http://10.19.100.66/v1/tasks'
   }
   
-  # polygon ids
-  polygons@data$polygon_id <- 1:nrow(polygons)
-  npoly <- nrow(polygons)
-  
+  if(class(polygons) %in% c('SpatialPolygons','SpatialPolygonsDataFrame')){
+    server <- file.path(server, 'popag')
+    geom_type <- 'polygon'
+  } else if(geometry_type %in% c('SpatialPoints','SpatialPointsDataFrame')){
+    server <- file.path(server, 'sample')
+    geom_type <- 'point'
+  } else {
+    print('Input must be a spatialPolygons or spatialPoints')
+  }
+
   ##---- submit tasks to server ----##
-  print(paste('Submitting',npoly,'polygons to',server,'...'))
+  print(paste('Submitting',npoly,'features to',server,'...'))
   
   tasks <- matrix(NA,ncol=4,nrow=0)
   colnames(tasks) <- c('polygon_id','task_id','status','message')
@@ -44,11 +50,22 @@ tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthres
     for(j in 1:nrow(polygons_sub)){
       
       # create request
-      request <- list(iso3 = country,
-                      ver = ver,
-                      geojson = geojson_json(polygons_sub[j,]),
-                      key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
-                      )
+      if(geom_type=='point'){
+        request <- list(iso3 = country,
+                        ver = ver,
+                        lat = geojson_json(polygons_sub[j,]),
+                        lon = NA,
+                        key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
+        )
+      }
+      if(geom_type=='polygon'){
+        request <- list(iso3 = country,
+                        ver = ver,
+                        geojson = geojson_json(polygons_sub[j,]),
+                        key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
+        )
+      }
+      
       
       # send request
       response <- content( POST(url=server, body=request, encode="form"), as='parsed')

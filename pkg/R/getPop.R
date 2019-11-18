@@ -1,6 +1,6 @@
 #' Get population estimate from GRID3 server via API request
 #' 
-#' @param gj A geoJSON to represent the polygon where a population estimate is needed
+#' @param geojson A geoJSON to represent the polygon where a population estimate is needed
 #' @param country The ISO3 country code
 #' @param ver Version number of the population estimate
 #' @param timeout Seconds until timeout
@@ -9,30 +9,47 @@
 #' 
 #' @export
 
-getPop <- function(gj, country, ver, timeout=30){
+getPop <- function(geojson, country, ver, 
+                   agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
+                            "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
+                   timeout=60){
   
   # use production server? (TRUE=production; FALSE=test)
-  production <- T
+  production <- F
   if(production) { 
     server <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
   } else { 
-    server <- 'http://10.19.100.66/v1/grid3/stats' 
+    server <- 'http://10.19.100.66/v1/grid3/popag' 
     queue <- 'http://10.19.100.66/v1/tasks'
   }
   
-  # format request
-  request <- list(iso3 = country,
-                  ver = ver,
-                  geojson = gj,
-                  key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
-                  )
+  gj <- FROM_GeoJson(geojson)
+  geometry_type <- gj$features[[1]]$geometry$type
+  
+  if(geometry_type %in% c('Polygon','MultiPolygon')){
+    server <- file.path(server, 'popag')
+    
+    request <- list(iso3 = country,
+                    ver = ver,
+                    geojson = geojson,
+                    agesex = paste(agesex, collapse=','),
+                    key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
+                    )
+    
+  } else if(geometry_type %in% c('Point','MultiPoint')){
+    server <- file.path(server, 'sample')
+    
+    request <- list(iso3 = country,
+                    ver = ver,
+                    geojson = geojson,
+                    key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
+    )
+  }
+
   
   # send request
   response <- content( POST(url=server, body=request, encode="form"), as='parsed') 
-  
-  # close server connection
-  close(url(server))
   
   # check status
   result <- content( GET(file.path(queue, response$taskid)), as='parsed')
@@ -44,8 +61,8 @@ getPop <- function(gj, country, ver, timeout=30){
   while(!result$status=='finished'){
     
     # timeout
-    if((Sys.time() - t0)  > timeout){
-      print( paste0('Task timed out after ',timeout,' seconds. Use checkTask("',response$taskid,'") to retrieve results later.') )
+    if(difftime(Sys.time(), t0)  > timeout){
+      print( paste0('Task timed out after ',timeout," seconds. Use checkTask(\'",response$taskid,"\') to retrieve results later.") )
       return(response$taskid)
       break
     }
@@ -56,9 +73,6 @@ getPop <- function(gj, country, ver, timeout=30){
     # wait
     Sys.sleep(1)
   }
-  
-  # close queue connection
-  close(url(queue))
   
   # return result as vector
   return(unlist(result$data$total))
