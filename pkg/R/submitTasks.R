@@ -6,8 +6,9 @@
 #' @return A data frame with information about each task submitted
 #' @export
 
-submitTasks <- function(features, country, ver, agesex, url, key){
-  print(paste('Submitting',nrow(features),'features to',url,'...'))
+submitTasks <- function(features, country, ver, agesex, url, key, verbose=T){
+  
+  if(verbose) print(paste('Submitting',nrow(features),'features to',url,'...'))
   
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
@@ -43,6 +44,7 @@ submitTasks <- function(features, country, ver, agesex, url, key){
                       lat = coords[,'Y'],
                       lon = coords[,'X'],
                       key = key)
+      rm(coords)
     }
     
     # send request
