@@ -6,7 +6,8 @@ seed=runif(1,1,42); set.seed(seed)
 setwd('C:/RESEARCH/git/wpgp/gridFree')
 
 # load packages
-library('gridFree')
+# library('gridFree')
+devtools::load_all('pkg')
 
 # # copy input folder from worldpop
 # copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 
@@ -17,20 +18,22 @@ library('gridFree')
 ##---- population totals for spatialPolygons ----##
 
 # polygons of Nigerian local government areas
-polygons <- readOGR(dsn='in', layer='lgas')
+features <- st_read(dsn='in', layer='lgas')
 
 # for testing
-npoly=1;polygons=readOGR(dsn='in',layer='lgas');polygons=polygons[172:(171+npoly),]
-# production=F;country='NGA';ver=1.2;alpha=0.05;tails=2;timeout=30*60;i=1;j=1
+nfeat=2;features=st_read(dsn='in',layer='lgas');features=features[172:(171+nfeat),]
+# country='NGA';ver=1.2;alpha=0.05;tails=2;popthresh=NA;spatialjoin=T;timeout=2*60*60;key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD'
 
-totals <- tabulateTotals(polygons, 
+totals <- tabulateTotals(features, 
                          country='NGA', 
                          ver=1.2,
+                         agesex=c('m0','m1','f0','f1'),
                          alpha=0.05,
                          tails=2,
                          popthresh=NA,
                          spatialjoin=T,
-                         timeout=2*60*60
+                         timeout=2*60*60,
+                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD'
                          )
 # map results
 library(tmap)

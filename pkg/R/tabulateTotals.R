@@ -1,244 +1,69 @@
-#' Tabulate population totals for multiple polygons.
-#' Note: The operation may take a number of seconds per polygon.
+#' Tabulate population totals for multiple features (points or polygons) in an sf object.
+#' Note: The operation may take a number of seconds per feature.
 #' 
-#' @param polygons SpatialPolygonsDataFrame with polygons to calculate population totals
+#' @param features An object of class sf with points or polygons to calculate population totals
 #' @param country ISO-3 code for the country requested
 #' @param ver Version number of population estimates
 #' @param alpha The type 1 error rate for the confidence intervals
 #' @param tails The number of tails for the confidence intervals
 #' @param timeout Seconds until the operation for a single polygon times out
+#' @param key Key to increase daily quota for REST API requests
 #' 
 #' @return A data frame with summaries of posterior distribtuions for estimates of total population within each polygon
 #' 
 #' @export
 
-tabulateTotals <- function(polygons, country, ver, alpha=0.05, tails=2, popthresh=NA, spatialjoin=T, timeout=10*60){
+tabulateTotals <- function(features, country, ver, alpha=0.05, tails=2, popthresh=NA, spatialjoin=T, timeout=10*60, 
+                           agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
+                                    "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
+                           key=NULL){
+  
   t0 <- Sys.time()
   
-  # use production server? (TRUE=production; FALSE=test)
+  # use production endpoint? (TRUE=production; FALSE=test)
   production <- F
   if(production) { 
-    server <- 'https://api.worldpop.org/v1/grid3/stats'
+    endpoint <- 'https://api.worldpop.org/v1/grid3/stats'
     queue <- 'https://api.worldpop.org/v1/tasks'
   } else { 
-    server <- 'http://10.19.100.66/v1/grid3' # '/stats' 
+      endpoint <- 'http://10.19.100.66/v1/grid3' # '/stats' 
     queue <- 'http://10.19.100.66/v1/tasks'
   }
   
-  if(class(polygons) %in% c('SpatialPolygons','SpatialPolygonsDataFrame')){
-    server <- file.path(server, 'popag')
-    geom_type <- 'polygon'
-  } else if(geometry_type %in% c('SpatialPoints','SpatialPointsDataFrame')){
-    server <- file.path(server, 'sample')
-    geom_type <- 'point'
+  if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
+    endpoint <- file.path(endpoint, 'popag')
+  } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
+    endpoint <- file.path(endpoint, 'sample')
   } else {
-    print('Input must be a spatialPolygons or spatialPoints')
-  }
-
-  ##---- submit tasks to server ----##
-  print(paste('Submitting',npoly,'features to',server,'...'))
-  
-  tasks <- matrix(NA,ncol=4,nrow=0)
-  colnames(tasks) <- c('polygon_id','task_id','status','message')
-  
-  for(i in 1:npoly){
-    
-    # disaggregate MultiPolygons into separate Polygons
-    polygons_sub <- disaggregate(polygons[i,])
-    polygon_id <- polygons@data$polygon_id[i]
-    
-    for(j in 1:nrow(polygons_sub)){
-      
-      # create request
-      if(geom_type=='point'){
-        request <- list(iso3 = country,
-                        ver = ver,
-                        lat = geojson_json(polygons_sub[j,]),
-                        lon = NA,
-                        key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
-        )
-      }
-      if(geom_type=='polygon'){
-        request <- list(iso3 = country,
-                        ver = ver,
-                        geojson = geojson_json(polygons_sub[j,]),
-                        key = "wm0LY9MakPSAehY4UQG9nDFo2KtU7POD"
-        )
-      }
-      
-      
-      # send request
-      response <- content( POST(url=server, body=request, encode="form"), as='parsed')
-      
-      # save task id
-      if(!'taskid' %in% names(response)){
-        response$taskid <- NA
-      }
-      if('error_description' %in% names(response)){
-        response$error_message <- response$error_description
-      }
-      if(is.null(response$error_message)){
-        response$error_message <- NA
-      }
-      newrow <- data.frame(polygon_id = polygon_id, 
-                           task_id = response$taskid, 
-                           status = response$status, 
-                           message = response$error_message)
-      tasks <- rbind(tasks, newrow)
-    }
-    suppressWarnings(rm(polygons_sub, polygon_id, newrow))
+    print('Input must be of class sf and include points or polygons')
+    break
   }
   
-  # format tasks
-  for(i in 1:ncol(tasks)) tasks[,i] <- as.character(tasks[,i])
-
-  # close server connection
-  close(url(server))
+  # feature ids
+  features$feature_id <- 1:nrow(features)
   
+  # submit tasks to endpoint
+  tasks <- submitTasks(features=features, 
+                       country=country, 
+                       ver=ver, 
+                       agesex=agesex, 
+                       url=endpoint, 
+                       key=key)
   
-  ##---- retrieve results ----##
-  print(paste('Checking status of',nrow(tasks),'tasks...'))
-  
-  output_cols <- c('polygon_id','mean','median','lower','upper','aboveThresh','message')
-  output <- matrix(NA, nrow=npoly, ncol=length(output_cols))
-  colnames(output) <- output_cols
-  rownames(output) <- output[,'polygon_id'] <- 1:npoly
-
-  # tasks with submission errors
-  for(i in which(!tasks[,'status']=='created')){
-    task_id <- tasks[i,'task_id']
-    polygon_id <- tasks[i,'polygon_id']
-    
-    output[polygon_id,'message'] <- tasks[i,'message']
-  }
-  
-  # tasks that are processing
-  tasks_remaining <- sum(tasks[,'status'] == 'created')
-  
-  myprogress <- function(tasks_remaining, total_tasks=nrow(tasks), print_progress=T){
-    progress <- round(100*(1-(tasks_remaining / total_tasks)), 1)
-    if(print_progress){
-      print(paste0('  ',progress,'% complete (',round(difftime(Sys.time(), t0, units='mins'),1),' minutes elapsed)'))
-    }
-    return(progress)
-  }
-  
-  progress_indicator <- old_progress_indicator <- myprogress(tasks_remaining)
-
-  while(tasks_remaining > 0){
-    
-    # timeout
-    if(difftime(Sys.time(), t0, units='secs')  > timeout){
-      print( paste0('Task timed out after ',timeout,' seconds.') )
-      break
-    }
-    
-    for(i in which(tasks[,'status'] %in% c('created','started'))){
-      
-      task_id <- tasks[i,'task_id']
-      polygon_id <- tasks[i,'polygon_id']
-      
-      tasks_this_poly <- tasks[tasks[,'polygon_id']==polygon_id, 'task_id']
-      tasks_this_poly <- unique(c(task_id, tasks_this_poly))
-      
-      ##-- Single Polygon --##
-      if(length(tasks_this_poly)==1){
-        
-        # get result
-        result <- content( GET(file.path(queue, tasks_this_poly)), as='parsed')
-        
-        if(result$status=='finished'){
-          
-          # population posterior
-          N <- unlist(result$data$total)
-          
-          # summarize results and add to output data frame
-          output[polygon_id,c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
-          output[polygon_id,'aboveThresh'] <- mean(N > popthresh)
-          output[polygon_id,'message'] <-  paste0(result$executionTime,'s')
-        }
-        if(result$error){
-          output[polygon_id,'message'] <-  result$error_message
-        }
-        # update task id status
-        tasks[i,'status'] <- result$status
-      }
-      
-      ##-- MultiPolygon --##
-      if(length(tasks_this_poly) > 1) {
-        
-        results <- list()
-        all_finished <- T
-        all_abort <- F
-        for(j in 1:length(tasks_this_poly)){
-          
-          results[[j]] <- content( GET(file.path(queue, tasks_this_poly[j])), as='parsed')
-          
-          if(!results[[j]]$status=='finished'){
-            all_finished <- F
-            break
-          }
-          
-          if(!results[[j]]$status %in% c('created','started','finished')){
-            output[polygon_id,'message'] <- result$error_message
-            tasks[tasks[,'task_id'] %in% tasks_this_poly,'status'] <- results[[j]]$status
-            all_abort <- T
-            break
-          }
-        }
-        
-        if(!all_finished & !all_abort){
-          tasks[i,'status'] <- results[[1]]$status
-        } 
-        
-        if(all_finished & !all_abort){
-          # sum population posteriors across sub-polygons
-          N <- 0
-          for(j in 1:length(tasks_this_poly)){
-            pop_sub <- unlist(results[[j]]$data$total)
-            
-            if(is.numeric(pop_sub)){
-              N <- N + pop_sub
-            } else {
-              N <- NA
-            }
-          }
-          # summarize results and add to output data frame
-          output[polygon_id,c('mean','median','lower','upper')] <- as.matrix(summaryPop(N, alpha=alpha, tails=tails))
-          output[polygon_id,'aboveThresh'] <- mean(N > popthresh)
-          output[polygon_id,'message'] <- paste0('MultiPolygon-',length(tasks_this_poly))
-            
-          # update task id status
-          tasks[tasks[,'task_id'] %in% tasks_this_poly,'status'] <- 'finished'
-        }
-      }
-      
-      # cleanup
-      suppressWarnings(rm(N, task_id, polygon_id, tasks_this_poly))
-    }
-    tasks_remaining <- sum(tasks[,'status'] %in% c('created','started'))
-    
-    # progress indicator
-    progress_indicator <- myprogress(tasks_remaining, print_progress=F)
-    if(progress_indicator > (old_progress_indicator+10)){
-      old_progress_indicator <- myprogress(tasks_remaining)
-    }
-    
-    if(tasks_remaining > 0) Sys.sleep(1/tasks_remaining)
-  }
-  
-  # close connection
-  close(url(queue))
+  # retrieve results from queue
+  output <- retrieveResults(tasks=tasks, 
+                            alpha=alpha,
+                            tails=tails,
+                            popthresh=popthresh,
+                            url=queue,
+                            timeout=timeout)
   
   # spatial output
   if(spatialjoin) {
-    output <- sp::merge(polygons, output, 'polygon_id')
-  } else {
-    cols <- colnames(output)
-    output <- data.frame(matrix(output[order(as.numeric(output[,'polygon_id'])),], nrow=npoly))
-    names(output) <- cols
-  }
+    output <- merge(features, output, 'feature_id')
+  } 
   
   print(difftime(Sys.time(),t0,units='mins'))
+  
   return(output)
 }
