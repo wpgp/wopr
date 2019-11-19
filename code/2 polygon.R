@@ -20,10 +20,15 @@ devtools::load_all('pkg')
 # polygons of Nigerian local government areas
 features <- st_read(dsn='in', layer='lgas')
 
-# for testing
-nfeat=2;features=st_read(dsn='in',layer='lgas');features=features[172:(171+nfeat),]
-# country='NGA';ver=1.2;alpha=0.05;tails=2;popthresh=NA;spatialjoin=T;timeout=2*60*60;key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD'
+# points from polygons
+features <- st_centroid(features)
 
+#----- for testing -------#
+nfeat=3;features=st_read(dsn='in',layer='lgas');features=features[172:(171+nfeat),]
+# country='NGA';ver=1.2;alpha=0.05;tails=2;popthresh=NA;spatialjoin=T;timeout=2*60*60;key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD';production=F
+#-------------------------#
+
+# get population totals
 totals <- tabulateTotals(features, 
                          country='NGA', 
                          ver=1.2,
@@ -33,7 +38,8 @@ totals <- tabulateTotals(features,
                          popthresh=NA,
                          spatialjoin=T,
                          timeout=2*60*60,
-                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD'
+                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+                         production=F
                          )
 # map results
 library(tmap)

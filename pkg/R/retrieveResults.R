@@ -51,7 +51,7 @@ retrieveResults <- function(tasks, alpha, tails, popthresh, url, timeout=30*60){
       tasks_this_feature <- tasks[tasks[,'feature_id']==feature_id, 'task_id']
       tasks_this_feature <- unique(c(task_id, tasks_this_feature))
       
-      ##-- Single Polygon --##
+      ##-- Single Feature --##
       if(length(tasks_this_feature)==1){
         
         # get result

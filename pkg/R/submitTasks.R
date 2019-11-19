@@ -37,10 +37,11 @@ submitTasks <- function(features, country, ver, agesex, url, key){
                       key = key
       )
     } else if(geom_type=='point'){
+      coords <- st_coordinates(features[i,])
       request <- list(iso3 = country,
                       ver = ver,
-                      lat = geojson_json(features[i,]),
-                      lon = NA,
+                      lat = coords[,'Y'],
+                      lon = coords[,'X'],
                       key = key)
     }
     
@@ -56,6 +57,9 @@ submitTasks <- function(features, country, ver, agesex, url, key){
     }
     if(is.null(response$error_message)){
       response$error_message <- NA
+    }
+    if(is.null(response$status)){
+      response$status <- 'created'
     }
     tasks <- rbind(tasks, data.frame(feature_id = features$feature_id[i], 
                                      task_id = response$taskid, 
