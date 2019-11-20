@@ -22,7 +22,11 @@ apiTest <- function(){
 result <- apiTest()
 
 # summarize posterior
-summary(unlist(result$result$data$total))
+x <- unlist(result$result$data$total)
+summary(x)
+
+# check result
+round(mean(x))==5040498
 
 # total time elapsed
 result$time
