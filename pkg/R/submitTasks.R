@@ -6,7 +6,7 @@
 #' @return A data frame with information about each task submitted
 #' @export
 
-submitTasks <- function(features, country, ver, agesex, url, key, verbose=T){
+submitTasks <- function(features, country, ver, agesex, url, key=NA, verbose=T){
   
   if(verbose) print(paste('Submitting',nrow(features),'features to',url,'...'))
   
