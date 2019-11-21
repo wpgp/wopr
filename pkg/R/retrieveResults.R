@@ -1,4 +1,4 @@
-#' Retrieve results from WorldPop API
+#' Retrieve results from WOPR
 #' @param tasks A data frame with information about tasks (see ?submitTasks)
 #' @param url The url of the WorldPop queue to check for results
 #' @param alpha The type 1 error rate for the confidence intervals

@@ -1,4 +1,4 @@
-#' Download data from the WorldPop GRIDFree catalogue
+#' Download data from WOPR
 #' @param dat Data sets to download provided as row or rows from the data catalogue (see ?getCatalogue)
 #' @param outdir Directory where downloads should be saved
 #' @return Files are downloaded directly to local disk

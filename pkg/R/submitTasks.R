@@ -1,7 +1,8 @@
-#' Submit features to WorldPop API to process population totals
+#' Submit polygon or point features to WOPR
 #' @param features An object of class sf with polygons or points
 #' @param country ISO-3 code for the country requested
 #' @param ver Version number of population estimates
+#' @param agesex Character vector of age-sex groups
 #' @param url The url of the WorldPop API endpoint
 #' @return A data frame with information about each task submitted
 #' @export

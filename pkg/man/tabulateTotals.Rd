@@ -2,7 +2,7 @@
 % Please edit documentation in R/tabulateTotals.R
 \name{tabulateTotals}
 \alias{tabulateTotals}
-\title{Tabulate population totals for multiple features (points or polygons) in an sf object.
+\title{Query WOPR to get population totals and confidence intervals for polygon features.
 Note: The operation may take a number of seconds per feature.}
 \usage{
 tabulateTotals(features, country, ver, alpha = 0.05, tails = 2,
@@ -42,6 +42,6 @@ tabulateTotals(features, country, ver, alpha = 0.05, tails = 2,
 A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
 }
 \description{
-Tabulate population totals for multiple features (points or polygons) in an sf object.
+Query WOPR to get population totals and confidence intervals for polygon features.
 Note: The operation may take a number of seconds per feature.
 }

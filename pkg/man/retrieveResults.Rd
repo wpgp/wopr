@@ -2,7 +2,7 @@
 % Please edit documentation in R/retrieveResults.R
 \name{retrieveResults}
 \alias{retrieveResults}
-\title{Retrieve results from WorldPop API}
+\title{Retrieve results from WOPR}
 \usage{
 retrieveResults(tasks, url, alpha = 0.05, tails = 2, popthresh = NA,
   summarize = T, timeout = 30 * 60, verbose = T)
@@ -28,5 +28,5 @@ retrieveResults(tasks, url, alpha = 0.05, tails = 2, popthresh = NA,
 A data frame with outputs
 }
 \description{
-Retrieve results from WorldPop API
+Retrieve results from WOPR
 }

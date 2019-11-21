@@ -4,14 +4,15 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 # working directory
 setwd('C:/RESEARCH/git/wpgp/wopr')
 
-# copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', outdir='in', OS.type=.Platform$OS.type)
+# input directory
+if(F) copyWP(srcdir='Projects/WP517763_GRID3/Working/wopr', outdir='in', OS.type=.Platform$OS.type)
+
+# output directory
+outdir <- 'out'
+dir.create(outdir, showWarnings=F)
 
 # load packages
 library('wopr') # devtools::load_all('pkg')
-
-# output folder
-outdir <- 'out'
-dir.create(outdir, showWarnings=F)
 
 # get data catalogue
 catalogue <- getCatalogue()

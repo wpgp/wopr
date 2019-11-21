@@ -1,4 +1,4 @@
-#' Tabulate population totals for multiple features (points or polygons) in an sf object.
+#' Query WOPR to get population totals and confidence intervals for polygon features.
 #' Note: The operation may take a number of seconds per feature.
 #' @param features An object of class sf with points or polygons to calculate population totals
 #' @param country ISO-3 code for the country requested
@@ -24,11 +24,11 @@ tabulateTotals <- function(features, country, ver, alpha=0.05, tails=2, popthres
   t0 <- Sys.time()
   
   # API end point
-  worldpop_url <- wpEndpoint(geometry_class=class(features$geometry)[1], 
+  wopr_url <- endpoint(geometry_class=class(features$geometry)[1], 
                              agesex=length(agesex)<36,
                              production=production)
   
-  if(is.na(worldpop_url$endpoint)) {
+  if(is.na(wopr_url$endpoint)) {
     output <- 'No API end point.'
   } else {
     # feature ids
@@ -39,7 +39,7 @@ tabulateTotals <- function(features, country, ver, alpha=0.05, tails=2, popthres
                          country=country, 
                          ver=ver, 
                          agesex=agesex, 
-                         url=worldpop_url$endpoint, 
+                         url=wopr_url$endpoint, 
                          key=key)
     
     # retrieve results from queue
@@ -47,7 +47,7 @@ tabulateTotals <- function(features, country, ver, alpha=0.05, tails=2, popthres
                               alpha=alpha,
                               tails=tails,
                               popthresh=popthresh,
-                              url=worldpop_url$queue,
+                              url=wopr_url$queue,
                               summarize=summarize,
                               timeout=timeout)
     

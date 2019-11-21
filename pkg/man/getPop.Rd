@@ -2,7 +2,7 @@
 % Please edit documentation in R/getPop.R
 \name{getPop}
 \alias{getPop}
-\title{Get population estimate from GRID3 server via API request}
+\title{Get population estimate from WOPR via API request}
 \usage{
 getPop(feature, country, ver, agesex = c("m0", "m1", "m5", "m10", "m15",
   "m20", "m25", "m30", "m35", "m40", "m45", "m50", "m55", "m60", "m65",
@@ -29,5 +29,5 @@ getPop(feature, country, ver, agesex = c("m0", "m1", "m5", "m10", "m15",
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 }
 \description{
-Get population estimate from GRID3 server via API request
+Get population estimate from WOPR via API request
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeCatalogue.R
 \name{writeCatalogue}
 \alias{writeCatalogue}
-\title{Writes the data catalogue to file based on the files currently on the local disk}
+\title{Creates a catalogue of the WOPR data currently in the output directory.}
 \usage{
 writeCatalogue(outdir)
 }
@@ -13,5 +13,5 @@ writeCatalogue(outdir)
 Writes an updated data catalogue to disk as a .csv file.
 }
 \description{
-Writes the data catalogue to file based on the files currently on the local disk
+Creates a catalogue of the WOPR data currently in the output directory.
 }

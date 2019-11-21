@@ -1,4 +1,4 @@
-#' Get population estimate from GRID3 server via API request
+#' Get population estimate from WOPR via API request
 #' @param feature An object of class sf with a point or polygon to calculate population total. If more than one feature are included, only the first feature will be processed.
 #' @param country The ISO3 country code
 #' @param ver Version number of the population estimate
@@ -18,7 +18,7 @@ getPop <- function(feature, country, ver,
   
   feature <- feature[1,]
   
-  worldpop_url <- wpEndpoint(geometry_class=class(feature$geometry)[1],
+  wopr_url <- endpoint(geometry_class=class(feature$geometry)[1],
                              agesex=length(agesex)<36,
                              production=production)
   
@@ -27,7 +27,7 @@ getPop <- function(feature, country, ver,
                        country=country, 
                        ver=ver, 
                        agesex=agesex, 
-                       url=worldpop_url$endpoint, 
+                       url=wopr_url$endpoint,
                        key=key,
                        verbose=F)
 
@@ -35,7 +35,7 @@ getPop <- function(feature, country, ver,
   output <- retrieveResults(tasks, 
                             summarize=F, 
                             timeout=timeout, 
-                            url=worldpop_url$queue, 
+                            url=wopr_url$queue, 
                             verbose=F)
   
   if('pop1' %in% names(output)) output <- as.numeric(output[,which(names(output)=='pop1'):ncol(output)])

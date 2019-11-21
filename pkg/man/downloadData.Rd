@@ -2,7 +2,7 @@
 % Please edit documentation in R/downloadData.R
 \name{downloadData}
 \alias{downloadData}
-\title{Download data from the WorldPop GRIDFree catalogue}
+\title{Download data from WOPR}
 \usage{
 downloadData(dat, outdir)
 }
@@ -15,5 +15,5 @@ downloadData(dat, outdir)
 Files are downloaded directly to local disk
 }
 \description{
-Download data from the WorldPop GRIDFree catalogue
+Download data from WOPR
 }

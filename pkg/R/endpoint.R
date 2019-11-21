@@ -1,11 +1,11 @@
-#' Identify url for appropriate WorldPop API endpoint
+#' Identify url for appropriate WOPR endpoint
 #' @param geometry_class Class of geometry object being submitted
 #' @param agesex Logical indicating whether population totals are needed for selected age-sex groups
 #' @param production Logical indicating if production or development servers should be used
 #' @return A list with urls for the endpoint and the queue
 #' @export
 
-wpEndpoint <- function(geometry_class, agesex=T, production=F){
+endpoint <- function(geometry_class, agesex=T, production=F){
   
   if(geometry_class %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
     geom_type <- 'polygon'

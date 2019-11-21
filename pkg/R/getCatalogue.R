@@ -1,7 +1,5 @@
-#' Get the WorldPop GridFree data catalogue
-#' 
+#' Get the WOPR data catalogue
 #' @return A data frame with a row for each item in the data catalogue.
-#' 
 #' @export
 
 getCatalogue <- function(){

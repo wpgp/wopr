@@ -2,9 +2,9 @@
 % Please edit documentation in R/submitTasks.R
 \name{submitTasks}
 \alias{submitTasks}
-\title{Submit features to WorldPop API to process population totals}
+\title{Submit polygon or point features to WOPR}
 \usage{
-submitTasks(features, country, ver, agesex, url, key, verbose = T)
+submitTasks(features, country, ver, agesex, url, key = NA, verbose = T)
 }
 \arguments{
 \item{features}{An object of class sf with polygons or points}
@@ -13,11 +13,13 @@ submitTasks(features, country, ver, agesex, url, key, verbose = T)
 
 \item{ver}{Version number of population estimates}
 
+\item{agesex}{Character vector of age-sex groups}
+
 \item{url}{The url of the WorldPop API endpoint}
 }
 \value{
 A data frame with information about each task submitted
 }
 \description{
-Submit features to WorldPop API to process population totals
+Submit polygon or point features to WOPR
 }
