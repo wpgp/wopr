@@ -1,23 +1,23 @@
-#' Retrieve results from a task that timed out
-#' 
-#' @param taskid The task ID returned from requestPop()
-#' @param test Logical indicating whether to use the test server or production server
-#' 
-#' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
-#' 
+#' Retrieve results from a task id or task ids that previously timed out
+#' @param taskid A character vector of task IDs
+#' @param production Logical indicating whether to use the test server or production server
+#' @return A list with a result for each task id which will be a vector of samples from posterior distribution of the population total if that task has completed.
 #' @export
 
-checkTask <- function(taskid, test=F){
+checkTask <- function(taskid, production=F){
   
-  if(!test) { queue <- 'https://api.worldpop.org/v1/tasks'
+  result <- list()
+  
+  if(production) { queue <- 'https://api.worldpop.org/v1/tasks'
   } else { queue <- 'http://10.19.100.66/v1/tasks'}
   
-  result <- content( GET(file.path(queue, taskid)), as='parsed')
-  
-  if(!result$status=='finished'){
-    print('Task not complete')
-    return(taskid)
-  } else {
-    return(unlist(result$data$total))
+  for(i in taskid){
+    result_i <- content( GET(file.path(queue, taskid)), as='parsed')
+    if(result_i$status=='finished'){
+      result[[i]] <- unlist(result_i$data$total)
+    } else {
+      result[[i]] <- result_i
+    }
   }
+  return(result)
 }

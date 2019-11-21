@@ -6,7 +6,7 @@ seed=runif(1,1,42); set.seed(seed)
 setwd('C:/RESEARCH/git/wpgp/gridFree')
 
 # load packages
-devtools::load_all('pkg')
+library('gridFree')
 
 # copy input folder from worldpop
 copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 

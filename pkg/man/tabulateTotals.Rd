@@ -2,14 +2,19 @@
 % Please edit documentation in R/tabulateTotals.R
 \name{tabulateTotals}
 \alias{tabulateTotals}
-\title{Tabulate population totals for multiple polygons.
-Note: The operation may take a number of seconds per polygon.}
+\title{Tabulate population totals for multiple features (points or polygons) in an sf object.
+Note: The operation may take a number of seconds per feature.}
 \usage{
-tabulateTotals(polygons, country, ver, alpha = 0.05, tails = 2,
-  timeout = 10 * 60)
+tabulateTotals(features, country, ver, alpha = 0.05, tails = 2,
+  popthresh = NA, spatialjoin = T, summarize = T, timeout = 10 *
+  60, agesex = c("m0", "m1", "m5", "m10", "m15", "m20", "m25", "m30",
+  "m35", "m40", "m45", "m50", "m55", "m60", "m65", "m70", "m75", "m80",
+  "f0", "f1", "f5", "f10", "f15", "f20", "f25", "f30", "f35", "f40", "f45",
+  "f50", "f55", "f60", "f65", "f70", "f75", "f80"), key = NULL,
+  production = F)
 }
 \arguments{
-\item{polygons}{SpatialPolygonsDataFrame with polygons to calculate population totals}
+\item{features}{An object of class sf with points or polygons to calculate population totals}
 
 \item{country}{ISO-3 code for the country requested}
 
@@ -19,12 +24,24 @@ tabulateTotals(polygons, country, ver, alpha = 0.05, tails = 2,
 
 \item{tails}{The number of tails for the confidence intervals}
 
+\item{popthresh}{Threshold population size to calculate the probability that population exceeds}
+
+\item{summarize}{Logical indicating to summarize results or return all posterior samples}
+
 \item{timeout}{Seconds until the operation for a single polygon times out}
+
+\item{agesex}{Character vector of age-sex groups}
+
+\item{key}{Key to increase daily quota for REST API requests}
+
+\item{production}{Logical indicating whether to use the test server or production server}
+
+\item{spatialJoin}{Logical indicating to join results to sf spatial data or to return a data frame}
 }
 \value{
-A data frame with summaries of posterior distribtuions for estimates of total population within each polygon
+A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
 }
 \description{
-Tabulate population totals for multiple polygons.
-Note: The operation may take a number of seconds per polygon.
+Tabulate population totals for multiple features (points or polygons) in an sf object.
+Note: The operation may take a number of seconds per feature.
 }

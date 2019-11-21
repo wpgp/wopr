@@ -2,18 +2,18 @@
 % Please edit documentation in R/checkTask.R
 \name{checkTask}
 \alias{checkTask}
-\title{Retrieve results from a task that timed out}
+\title{Retrieve results from a task id or task ids that previously timed out}
 \usage{
-checkTask(taskid, test = F)
+checkTask(taskid, production = F)
 }
 \arguments{
-\item{taskid}{The task ID returned from requestPop()}
+\item{taskid}{A character vector of task IDs}
 
-\item{test}{Logical indicating whether to use the test server or production server}
+\item{production}{Logical indicating whether to use the test server or production server}
 }
 \value{
-A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
+A list with a result for each task id which will be a vector of samples from posterior distribution of the population total if that task has completed.
 }
 \description{
-Retrieve results from a task that timed out
+Retrieve results from a task id or task ids that previously timed out
 }

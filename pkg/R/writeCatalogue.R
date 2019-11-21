@@ -1,9 +1,6 @@
 #' Writes the data catalogue to file based on the files currently on the local disk
-#' 
 #' @param outdir Output folder where data from the WorldPop GridFree catalogue are stored
-#' 
 #' @return Writes an updated data catalogue to disk as a .csv file.
-#' 
 #' @export
 
 writeCatalogue <- function(outdir){

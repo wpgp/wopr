@@ -4,16 +4,26 @@
 \alias{getPop}
 \title{Get population estimate from GRID3 server via API request}
 \usage{
-getPop(gj, country, ver, timeout = 30)
+getPop(feature, country, ver, agesex = c("m0", "m1", "m5", "m10", "m15",
+  "m20", "m25", "m30", "m35", "m40", "m45", "m50", "m55", "m60", "m65",
+  "m70", "m75", "m80", "f0", "f1", "f5", "f10", "f15", "f20", "f25", "f30",
+  "f35", "f40", "f45", "f50", "f55", "f60", "f65", "f70", "f75", "f80"),
+  timeout = 60, production = F, key = NULL)
 }
 \arguments{
-\item{gj}{A geoJSON to represent the polygon where a population estimate is needed}
+\item{feature}{An object of class sf with a point or polygon to calculate population total. If more than one feature are included, only the first feature will be processed.}
 
 \item{country}{The ISO3 country code}
 
 \item{ver}{Version number of the population estimate}
 
+\item{agesex}{Character vector of age-sex groups}
+
 \item{timeout}{Seconds until timeout}
+
+\item{production}{Logical indicating whether to use the test server or production server}
+
+\item{key}{Key to increase daily quota for REST API requests}
 }
 \value{
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.

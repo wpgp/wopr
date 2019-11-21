@@ -1,17 +1,13 @@
 # initialize
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T)
-seed=runif(1,1,42); set.seed(seed)
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
 setwd('C:/RESEARCH/git/wpgp/gridFree')
 
-# load packages
-devtools::load_all('pkg')
+# copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', outdir='in', OS.type=.Platform$OS.type)
 
-# # copy input folder from worldpop
-# copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', 
-#        outdir='in', 
-#        OS.type=.Platform$OS.type)
+# load packages
+library('gridFree') # devtools::load_all('pkg')
 
 # output folder
 outdir <- 'out'
