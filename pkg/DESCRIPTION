@@ -5,6 +5,6 @@ Date: 2019-11-07
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: None
-Depends: httr, sf, geojsonio 
+Depends: httr, tools, sf, geojsonio
 Description: Provides access to the WorldPop Open Population Repository (WOPR) data catalogue and population estimates via REST API.
 RoxygenNote: 7.0.0

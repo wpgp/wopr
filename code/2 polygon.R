@@ -2,12 +2,12 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
-setwd('C:/RESEARCH/git/wpgp/gridFree')
+setwd('C:/RESEARCH/git/wpgp/wopr')
 
 # copyWP(srcdir='Projects/WP517763_GRID3/Working/gridFree/in', outdir='in', OS.type=.Platform$OS.type)
 
 # load packages
-library('gridFree') # devtools::load_all('pkg')
+library('wopr') # devtools::load_all('pkg')
 
 ##---- population totals for spatialPolygons ----##
 
