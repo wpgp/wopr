@@ -1,2 +1,2 @@
-# gridFree
- An R package to provide API access to WorldPop GRID3 population estimates
+# wopr
+ An R package to provide API access to the WorldPop Open Population Repository (WOPR).
