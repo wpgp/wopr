@@ -9,7 +9,7 @@
 
 submitTasks <- function(features, country, ver, agesex, url, key=NA, verbose=T){
   
-  if(verbose) print(paste('Submitting',nrow(features),'features to',url,'...'))
+  if(verbose) print(paste('Submitting',nrow(features),'feature(s) to',url,'...'))
   
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
@@ -61,7 +61,7 @@ submitTasks <- function(features, country, ver, agesex, url, key=NA, verbose=T){
     if(is.null(response$error_message)){
       response$error_message <- NA
     }
-    if(is.null(response$status)){
+    if(is.null(response$status) & 'taskid' %in% names(response)){
       response$status <- 'created'
     }
     tasks <- rbind(tasks, data.frame(feature_id = features$feature_id[i], 

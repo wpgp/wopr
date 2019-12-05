@@ -1,7 +1,7 @@
 #' Retrieve results from WOPR
 #' @param tasks A data frame with information about tasks (see ?submitTasks)
 #' @param url The url of the WorldPop queue to check for results
-#' @param alpha The type 1 error rate for the confidence intervals
+#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95% confidence intervals)
 #' @param tails The number of tails for the confidence intervals
 #' @param popthresh Threshold population size to calculate the probability that population exceeds
 #' @param summarize Logical indicating to summarize results or return all posterior samples
@@ -10,7 +10,7 @@
 #' @return A data frame with outputs
 #' @export
 
-retrieveResults <- function(tasks, url, alpha=0.05, tails=2, popthresh=NA, summarize=T, timeout=30*60, verbose=T){
+retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, summarize=T, timeout=30*60, verbose=T){
   t0 <- Sys.time()
   
   if(verbose) print(paste('Checking status of',nrow(tasks),'tasks...'))
@@ -69,13 +69,17 @@ retrieveResults <- function(tasks, url, alpha=0.05, tails=2, popthresh=NA, summa
         # get result
         result <- content( GET(file.path(url, tasks_this_feature)), as='parsed')
         
+        if(result$status=='finished' & length(result$data$total)==0){
+          result$data$total <- NA
+        } 
+        
         if(result$status=='finished'){
           
           # population posterior
           N <- unlist(result$data$total)
           
           # summarize results and add to output data frame
-          summaryN <- summaryPop(N, alpha=alpha, tails=tails, popthresh=popthresh)
+          summaryN <- summaryPop(N, confidence=confidence, tails=tails, popthresh=popthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
           output[feature_id, 'message'] <-  paste0(result$executionTime,'s')
           if(!summarize){
@@ -105,13 +109,15 @@ retrieveResults <- function(tasks, url, alpha=0.05, tails=2, popthresh=NA, summa
           
           results[[j]] <- content( GET(file.path(url, tasks_this_feature[j])), as='parsed')
           
+          if(results[[j]]$status=='finished' & length(results[[j]]$data$total)==0){
+            results[[j]]$data$total <- NA
+          }
           if(!results[[j]]$status=='finished'){
             all_finished <- F
             break
           }
-          
           if(!results[[j]]$status %in% c('created','started','finished')){
-            output[feature_id,'message'] <- result$error_message
+            output[feature_id,'message'] <- results[[j]]$error_message
             tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
             all_abort <- T
             break
@@ -126,16 +132,11 @@ retrieveResults <- function(tasks, url, alpha=0.05, tails=2, popthresh=NA, summa
           # sum population posteriors across sub-polygons
           N <- 0
           for(j in 1:length(tasks_this_feature)){
-            pop_sub <- unlist(results[[j]]$data$total)
-            
-            if(is.numeric(pop_sub)){
-              N <- N + pop_sub
-            } else {
-              N <- NA
-            }
+            Ntask <- unlist(results[[j]]$data$total)
+            if(is.numeric(Ntask)) N <- N + Ntask
           }
           # summarize results and add to output data frame
-          summaryN <- summaryPop(N, alpha=alpha, tails=tails, popthresh=popthresh)
+          summaryN <- summaryPop(N, confidence=confidence, tails=tails, popthresh=popthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
           output[feature_id, 'message'] <- paste0('MultiFeature-',length(tasks_this_feature))
           if(!summarize) {

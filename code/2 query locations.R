@@ -27,10 +27,11 @@ N <- getPop(feature=feature,
             ver=1.2,
             production=F,
             key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
-            timeout=60)
+            timeout=60,
+            verbose=T)
 
 # summarize population total
-summaryPop(N, alpha=0.05, tails=2, popthresh=5e6)
+summaryPop(N, confidence=0.8, tails=2, popthresh=5e6)
 
 ##---- population total for children under five in a single polygon ----##
 
@@ -41,10 +42,29 @@ N <- getPop(feature=feature,
             agesex=c('f1','f5','m1','m5'),
             production=F,
             key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
-            timeout=60)
+            timeout=60,
+            verbose=T)
 
 # summarize population total
-summaryPop(N, alpha=0.05, tails=2, popthresh=5e6)
+summaryPop(N, confidence=0.95, tails=2, popthresh=5e6)
+
+##---- point ----##
+feature <- suppressWarnings(st_centroid(feature))
+
+feature <- features[6,]
+
+# get population total
+N <- getPop(feature=feature, 
+            country='NGA', 
+            ver=1.2,
+            production=F,
+            agesex=c('m1','m5','f1','f5'),
+            key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+            timeout=60,
+            verbose=T)
+
+# summarize population total
+summaryPop(N, confidence=0.95, tails=2, popthresh=100)
 
 
 ##---- population totals for multiple polygons ----##
@@ -57,7 +77,7 @@ totals <- tabulateTotals(features,
                          country='NGA', 
                          ver=1.2,
                          # agesex=c('m0','m1','f0','f1'),
-                         alpha=0.05,
+                         confidence=0.95,
                          tails=2,
                          popthresh=5e3,
                          spatialjoin=T,
@@ -65,7 +85,7 @@ totals <- tabulateTotals(features,
                          key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
                          production=F
                          )
-head(totals[,c('mean','median','lower','upper')])
+totals
 
 # map results
 jpeg('out/map.jpg', width=480*1.5, height=480*1.5)
@@ -88,8 +108,9 @@ totals <- tabulateTotals(features,
                          country='NGA', 
                          ver=1.2,
                          # agesex=c('m0','m1','f0','f1'),
-                         alpha=0.05,
+                         confidence=0.95,
                          tails=2,
+                         agesex=c('m1','m5','f1','f5'),
                          popthresh=5e3,
                          spatialjoin=T,
                          timeout=2*60*60,
