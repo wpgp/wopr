@@ -4,12 +4,12 @@
 \alias{summaryPop}
 \title{Summarize predicted posterior probability distribution for population estimates}
 \usage{
-summaryPop(N, alpha = 0.05, tails = 2, popthresh = NA)
+summaryPop(N, confidence = 0.95, tails = 2, popthresh = NA)
 }
 \arguments{
 \item{N}{Vector of posterior samples for the population total}
 
-\item{alpha}{The type 1 error rate for the confidence intervals}
+\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 
 \item{tails}{The number of tails for the confidence intervals}
 

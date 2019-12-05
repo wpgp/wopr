@@ -1,7 +1,7 @@
 #' Retrieve results from WOPR
 #' @param tasks A data frame with information about tasks (see ?submitTasks)
 #' @param url The url of the WorldPop queue to check for results
-#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95% confidence intervals)
+#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
 #' @param popthresh Threshold population size to calculate the probability that population exceeds
 #' @param summarize Logical indicating to summarize results or return all posterior samples

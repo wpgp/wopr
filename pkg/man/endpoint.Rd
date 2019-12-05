@@ -4,14 +4,14 @@
 \alias{endpoint}
 \title{Identify url for appropriate WOPR endpoint}
 \usage{
-endpoint(geometry_class, agesex = T, production = F)
+endpoint(features, agesex = T, production = F)
 }
 \arguments{
-\item{geometry_class}{Class of geometry object being submitted}
-
-\item{agesex}{Logical indicating whether population totals are needed for selected age-sex groups}
+\item{agesex}{Logical indicating whether population totals are needed for selected age and sex groups}
 
 \item{production}{Logical indicating if production or development servers should be used}
+
+\item{geometry_class}{Class of geometry object being submitted}
 }
 \value{
 A list with urls for the endpoint and the queue

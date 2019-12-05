@@ -1,6 +1,6 @@
 #' Summarize predicted posterior probability distribution for population estimates
 #' @param N Vector of posterior samples for the population total
-#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95% confidence intervals)
+#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
 #' @param popthresh 
 #' @return A list with the mean, median, lower and upper confidence intervals for the population total (rounded to integers)

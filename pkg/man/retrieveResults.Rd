@@ -4,15 +4,23 @@
 \alias{retrieveResults}
 \title{Retrieve results from WOPR}
 \usage{
-retrieveResults(tasks, url, alpha = 0.05, tails = 2, popthresh = NA,
-  summarize = T, timeout = 30 * 60, verbose = T)
+retrieveResults(
+  tasks,
+  url,
+  confidence = 0.95,
+  tails = 2,
+  popthresh = NA,
+  summarize = T,
+  timeout = 30 * 60,
+  verbose = T
+)
 }
 \arguments{
 \item{tasks}{A data frame with information about tasks (see ?submitTasks)}
 
 \item{url}{The url of the WorldPop queue to check for results}
 
-\item{alpha}{The type 1 error rate for the confidence intervals}
+\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 
 \item{tails}{The number of tails for the confidence intervals}
 

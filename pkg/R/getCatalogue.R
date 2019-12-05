@@ -4,7 +4,7 @@
 
 getCatalogue <- function(){
   
-  server <- 'http://grid3data.worldpop.uk/api/v1.0/data'
+  server <- endpoint(features='download')$endpoint
   
   response <- content( GET(server), as='parsed')
   
@@ -32,5 +32,11 @@ getCatalogue <- function(){
       }
     }
   }
+  # # get file sizes
+  # result[,'filesize'] <- NA
+  # for(i in 1:nrow(result)){
+  #   result[i,'filesize'] <- as.numeric(strsplit(strsplit(getURL(result[i,'url'], nobody=1L, header=1L), "\r\n")[[1]][15], ' ')[[1]][2]) / 1024 / 1024
+  # }
+  
   return(result)
 }

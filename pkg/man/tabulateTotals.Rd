@@ -5,13 +5,23 @@
 \title{Query WOPR to get population totals and confidence intervals for polygon features.
 Note: The operation may take a number of seconds per feature.}
 \usage{
-tabulateTotals(features, country, ver, alpha = 0.05, tails = 2,
-  popthresh = NA, spatialjoin = T, summarize = T, timeout = 10 *
-  60, agesex = c("m0", "m1", "m5", "m10", "m15", "m20", "m25", "m30",
-  "m35", "m40", "m45", "m50", "m55", "m60", "m65", "m70", "m75", "m80",
-  "f0", "f1", "f5", "f10", "f15", "f20", "f25", "f30", "f35", "f40", "f45",
-  "f50", "f55", "f60", "f65", "f70", "f75", "f80"), key = NULL,
-  production = F)
+tabulateTotals(
+  features,
+  country,
+  ver,
+  confidence = 0.95,
+  tails = 2,
+  popthresh = NA,
+  spatialjoin = T,
+  summarize = T,
+  timeout = 10 * 60,
+  agesex = c("m0", "m1", "m5", "m10", "m15", "m20", "m25", "m30", "m35", "m40", "m45",
+    "m50", "m55", "m60", "m65", "m70", "m75", "m80", "f0", "f1", "f5", "f10", "f15",
+    "f20", "f25", "f30", "f35", "f40", "f45", "f50", "f55", "f60", "f65", "f70", "f75",
+    "f80"),
+  key = NULL,
+  production = F
+)
 }
 \arguments{
 \item{features}{An object of class sf with points or polygons to calculate population totals}
@@ -20,7 +30,7 @@ tabulateTotals(features, country, ver, alpha = 0.05, tails = 2,
 
 \item{ver}{Version number of population estimates}
 
-\item{alpha}{The type 1 error rate for the confidence intervals}
+\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 
 \item{tails}{The number of tails for the confidence intervals}
 
