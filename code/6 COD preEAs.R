@@ -11,7 +11,7 @@ if(T) copyWP(srcdir='Projects/WP517763_GRID3/Working/wopr', outdir='in', OS.type
 dir.create('out', showWarnings=F)
 
 # load packages
-library('wopr') # devtools::load_all('pkg')
+devtools::load_all('pkg') # library('wopr')
 
 # polygons from shapefile
 features <- st_read(dsn='in/PreEAs_KingKasanDumi_v01', layer='DRC_KinguDumiKasangulu_PreEAs_9km2_INITIAL_v01_classesv3')
