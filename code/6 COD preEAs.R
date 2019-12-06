@@ -4,14 +4,14 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 # working directory
 setwd('C:/RESEARCH/git/wpgp/wopr')
 
+# load packages
+devtools::load_all('pkg') # library('wopr')
+
 # input directory
 if(T) copyWP(srcdir='Projects/WP517763_GRID3/Working/wopr', outdir='in', OS.type=.Platform$OS.type)
 
 # output directory
 dir.create('out', showWarnings=F)
-
-# load packages
-devtools::load_all('pkg') # library('wopr')
 
 # polygons from shapefile
 features <- st_read(dsn='in/PreEAs_KingKasanDumi_v01', layer='DRC_KinguDumiKasangulu_PreEAs_9km2_INITIAL_v01_classesv3')
