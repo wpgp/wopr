@@ -1,4 +1,5 @@
-#' Identify url for appropriate WOPR endpoint
+#' Get URL for WOPR endpoint
+#' @description Depending on your query type (point, polygon, age-sex selection), this function will return the correct API endpoint.
 #' @param geometry_class Class of geometry object being submitted
 #' @param agesex Logical indicating whether population totals are needed for selected age and sex groups
 #' @param production Logical indicating if production or development servers should be used

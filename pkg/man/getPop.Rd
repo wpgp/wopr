@@ -2,7 +2,7 @@
 % Please edit documentation in R/getPop.R
 \name{getPop}
 \alias{getPop}
-\title{Get population estimate from WOPR via API request}
+\title{WOPRize an sf point or polygon}
 \usage{
 getPop(
   feature,
@@ -37,5 +37,5 @@ getPop(
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 }
 \description{
-Get population estimate from WOPR via API request
+Query WOPR using an sf point or polygon to get a vector of samples from the Bayesian posterior prediction for that location.
 }

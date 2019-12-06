@@ -1,8 +1,5 @@
-#' Copy WorldPop folder to your local working directory. 
-#' 
-#' @description Copy files from WorldPop server to your local working directory. 
-#' This allows everyone to work locally with identical inputs.
-#'
+#' WorldPop Mirror
+#' @description Mirror files from WorldPop drive to your local working directory. 
 #' @param srcdir Directory of source files
 #' @param outdir Directory to write output files to
 #' @param OS.type Type of operating system (see \code{.Platform$OS.type})

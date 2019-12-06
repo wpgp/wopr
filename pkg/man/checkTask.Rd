@@ -2,7 +2,7 @@
 % Please edit documentation in R/checkTask.R
 \name{checkTask}
 \alias{checkTask}
-\title{Retrieve results from a task id or task ids that previously timed out}
+\title{Check WOPR task}
 \usage{
 checkTask(taskid, production = F)
 }

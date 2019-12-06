@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeCatalogue.R
 \name{writeCatalogue}
 \alias{writeCatalogue}
-\title{Creates a catalogue of the WOPR data currently in the output directory.}
+\title{Write WOPR catalogue}
 \usage{
 writeCatalogue(outdir)
 }

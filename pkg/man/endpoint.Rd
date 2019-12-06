@@ -2,7 +2,7 @@
 % Please edit documentation in R/endpoint.R
 \name{endpoint}
 \alias{endpoint}
-\title{Identify url for appropriate WOPR endpoint}
+\title{Get URL for WOPR endpoint}
 \usage{
 endpoint(features = NA, agesex = T, production = F)
 }
@@ -17,5 +17,5 @@ endpoint(features = NA, agesex = T, production = F)
 A list with urls for the endpoint and the queue
 }
 \description{
-Identify url for appropriate WOPR endpoint
+Depending on your query type (point, polygon, age-sex selection), this function will return the correct API endpoint.
 }

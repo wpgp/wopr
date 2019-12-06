@@ -1,4 +1,5 @@
-#' Retrieve results from a task id or task ids that previously timed out
+#' Check WOPR task
+#' @description Retrieve results from a task id or task ids that previously timed out
 #' @param taskid A character vector of task IDs
 #' @param production Logical indicating whether to use the test server or production server
 #' @return A list with a result for each task id which will be a vector of samples from posterior distribution of the population total if that task has completed.

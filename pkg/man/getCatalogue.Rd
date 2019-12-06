@@ -2,7 +2,7 @@
 % Please edit documentation in R/getCatalogue.R
 \name{getCatalogue}
 \alias{getCatalogue}
-\title{Get the WOPR data catalogue}
+\title{WOPR data catalogue}
 \usage{
 getCatalogue()
 }
@@ -10,5 +10,5 @@ getCatalogue()
 A data frame with a row for each item in the data catalogue.
 }
 \description{
-Get the WOPR data catalogue
+Get a complete listing of data in the WOPR data catalogue.
 }

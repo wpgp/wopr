@@ -2,7 +2,7 @@
 % Please edit documentation in R/summaryPop.R
 \name{summaryPop}
 \alias{summaryPop}
-\title{Summarize predicted posterior probability distribution for population estimates}
+\title{Summary statistics}
 \usage{
 summaryPop(N, confidence = 0.95, tails = 2, popthresh = NA)
 }

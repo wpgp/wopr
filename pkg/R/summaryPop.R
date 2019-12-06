@@ -1,4 +1,5 @@
-#' Summarize predicted posterior probability distribution for population estimates
+#' Summary statistics
+#' @description Summarize predicted posterior probability distribution for population estimates
 #' @param N Vector of posterior samples for the population total
 #' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals

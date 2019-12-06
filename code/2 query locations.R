@@ -27,8 +27,8 @@ feature <- geojsonsf::geojson_sf(geojson)
 
 # get population total
 N <- getPop(feature=feature, 
-            country='COD', 
-            ver='1.0',
+            country='NGA', 
+            ver='1.1',
             production=F,
             key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
             timeout=60,
@@ -77,7 +77,7 @@ summaryPop(N, confidence=0.95, tails=2, popthresh=100)
 features <- st_read(dsn='in', layer='features')
 
 # get population totals
-totals <- tabulateTotals(features, 
+totals <- woprize(features, 
                          country='NGA', 
                          ver=1.2,
                          # agesex=c('m0','m1','f0','f1'),
@@ -108,7 +108,7 @@ write.csv(st_drop_geometry(totals), file='out/poptotals.csv', row.names=F)
 features <- suppressWarnings(st_centroid(st_read(dsn='in', layer='features')))
 
 # get population totals
-totals <- tabulateTotals(features, 
+totals <- woprize(features, 
                          country='NGA', 
                          ver=1.2,
                          # agesex=c('m0','m1','f0','f1'),

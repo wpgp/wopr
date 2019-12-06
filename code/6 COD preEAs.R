@@ -2,11 +2,8 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
-
-
 script.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
-setwd(substr(script.dir, 1, nchar(script.dir)-5))
-
+setwd(substr(script.dir, 1, nchar(script.dir)-5)); rm(script.dir)
 
 # load packages
 devtools::load_all('pkg') # library('wopr')
@@ -21,18 +18,18 @@ dir.create('out', showWarnings=F)
 features <- st_read(dsn='in/PreEAs_KingKasanDumi_v01', layer='DRC_KinguDumiKasangulu_PreEAs_9km2_INITIAL_v01_classesv3')
 
 # get population totals
-totals <- tabulateTotals(features, 
-                         country='COD', 
-                         ver='1.0',
-                         # agesex=c('m0','m1','f0','f1'),
-                         confidence=0.90,
-                         tails=2,
-                         popthresh=1200,
-                         spatialjoin=T,
-                         timeout=2*60*60,
-                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
-                         production=F
-)
+totals <- woprize(features, 
+                  country='COD', 
+                  ver='1.0',
+                  # agesex=c('m0','m1','f0','f1'),
+                  confidence=0.90,
+                  tails=2,
+                  popthresh=1200,
+                  spatialjoin=T,
+                  timeout=2*60*60,
+                  key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+                  production=F
+                  )
 totals
 
 # map results

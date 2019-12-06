@@ -2,7 +2,7 @@
 % Please edit documentation in R/copyWP.R
 \name{copyWP}
 \alias{copyWP}
-\title{Copy WorldPop folder to your local working directory.}
+\title{WorldPop Mirror}
 \usage{
 copyWP(srcdir, outdir, OS.type = "windows")
 }
@@ -17,6 +17,5 @@ copyWP(srcdir, outdir, OS.type = "windows")
 Writes input files to disk
 }
 \description{
-Copy files from WorldPop server to your local working directory. 
-This allows everyone to work locally with identical inputs.
+Mirror files from WorldPop drive to your local working directory.
 }

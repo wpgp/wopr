@@ -1,4 +1,5 @@
-#' Get population estimate from WOPR via API request
+#' WOPRize an sf point or polygon
+#' @description Query WOPR using an sf point or polygon to get a vector of samples from the Bayesian posterior prediction for that location.
 #' @param feature An object of class sf with a point or polygon to calculate population total. If more than one feature are included, only the first feature will be processed.
 #' @param country The ISO3 country code
 #' @param ver Version number of the population estimate
