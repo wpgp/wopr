@@ -2,7 +2,11 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
-setwd('C:/RESEARCH/git/wpgp/wopr')
+
+
+script.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(substr(script.dir, 1, nchar(script.dir)-5))
+
 
 # load packages
 devtools::load_all('pkg') # library('wopr')
