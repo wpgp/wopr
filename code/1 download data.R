@@ -18,7 +18,7 @@ library('wopr') # devtools::load_all('pkg')
 catalogue <- getCatalogue()
 
 # download data from entire catalogue
-downloadData(catalogue, outdir)
+downloadData(catalogue, outdir, dialogue=F)
 
 # download NGA Population v1.0
 catalogue_sub <- subset(catalogue, 

@@ -5,9 +5,9 @@
 #' @return A list with urls for the endpoint and the queue
 #' @export
 
-endpoint <- function(features, agesex=T, production=F){
+endpoint <- function(features=NA, agesex=T, production=F){
   
-  if(features == 'download'){
+  if(!'geometry' %in% names(features)){
     
     endpoint <- 'http://wopr.worldpop.org/api/v1.0/data'
     queue <- NA

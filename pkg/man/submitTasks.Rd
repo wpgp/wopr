@@ -4,18 +4,22 @@
 \alias{submitTasks}
 \title{Submit polygon or point features to WOPR}
 \usage{
-submitTasks(features, country, ver, agesex, url, key = NA, verbose = T)
+submitTasks(features, country, agesex, url, ver = NA, key = NA, verbose = T)
 }
 \arguments{
 \item{features}{An object of class sf with polygons or points}
 
 \item{country}{ISO-3 code for the country requested}
 
-\item{ver}{Version number of population estimates}
-
 \item{agesex}{Character vector of age-sex groups}
 
 \item{url}{The url of the WorldPop API endpoint}
+
+\item{ver}{Version number of population estimates. If NA, defaults to latest version.}
+
+\item{key}{Access key (not required)}
+
+\item{verbose}{Logical to toggle progress messages}
 }
 \value{
 A data frame with information about each task submitted

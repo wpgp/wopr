@@ -31,9 +31,15 @@ copyWP <- function(srcdir, outdir, OS.type='windows'){
     # create output directory
     if(!dir.exists(outdir)) dir.create(outdir, showWarnings=F)
 
+    # create output sub-directories
+    ld <- list.dirs(srcdir, full.names=F)[-1]
+    for(d in ld){
+      dir.create(file.path(outdir, d), showWarnings=F)
+    }
+    
     # list files
-    lf <- list.files(srcdir, recursive=T, include.dirs=T)
-
+    lf <- list.files(srcdir, recursive=T, include.dirs=F)
+    
     # copy files
     for(f in lf){
       
@@ -50,7 +56,7 @@ copyWP <- function(srcdir, outdir, OS.type='windows'){
       # copy the file
       if(toggleCopy){
         print(f)
-        file.copy(from=file.path(srcdir,f), to=file.path(outdir), overwrite=T)
+        file.copy(from=file.path(srcdir,f), to=file.path(outdir,f), overwrite=T)
       }
     }
   }

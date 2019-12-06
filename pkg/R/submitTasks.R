@@ -1,15 +1,23 @@
 #' Submit polygon or point features to WOPR
 #' @param features An object of class sf with polygons or points
 #' @param country ISO-3 code for the country requested
-#' @param ver Version number of population estimates
 #' @param agesex Character vector of age-sex groups
 #' @param url The url of the WorldPop API endpoint
+#' @param ver Version number of population estimates. If NA, defaults to latest version.
+#' @param key Access key (not required)
+#' @param verbose Logical to toggle progress messages
 #' @return A data frame with information about each task submitted
 #' @export
 
-submitTasks <- function(features, country, ver, agesex, url, key=NA, verbose=T){
+submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=T){
   
   if(verbose) print(paste('Submitting',nrow(features),'feature(s) to',url,'...'))
+  
+  # get latest version
+  if(is.na(ver)){
+    catalogue <- getCatalogue()
+    ver <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country & filetype=='sql'),'version'])))
+  }
   
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
@@ -17,6 +25,9 @@ submitTasks <- function(features, country, ver, agesex, url, key=NA, verbose=T){
   } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
     geom_type <- 'point'
   }
+  
+  # wgs84
+  features <- st_transform(features, crs='+proj=longlat +ellps=WGS84')
   
   # feature ids
   features$feature_id <- 1:nrow(features)

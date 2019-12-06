@@ -8,7 +8,7 @@ Note: The operation may take a number of seconds per feature.}
 tabulateTotals(
   features,
   country,
-  ver,
+  ver = NA,
   confidence = 0.95,
   tails = 2,
   popthresh = NA,

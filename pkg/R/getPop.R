@@ -9,7 +9,7 @@
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' @export
 
-getPop <- function(feature, country, ver, 
+getPop <- function(feature, country, ver=NA, 
                    agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
                             "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
                    timeout=60, production=F, key=NULL, verbose=F){

@@ -15,12 +15,11 @@ summaryPop <- function(N, confidence=0.95, tails=2, popthresh=NA){
                        lower = quantile(N, probs=c(alpha/tails), na.rm=T),
                        upper = quantile(N, probs=c(1-alpha/tails), na.rm=T),
                        abovethresh = mean(N > popthresh, na.rm=T),
-                       uncertainty = sd(N, na.rm=T) / mean(N, na.rm=T),
                        row.names = 1
                        )
   
   round0_cols <- c('mean','median','lower','upper')
-  round3_cols <- c('abovethresh','uncertainty')
+  round3_cols <- c('abovethresh')
   
   result[,round0_cols] <- round(result[,round0_cols])
   result[,round3_cols] <- round(result[,round3_cols], 3)

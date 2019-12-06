@@ -4,7 +4,7 @@
 \alias{endpoint}
 \title{Identify url for appropriate WOPR endpoint}
 \usage{
-endpoint(features, agesex = T, production = F)
+endpoint(features = NA, agesex = T, production = F)
 }
 \arguments{
 \item{agesex}{Logical indicating whether population totals are needed for selected age and sex groups}

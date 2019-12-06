@@ -15,23 +15,27 @@ library('wopr') # devtools::load_all('pkg')
 
 ##---- population estimates for a single polygon ----##
 
-# geojson
+# geojson Lagos
 geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[3.308258056640625,6.701434474782401],[3.27392578125,6.704162283788004],[3.22723388671875,6.689159145509243],[3.190155029296875,6.6114082535287215],[3.201141357421875,6.5118147063479],[3.264312744140625,6.485889844658782],[3.3563232421875,6.503628052315478],[3.404388427734375,6.558203219021767],[3.37005615234375,6.646875098291585],[3.308258056640625,6.701434474782401]]]}}]}'
+
+# geojson Kinshasa
+geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[15.32661437988281,-4.296771016800865],[15.28575897216797,-4.294374508461301],[15.24250030517578,-4.3245014930191905],[15.22430419921875,-4.426171173838907],[15.334167480468748,-4.447051107498101],[15.376052856445312,-4.367293443949956],[15.32661437988281,-4.296771016800865]]]}}]}'
+geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[16.94091796875,-4.127285323245357],[17.5341796875,-4.127285323245357],[17.5341796875,-3.5572827265412794],[16.94091796875,-3.5572827265412794],[16.94091796875,-4.127285323245357]]]}}]}'
 
 # convert to sf
 feature <- geojsonsf::geojson_sf(geojson)
 
 # get population total
 N <- getPop(feature=feature, 
-            country='NGA', 
-            ver=1.2,
+            country='COD', 
+            ver='1.0',
             production=F,
             key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
             timeout=60,
             verbose=T)
 
 # summarize population total
-summaryPop(N, confidence=0.8, tails=2, popthresh=5e6)
+summaryPop(N, confidence=0.95, tails=2, popthresh=5e6)
 
 ##---- population total for children under five in a single polygon ----##
 
@@ -39,7 +43,7 @@ summaryPop(N, confidence=0.8, tails=2, popthresh=5e6)
 N <- getPop(feature=feature, 
             country='NGA', 
             ver=1.2,
-            agesex=c('f1','f5','m1','m5'),
+            agesex=c('f0','f1','m0','m1'),
             production=F,
             key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
             timeout=60,

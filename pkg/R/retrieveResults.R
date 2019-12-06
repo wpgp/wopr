@@ -15,7 +15,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, 
   
   if(verbose) print(paste('Checking status of',nrow(tasks),'tasks...'))
   
-  output_cols <- c('feature_id','mean','median','lower','upper','abovethresh','uncertainty','message')
+  output_cols <- c('feature_id',names(summaryPop(1)),'message')
   output <- matrix(NA, nrow=length(unique(tasks$feature_id)), ncol=length(output_cols))
   colnames(output) <- output_cols
   row.names(output) <- output[,'feature_id'] <- 1:nrow(output)

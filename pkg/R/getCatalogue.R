@@ -4,7 +4,7 @@
 
 getCatalogue <- function(){
   
-  server <- endpoint(features='download')$endpoint
+  server <- endpoint()$endpoint
   
   response <- content( GET(server), as='parsed')
   
@@ -16,7 +16,7 @@ getCatalogue <- function(){
     for(category in names(response[[iso]])){
       for(version in names(response[[iso]][[category]])){
         for(filetype in names(response[[iso]][[category]][[version]])){
-          newrow <- data.frame(matrix(NA, ncol=length(cols), nrow=0))
+          newrow <- data.frame(matrix(NA, ncol=length(cols), nrow=1))
           names(newrow) <- cols
           
           newrow[1,c('country','category','version','filetype')] <- c(iso, category, version, filetype)
