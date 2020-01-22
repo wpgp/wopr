@@ -7,8 +7,8 @@ setwd(substr(script.dir, 1, nchar(script.dir)-5)); rm(script.dir)
 
 # install package
 devtools::document('pkg')
-pkgbuild::build('pkg')
-install.packages(list.files(pattern='.tar.gz'), repos=NULL)
+pkgbuild::build(path='pkg', dest_path='out')
+install.packages(file.path('out',list.files(path='./out', pattern='.tar.gz'), repos=NULL))
 
 # load package
 library('wopr')

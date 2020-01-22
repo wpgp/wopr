@@ -14,6 +14,9 @@ dir.create('out', showWarnings=F)
 # load packages
 library('wopr') # devtools::load_all('pkg')
 
+# api key
+key <- 'zWrlmcPDRXWFQbsMHsKUOphSmYTegSrw'
+
 ##---- population estimates for a single polygon ----##
 
 # geojson Lagos
@@ -31,7 +34,7 @@ N <- getPop(feature=feature,
             country='NGA', 
             ver='1.1',
             production=F,
-            key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+            key=key,
             timeout=60,
             verbose=T)
 
@@ -46,7 +49,7 @@ N <- getPop(feature=feature,
             ver=1.2,
             agesex=c('f0','f1','m0','m1'),
             production=F,
-            key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+            key=key,
             timeout=60,
             verbose=T)
 
@@ -64,7 +67,7 @@ N <- getPop(feature=feature,
             ver=1.2,
             production=F,
             agesex=c('m1','m5','f1','f5'),
-            key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+            key=key,
             timeout=60,
             verbose=T)
 
@@ -87,7 +90,7 @@ totals <- woprize(features,
                          popthresh=5e3,
                          spatialjoin=T,
                          timeout=2*60*60,
-                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+                         key=key,
                          production=F
                          )
 totals
@@ -119,7 +122,7 @@ totals <- woprize(features,
                          popthresh=5e3,
                          spatialjoin=T,
                          timeout=2*60*60,
-                         key='wm0LY9MakPSAehY4UQG9nDFo2KtU7POD',
+                         key=key,
                          production=F
 )
 
