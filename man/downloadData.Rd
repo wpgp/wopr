@@ -4,7 +4,7 @@
 \alias{downloadData}
 \title{Download data from WOPR}
 \usage{
-downloadData(dat, outdir, maxsize = 50, dialogue = T)
+downloadData(dat, outdir = "wopr_downloads", maxsize = 100, dialogue = T)
 }
 \arguments{
 \item{dat}{Data sets to download provided as row or rows from the data catalogue (see ?getCatalogue)}
@@ -12,8 +12,6 @@ downloadData(dat, outdir, maxsize = 50, dialogue = T)
 \item{outdir}{Directory where downloads should be saved}
 
 \item{maxsize}{Maximum file size (MB) allowed to download without notification}
-
-\item{dialogue}{Logical. If TRUE a dialogue box will ask if you want to download any file that exceeds maxsize}
 }
 \value{
 Files are downloaded directly to local disk

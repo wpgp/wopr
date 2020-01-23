@@ -1,11 +1,2 @@
-/in/*
-/out/*
-/bk/*
+/wd/*
 .Rhistory
-/pub/*.aux
-/pub/*.bbl
-/pub/*.blg
-/pub/*.log
-/pub/*.out
-/pub/*.synctex.gz
-/pub/*.synctex(busy)

@@ -11,5 +11,5 @@ writeCatalogue <- function(outdir){
   
   catalogue <- catalogue[catalogue$file %in% files,]
   
-  write.csv(catalogue, file=file.path(outdir, 'catalogue.csv'), row.names=F)
+  write.csv(catalogue, file=file.path(outdir, 'wopr_catalogue.csv'), row.names=F)
 }
