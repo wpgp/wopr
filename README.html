@@ -191,12 +191,13 @@ summary {
 <li>Submit spatial queries to the WorldPop server to retrieve population estimates with confidence intervals for user-defined geographic areas and demographic groups.</li>
 </ol>
 <p>Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses.</p>
+<p><code>{r, eval=T, echo=T} print('Hello')</code></p>
 </div>
 <div id="package-installation" class="section level2">
 <h2>Package Installation</h2>
-<p>Install the <em>wopr</em> package from GitHub.</p>
-<pre class="{r}"><code>install.packages('devtools')
-devtools::install_github('wpgp/wopr')
+<p>Install the <em>wopr</em> package from the WorldPop Group on GitHub.</p>
+<pre class="{r}"><code># install.packages('devtools')
+# devtools::install_github('wpgp/wopr')
 library(wopr)</code></pre>
 </div>
 <div id="data-download" class="section level2">
@@ -214,11 +215,29 @@ View(catalogue)</code></pre>
 <p>Lastly, download the selected files:</p>
 <pre class="{r}"><code>downloadData(catalogue_select)</code></pre>
 <p>Using the default settings, a folder named <code>./wopr_downloads/</code> will be created in your R working directory and all downloaded files will be saved there.</p>
-<p>The wOPR data catalogue containing the files currently saved to your hard drive can be found in <code>./wopr_downloads/wopr_catalogue.csv</code>.</p>
+<p>A spreadsheet with WOPR data catalogue containing the files currently saved to your hard drive can be found in <code>./wopr_downloads/wopr_catalogue.csv</code>.</p>
 <p>To list the WOPR files that have been downloaded to your working directory from within the R console, use <code>list.files('wopr_downloads', recursive=T)</code>.</p>
 </div>
 <div id="spatial-query" class="section level2">
 <h2>Spatial Query</h2>
+<p>Another way to access data from WOPR is using a spatial query to get population estimates for a user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class <code>sf</code>. ESRI shapefiles can be read into R as <code>sf</code> objects as:</p>
+<pre class="{r}"><code>sf_feature &lt;- sf::st_read(dsn='folder_name', layer='shapefile_name')</code></pre>
+<p>We will use example data sets included with the <code>wopr</code> package that are already in <code>sf</code> format.</p>
+<div id="total-population" class="section level4">
+<h4>Total population</h4>
+<p>Get the total population for the example polygon feature using the NGA v1.2 populatin estimates:</p>
+<pre class="{r}"><code># WOPR spatial query
+N &lt;- getPop(feature=wopr_polys[1,], 
+            country='NGA', 
+            ver='1.2')
+
+# summarize population estimate
+summaryPop(N, confidence=0.95, tails=2, popthresh=5e6)
+</code></pre>
+</div>
+<div id="demographic-groups" class="section level4">
+<h4>Demographic groups</h4>
+</div>
 </div>
 
 

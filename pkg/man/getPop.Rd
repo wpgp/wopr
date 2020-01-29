@@ -13,9 +13,9 @@ getPop(
     "f20", "f25", "f30", "f35", "f40", "f45", "f50", "f55", "f60", "f65", "f70", "f75",
     "f80"),
   timeout = 60,
-  production = F,
+  production = T,
   key = NULL,
-  verbose = F
+  verbose = T
 )
 }
 \arguments{

@@ -45,7 +45,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
     if(geom_type=='polygon'){
       request <- list(iso3 = country,
                       ver = ver,
-                      geojson = geojson_json(features[i,]),
+                      geojson = suppressWarnings(geojsonio::geojson_json(features[i,])),
                       agesex = paste(agesex, collapse=','),
                       key = key
       )

@@ -10,7 +10,7 @@ endpoint <- function(features=NA, agesex=T, production=F){
   
   if(!'geometry' %in% names(features)){
     
-    endpoint <- 'http://wopr.worldpop.org/api/v1.0/data'
+    endpoint <- 'https://wopr.worldpop.org/api/v1.0/data'
     queue <- NA
 
   } else {
