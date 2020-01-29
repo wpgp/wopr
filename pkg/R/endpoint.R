@@ -1,14 +1,13 @@
-#' Get URL for WOPR endpoint
-#' @description Depending on your query type (point, polygon, age-sex selection), this function will return the correct API endpoint.
-#' @param geometry_class Class of geometry object being submitted
+#' Get WOPR API endpoint
+#' @description Returns the WOPR API endpoint based on query type.
+#' @param features Features of class "sf" ("sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT")
 #' @param agesex Logical indicating whether population totals are needed for selected age and sex groups
-#' @param production Logical indicating if production or development servers should be used
 #' @return A list with urls for the endpoint and the queue
 #' @export
 
-endpoint <- function(features=NA, agesex=T, production=F){
+endpoint <- function(features=NA, agesex=F){
   
-  if(!'geometry' %in% names(features)){
+  if(!class(features)[1]=='sf'){
     
     endpoint <- 'https://wopr.worldpop.org/api/v1.0/data'
     queue <- NA
@@ -20,16 +19,15 @@ endpoint <- function(features=NA, agesex=T, production=F){
     } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
       geom_type <- 'point'
     } else {
-      print('Input must be of class sf and include points or polygons')
+      print('Input feature geometries must be of class "sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT"')
       break
     }
     
-    if(production) { 
+    if(file.exists('srv.txt')) {
+      source('srv.txt')
+    } else {
       queue <- 'https://api.worldpop.org/v1/tasks'
       server <- 'https://api.worldpop.org/v1/wopr'
-    } else if(!production) { 
-      queue <- 'http://10.19.100.66/v1/tasks'
-      server <- 'http://10.19.100.66/v1/wopr'
     }
     
     if(agesex){

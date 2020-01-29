@@ -1,3 +1,4 @@
-/wd/in/*
-/wd/out/*
+/wd/wopr/*
+/wd/key.txt
+/wd/srv.txt
 .Rhistory

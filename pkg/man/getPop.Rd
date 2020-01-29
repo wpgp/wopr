@@ -2,7 +2,7 @@
 % Please edit documentation in R/getPop.R
 \name{getPop}
 \alias{getPop}
-\title{WOPRize an sf point or polygon}
+\title{WOPRize a point or polygon}
 \usage{
 getPop(
   feature,
@@ -13,8 +13,7 @@ getPop(
     "f20", "f25", "f30", "f35", "f40", "f45", "f50", "f55", "f60", "f65", "f70", "f75",
     "f80"),
   timeout = 60,
-  production = T,
-  key = NULL,
+  key = "key.txt",
   verbose = T
 )
 }
@@ -29,13 +28,11 @@ getPop(
 
 \item{timeout}{Seconds until timeout}
 
-\item{production}{Logical indicating whether to use the test server or production server}
-
 \item{key}{Key to increase daily quota for REST API requests}
 }
 \value{
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 }
 \description{
-Query WOPR using an sf point or polygon to get a vector of samples from the Bayesian posterior prediction for that location.
+Query WOPR using an sf point or polygon to get population estimates as a vector of samples from the Bayesian posterior prediction for that location.
 }

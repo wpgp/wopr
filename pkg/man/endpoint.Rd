@@ -2,20 +2,18 @@
 % Please edit documentation in R/endpoint.R
 \name{endpoint}
 \alias{endpoint}
-\title{Get URL for WOPR endpoint}
+\title{Get WOPR API endpoint}
 \usage{
-endpoint(features = NA, agesex = T, production = F)
+endpoint(features = NA, agesex = F)
 }
 \arguments{
+\item{features}{Features of class "sf" ("sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT")}
+
 \item{agesex}{Logical indicating whether population totals are needed for selected age and sex groups}
-
-\item{production}{Logical indicating if production or development servers should be used}
-
-\item{geometry_class}{Class of geometry object being submitted}
 }
 \value{
 A list with urls for the endpoint and the queue
 }
 \description{
-Depending on your query type (point, polygon, age-sex selection), this function will return the correct API endpoint.
+Returns the WOPR API endpoint based on query type.
 }

@@ -9,6 +9,8 @@
 
 summaryPop <- function(N, confidence=0.95, tails=2, popthresh=NA){
   
+  N <- as.numeric(N)
+  
   alpha <- 1-confidence
   
   result <- data.frame(mean = mean(N, na.rm=T), 
@@ -17,7 +19,7 @@ summaryPop <- function(N, confidence=0.95, tails=2, popthresh=NA){
                        upper = quantile(N, probs=c(1-alpha/tails), na.rm=T),
                        abovethresh = mean(N > popthresh, na.rm=T),
                        row.names = 1
-                       )
+  )
   
   round0_cols <- c('mean','median','lower','upper')
   round3_cols <- c('abovethresh')

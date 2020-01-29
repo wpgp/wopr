@@ -4,10 +4,10 @@
 \alias{downloadData}
 \title{Download data from WOPR}
 \usage{
-downloadData(dat, outdir = "wopr_downloads", maxsize = 100, dialogue = T)
+downloadData(dat, outdir = "wopr", maxsize = 100, dialogue = T)
 }
 \arguments{
-\item{dat}{Data sets to download provided as row or rows from the data catalogue (see ?getCatalogue)}
+\item{dat}{Data sets to download provided as a data.frame with at least one row from the wOPR data catalogue (see ?getCatalogue)}
 
 \item{outdir}{Directory where downloads should be saved}
 

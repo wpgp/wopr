@@ -2,27 +2,27 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
-script.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
-setwd(substr(script.dir, 1, nchar(script.dir)-5)); rm(script.dir)
-
-# input directory
-if(F) copyWP(srcdir='Projects/WP517763_GRID3/Working/wopr', outdir='in', OS.type=.Platform$OS.type)
+setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'..'))
 
 # load packages
-library('wopr') # devtools::load_all('pkg')
+library('wopr')
 
-# get data catalogue
+# Get data catalogue
 catalogue <- getCatalogue()
 
-# download all data from entire catalogue
-downloadData(catalogue, outdir='out/wopr_downloads')
+View(catalogue)
 
-# download NGA Population v1.0
+# Example 1:  Download first file in catalogue
+downloadData(catalogue[1,])
+
+# Example 2:  Download subset of catalog: NGA Population v1.2
 catalogue_sub <- subset(catalogue, 
                         country == 'NGA' & 
                           category == 'Population' & 
                           version == 'v1.2')
 downloadData(catalogue_sub)
 
-# download first file in catalogue
-downloadData(catalogue[1,], outdir)
+# Example 3:  Download all data from catalogue
+downloadData(catalogue)
+
+

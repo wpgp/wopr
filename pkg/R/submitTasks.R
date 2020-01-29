@@ -55,6 +55,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
                       ver = ver,
                       lat = coords[,'Y'],
                       lon = coords[,'X'],
+                      agesex = paste(agesex, collapse=','),
                       key = key)
       rm(coords)
     }
