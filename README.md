@@ -15,11 +15,10 @@ Spatial queries can be submitted in the form of points or polygons. Results cont
  
 ## Installation
 
-Install the _wopr_ package from the WorldPop Group on GitHub.
+Install the _wopr_ package from WorldPop on GitHub.
 
 ```r
-# install.packages('devtools')
-# devtools::install_github('wpgp/wopr')
+devtools::install_github(repo='wpgp/wopr', subdir='pkg')
 library(wopr)
 ```
 

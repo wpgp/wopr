@@ -1,14 +1,40 @@
 # initialize
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
+# install package
+devtools::install_github(repo='wpgp/wopr', subdir='pkg')
+
 # working directory
-setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'..'))
+setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'../../wd'))
 
 # load packages
 library('wopr')
 
-# api key
+# api key (optional)
 key <- 'key.txt'
+
+##---- DATA DOWNLOAD ----##
+
+# Get data catalogue
+catalogue <- getCatalogue()
+
+View(catalogue)
+
+# Example 1:  Download first file in catalogue
+downloadData(catalogue[1,])
+
+# Example 2:  Download subset of catalog: NGA Population v1.2
+catalogue_sub <- subset(catalogue, 
+                        country == 'NGA' & 
+                          category == 'Population' & 
+                          version == 'v1.2')
+downloadData(catalogue_sub)
+
+# Example 3:  Download all data from catalogue
+downloadData(catalogue)
+
+
+##---- SPATIAL QUERIES ----##
 
 # see available databases for spatial queries
 getCatalogue(spatialQuery=T)
@@ -17,7 +43,7 @@ getCatalogue(spatialQuery=T)
 country <- 'NGA'
 ver <- '1.2'
 
-##---- example data ----##
+# WOPR example data
 plot(wopr_points, pch=16)
 plot(wopr_polys)
 
@@ -71,7 +97,7 @@ N <- getPop(feature=wopr_polys[1,],
 summaryPop(N, confidence=0.95, tails=2, popthresh=2e4)
 hist(N)
 
-##====================================================##
+
 
 ##---- population estimates for multiple features ----##
 
@@ -98,7 +124,7 @@ st_write(totals, 'example_shapefile.shp')
 # save results as csv
 write.csv(st_drop_geometry(totals), file='example_spreadsheet.csv', row.names=F)
 
-##=======================================##
+
 
 ##---- example polygon from GeoJSON ----##
 
