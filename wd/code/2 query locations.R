@@ -10,7 +10,10 @@ library('wopr')
 # api key
 key <- 'key.txt'
 
-# api query
+# see available databases for spatial queries
+getCatalogue(spatialQuery=T)
+
+# select database
 country <- 'NGA'
 ver <- '1.2'
 
@@ -26,7 +29,7 @@ N <- getPop(feature=wopr_points[1,],
             ver=ver,
             key=key)
 
-# summarize population total
+# summarize estimated population total (Bayesian posterior prediction)
 summaryPop(N, confidence=0.95, tails=2, popthresh=5)
 hist(N)
 
@@ -73,7 +76,7 @@ hist(N)
 ##---- population estimates for multiple features ----##
 
 # get population totals
-totals <- woprize(wopr_polys, 
+totals <- woprize(features=wopr_polys, 
                   country=country, 
                   ver=ver,
                   #agesex=c('m0','m1','f0','f1'),
@@ -84,8 +87,10 @@ totals <- woprize(wopr_polys,
                   )
 st_drop_geometry(totals)
 
-# map results
+# save image of mapped results
+jpeg('example_map.jpg')
 tmap::tm_shape(totals) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T)
+dev.off()
 
 # save results as shapefile
 st_write(totals, 'example_shapefile.shp')
@@ -95,7 +100,7 @@ write.csv(st_drop_geometry(totals), file='example_spreadsheet.csv', row.names=F)
 
 ##=======================================##
 
-##---- example polygons from GeoJSON ----##
+##---- example polygon from GeoJSON ----##
 
 # geojson as character string
 geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[3.308258056640625,6.701434474782401],[3.27392578125,6.704162283788004],[3.22723388671875,6.689159145509243],[3.190155029296875,6.6114082535287215],[3.201141357421875,6.5118147063479],[3.264312744140625,6.485889844658782],[3.3563232421875,6.503628052315478],[3.404388427734375,6.558203219021767],[3.37005615234375,6.646875098291585],[3.308258056640625,6.701434474782401]]]}}]}'
@@ -104,8 +109,9 @@ geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","propertie
 feature <- geojsonsf::geojson_sf(geojson)
 
 # submit query
-N <- getPop(feature,
+N <- getPop(feature=feature,
             country=country,
             ver=ver)
+
 summaryPop(N)
 hist(N)

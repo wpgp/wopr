@@ -1,6 +1,6 @@
 ---
 title: "_wopr_ tutorial: An R package to access to the WorldPop Open Population Repository"
-author: Doug Leasure, WorldPop Research Group, University of Southampton
+author: Doug Leasure, WorldPop, University of Southampton
 output: html_document
 ---
 
