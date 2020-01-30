@@ -1,13 +1,13 @@
 # initialize
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
-# install package
-devtools::install_github(repo='wpgp/wopr', subdir='pkg')
-
 # working directory
-setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'../../wd'))
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-# load packages
+# install package
+install.packages('wopr_0.1.0.tar.gz', repos=NULL)
+
+# load package
 library('wopr')
 
 # api key (optional)

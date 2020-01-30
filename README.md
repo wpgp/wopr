@@ -11,7 +11,9 @@ University of Southampton
 1. Download WorldPop population data sets directly from the R console, and 
 2. Submit spatial queries to the WorldPop server to retrieve population estimates with confidence intervals for user-defined geographic areas and demographic groups. 
 
-Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses.
+Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses. 
+
+Demo code is provided in [wopr_demo.R](http://www.github.com/wpgp/wopr/wopr_demo.R).
  
 ## Installation
 
