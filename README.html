@@ -180,8 +180,8 @@ summary {
 </div>
 
 
-<div id="wopr-an-r-package-to-access-to-the-worldpop-open-population-repository" class="section level1">
-<h1>wopr: An R package to access to the WorldPop Open Population Repository</h1>
+<div id="wopr-an-r-package-to-query-the-worldpop-open-population-repository" class="section level1">
+<h1>wopr: An R package to query the WorldPop Open Population Repository</h1>
 <div id="doug-leasure" class="section level4">
 <h4>Doug Leasure</h4>
 <p>WorldPop Research Group<br />
@@ -196,15 +196,17 @@ University of Southampton</p>
 </ol>
 <p>Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses.</p>
 </div>
-<div id="package-installation" class="section level2">
-<h2>Package Installation</h2>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
 <p>Install the <em>wopr</em> package from the WorldPop Group on GitHub.</p>
 <pre class="r"><code># install.packages('devtools')
 # devtools::install_github('wpgp/wopr')
 library(wopr)</code></pre>
 </div>
-<div id="data-download" class="section level2">
-<h2>Data Download</h2>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
+<div id="data-download" class="section level3">
+<h3>Data Download</h3>
 <p>One way to access data from WOPR is to simply download the files directly to your computer. This can be done with three easy steps:</p>
 <pre class="r"><code># Retrieve the WOPR data catalogue
 catalogue &lt;- getCatalogue()
@@ -219,8 +221,8 @@ selection &lt;- subset(catalogue,
 downloadData(selection)</code></pre>
 <p>By default, <code>downloadData()</code> will not download files larger than 100 MB unless you change the <code>maxsize</code> argument (see <code>?downloadData</code>). Using the default settings, a folder named <code>./wopr</code> will be created in your R working directory for downloaded files. A spreadsheet with WOPR data catalogue containing the files currently saved to your hard drive can be found in <code>./wopr/wopr_catalogue.csv</code>. To list the WOPR files that have been downloaded to your working directory from within the R console, use <code>list.files('wopr', recursive=T)</code>.</p>
 </div>
-<div id="spatial-query" class="section level2">
-<h2>Spatial Query</h2>
+<div id="spatial-query" class="section level3">
+<h3>Spatial Query</h3>
 <p>Another way to access data from WOPR is using a spatial query to get population estimates for a user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class <code>sf</code>. You can explore this functionality using example data sets included with the <code>wopr</code> package. You can plot the example data sets using:</p>
 <pre class="r"><code>plot(wopr_points, pch=16)
 plot(wopr_polys)</code></pre>
@@ -284,6 +286,17 @@ write.csv(st_drop_geometry(N_table), file='example_spreadsheet.csv', row.names=F
 jpeg('example_map.jpg')
 tmap::tm_shape(N_table) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T)
 dev.off()</code></pre>
+</div>
+</div>
+</div>
+<div id="contributing" class="section level2">
+<h2>Contributing</h2>
+<p>The WorldPop Open Population Repository (WOPR) is developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the API server backend. Data are contributed to WOPR by WorldPop researchers working across projects.</p>
+</div>
+<div id="license" class="section level2">
+<h2>License</h2>
+<div id="gnu-general-public-license-v3.0-gnu-gplv3" class="section level4">
+<h4><a href="COPYING">GNU General Public License v3.0 (GNU GPLv3)</a></h4>
 </div>
 </div>
 </div>
