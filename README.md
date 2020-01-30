@@ -28,7 +28,7 @@ Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geoj
 
 ### Data Download
 
-One way to access data from WOPR is to simply download the files directly to your computer. This can be done with three easy steps:
+One way to access data from WOPR is to simply download the files directly to your computer from the R console. This can be done with three easy steps:
 
 ```r
 # Retrieve the WOPR data catalogue
@@ -48,14 +48,14 @@ By default, `downloadData()` will not download files larger than 100 MB unless y
 
 ### Spatial Query
 
-Another way to access data from WOPR is using a spatial query to get population estimates for a user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data sets included with the `wopr` package. You can plot the example data sets using:
+Population estimates can also be obtained from WOPR using spatial queries (geographic points or polygons) for user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data included with the `wopr` package. Plot the example data using:
 
 ```r
 plot(wopr_points, pch=16)
 plot(wopr_polys)
 ```
 
-Note: ESRI shapefiles can be read into R as `sf` objects using:
+Note: ESRI shapefiles (and other file types) can be read into R as `sf` objects using:
 
 ```r
 sf_feature <- sf::st_read('shapefile.shp')
@@ -86,7 +86,7 @@ summaryPop(N, confidence=0.95, tails=2, popthresh=1e5)
 
 The `confidence` argument controls the width of the confidence intervals. The `tails` argument controls whether the confidence intervals are calculated as one-tailed or two-tailed probabilities. If `confidence=0.95` and `tails=2`, then there is a 95% probability that the true population falls within the confidence intervals, given the model structure and the data used to fit the model. If `confidence=0.95` and `tails=1`, then there is a 95% chance that the true population exceeds the lower confidence interval and a 95% chance that the true population is less than the upper confidence interval.
 
-The `popthresh` argument controls the population threshold used to calculate the probability that the population will exceed this threshold.  For example, if `popthresh=1e5`, then the `aboveThresh` result from `summaryPop()` is the probability that the population exceeds 100,000 people.
+The `popthresh` argument defines the threshold used to calculate the probability that the population will exceed this threshold.  For example, if `popthresh=1e5`, then the `abovethresh` result from `summaryPop()` is the probability that the population exceeds 100,000 people.
 
 #### Query total population within a single polygon
 
@@ -102,7 +102,7 @@ summaryPop(N, confidence=0.95, tails=2, popthresh=1e2)
 
 #### Query population for specific demographic groups
 
-To query population estimates for specific demographic groups, you can use the `agesex` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` from five to nine; and so on.
+To query population estimates for specific demographic groups, you can use the `agesex` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` represents females from five to nine; `'f10'` represents females from 10 to 14; and so on. `'m0'` represents males less than one, etc.
 
 Query the population of children under the age of five within a single polygon:
 
@@ -115,14 +115,13 @@ N <- getPop(feature=wopr_polygons[1,],
 summaryPop(N, confidence=0.95, tails=2, popthresh=10)
 ```
 
-If the `agesex` argument is not included, estimates of the total population will be returned.
+If the `agesex` argument is not included, the `getPop()` function will return estimates of the _total_ population (as above).
 
 #### Query multiple point or polygon features
 
 We can query multiple point or polygon features using the `woprize()` function:
 
 ```r
-# get population totals
 N_table <- woprize(features=wopr_polys, 
                    country='NGA', 
                    ver='1.2',
@@ -150,7 +149,7 @@ dev.off()
 
 ## Contributing
 
-The WorldPop Open Population Repository (WOPR) is developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the API server backend. Data are contributed to WOPR by WorldPop researchers working across projects.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the API server backend. Data hosted on WOPR were contributed by WorldPop researchers working across multiple projects.
 
 ## License
 
