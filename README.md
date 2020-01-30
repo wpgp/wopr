@@ -15,12 +15,14 @@ Spatial queries can be submitted in the form of points or polygons. Results cont
  
 ## Installation
 
-Install the _wopr_ package from WorldPop on GitHub.
+Install the _wopr_ package from WorldPop on GitHub by downloading the tarball located at `github.com/wpgp/wopr/wopr_0.1.0.tar.gz` into your R working directory. Then, use the following command to install and load the package:
 
 ```r
-devtools::install_github(repo='wpgp/wopr', subdir='pkg')
+install.packages('wopr_0.1.0.tar.gz', repos=NULL)
 library(wopr)
 ```
+
+Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geojsonio
 
 ## Usage
 
@@ -135,10 +137,10 @@ You can save these results in a number of ways:
 
 ```r
 # save results as shapefile
-st_write(N_table, 'example_shapefile.shp')
+sf::st_write(N_table, 'example_shapefile.shp')
 
 # save results as csv
-write.csv(st_drop_geometry(N_table), file='example_spreadsheet.csv', row.names=F)
+write.csv(sf::st_drop_geometry(N_table), file='example_spreadsheet.csv', row.names=F)
 
 # save image of mapped results
 jpeg('example_map.jpg')
