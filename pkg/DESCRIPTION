@@ -4,7 +4,7 @@ Version: 0.1.0
 Date: 2020-01-22
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
-License: CC-BY-SA
+License: GNU GPLv3
 Depends: R (>= 3.5.0), httr, tools, sf, geojsonio
 Description: Provides access to the WorldPop Open Population Repository (WOPR) data catalogue and population estimates for specific locations via REST API.
 LazyData: true
