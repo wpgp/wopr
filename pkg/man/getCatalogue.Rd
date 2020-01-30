@@ -4,7 +4,7 @@
 \alias{getCatalogue}
 \title{WOPR data catalogue}
 \usage{
-getCatalogue()
+getCatalogue(spatialQuery = F)
 }
 \value{
 A data frame with a row for each item in the data catalogue.

@@ -1,4 +1,5 @@
 /wd/wopr/*
 /wd/key.txt
 /wd/srv.txt
+/wopr/*
 .Rhistory

@@ -1,0 +1,137 @@
+---
+title: 'wopr: An R package to access to the WorldPop Open Population Repository'
+author: "Doug Leasure, WorldPop, University of Southampton"
+output: html_document
+---
+
+## Introduction
+ _wopr_ is an R package that provides API access to the [WorldPop Open Population Repository](https://wopr.worldpop.org). This gives users the ability to:
+
+1. Download WorldPop population data sets directly from the R console, and 
+2. Submit spatial queries to the WorldPop server to retrieve population estimates with confidence intervals for user-defined geographic areas and demographic groups. 
+
+Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses.
+ 
+## Package Installation
+Install the _wopr_ package from the WorldPop Group on GitHub.
+
+```{r, eval=F}
+# install.packages('devtools')
+# devtools::install_github('wpgp/wopr')
+library(wopr)
+```
+
+## Data Download
+
+One way to access data from WOPR is to simply download the files directly to your computer. This can be done with three easy steps:
+
+```{r, eval=F}
+# Retrieve the WOPR data catalogue
+catalogue <- getCatalogue()
+
+# Select files from the catalogue by subsetting the data frame
+selection <- subset(catalogue,
+                    country == 'NGA' &
+                      category == 'Population' & 
+                      version == 'v1.2')
+
+# Download selected files
+downloadData(selection)
+```
+
+By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet with WOPR data catalogue containing the files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the WOPR files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. 
+
+## Spatial Query
+
+Another way to access data from WOPR is using a spatial query to get population estimates for a user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data sets included with the `wopr` package. You can plot the example data sets using:
+
+```{r, eval=F}
+plot(wopr_points, pch=16)
+plot(wopr_polys)
+```
+
+Note: ESRI shapefiles can be read into R as `sf` objects using:
+```{r, eval=F}
+sf_feature <- sf::st_read('shapefile.shp')
+```
+
+
+#### Query total population at a single point
+
+To get the total population for a single point location from the NGA v1.2 population estimates use:
+```{r, eval=F}
+N <- getPop(feature=wopr_points[1,], 
+            country='NGA', 
+            ver='1.2')
+```
+
+Notice that the population estimate is returned as a vector of samples from the Bayesian posterior distribution:
+```{r, eval=F}
+print(N)
+hist(N)
+```
+
+This can be summarized using:
+```{r, eval=F}
+summaryPop(N, confidence=0.95, tails=2, popthresh=1e5)
+```
+
+The `confidence` argument controls the width of the confidence intervals. The `tails` argument controls whether the confidence intervals are calculated as one-tailed or two-tailed probabilities. If `confidence=0.95` and `tails=2`, then there is a 95% probability that the true population falls within the confidence intervals, given the model structure and the data used to fit the model. If `confidence=0.95` and `tails=1`, then there is a 95% chance that the true population exceeds the lower confidence interval and a 95% chance that the true population is less than the upper confidence interval.
+
+The `popthresh` argument controls the population threshold used to calculate the probability that the population will exceed this threshold.  For example, if `popthresh=1e5`, then the `aboveThresh` result from `summaryPop()` is the probability that the population exceeds 100,000 people.
+
+
+#### Query total population within a single polygon
+To query WOPR using a single polygon works exactly the same as a point-based query:
+```{r, eval=F}
+N <- getPop(feature=wopr_polygons[1,], 
+            country='NGA', 
+            ver='1.2')
+
+summaryPop(N, confidence=0.95, tails=2, popthresh=1e2)
+```
+
+
+#### Query population for specific demographic groups
+To query population estimates for specific demographic groups, you can use the `agesex` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` from five to nine; and so on.
+
+Query the population of children under the age of five within a single polygon:
+```{r, eval=F}
+N <- getPop(feature=wopr_polygons[1,], 
+            country='NGA', 
+            ver='1.2',
+            agesex=c('f0','f1','m0','m1'))
+
+summaryPop(N, confidence=0.95, tails=2, popthresh=10)
+```
+
+If the `agesex` argument is not included, estimates of the total population will be returned.
+
+
+#### Query multiple point or polygon features
+We can query multiple point or polygon features using the `woprize()` function:
+```{r, eval=F}
+# get population totals
+N_table <- woprize(features=wopr_polys, 
+                   country='NGA', 
+                   ver='1.2',
+                   agesex=c('m0','m1','f0','f1'),
+                   confidence=0.95,
+                   tails=2,
+                   popthresh=2e4
+                   )
+```
+
+You can save these results in a number of ways:
+```{r, eval=F}
+# save results as shapefile
+st_write(N_table, 'example_shapefile.shp')
+
+# save results as csv
+write.csv(st_drop_geometry(N_table), file='example_spreadsheet.csv', row.names=F)
+
+# save image of mapped results
+jpeg('example_map.jpg')
+tmap::tm_shape(N_table) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T)
+dev.off()
+```
