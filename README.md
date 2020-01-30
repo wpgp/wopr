@@ -1,8 +1,5 @@
----
-title: 'wopr: An R package to access to the WorldPop Open Population Repository'
-author: "Doug Leasure, WorldPop, University of Southampton"
-output: html_document
----
+# wopr: An R package to access to the WorldPop Open Population Repository
+#### Doug Leasure, WorldPop, University of Southampton
 
 ## Introduction
  _wopr_ is an R package that provides API access to the [WorldPop Open Population Repository](https://wopr.worldpop.org). This gives users the ability to:
@@ -15,7 +12,7 @@ Spatial queries can be submitted in the form of points or polygons. Results cont
 ## Package Installation
 Install the _wopr_ package from the WorldPop Group on GitHub.
 
-```{r, eval=F}
+```r
 # install.packages('devtools')
 # devtools::install_github('wpgp/wopr')
 library(wopr)
@@ -25,7 +22,7 @@ library(wopr)
 
 One way to access data from WOPR is to simply download the files directly to your computer. This can be done with three easy steps:
 
-```{r, eval=F}
+```r
 # Retrieve the WOPR data catalogue
 catalogue <- getCatalogue()
 
@@ -45,13 +42,13 @@ By default, `downloadData()` will not download files larger than 100 MB unless y
 
 Another way to access data from WOPR is using a spatial query to get population estimates for a user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data sets included with the `wopr` package. You can plot the example data sets using:
 
-```{r, eval=F}
+```r
 plot(wopr_points, pch=16)
 plot(wopr_polys)
 ```
 
 Note: ESRI shapefiles can be read into R as `sf` objects using:
-```{r, eval=F}
+```r
 sf_feature <- sf::st_read('shapefile.shp')
 ```
 
@@ -59,20 +56,20 @@ sf_feature <- sf::st_read('shapefile.shp')
 #### Query total population at a single point
 
 To get the total population for a single point location from the NGA v1.2 population estimates use:
-```{r, eval=F}
+```r
 N <- getPop(feature=wopr_points[1,], 
             country='NGA', 
             ver='1.2')
 ```
 
 Notice that the population estimate is returned as a vector of samples from the Bayesian posterior distribution:
-```{r, eval=F}
+```r
 print(N)
 hist(N)
 ```
 
 This can be summarized using:
-```{r, eval=F}
+```r
 summaryPop(N, confidence=0.95, tails=2, popthresh=1e5)
 ```
 
@@ -83,7 +80,7 @@ The `popthresh` argument controls the population threshold used to calculate the
 
 #### Query total population within a single polygon
 To query WOPR using a single polygon works exactly the same as a point-based query:
-```{r, eval=F}
+```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
             ver='1.2')
@@ -96,7 +93,7 @@ summaryPop(N, confidence=0.95, tails=2, popthresh=1e2)
 To query population estimates for specific demographic groups, you can use the `agesex` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` from five to nine; and so on.
 
 Query the population of children under the age of five within a single polygon:
-```{r, eval=F}
+```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
             ver='1.2',
@@ -110,7 +107,7 @@ If the `agesex` argument is not included, estimates of the total population will
 
 #### Query multiple point or polygon features
 We can query multiple point or polygon features using the `woprize()` function:
-```{r, eval=F}
+```r
 # get population totals
 N_table <- woprize(features=wopr_polys, 
                    country='NGA', 
@@ -123,7 +120,7 @@ N_table <- woprize(features=wopr_polys,
 ```
 
 You can save these results in a number of ways:
-```{r, eval=F}
+```r
 # save results as shapefile
 st_write(N_table, 'example_shapefile.shp')
 
