@@ -1,5 +1,7 @@
-# wopr: An R package to access to the WorldPop Open Population Repository
-#### Doug Leasure, WorldPop, University of Southampton
+# wopr: An R package to query the WorldPop Open Population Repository
+#### Doug Leasure
+WorldPop Research Group  
+University of Southampton
 
 ## Introduction
  _wopr_ is an R package that provides API access to the [WorldPop Open Population Repository](https://wopr.worldpop.org). This gives users the ability to:
