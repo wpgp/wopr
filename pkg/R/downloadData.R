@@ -19,7 +19,7 @@ downloadData <- function(dat, outdir='wopr', maxsize=100, dialogue=T){
       
       filepath <- file.path(outdir, dat[i,'country'], dat[i,'category'], dat[i,'version'], dat[i,'file'])
       
-      if(!file.exists(filepath) | !dat[i,'hash']==md5sum(filepath)){
+      if(!file.exists(filepath) | !dat[i,'hash']==tools::md5sum(filepath)){
         
         # check file size
         fname <- dat[i,'file']

@@ -20,11 +20,14 @@ Demo code is provided in `wopr_demo.R`.
 Install the _wopr_ package from WorldPop on GitHub by downloading the package tarball `wopr_0.1.0.tar.gz` into your R working directory. Then, use the following command to install and load the package:
 
 ```r
+install.packages(c('sf','httr','geojsonio'))
 install.packages('wopr_0.1.0.tar.gz', repos=NULL)
 library(wopr)
 ```
 
-Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geojsonio
+Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geojsonio.
+
+Note: Installation instructions will change when the package repository is made public.
 
 ## Usage
 
@@ -46,11 +49,15 @@ selection <- subset(catalogue,
 downloadData(selection)
 ```
 
-By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet with WOPR data catalogue containing the files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the WOPR files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. 
+Note: `'NGA'` refers to Nigeria. WOPR uses [ISO country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) to abbreviate country names.  
+
+By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet listing all WOPR files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. 
 
 ### Spatial Query
 
-Population estimates can also be obtained from WOPR using spatial queries (geographic points or polygons) for user-defined geographic area and demographic group(s). Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data included with the `wopr` package. Plot the example data using:
+Population estimates can also be obtained from WOPR using spatial queries (geographic points or polygons) for user-defined geographic area(s) and demographic group(s). 
+
+Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data from Nigeria that are included with the `wopr` package. Plot the example data using:
 
 ```r
 plot(wopr_points, pch=16)
@@ -62,6 +69,24 @@ Note: ESRI shapefiles (and other file types) can be read into R as `sf` objects 
 ```r
 sf_feature <- sf::st_read('shapefile.shp')
 ```
+
+To submit a spatial query, you must first identify which WOPR databases support spatial queries:
+
+```r
+getCatalogue(spatialQuery=T)
+```
+
+This will return a `data.table`:
+
+<div style="width:200px">
+country | version
+--------|--------
+NGA     | v1.2
+NGA     | v1.1
+COD     | v1.0
+</div>
+
+These results indicate that there are currently two WOPR databases for Nigeria (NGA) that support spatial queries and one database for Democratic Republic of Congo (COD).
 
 #### Query total population at a single point
 
