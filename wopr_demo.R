@@ -105,7 +105,7 @@ hist(N)
 ##---- population estimates for multiple features ----##
 
 # get population totals
-totals <- woprize(features=wopr_polys, 
+totals <- woprize(features=wopr_polys[c(2,5,7),], 
                   country=country, 
                   ver=ver,
                   #agesex=c('m0','m1','f0','f1'),

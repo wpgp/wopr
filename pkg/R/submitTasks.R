@@ -2,7 +2,7 @@
 #' @param features An object of class sf with polygons or points
 #' @param country ISO-3 code for the country requested
 #' @param agesex Character vector of age-sex groups
-#' @param url The url of the WorldPop API endpoint
+#' @param url The url of the WorldPop API endpoint (see ?endpoint)
 #' @param ver Version number of population estimates. If NA, defaults to latest version.
 #' @param key Access key (not required)
 #' @param verbose Logical to toggle progress messages

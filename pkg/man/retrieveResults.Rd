@@ -18,7 +18,7 @@ retrieveResults(
 \arguments{
 \item{tasks}{A data frame with information about tasks (see ?submitTasks)}
 
-\item{url}{The url of the WorldPop queue to check for results}
+\item{url}{The url of the WorldPop queue to check for results (see ?endpoint)}
 
 \item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 

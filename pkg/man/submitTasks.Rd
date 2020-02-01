@@ -13,7 +13,7 @@ submitTasks(features, country, agesex, url, ver = NA, key = NA, verbose = T)
 
 \item{agesex}{Character vector of age-sex groups}
 
-\item{url}{The url of the WorldPop API endpoint}
+\item{url}{The url of the WorldPop API endpoint (see ?endpoint)}
 
 \item{ver}{Version number of population estimates. If NA, defaults to latest version.}
 
