@@ -79,11 +79,11 @@ getCatalogue(spatialQuery=T)
 This will return a `data.table`:
 
 <div style="width:200px">
-|country | version|
-|--------|--------|
-|NGA     | v1.2   |
-|NGA     | v1.1   |
-|COD     | v1.0   |
+country | version
+--------|--------
+NGA     | v1.2
+NGA     | v1.1
+COD     | v1.0
 </div>
 
 These results indicate that there are currently two WOPR databases for Nigeria (NGA) that support spatial queries and one database for Democratic Republic of Congo (COD).
