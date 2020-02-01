@@ -13,10 +13,12 @@ summaryPop(N, confidence = 0.95, tails = 2, popthresh = NA)
 
 \item{tails}{The number of tails for the confidence intervals}
 
-\item{popthresh}{}
+\item{popthresh}{The function will return the probability that the population size exceeds _popthresh_}
 }
 \value{
-A list with the mean, median, lower and upper confidence intervals for the population total (rounded to integers)
+A data.frame with columns containing the mean, median, lower and upper confidence intervals for the estimated population total. 
+The 'abovethresh' column reports the probability that the population is greater than _popthresh_. 
+One minus 'abovethresh' is the probability that the population is equal to or less than _popthresh_.
 }
 \description{
 Summarize predicted posterior probability distribution for population estimates

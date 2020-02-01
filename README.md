@@ -13,8 +13,6 @@ University of Southampton
 
 Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses. 
 
-Demo code is provided in `wopr_demo.R`.
- 
 ## Installation
 
 Install the _wopr_ package from WorldPop on GitHub by downloading the package tarball `wopr_0.1.0.tar.gz` into your R working directory. Then, use the following command to install and load the package:
@@ -30,6 +28,8 @@ Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geoj
 Note: Installation instructions will change when the package repository is made public.
 
 ## Usage
+
+Demo code is provided in `wopr_demo.R`.
 
 ### Data Download
 
@@ -51,7 +51,7 @@ downloadData(selection)
 
 Note: `'NGA'` refers to Nigeria. WOPR uses [ISO country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) to abbreviate country names.  
 
-By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet listing all WOPR files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. 
+By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet listing all WOPR files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. In multiple calls to downloadData(), files that you have previously downloaded will be overwritten if your local files do not match the server files (based on an md5sums check). 
 
 ### Spatial Query
 
@@ -173,6 +173,19 @@ jpeg('example_map.jpg')
 tmap::tm_shape(N_table) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T)
 dev.off()
 ```
+
+### Functions
+
+checkTasks()  
+downloadData()  
+endpoint()  
+getCatalogue()  
+getPop()  
+retrieveResults()  
+submitTasks()  
+summaryPop()  
+woprize()  
+writeCatalogue()  
 
 ## Contributing
 

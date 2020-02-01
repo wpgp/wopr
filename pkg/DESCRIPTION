@@ -6,7 +6,6 @@ Date: 2020-01-22
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: GNU GPLv3
-Depends: R (>= 3.5.0)
-Imports: geojsonio, httr, sf 
+Depends: R (>= 3.5.0), geojsonio, httr, sf 
 LazyData: true
 RoxygenNote: 7.0.2

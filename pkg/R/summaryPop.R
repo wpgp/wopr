@@ -3,8 +3,10 @@
 #' @param N Vector of posterior samples for the population total
 #' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
-#' @param popthresh 
-#' @return A list with the mean, median, lower and upper confidence intervals for the population total (rounded to integers)
+#' @param popthresh The function will return the probability that the population size exceeds _popthresh_
+#' @return A data.frame with columns containing the mean, median, lower and upper confidence intervals for the estimated population total. 
+#' The 'abovethresh' column reports the probability that the population is greater than _popthresh_. 
+#' One minus 'abovethresh' is the probability that the population is equal to or less than _popthresh_.
 #' @export
 
 summaryPop <- function(N, confidence=0.95, tails=2, popthresh=NA){

@@ -27,7 +27,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
   }
   
   # wgs84
-  features <- st_transform(features, crs='+proj=longlat +ellps=WGS84')
+  features <- sf::st_transform(features, crs='+proj=longlat +ellps=WGS84')
   
   # feature ids
   features$feature_id <- 1:nrow(features)

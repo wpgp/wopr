@@ -4,8 +4,10 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 # working directory
 setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'wd'))
 
-# install package
+# install dependencies (temporary step until public repo)
 install.packages(c('sf','httr','geojsonio'))
+
+# install wopr package
 install.packages('../wopr_0.1.0.tar.gz', repos=NULL)
 
 # load package
@@ -112,7 +114,7 @@ totals <- woprize(features=wopr_polys,
                   popthresh=2e4,
                   key=key
                   )
-st_drop_geometry(totals)
+sf::st_drop_geometry(totals)
 
 # save image of mapped results
 jpeg('example_map.jpg')
@@ -120,10 +122,10 @@ tmap::tm_shape(totals) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T)
 dev.off()
 
 # save results as shapefile
-st_write(totals, 'example_shapefile.shp')
+sf::st_write(totals, 'example_shapefile.shp')
 
 # save results as csv
-write.csv(st_drop_geometry(totals), file='example_spreadsheet.csv', row.names=F)
+write.csv(sf::st_drop_geometry(totals), file='example_spreadsheet.csv', row.names=F)
 
 
 

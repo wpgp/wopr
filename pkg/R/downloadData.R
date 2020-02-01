@@ -5,7 +5,7 @@
 #' @return Files are downloaded directly to local disk
 #' @export
 
-downloadData <- function(dat, outdir='wopr', maxsize=100, dialogue=T){
+downloadData <- function(dat, outdir='wopr', maxsize=100){
   if(nrow(dat)==0 | !class(dat)=='data.frame'){
     stop('"dat" must be a data.frame with at least one row from the WOPR data catalogue. See ?wopr::getCatalogue for help getting the WOPR catalogue.')
   }
@@ -19,7 +19,9 @@ downloadData <- function(dat, outdir='wopr', maxsize=100, dialogue=T){
       
       filepath <- file.path(outdir, dat[i,'country'], dat[i,'category'], dat[i,'version'], dat[i,'file'])
       
-      if(!file.exists(filepath) | !dat[i,'hash']==tools::md5sum(filepath)){
+      filematch <- dat[i,'hash']==tools::md5sum(filepath)
+      
+      if(!file.exists(filepath) | !filematch){
         
         # check file size
         fname <- dat[i,'file']

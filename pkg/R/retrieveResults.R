@@ -172,9 +172,16 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, 
   cols <- colnames(output)
   output <- data.frame(matrix(output[order(as.numeric(output[,'feature_id'])),], nrow=nrow(output)))
   names(output) <- cols
+  
+  output[output=='NaN'] <- NA
+  
   if(!summarize & 'pop1' %in% cols){
     output[,which(cols=='pop1'):length(cols)] <- lapply(output[which(cols=='pop1'):length(cols)], function(x) as.numeric(as.character(x)))  
   }
+  
+  output[,c('mean','median','lower','upper','abovethresh')] <- lapply(output[c('mean','median','lower','upper','abovethresh')], function(x) as.numeric(as.character(x)))  
+  
+  output <- output[,!names(output) %in% c('message')]
   
   return(output)
 }
