@@ -9,7 +9,8 @@ retrieveResults(
   url,
   confidence = 0.95,
   tails = 2,
-  popthresh = NA,
+  abovethresh = NA,
+  belowthresh = NA,
   summarize = T,
   timeout = 30 * 60,
   verbose = T
@@ -24,7 +25,9 @@ retrieveResults(
 
 \item{tails}{The number of tails for the confidence intervals}
 
-\item{popthresh}{Threshold population size to calculate the probability that population exceeds}
+\item{abovethresh}{The function will return the probability that the population size exceeds _abovethresh_}
+
+\item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
 
 \item{summarize}{Logical indicating to summarize results or return all posterior samples}
 

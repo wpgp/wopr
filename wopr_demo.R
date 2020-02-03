@@ -59,7 +59,7 @@ N <- getPop(feature=wopr_points[1,],
             key=key)
 
 # summarize estimated population total (Bayesian posterior prediction)
-summaryPop(N, confidence=0.95, tails=2, popthresh=5)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=5, belowthresh=1)
 hist(N)
 
 ##---- population of children under five for a single point ----##
@@ -72,7 +72,7 @@ N <- getPop(feature=wopr_points[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, popthresh=3)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=3, belowthresh=1)
 hist(N)
 
 ##---- population estimates for a single polygon ----##
@@ -84,7 +84,7 @@ N <- getPop(feature=wopr_polys[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, popthresh=2e5)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=2e5, belowthresh=1e5)
 hist(N)
 
 ##---- population total for children under five in a single polygon ----##
@@ -97,7 +97,7 @@ N <- getPop(feature=wopr_polys[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, popthresh=2e4)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=2e4, belowthresh=1e4)
 hist(N)
 
 
@@ -111,7 +111,8 @@ totals <- woprize(features=wopr_polys[c(2,5,7),],
                   #agesex=c('m0','m1','f0','f1'),
                   confidence=0.95,
                   tails=2,
-                  popthresh=2e4,
+                  abovethresh=2e5,
+                  belowthresh=1e5,
                   key=key
                   )
 sf::st_drop_geometry(totals)

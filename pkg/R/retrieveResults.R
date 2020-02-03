@@ -3,14 +3,15 @@
 #' @param url The url of the WorldPop queue to check for results (see ?endpoint)
 #' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
-#' @param popthresh Threshold population size to calculate the probability that population exceeds
+#' @param abovethresh The function will return the probability that the population size exceeds _abovethresh_
+#' @param belowthresh The function will return the probability that the population size is less than _belowthresh_
 #' @param summarize Logical indicating to summarize results or return all posterior samples
 #' @param timeout Seconds until function times out
 #' @param verbose Logical indicating to print progress updates
 #' @return A data frame with outputs
 #' @export
 
-retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, summarize=T, timeout=30*60, verbose=T){
+retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, summarize=T, timeout=30*60, verbose=T){
   t0 <- Sys.time()
   
   if(verbose) print(paste('Checking status of',nrow(tasks),'tasks...'))
@@ -79,7 +80,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, 
           N <- unlist(result$data$total)
           
           # summarize results and add to output data frame
-          summaryN <- summaryPop(N, confidence=confidence, tails=tails, popthresh=popthresh)
+          summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
           output[feature_id, 'message'] <-  paste0(result$executionTime,'s')
           if(!summarize){
@@ -136,7 +137,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, popthresh=NA, 
             if(is.numeric(Ntask)) N <- N + Ntask
           }
           # summarize results and add to output data frame
-          summaryN <- summaryPop(N, confidence=confidence, tails=tails, popthresh=popthresh)
+          summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
           output[feature_id, 'message'] <- paste0('MultiFeature-',length(tasks_this_feature))
           if(!summarize) {

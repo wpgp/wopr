@@ -112,12 +112,12 @@ hist(N)
 This can be summarized using:
 
 ```r
-summaryPop(N, confidence=0.95, tails=2, popthresh=1e5)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=1e5, belowthresh=5e4)
 ```
 
 The `confidence` argument controls the width of the confidence intervals. The `tails` argument controls whether the confidence intervals are calculated as one-tailed or two-tailed probabilities. If `confidence=0.95` and `tails=2`, then there is a 95% probability that the true population falls within the confidence intervals, given the model structure and the data used to fit the model. If `confidence=0.95` and `tails=1`, then there is a 95% chance that the true population exceeds the lower confidence interval and a 95% chance that the true population is less than the upper confidence interval.
 
-The `popthresh` argument defines the threshold used to calculate the probability that the population will exceed this threshold.  For example, if `popthresh=1e5`, then the `abovethresh` result from `summaryPop()` is the probability that the population exceeds 100,000 people.
+The `abovethresh` argument defines the threshold used to calculate the probability that the population will exceed this threshold.  For example, if `abovethresh=1e5`, then the `abovethresh` result from `summaryPop()` is the probability that the population exceeds 100,000 people. The `belowthresh` argument is similar except it will return the probability that the population is less than this threshold.
 
 #### Query total population within a single polygon
 
@@ -128,7 +128,7 @@ N <- getPop(feature=wopr_polygons[1,],
             country='NGA', 
             ver='1.2')
 
-summaryPop(N, confidence=0.95, tails=2, popthresh=1e2)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=1e2, belowthresh=50)
 ```
 
 #### Query population for specific demographic groups
@@ -143,7 +143,7 @@ N <- getPop(feature=wopr_polygons[1,],
             ver='1.2',
             agesex=c('f0','f1','m0','m1'))
 
-summaryPop(N, confidence=0.95, tails=2, popthresh=10)
+summaryPop(N, confidence=0.95, tails=2, abovethresh=10, belowthresh=1)
 ```
 
 If the `agesex` argument is not included, the `getPop()` function will return estimates of the _total_ population (as above).
@@ -159,7 +159,8 @@ N_table <- woprize(features=wopr_polys,
                    agesex=c('m0','m1','f0','f1'),
                    confidence=0.95,
                    tails=2,
-                   popthresh=2e4
+                   abovethresh=2e4,
+                   belowthresh=1e4
                    )
 ```
 
