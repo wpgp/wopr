@@ -144,3 +144,45 @@ N <- getPop(feature=feature,
 
 summaryPop(N)
 hist(N)
+
+
+##---- SPATIAL QUERIES FROM LOCAL SQL ----##
+
+# check availability of SQL database
+getCatalogue(spatialQuery=T)
+
+# select database
+country <- 'NGA'
+ver <- 'v1.2'
+
+# catalogue for sql and mastergrid
+sql_catalogue <- subset(getCatalogue(), 
+                        country==country &
+                          category=='Population' &
+                          version==ver &
+                          filetype %in% c('sql','mastergrid'))
+
+# download SQL database and mastergrid
+downloadData(sql_catalogue, maxsize=100)
+
+# define paths
+path <- file.path('wopr',country,'population',ver,
+                  paste0(country,'_population_',gsub('.','_',as.character(ver), fixed=T),'_'))
+
+sql_path <- paste0(path,'sql.sql')
+mastergrid_path <- paste0(path,'mastergrid.tif')
+
+# connect to SQL database
+wopr_sql <- dbConnect(RSQLite::SQLite(), sql_path)
+
+# load mastergrid
+mastergrid <- raster(mastergrid_path)
+
+# get cellids for a polygon
+cells <- cellids(feature, mastergrid)
+
+# query SQL database
+N <- getPopSql(cells[1:100], wopr_sql)
+
+# summarize results
+summaryPop(N)
