@@ -2,7 +2,7 @@
 % Please edit documentation in R/getPop.R
 \name{getPop}
 \alias{getPop}
-\title{WOPRize a point or polygon}
+\title{Get population estimate for a single point or polygon}
 \usage{
 getPop(
   feature,

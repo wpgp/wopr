@@ -4,12 +4,10 @@
 \alias{checkTask}
 \title{Check WOPR task}
 \usage{
-checkTask(taskid, production = F)
+checkTask(taskid)
 }
 \arguments{
 \item{taskid}{A character vector of task IDs}
-
-\item{production}{Logical indicating whether to use the test server or production server}
 }
 \value{
 A list with a result for each task id which will be a vector of samples from posterior distribution of the population total if that task has completed.

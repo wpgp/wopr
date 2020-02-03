@@ -13,7 +13,8 @@ retrieveResults(
   belowthresh = NA,
   summarize = T,
   timeout = 30 * 60,
-  verbose = T
+  verbose = T,
+  saveMessages = F
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ retrieveResults(
 \item{timeout}{Seconds until function times out}
 
 \item{verbose}{Logical indicating to print progress updates}
+
+\item{saveMessages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
 }
 \value{
 A data frame with outputs

@@ -181,11 +181,13 @@ dev.off()
 
 ### Functions
 
-checkTasks()  
+cellids()
+checkTask()  
 downloadData()  
 endpoint()  
 getCatalogue()  
-getPop()  
+getPop()
+getPopSql()
 retrieveResults()  
 submitTasks()  
 summaryPop()  

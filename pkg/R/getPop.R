@@ -1,4 +1,4 @@
-#' WOPRize a point or polygon
+#' Get population estimate for a single point or polygon
 #' @description Query WOPR using an sf point or polygon to get population estimates as a vector of samples from the Bayesian posterior prediction for that location.
 #' @param feature An object of class sf with a point or polygon to calculate population total. If more than one feature are included, only the first feature will be processed.
 #' @param country The ISO3 country code
@@ -30,6 +30,11 @@ getPop <- function(feature, country, ver=NA,
                        url=wopr_url$endpoint,
                        key=key,
                        verbose=verbose)
+  
+  print('Task IDs:')
+  for(i in 1:nrow(tasks)){
+    print(paste0('  ',tasks[i,'task_id']))
+  }
   
   # retrieve results
   output <- retrieveResults(tasks, 

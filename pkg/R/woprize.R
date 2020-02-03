@@ -12,13 +12,14 @@
 #' @param summarize Logical indicating to summarize results or return all posterior samples
 #' @param timeout Seconds until the operation for a single polygon times out
 #' @param key API key
+#' @param saveMessages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
 #' @return A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
 #' @export
 
 woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, spatialjoin=T, summarize=T, timeout=30*60, 
                     agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
                              "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
-                    key='key.txt'){
+                    key='key.txt', saveMessages=F){
   
   t0 <- Sys.time()
   
@@ -49,7 +50,8 @@ woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, aboveth
                               belowthresh=belowthresh,
                               url=wopr_url$queue,
                               summarize=summarize,
-                              timeout=timeout)
+                              timeout=timeout,
+                              saveMessages=saveMessages)
     
     # spatial output
     if(spatialjoin & class(output)=='data.frame') {

@@ -10,7 +10,7 @@ endpoint <- function(features=NA, agesex=F){
   if(!class(features)[1]=='sf'){
     
     endpoint <- 'https://wopr.worldpop.org/api/v1.0/data'
-    queue <- NA
+    queue <- 'https://api.worldpop.org/v1/tasks'
 
   } else {
     

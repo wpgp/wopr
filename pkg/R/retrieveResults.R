@@ -8,18 +8,26 @@
 #' @param summarize Logical indicating to summarize results or return all posterior samples
 #' @param timeout Seconds until function times out
 #' @param verbose Logical indicating to print progress updates
+#' @param saveMessages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
 #' @return A data frame with outputs
 #' @export
 
-retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, summarize=T, timeout=30*60, verbose=T){
+retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, summarize=T, timeout=30*60, verbose=T, saveMessages=F){
   t0 <- Sys.time()
   
-  if(verbose) print(paste('Checking status of',nrow(tasks),'tasks...'))
+  if(verbose) {
+    print(paste('Checking status of',nrow(tasks),'tasks...'))
+  }
   
-  output_cols <- c('feature_id',names(summaryPop(1)),'message')
+  output_cols <- c('feature_id',names(summaryPop(1)),'task_id','message')
   output <- matrix(NA, nrow=length(unique(tasks$feature_id)), ncol=length(output_cols))
   colnames(output) <- output_cols
   row.names(output) <- output[,'feature_id'] <- 1:nrow(output)
+  
+  # add task ids to output
+  for(feature_id in row.names(output)){
+    output[feature_id,'task_id'] <- paste(tasks[tasks$feature_id==feature_id, 'task_id'], collapse=', ')
+  }
   
   # tasks with submission errors
   for(i in which(!tasks[,'status']=='created')){
@@ -182,7 +190,8 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
   
   output[,c('mean','median','lower','upper','abovethresh')] <- lapply(output[c('mean','median','lower','upper','abovethresh')], function(x) as.numeric(as.character(x)))  
   
-  output <- output[,!names(output) %in% c('message')]
+  # drop cols
+  if(!saveMessages) output <- output[,!names(output) %in% c('task_id','message')]
   
   return(output)
 }
