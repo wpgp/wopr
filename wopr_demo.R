@@ -5,7 +5,7 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'wd'))
 
 # install dependencies (temporary step until public repo)
-# install.packages(c('sf','httr','geojsonio'))
+# install.packages(c('fasterize', 'geojsonio', 'httr', 'raster', 'RSQLite', 'sf'))
 
 # install wopr package
 install.packages('../wopr_0.1.0.tar.gz', repos=NULL)
@@ -48,12 +48,12 @@ getCatalogue(spatialQuery=T)
 
 # select database
 country <- 'NGA'
-ver <- 'v1.1'
+ver <- 'v1.2'
 
 ##---- population total for a single point ----##
 
 # get population total
-N <- getPop(feature=wopr_points[1,], 
+N <- getPop(feature=feature, 
             country=country, 
             ver=ver,
             key=key)

@@ -18,7 +18,7 @@ Spatial queries can be submitted in the form of points or polygons. Results cont
 Install the _wopr_ package from WorldPop on GitHub by downloading the package tarball `wopr_0.1.0.tar.gz` into your R working directory. Then, use the following command to install and load the package:
 
 ```r
-install.packages(c('sf','httr','geojsonio'))
+install.packages(c('fasterize', 'geojsonio', 'httr', 'raster', 'RSQLite', 'sf'))
 install.packages('wopr_0.1.0.tar.gz', repos=NULL)
 library(wopr)
 ```

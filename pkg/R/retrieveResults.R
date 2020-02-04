@@ -73,6 +73,9 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           # population posterior
           N <- unlist(result$data$total)
           
+          # fill in zero for unsettled pixels
+          if(is.null(N)) N <- 0
+          
           # summarize results and add to output data frame
           summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
