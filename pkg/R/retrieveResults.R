@@ -73,7 +73,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           # population posterior
           N <- unlist(result$data$total)
           
-          # fill in zero for unsettled pixels
+          # fill in zero for unsettled areas
           if(is.null(N)) N <- 0
           
           # summarize results and add to output data frame

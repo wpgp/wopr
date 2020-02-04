@@ -12,7 +12,7 @@ checkTask <- function(taskid){
   
   for(i in 1:length(taskid)){
     result_i <- content( GET(file.path(queue, taskid[i])), as='parsed')
-    if(result_i$status=='finished'){
+    if(result_i$status=='finished' & result_i$error==FALSE){
       result[[i]] <- unlist(result_i$data$total)
     } else {
       result[[i]] <- result_i

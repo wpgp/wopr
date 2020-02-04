@@ -53,13 +53,13 @@ ver <- 'v1.2'
 ##---- population total for a single point ----##
 
 # get population total
-N <- getPop(feature=feature, 
+N <- getPop(feature=wopr_points[1,], 
             country=country, 
             ver=ver,
             key=key)
 
 # summarize estimated population total (Bayesian posterior prediction)
-summaryPop(N, confidence=0.95, tails=2, abovethresh=5, belowthresh=1)
+summaryPop(N, confidence=0.95, tails=2, belowthresh=1, abovethresh=5)
 hist(N)
 
 ##---- population of children under five for a single point ----##
@@ -72,7 +72,7 @@ N <- getPop(feature=wopr_points[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, abovethresh=3, belowthresh=1)
+summaryPop(N, confidence=0.95, tails=2, belowthresh=1, abovethresh=3)
 hist(N)
 
 ##---- population estimates for a single polygon ----##
@@ -84,7 +84,7 @@ N <- getPop(feature=wopr_polys[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, abovethresh=2e5, belowthresh=1e5)
+summaryPop(N, confidence=0.95, tails=2, belowthresh=1e5, abovethresh=2e5)
 hist(N)
 
 ##---- population total for children under five in a single polygon ----##
@@ -97,7 +97,7 @@ N <- getPop(feature=wopr_polys[1,],
             key=key)
 
 # summarize population total
-summaryPop(N, confidence=0.95, tails=2, abovethresh=2e4, belowthresh=1e4)
+summaryPop(N, confidence=0.95, tails=2, belowthresh=1e4, abovethresh=2e4)
 hist(N)
 
 
@@ -111,8 +111,8 @@ totals <- woprize(features=wopr_polys,
                   #agesex=c('m0','m1','f0','f1'),
                   confidence=0.95,
                   tails=2,
-                  abovethresh=2e5,
                   belowthresh=1e5,
+                  abovethresh=2e5,
                   key=key,
                   saveMessages=T
                   )
