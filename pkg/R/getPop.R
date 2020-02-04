@@ -12,7 +12,7 @@
 getPop <- function(feature, country, ver=NA, 
                    agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
                             "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
-                   timeout=60, key='key.txt', verbose=T){
+                   timeout=5*60, key='key.txt', verbose=T){
   
   t0 <- Sys.time()
   
@@ -31,9 +31,12 @@ getPop <- function(feature, country, ver=NA,
                        key=key,
                        verbose=verbose)
   
-  print('Task IDs:')
-  for(i in 1:nrow(tasks)){
-    print(paste0('  ',tasks[i,'task_id']))
+  # print task ids
+  if(verbose){
+    cat('Task ID(s):\n')
+    for(i in 1:nrow(tasks)){
+      cat(paste0('  ',tasks[i,'task_id'],'\n'))
+    }
   }
   
   # retrieve results

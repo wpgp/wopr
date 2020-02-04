@@ -4,7 +4,7 @@
 \alias{summaryPop}
 \title{Summary statistics}
 \usage{
-summaryPop(N, confidence = 0.95, tails = 2, abovethresh = NA, belowthresh = NA)
+summaryPop(N, confidence = 0.95, tails = 2, belowthresh = NA, abovethresh = NA)
 }
 \arguments{
 \item{N}{Vector of posterior samples for the population total}
@@ -13,9 +13,9 @@ summaryPop(N, confidence = 0.95, tails = 2, abovethresh = NA, belowthresh = NA)
 
 \item{tails}{The number of tails for the confidence intervals}
 
-\item{abovethresh}{The function will return the probability that the population size exceeds _abovethresh_}
-
 \item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
+
+\item{abovethresh}{The function will return the probability that the population size exceeds _abovethresh_}
 }
 \value{
 A data.frame with columns containing the mean, median, lower and upper confidence intervals for the estimated population total. 

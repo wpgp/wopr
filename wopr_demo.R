@@ -5,7 +5,7 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'wd'))
 
 # install dependencies (temporary step until public repo)
-install.packages(c('sf','httr','geojsonio'))
+# install.packages(c('sf','httr','geojsonio'))
 
 # install wopr package
 install.packages('../wopr_0.1.0.tar.gz', repos=NULL)
@@ -39,16 +39,16 @@ downloadData(catalogue)
 
 ##---- SPATIAL QUERIES ----##
 
+# WOPR example data
+plot(wopr_points, pch=16)
+plot(wopr_polys)
+
 # see available databases for spatial queries
 getCatalogue(spatialQuery=T)
 
 # select database
 country <- 'NGA'
-ver <- '1.2'
-
-# WOPR example data
-plot(wopr_points, pch=16)
-plot(wopr_polys)
+ver <- 'v1.1'
 
 ##---- population total for a single point ----##
 
@@ -105,7 +105,7 @@ hist(N)
 ##---- population estimates for multiple features ----##
 
 # get population totals
-totals <- woprize(features=wopr_polys[c(2,5,7),], 
+totals <- woprize(features=wopr_polys, 
                   country=country, 
                   ver=ver,
                   #agesex=c('m0','m1','f0','f1'),
@@ -113,7 +113,8 @@ totals <- woprize(features=wopr_polys[c(2,5,7),],
                   tails=2,
                   abovethresh=2e5,
                   belowthresh=1e5,
-                  key=key
+                  key=key,
+                  saveMessages=T
                   )
 sf::st_drop_geometry(totals)
 

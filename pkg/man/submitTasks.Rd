@@ -15,7 +15,7 @@ submitTasks(features, country, agesex, url, ver = NA, key = NA, verbose = T)
 
 \item{url}{The url of the WorldPop API endpoint (see ?endpoint)}
 
-\item{ver}{Version number of population estimates. If NA, defaults to latest version.}
+\item{ver}{Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.}
 
 \item{key}{Access key (not required)}
 

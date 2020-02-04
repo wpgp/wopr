@@ -3,7 +3,7 @@
 #' @param country ISO-3 code for the country requested
 #' @param agesex Character vector of age-sex groups
 #' @param url The url of the WorldPop API endpoint (see ?endpoint)
-#' @param ver Version number of population estimates. If NA, defaults to latest version.
+#' @param ver Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.
 #' @param key Access key (not required)
 #' @param verbose Logical to toggle progress messages
 #' @return A data frame with information about each task submitted
@@ -11,13 +11,19 @@
 
 submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=T){
   
-  if(verbose) print(paste('Submitting',nrow(features),'feature(s) to',url,'...'))
+  if(verbose) {
+    cat(paste('Submitting',nrow(features),'feature(s) to:\n'))
+    cat(paste(' ',url,'\n'))
+  }
   
   # get latest version
   if(is.na(ver)){
-    catalogue <- getCatalogue()
-    ver <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country & filetype=='sql'),'version'])))
+    catalogue <- getCatalogue(spatialQuery=T)
+    ver <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
   }
+  
+  # format version
+  ver <- gsub('v','',ver)
   
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){

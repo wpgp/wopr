@@ -10,12 +10,12 @@ checkTask <- function(taskid){
   
   queue <- endpoint()$queue
   
-  for(i in taskid){
-    result_i <- content( GET(file.path(queue, taskid)), as='parsed')
+  for(i in 1:length(taskid)){
+    result_i <- content( GET(file.path(queue, taskid[i])), as='parsed')
     if(result_i$status=='finished'){
       result[[i]] <- unlist(result_i$data$total)
     } else {
-      result[[i]] <- paste0(result_i$error,': ',result_i$error_message)
+      result[[i]] <- result_i
     }
   }
   return(result)
