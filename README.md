@@ -1,7 +1,4 @@
-<h1>
-<img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px">
- wopr: An R package to query the WorldPop Open Population Repository
-</h1><br>
+<h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the WorldPop Open Population Repository</h1><br>
 
 #### Doug Leasure
 WorldPop Research Group  
