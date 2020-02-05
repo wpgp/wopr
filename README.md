@@ -1,4 +1,4 @@
-<h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the WorldPop Open Population Repository</h1><br>
+<h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the <br> WorldPop Open Population Repository</h1><br>
 
 #### Doug Leasure
 WorldPop Research Group  
@@ -6,12 +6,12 @@ University of Southampton
 
 ## Introduction
 
- _wopr_ is an R package that provides API access to the [WorldPop Open Population Repository](https://wopr.worldpop.org). This gives users the ability to:
+ _wopr_ is an R package that provides API access to the <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. This gives users the ability to:
 
-1. Download WorldPop population data sets directly from the R console, and 
-2. Submit spatial queries to the WorldPop server to retrieve population estimates with confidence intervals for user-defined geographic areas and demographic groups. 
-
-Spatial queries can be submitted in the form of points or polygons. Results contain estimated population sizes and confidence intervals that can be customized for a variety of uses. 
+1. Download WorldPop population data sets directly from the R console, 
+2. Submit spatial queries (points or polygons) to the WorldPop server to retrieve population estimates within user-defined geographic areas,
+3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
+4. Get probabilistic estimates of uncertainty for all population estimates.
 
 ## Installation
 
@@ -23,7 +23,7 @@ install.packages('wopr_0.1.0.tar.gz', repos=NULL)
 library(wopr)
 ```
 
-Dependencies for the _wopr_ package include: R (>= 3.5.0), httr, tools, sf, geojsonio.
+Dependencies for the _wopr_ package include: R (>= 3.5.0), fasterize, geojsonio, httr, raster, RSQLite, sf.
 
 Note: Installation instructions will change when the package repository is made public.
 
@@ -196,7 +196,7 @@ writeCatalogue()
 
 ## Contributing
 
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the API server backend. Data hosted on WOPR were contributed by WorldPop researchers working across multiple projects.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development.
 
 ## License
 
