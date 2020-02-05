@@ -1,4 +1,4 @@
-![wopr Logo](https://github.com/wpgp/wopr/blob/master/wopr.jpg =250)
+![wopr Logo](https://github.com/wpgp/wopr/blob/master/wopr.jpg =10x)
 
 # wopr: An R package to query the WorldPop Open Population Repository
 
