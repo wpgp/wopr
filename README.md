@@ -1,3 +1,5 @@
+![Gwopr Logo](/images/wopr.png)
+
 # wopr: An R package to query the WorldPop Open Population Repository
 
 #### Doug Leasure
