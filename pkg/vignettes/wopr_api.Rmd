@@ -22,19 +22,18 @@ The WOPR REST API provides a way for web servers and other computers to communic
 3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
 4. Get probabilistic estimates of uncertainty for all population estimates.
 
-### WOPR API Endpoints
-This is a listing of WOPR API endpoints. This document provides instructions how to utilize each endpoint.
+This document provides instructions how to utilize each of the following endpoints:
 
-#### Data Catalogue
+**Data Catalogue**  
 https://wopr.worldpop.org/api/v1.0/data  
 
-#### Spatial Queries
+**Spatial Queries**  
 https://api.worldpop.org/v1/wopr/pointtotal  
 https://api.worldpop.org/v1/wopr/pointagesex  
 https://api.worldpop.org/v1/wopr/polytotal  
 https://api.worldpop.org/v1/wopr/polyagesex  
 
-#### Retrieve Results
+**Retrieve Results**  
 https://api.worldpop.org/v1/tasks/[task_id]  
 
 
