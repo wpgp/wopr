@@ -4,11 +4,8 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 # working directory
 setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'wd'))
 
-# install dependencies (temporary step until public repo)
-# install.packages(c('fasterize', 'geojsonio', 'httr', 'raster', 'RSQLite', 'sf'))
-
 # install wopr package
-install.packages('../wopr_0.1.0.tar.gz', repos=NULL)
+devtools::install_github('wpgp/wopr',subdir='pkg')
 
 # load package
 library('wopr')

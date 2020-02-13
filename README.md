@@ -15,17 +15,12 @@ University of Southampton
 
 ## Installation
 
-Install the _wopr_ package from WorldPop on GitHub by downloading the package tarball `wopr_0.1.0.tar.gz` into your R working directory. Then, use the following command to install and load the package:
+Install the _wopr_ package from WorldPop on GitHub:
 
 ```r
-install.packages(c('fasterize', 'geojsonio', 'httr', 'raster', 'RSQLite', 'sf'))
-install.packages('wopr_0.1.0.tar.gz', repos=NULL)
+devtools::install_github('wpgp/wopr',subdir='pkg')
 library(wopr)
 ```
-
-Dependencies for the _wopr_ package include: R (>= 3.5.0), fasterize, geojsonio, httr, raster, RSQLite, sf.
-
-Note: Installation instructions will change when the package repository is made public.
 
 ## Usage
 
