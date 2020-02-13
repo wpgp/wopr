@@ -26,6 +26,10 @@ library(wopr)
 
 Demo code is provided in `wopr_demo.R`.
 
+See vignettes available with: `vignette(package='wopr')`
+
+If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette describing the API backend for developers: `vignette('wopr_api', package='wopr')`
+
 ### Data Download
 
 One way to access data from WOPR is to simply download the files directly to your computer from the R console. This can be done with three easy steps:

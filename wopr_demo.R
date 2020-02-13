@@ -56,7 +56,7 @@ N <- getPop(feature=wopr_points[6,],
             key=key)
 
 # summarize estimated population total (Bayesian posterior prediction)
-summaryPop(N, confidence=0.95, tails=2, belowthresh=1, abovethresh=5)
+summaryPop(N, confidence=0.90, tails=2, belowthresh=50, abovethresh=10)
 hist(N)
 
 ##---- population of children under five for a single point ----##

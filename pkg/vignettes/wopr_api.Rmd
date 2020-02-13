@@ -63,7 +63,7 @@ Each file has the following attributes:
 
 **citation** is the recommended citation.  
 
-**doi** is the official published DOI (digital object identifier) that can be used for official citations. The DOI refers to a stable and permanent version of the file that is stored at [ftp://ftp.worldpop.org/repo/wopr](ftp://ftp.worldpop.org/repo/wopr). These files may differ slightly from the files stored at [wopr.worldpop.org](https://wopr.worldpop.org) if minor changes were made since the time of the DOI publication.  
+**doi** is the official published DOI (digital object identifier) that can be used for citations. The DOI refers to a stable and permanent version of the file that is stored at [ftp://ftp.worldpop.org/repo/wopr](ftp://ftp.worldpop.org/repo/wopr). These files may differ slightly from the files stored at [wopr.worldpop.org](https://wopr.worldpop.org) if minor changes were made since the time of the DOI publication.  
 
 **file** is the file name.  
 
@@ -231,7 +231,7 @@ https://api.worldpop.org/v1/tasks/06b50b9f-d94d-50b9-916a-1d34b767d00a
 
 ---
 
-## Polygon-based total population
+## Polygon-based population for specific age-sex group
 
 **API Endpoint:**  
 https://api.worldpop.org/v1/wopr/polyagesex  
