@@ -53,7 +53,7 @@ ver <- 'v1.2'
 ##---- population total for a single point ----##
 
 # get population total
-N <- getPop(feature=wopr_points[1,], 
+N <- getPop(feature=wopr_points[6,], 
             country=country, 
             ver=ver,
             key=key)
@@ -65,7 +65,7 @@ hist(N)
 ##---- population of children under five for a single point ----##
 
 # get population total
-N <- getPop(feature=wopr_points[1,], 
+N <- getPop(feature=wopr_points[6,], 
             country=country, 
             ver=ver,
             agesex=c('f0','f1','m0','m1'),

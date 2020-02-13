@@ -16,6 +16,9 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
     cat(paste(' ',url,'\n'))
   }
   
+  # get key
+  if(file.exists(key)) key <- dget(key)
+  
   # get latest version
   if(is.na(ver)){
     catalogue <- getCatalogue(spatialQuery=T)

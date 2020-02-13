@@ -61,7 +61,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
       ##-- single feature --##
       if(length(tasks_this_feature)==1){
         
-        # get result
+        # parse result
         result <- content( GET(file.path(url, tasks_this_feature)), as='parsed')
         
         # update task id status

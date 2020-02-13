@@ -7,11 +7,17 @@
 
 endpoint <- function(features=NA, agesex=F){
   
+  if(file.exists('srv.txt')) {
+    source('srv.txt')
+  } else {
+    queue <- 'https://api.worldpop.org/v1/tasks'
+    server <- 'https://api.worldpop.org/v1/wopr'
+  }
+  
   if(!class(features)[1]=='sf'){
     
     endpoint <- 'https://wopr.worldpop.org/api/v1.0/data'
-    queue <- 'https://api.worldpop.org/v1/tasks'
-
+    
   } else {
     
     if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
@@ -21,13 +27,6 @@ endpoint <- function(features=NA, agesex=F){
     } else {
       print('Input feature geometries must be of class "sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT"')
       break
-    }
-    
-    if(file.exists('srv.txt')) {
-      source('srv.txt')
-    } else {
-      queue <- 'https://api.worldpop.org/v1/tasks'
-      server <- 'https://api.worldpop.org/v1/wopr'
     }
     
     if(agesex){
