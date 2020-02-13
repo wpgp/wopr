@@ -11,6 +11,8 @@ vignette: >
 WorldPop Research Group  
 University of Southampton
 
+`r format(Sys.time(), '%d %B %Y')`
+
 ## Introduction
 
 The WOPR REST API provides a way for web servers and other computers to communicate with the [WorldPop Open Population Repository](https://wopr.worldpop.org) to submit requests for data and to retrieve results. This can be used to:
