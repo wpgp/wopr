@@ -1,4 +1,5 @@
 rm(list=ls()); gc()
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 devtools::document('pkg')
+devtools::build_vignettes('pkg')
 pkgbuild::build('pkg')
