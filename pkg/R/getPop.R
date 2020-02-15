@@ -53,6 +53,7 @@ getPop <- function(feature, country, ver=NA,
   }
   
   print(difftime(Sys.time(), t0))
+  cat('\n')
   
   return(output)
 }    

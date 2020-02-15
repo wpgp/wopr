@@ -62,6 +62,7 @@ woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, aboveth
   output <- output[,!names(output)=='feature_id']
   
   print(difftime(Sys.time(),t0,units='mins'))
+  cat('\n')
   
   return(output)
 }
