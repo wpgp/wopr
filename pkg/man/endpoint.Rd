@@ -4,12 +4,14 @@
 \alias{endpoint}
 \title{Get WOPR API endpoint}
 \usage{
-endpoint(features = NA, agesex = F)
+endpoint(features = NA, agesex = F, url = NA)
 }
 \arguments{
 \item{features}{Features of class "sf" ("sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT")}
 
 \item{agesex}{Logical indicating whether population totals are needed for selected age and sex groups}
+
+\item{url}{Server url (optional)}
 }
 \value{
 A list with urls for the endpoint and the queue

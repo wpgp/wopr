@@ -13,20 +13,21 @@
 #' @param timeout Seconds until the operation for a single polygon times out
 #' @param key API key
 #' @param saveMessages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
+#' @param url Server url (optional)
 #' @return A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
 #' @export
 
 woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, spatialjoin=T, summarize=T, timeout=30*60, 
                     agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
                              "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
-                    key='key.txt', saveMessages=F){
+                    key='key.txt', saveMessages=F, url=NA){
   
   t0 <- Sys.time()
   
   if(file.exists(key)) key <- dget(key)
   
   # API end point
-  wopr_url <- endpoint(features=features, agesex=length(agesex)<36)
+  wopr_url <- endpoint(features=features, agesex=length(agesex)<36, url=url)
   
   if(is.na(wopr_url$endpoint)) {
     output <- 'No API end point.'

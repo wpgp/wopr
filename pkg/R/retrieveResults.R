@@ -21,7 +21,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
   }
   
   # setup output
-  output_cols <- c('feature_id',names(summaryPop(1)),'task_id','message')
+  output_cols <- c('feature_id',names(summaryPop(1)),'task_id','agesexid','message')
   output <- matrix(NA, nrow=length(unique(tasks$feature_id)), ncol=length(output_cols))
   colnames(output) <- output_cols
   row.names(output) <- output[,'feature_id'] <- 1:nrow(output)
@@ -76,19 +76,25 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           # fill in zero for unsettled areas
           if(is.null(N)) N <- 0
           
+          # agesex id
+          output[feature_id,'agesexid'] <- result$data$agesexid
+          
           # summarize results and add to output data frame
           summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
+          
+          # save full posterior
           if(!summarize){
             if(!'pop1' %in% names(output)){
               output_bind <- matrix(NA, nrow=nrow(output), ncol=length(N))
               colnames(output_bind) <- paste0('pop',1:length(N))
               output <- cbind(output, output_bind)
-              rm(output_bind)
             }
             output[feature_id, paste0('pop',1:length(N))] <- N
           } 
         } 
+        
+        # save error message
         if(result$error){
           output[feature_id,'message'] <-  result$error_message
         }
@@ -102,15 +108,21 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
         all_abort <- F
         for(j in 1:length(tasks_this_feature)){
           
+          # get result
           results[[j]] <- content( GET(file.path(url, tasks_this_feature[j])), as='parsed')
           
+          # finished without valid result
           if(results[[j]]$status=='finished' & length(results[[j]]$data$total)==0){
             results[[j]]$data$total <- NA
           }
+          
+          # not yet finished
           if(!results[[j]]$status=='finished'){
             all_finished <- F
             break
           }
+          
+          # abort if error
           if(!results[[j]]$status %in% c('created','started','finished')){
             output[feature_id,'message'] <- results[[j]]$error_message
             tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
@@ -119,22 +131,34 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           }
         }
         
+        # update status
         if(!all_finished & !all_abort){
           tasks[i,'status'] <- results[[1]]$status
         } 
         
+        # process completed features
         if(all_finished & !all_abort){
           
           # sum population posteriors across sub-polygons
           N <- 0
+          Nmean <- rep(NA, length(tasks_this_feature))
           for(j in 1:length(tasks_this_feature)){
             Ntask <- unlist(results[[j]]$data$total)
-            if(is.numeric(Ntask)) N <- N + Ntask
+            if(is.numeric(Ntask)) {
+              N <- N + Ntask
+              Nmean[j] <- mean(Ntask)
+            }
           }
+          
+          # find most common agesex id
+          k <- which(Nmean==max(Nmean,na.rm=T))
+          output[,'agesexid'] <- results[[k]]$data$agesexid
           
           # summarize results and add to output data frame
           summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
           output[feature_id, names(summaryN)] <- as.matrix(summaryN)
+          
+          # save full posterior
           if(!summarize) {
             if(!'pop1' %in% colnames(output)){
               output_bind <- matrix(NA, nrow=nrow(output), ncol=length(N))
@@ -174,16 +198,18 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
     if(tasks_remaining > 0) Sys.sleep(1/tasks_remaining)
   }
   
-  # format output
+  # format output as data.frame
   cols <- colnames(output)
   output <- data.frame(matrix(output[order(as.numeric(output[,'feature_id'])),], nrow=nrow(output)))
   names(output) <- cols
   
+  # keep full posteriors
   if(!summarize & 'pop1' %in% cols){
     output[,which(cols=='pop1'):length(cols)] <- lapply(output[which(cols=='pop1'):length(cols)], function(x) as.numeric(as.character(x)))  
   }
   
-  output[,c('mean','median','lower','upper','abovethresh')] <- lapply(output[c('mean','median','lower','upper','abovethresh')], function(x) as.numeric(as.character(x)))  
+  # save as numeric
+  output[,c('mean','median','lower','upper','abovethresh','agesexid')] <- lapply(output[c('mean','median','lower','upper','abovethresh','agesexid')], function(x) as.numeric(as.character(x)))  
   
   # drop cols
   if(!saveMessages) output <- output[,!names(output) %in% c('task_id','message')]
