@@ -64,11 +64,6 @@ shinyServer(
       }
     })
 
-    # data readme
-    output$data_readme <- renderText({
-      return(paste('<iframe style="height:600px; width:100%" src="', rv$data_readme_url, '"></iframe>', sep = ""))
-    })
-    
     # map
     output$map <- renderLeaflet( map(country=rv$country, 
                                      version=rv$version,
@@ -192,6 +187,11 @@ shinyServer(
                      rv$N <- rv$agesexid <- NULL
                      gc()
                    })
+    
+    # data readme
+    output$data_readme <- renderText({
+      return(paste('<iframe style="height:600px; width:100%" src="', rv$data_readme_url, '"></iframe>', sep = ""))
+    })
 })
 
 

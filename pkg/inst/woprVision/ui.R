@@ -3,8 +3,12 @@ inputs <-
   column(
     width=2,
     style=paste0('height: calc(98vh - 80px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
-    tags$head(
-      tags$style(HTML("hr {border-top: 1px solid #a6a6a6;}"))
+    tags$head( 
+      tags$style(HTML("hr {border-top: 1px solid #a6a6a6;}")),
+      tags$head(tags$style(HTML(".navbar-nav {float:none !important;}
+                                .navbar-nav > li:nth-child(3){float:right}
+                                .navbar-nav > li:nth-child(4){float:right}
+                                .navbar-nav > li:nth-child(5){float:right}")))
     ),
     
     fluidRow(
@@ -51,6 +55,7 @@ inputs <-
       div(style='display:inline-block; float:right', {
         actionButton('save_button', 'Save')
       }),
+      
       textInput('save_name',
                 label=NULL,
                 value='',
@@ -77,7 +82,7 @@ inputs <-
 navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton',
            title='woprVision', 
            
-           # tab 1: map
+           # tab: map
            tabPanel('Map',
                     fluidRow(
                       
@@ -95,9 +100,9 @@ navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton
                              plotOutput('sidePlot', height='600px', width='100%')))
            ),
            
-           # tab 2: saved estimates
-           tabPanel('Saved Estimates', 
-                    style='overflow-y:scroll; max-height:700px',
+           # tab: saved estimates
+           tabPanel('Saved', 
+                    style='overflow-y:scroll; max-height:calc(98vh - 80px)',
                     br(),
                     downloadButton('download_table', 'Download'),
                     actionButton('clear_button', 'Clear'),
@@ -105,8 +110,18 @@ navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton
                     tableOutput('results_table')
            ),
            
-           # tab 3: data readme
-           tabPanel('Data Readme',
+           # tab: API readme
+           tabPanel('API',
+                    tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                 src='API_Overview.pdf')),
+           
+           # tab: wopr readme
+           tabPanel('WOPR',
+                    style='overflow-y:scroll; height: calc(98vh - 80px)',
+                    includeMarkdown('www/wopr_README.md')),
+           
+           # tab: data readme
+           tabPanel('Data',
                     style='height: calc(98vh - 80px)',
                     htmlOutput('data_readme'))
 )
