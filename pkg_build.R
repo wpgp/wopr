@@ -16,8 +16,7 @@ file.copy('README.md','pkg/inst/woprVision/www/wopr_README.md')
 #                   output_format=c('pdf_document'),
 #                   output_file='API_Overview.pdf',
 #                   output_dir=getwd())
-
-file.copy('API_Overview.pdf','pkg/inst/woprVision/www/API_Overview.pdf')
+# file.copy('API_Overview.pdf','pkg/inst/woprVision/www/API_Overview.pdf')
  
 # # build package tarball
 # pkgbuild::build('pkg')

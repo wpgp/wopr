@@ -77,7 +77,9 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           if(is.null(N)) N <- 0
           
           # agesex id
-          output[feature_id,'agesexid'] <- result$data$agesexid
+          if(!is.null(result$data$agesexid)) {
+            output[feature_id,'agesexid'] <- result$data$agesexid
+          }
           
           # summarize results and add to output data frame
           summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
@@ -152,7 +154,9 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           
           # find most common agesex id
           k <- which(Nmean==max(Nmean,na.rm=T))
-          output[,'agesexid'] <- results[[k]]$data$agesexid
+          if(!is.null(results[[k]]$data$agesexid)){
+            output[,'agesexid'] <- results[[k]]$data$agesexid
+          }
           
           # summarize results and add to output data frame
           summaryN <- summaryPop(N, confidence=confidence, tails=tails, abovethresh=abovethresh, belowthresh=belowthresh)
