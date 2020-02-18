@@ -74,7 +74,7 @@ inputs <-
   )
 
 # main panel
-navbarPage(footer='woprVision v0.1, WorldPop Research Group, University of Southampton',
+navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton',
            title='woprVision', 
            
            # tab 1: map

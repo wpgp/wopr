@@ -30,6 +30,14 @@ See vignettes available with: `vignette(package='wopr')`
 
 If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette describing the API backend for developers: `vignette('wopr_api', package='wopr')`
 
+### woprVision
+
+woprVision is a R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To access woprVision, use:
+
+```r
+woprVision()
+```
+
 ### Data Download
 
 One way to access data from WOPR is to simply download the files directly to your computer from the R console. This can be done with three easy steps:

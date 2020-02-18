@@ -10,8 +10,16 @@ devtools::install_github('wpgp/wopr',subdir='pkg')
 # load package
 library('wopr')
 
-# api key (optional)
+# api access key (optional)
 key <- 'key.txt'
+
+##---- woprVision ----##
+
+# (optional) install Dr Harpers fix to leaflet.extras::drawToolbar
+# devtools::install_github("dr-harper/leaflet.extras")
+
+# woprVision
+woprVision(key)
 
 ##---- DATA DOWNLOAD ----##
 
