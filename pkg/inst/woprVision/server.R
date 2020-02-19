@@ -56,11 +56,6 @@ shinyServer(
                                                        '_population_',
                                                        gsub('.','_',as.character(rv$version),fixed=T),
                                                        '_tiles_population')))
-        print(file.path(rv$path, 
-                        paste0(rv$country,
-                               '_population_',
-                               gsub('.','_',as.character(rv$version),fixed=T),
-                               '_tiles_population')))
       }
     })
 
