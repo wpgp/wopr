@@ -12,7 +12,6 @@ file.copy('README.md','pkg/inst/woprVision/www/wopr_README.md', overwrite=T)
 #                   output_file='wopr_README.pdf', 
 #                   output_dir='pkg/inst/woprVision/www')
 
-
 # # vignettes
 # devtools::build_vignettes('pkg')
 

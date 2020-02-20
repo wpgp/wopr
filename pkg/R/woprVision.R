@@ -10,5 +10,6 @@ woprVision <- function(key='key.txt', woprDir='wopr'){
   } else {
     .GlobalEnv$key <- key
   }
-  shiny::shinyAppDir(file.path(system.file(package="wopr"), "woprVision"))
+  shiny::shinyAppDir(system.file('woprVision', package='wopr'),
+                     option = list(launch.browser=T))
 }

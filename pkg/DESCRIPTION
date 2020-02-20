@@ -12,7 +12,6 @@ Imports:
   DBI,
   fasterize, 
   geojsonio, 
-  geojsonsf, 
   httr, 
   leaflet, 
   leaflet.extras, 

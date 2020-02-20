@@ -8,6 +8,8 @@ leaf_sf(geometry, pointpoly = "Selected Point")
 }
 \arguments{
 \item{geometry}{leaflet polygon}
+
+\item{pointpoly}{location selection mode ('Selected Point' or 'Custom Area')}
 }
 \description{
 Convert leaflet polygon to sf_POLYGONS
