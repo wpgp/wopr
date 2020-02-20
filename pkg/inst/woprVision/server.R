@@ -39,7 +39,7 @@ shinyServer(
       # local SQL mode
       if(version_info[input$data_select,'localSql']){
         
-        message('Using local SQL database.')
+        message(paste0('Using local SQL database for ',input$data_select,'.'))
         
         # connect to SQL database
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(), 
@@ -54,7 +54,7 @@ shinyServer(
       # local tiles
       if(version_info[input$data_select, 'localTiles']){
         
-        message('Using local image tiles.')
+        message(paste0('Using local image tiles for ',input$data_select,'.'))
         
         addResourcePath('tiles', file.path(rv$path, 
                                            paste0(rv$country,
