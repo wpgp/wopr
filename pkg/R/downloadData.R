@@ -10,6 +10,8 @@ downloadData <- function(dat, outdir='wopr', maxsize=100){
     stop('"dat" must be a data.frame with at least one row from the WOPR data catalogue. See ?wopr::getCatalogue for help getting the WOPR catalogue.')
   }
   
+  dat$category <- tolower(dat$category)
+  
   tryCatch({
     for(i in 1:nrow(dat)){
       dir.create(outdir, showWarnings=F)

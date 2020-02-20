@@ -13,7 +13,7 @@ shinyServer(
       }
       
       # remove localTiles
-      if('tiles_population' %in% resourcePaths()) removeResourcePath('tiles_population')
+      if('tiles' %in% resourcePaths()) removeResourcePath('tiles')
 
       # cleanup environment
       rv$sql <- 
@@ -39,6 +39,8 @@ shinyServer(
       # local SQL mode
       if(version_info[input$data_select,'localSql']){
         
+        message('Using local SQL database.')
+        
         # connect to SQL database
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(), 
                                      file.path(rv$path,
@@ -51,18 +53,21 @@ shinyServer(
       
       # local tiles
       if(version_info[input$data_select, 'localTiles']){
-        addResourcePath('tiles_population',file.path(rv$path, 
-                                                paste0(rv$country,
-                                                       '_population_',
-                                                       gsub('.','_',as.character(rv$version),fixed=T),
-                                                       '_tiles_population')))
+        
+        message('Using local image tiles.')
+        
+        addResourcePath('tiles', file.path(rv$path, 
+                                           paste0(rv$country,
+                                                  '_population_',
+                                                  gsub('.','_',as.character(rv$version),fixed=T),
+                                                  '_tiles')))
       }
     })
 
     # map
     output$map <- leaflet::renderLeaflet( map(country=rv$country, 
-                                     version=rv$version,
-                                     localTiles=version_info[input$data_select, 'localTiles']) )
+                                              version=rv$version,
+                                              localTiles=version_info[input$data_select, 'localTiles']) )
 
     # update map: marker with mouse clicks
     observeEvent(input$map_click, {

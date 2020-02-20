@@ -14,7 +14,7 @@ map <- function(country, version, localTiles=F) {
     
     # population tiles
     addTiles(urlTemplate=ifelse(localTiles,
-                                'tiles_population/{z}/{x}/{y}.png',
+                                'tiles/{z}/{x}/{y}.png',
                                 file.path('https://tiles.worldpop.org/wopr',country,'population',version,'population/{z}/{x}/{y}.png')), 
              group='Population',
              layerId='tiles_population',
@@ -29,8 +29,8 @@ map <- function(country, version, localTiles=F) {
     
     # population legend
     addLegend(position='bottomright', 
-              pal=Npal,
-              values=Nbins,
+              pal=pal,
+              values=bins,
               title='People per hectare',
               opacity=1,
               group='Population') %>%

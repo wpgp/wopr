@@ -4,11 +4,11 @@
 #' @export
 
 woprVision <- function(key='key.txt', woprDir='wopr'){
-  .GlobalEnv$woprDir <- woprDir
+  .GlobalEnv$woprDir <- normalizePath(woprDir)
   if(file.exists(key)){
     .GlobalEnv$key <- dget(key)
   } else {
-    .GlobalEnv$key <- NULL
+    .GlobalEnv$key <- key
   }
   shiny::shinyAppDir(file.path(system.file(package="wopr"), "woprVision"))
 }
