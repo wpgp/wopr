@@ -1,4 +1,4 @@
-library(leaflet)
+library(shiny);library(leaflet)
 
 # wopr url
 url <- 'https://api.worldpop.org'
