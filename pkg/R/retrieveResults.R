@@ -12,7 +12,10 @@
 #' @return A data frame with outputs
 #' @export
 
-retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, summarize=T, timeout=30*60, verbose=T, saveMessages=F){
+retrieveResults <- function(tasks, url, 
+                            confidence=0.95, tails=2, 
+                            abovethresh=NA, belowthresh=NA, 
+                            summarize=T, timeout=30*60, verbose=T, saveMessages=F){
   t0 <- Sys.time()
   
   if(verbose) {
@@ -67,8 +70,15 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
         # update task id status
         tasks[i,'status'] <- result$status
         
+        abort <- F
+        if(result$error){
+          if('The requested area was too large' %in% strsplit(result$error_message,'. ',fixed=T)[[1]]){
+            abort <- T
+          }
+        }  
+
         # process finished result
-        if(result$status=='finished'){
+        if(result$status=='finished' & !abort){
           
           # population posterior
           N <- unlist(result$data$total)
@@ -113,21 +123,17 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
           # get result
           results[[j]] <- httr::content( httr::GET(file.path(url, tasks_this_feature[j])), as='parsed')
           
-          # finished without valid result
-          if(results[[j]]$status=='finished' & length(results[[j]]$data$total)==0){
-            results[[j]]$data$total <- NA
-          }
-          
           # not yet finished
           if(!results[[j]]$status=='finished'){
             all_finished <- F
             break
           }
           
-          # abort if error
-          if(!results[[j]]$status %in% c('created','started','finished')){
+          # area too big
+          if('The requested area was too large' %in% strsplit(result$error_message,'. ',fixed=T)[[1]]){
             output[feature_id,'message'] <- results[[j]]$error_message
             tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
+            results[[j]]$data$total <- NA
             all_abort <- T
             break
           }

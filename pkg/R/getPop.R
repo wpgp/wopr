@@ -6,7 +6,8 @@
 #' @param agesex Character vector of age-sex groups
 #' @param timeout Seconds until timeout
 #' @param key Key to increase daily quota for REST API requests
-#' @param verbose Logical indicating to print status updates while processing
+#' @param verbose Logical. Toggles on status updates while processing
+#' @param agesexid Logical. Toggle return of numeric age sex id (for woprVision)
 #' @param url Server url (optional)
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' @export
@@ -45,7 +46,12 @@ getPop <- function(feature, country, ver=NA,
                             url=wopr_url$queue, 
                             summarize=F, 
                             timeout=timeout, 
-                            verbose=verbose)
+                            verbose=verbose,
+                            saveMessages=T)
+  
+  if(!is.na(output$message)){
+    message(output$message)
+  }
   
   if('pop1' %in% names(output)) {
     N <- as.numeric(output[,which(names(output)=='pop1'):ncol(output)])

@@ -29,9 +29,11 @@ getPop(
 
 \item{key}{Key to increase daily quota for REST API requests}
 
-\item{verbose}{Logical indicating to print status updates while processing}
+\item{verbose}{Logical. Toggles on status updates while processing}
 
 \item{url}{Server url (optional)}
+
+\item{agesexid}{Logical. Toggle return of numeric age sex id (for woprVision)}
 }
 \value{
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
