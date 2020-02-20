@@ -6,7 +6,7 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # package documentation
 devtools::document('pkg')
-file.copy('README.md','pkg/inst/woprVision/www/wopr_README.md')
+file.copy('README.md','pkg/inst/woprVision/www/wopr_README.md', overwrite=T)
 
 # # vignettes
 # devtools::build_vignettes('pkg')

@@ -77,7 +77,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
       legend('topright',
              legend=c('Mean',
                       paste0(confidence, '% CI'),
-                      'Pop. Threshold'),
+                      'Threshold'),
              lwd=c(2,2,3),
              lty=c(2,3,1),
              col=c('black','black','darkgrey'),
@@ -115,7 +115,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     # Sub title B
     if(is.numeric(popthresh)){
       line <- 0.25
-      mtext(paste0(round(s$abovethresh*100),'% probability: > ', prettyNum(popthresh,big.mark=','), ' people'),
+      mtext(paste0(round(s$abovethresh*100),'% probability: > ', prettyNum(popthresh,big.mark=','), ' people (threshold)'),
             line=line, cex=cex)
     }
   }

@@ -4,6 +4,8 @@
 WorldPop Research Group  
 University of Southampton
 
+18 February 2020
+
 ## Introduction
 
  _wopr_ is an R package that provides API access to the <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. This gives users the ability to:
@@ -13,9 +15,11 @@ University of Southampton
 3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
 4. Get probabilistic estimates of uncertainty for all population estimates.
 
+Code for the _wopr_ package is openly available on GitHub: https://github.com/wpgp/wopr
+
 ## Installation
 
-Install the _wopr_ package from WorldPop on GitHub:
+Install the _wopr_ R package from WorldPop on GitHub:
 
 ```r
 devtools::install_github('wpgp/wopr',subdir='pkg')

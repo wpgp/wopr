@@ -6,8 +6,8 @@ Date: 2020-02-18
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: GNU GPLv3
-Depends: R (>= 3.5.0),   
-  fasterize, 
+Depends: R (>= 3.5.0)
+Imports: fasterize, 
   geojsonio, 
   geojsonsf, 
   httr, 
