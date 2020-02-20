@@ -60,7 +60,7 @@ shinyServer(
     })
 
     # map
-    output$map <- renderLeaflet( map(country=rv$country, 
+    output$map <- leaflet::renderLeaflet( map(country=rv$country, 
                                      version=rv$version,
                                      localTiles=version_info[input$data_select, 'localTiles']) )
 

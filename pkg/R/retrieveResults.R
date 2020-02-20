@@ -62,7 +62,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
       if(length(tasks_this_feature)==1){
         
         # parse result
-        result <- content( GET(file.path(url, tasks_this_feature)), as='parsed')
+        result <- httr::content( httr::GET(file.path(url, tasks_this_feature)), as='parsed')
         
         # update task id status
         tasks[i,'status'] <- result$status
@@ -111,7 +111,7 @@ retrieveResults <- function(tasks, url, confidence=0.95, tails=2, abovethresh=NA
         for(j in 1:length(tasks_this_feature)){
           
           # get result
-          results[[j]] <- content( GET(file.path(url, tasks_this_feature[j])), as='parsed')
+          results[[j]] <- httr::content( httr::GET(file.path(url, tasks_this_feature[j])), as='parsed')
           
           # finished without valid result
           if(results[[j]]$status=='finished' & length(results[[j]]$data$total)==0){

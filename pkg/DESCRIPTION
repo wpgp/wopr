@@ -8,6 +8,7 @@ Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: GNU GPLv3
 Depends: R (>= 3.5.0)
 Imports: fasterize, 
+  DBI,
   geojsonio, 
   geojsonsf, 
   httr, 

@@ -1,3 +1,5 @@
+library(leaflet)
+
 # wopr url
 url <- 'https://api.worldpop.org'
 # url <- 'http://10.19.100.66'

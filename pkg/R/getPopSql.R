@@ -23,9 +23,9 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T,
   for(i in seq(1,length(cells),by=maxquery)){
     cells_sub <- cells[i:min(i+maxquery-1, length(cells))]
     if(i==1){
-      dbRes <- dbGetQuery(db, paste0('SELECT Pop,agesexid FROM Nhat WHERE cell IN (',paste(cells_sub,collapse=','),')'))
+      dbRes <- DBI::dbGetQuery(db, paste0('SELECT Pop,agesexid FROM Nhat WHERE cell IN (',paste(cells_sub,collapse=','),')'))
     } else {
-      dbRes <- rbind(dbRes, dbGetQuery(db, paste0('SELECT Pop,agesexid FROM Nhat WHERE cell IN (',paste(cells_sub,collapse=','),')')))
+      dbRes <- rbind(dbRes, DBI::dbGetQuery(db, paste0('SELECT Pop,agesexid FROM Nhat WHERE cell IN (',paste(cells_sub,collapse=','),')')))
     }
   }
 

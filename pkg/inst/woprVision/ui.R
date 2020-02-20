@@ -92,7 +92,7 @@ navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton
                       # map panel (center)
                       column(width = 7,
                              tags$style(type="text/css","#map {height: calc(98vh - 80px) !important;}"),
-                             leafletOutput('map')),
+                             leaflet::leafletOutput('map')),
                       
                       # results panel (right)
                       column(width = 3,

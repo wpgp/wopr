@@ -7,7 +7,7 @@ getCatalogue <- function(spatialQuery=F){
   
   server <- endpoint()$endpoint
   
-  response <- httr::content( GET(server), as='parsed')
+  response <- httr::content( httr::GET(server), as='parsed')
   
   cols <- c('country','category','version', 'filetype', names(response[[1]][[1]][[1]][[1]]))
   result <- data.frame(matrix(NA, ncol=length(cols), nrow=0))

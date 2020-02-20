@@ -14,11 +14,11 @@ mapProxyPoly <- function(pointpoly){
       clearMarkers() %>%
       
       # custom polygon controls
-      addDrawToolbar(
+      leaflet.extras::addDrawToolbar(
         targetGroup='Custom Area',
-        editOptions = editToolbarOptions(),
+        editOptions = leaflet.extras::editToolbarOptions(),
         singleFeature = TRUE,
-        polygonOptions = drawPolygonOptions(),
+        polygonOptions = leaflet.extras::drawPolygonOptions(),
         polylineOptions=F, circleOptions=F, rectangleOptions=F, markerOptions=F, circleMarkerOptions=F
       )  %>%
       
@@ -32,7 +32,7 @@ mapProxyPoly <- function(pointpoly){
     leafletProxy('map') %>% 
       
       # remove drawToolbar
-      removeDrawToolbar(clearFeatures=T) %>%
+      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
 
       # hide group
       hideGroup('Custom Area')

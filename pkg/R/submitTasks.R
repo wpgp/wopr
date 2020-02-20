@@ -46,7 +46,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
   colnames(tasks) <- c('feature_id','task_id','status','message')
   
   # disaggregate multi-part features
-  features <- st_cast(features, toupper(geom_type), warn=F)
+  features <- sf::st_cast(features, toupper(geom_type), warn=F)
   
   for(i in 1:nrow(features)){
     
@@ -59,7 +59,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
                       key = key
       )
     } else if(geom_type=='point'){
-      coords <- st_coordinates(features[i,])
+      coords <- sf::st_coordinates(features[i,])
       request <- list(iso3 = country,
                       ver = ver,
                       lat = coords[,'Y'],
@@ -70,7 +70,7 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
     }
     
     # send request
-    response <- content( POST(url=url, body=request, encode="form"), as='parsed')
+    response <- httr::content( httr::POST(url=url, body=request, encode="form"), as='parsed')
     
     # save task id
     if(!'taskid' %in% names(response)){
