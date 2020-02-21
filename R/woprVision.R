@@ -13,6 +13,12 @@ woprVision <- function(key='key.txt', woprDir='wopr'){
     .GlobalEnv$key <- key
   }
   
+  .GlobalEnv$bins <- wopr:::woprVision_global$bins
+  .GlobalEnv$pal <- wopr:::woprVision_global$pal
+  .GlobalEnv$agesex <- wopr:::woprVision_global$agesex
+  .GlobalEnv$version_info <- wopr:::woprVision_global$version_info
+  
+
   shiny::shinyAppDir(system.file('woprVision', package='wopr'),
                      option = list(launch.browser=T))
 }
