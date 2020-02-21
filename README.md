@@ -22,13 +22,13 @@ Code for the _wopr_ package is openly available on GitHub: https://github.com/wp
 Install the _wopr_ R package from WorldPop on GitHub:
 
 ```r
-devtools::install_github('wpgp/wopr',subdir='pkg')
+devtools::install_github('wpgp/wopr')
 library(wopr)
 ```
 
 ## Usage
 
-Demo code is provided in `wopr_demo.R`.
+Demo code is provided in `demo/wopr_demo.R`.
 
 See vignettes available with: `vignette(package='wopr')`
 

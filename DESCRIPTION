@@ -19,7 +19,8 @@ Imports:
   RSQLite,
   sf,
   shiny, 
-  shinyWidgets
+  shinyWidgets,
+  stringi
 Suggests: 
   knitr, 
   rmarkdown

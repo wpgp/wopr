@@ -21,9 +21,6 @@ rm(country, version)
 if(!'key' %in% ls()) key <- 'key.txt'
 if(!'woprDir' %in% ls()) woprDir <- normalizePath('wopr')
 
-# # load woprVision global environment
-# list2env(woprVision_global, globalenv())
-
 # check for local files
 checkLocal <- function(dir, info){
   

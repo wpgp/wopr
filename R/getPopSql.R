@@ -10,7 +10,6 @@
 
 getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, block_size=999,
                       agesexSelect=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))){
-  
   t0 <- Sys.time()
   
   if(verbose) {
@@ -32,8 +31,8 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, block_si
     # parse results
     if(length(dbRes$Pop) > 0){
       
-      # unlist population vector
-      pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(unlist(strsplit(x, ','))))
+      # unlist population vector (need to optimize this step)
+      pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(unlist(stringi::stri_split_fixed(x, ','))))
 
       # agesex adjustment
       if(length(agesexSelect) < 36){
@@ -43,6 +42,8 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, block_si
       # bind with previous blocks
       if(class(pop)=='matrix') {
         pop <- cbind(pop, pop_block)
+      } else {
+        pop <- pop_block
       }
       id <- c(id, dbRes$agesexid)
     }
@@ -50,6 +51,10 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, block_si
 
   if(class(pop)=='matrix') { 
     pop <- apply(pop, 1, sum)
+  }
+
+  if(length(id)==0){
+    id <- NA
   }
   
   if(getAgesexId){
