@@ -10,6 +10,7 @@ getPopSql(
   agesexTable,
   getAgesexId = F,
   verbose = T,
+  block_size = 999,
   agesexSelect = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5))))
 )

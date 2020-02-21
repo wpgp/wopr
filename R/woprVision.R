@@ -5,7 +5,7 @@
 
 woprVision <- function(key='key.txt', woprDir='wopr'){
   
-  .GlobalEnv$woprDir <- normalizePath(woprDir)
+  .GlobalEnv$woprDir <- file.path(getwd(), woprDir)
   
   if(file.exists(key)){
     .GlobalEnv$key <- dget(key)

@@ -22,9 +22,7 @@ if(!'key' %in% ls()) key <- 'key.txt'
 if(!'woprDir' %in% ls()) woprDir <- normalizePath('wopr')
 
 # load woprVision global environment
-data(woprVision_global)
 list2env(woprVision_global, globalenv())
-rm(woprVision_global)
 
 # check for local files
 checkLocal <- function(dir, info){

@@ -5,26 +5,26 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T)
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # package documentation
-devtools::document('pkg')
-file.copy('README.md','pkg/inst/woprVision/www/wopr_README.md', overwrite=T)
+devtools::document()
+file.copy('README.md','inst/woprVision/www/wopr_README.md', overwrite=T)
 # rmarkdown::render(input='README.md',
 #                   output_format=c('pdf_document'),
 #                   output_file='wopr_README.pdf', 
-#                   output_dir='pkg/inst/woprVision/www')
+#                   output_dir='inst/woprVision/www')
 
 # # vignettes
-# devtools::build_vignettes('pkg')
+# devtools::build_vignettes(getwd())
 
 # # render API overview
-# rmarkdown::render(input='pkg/vignettes/wopr_api.Rmd',
+# rmarkdown::render(input='vignettes/wopr_api.Rmd',
 #                   output_format=c('pdf_document'),
-#                   output_file='API_Overview.pdf',
+#                   output_file='doc/API_Overview.pdf',
 #                   output_dir=getwd())
-# file.copy('API_Overview.pdf','pkg/inst/woprVision/www/API_Overview.pdf')
+# file.copy('API_Overview.pdf','inst/woprVision/www/API_Overview.pdf')
  
 # # build package tarball
 # pkgbuild::build('pkg')
 
 # install package
-install.packages('pkg', repo=NULL, type='source')
+install.packages(getwd(), repo=NULL, type='source')
 

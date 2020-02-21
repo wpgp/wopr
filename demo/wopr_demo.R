@@ -16,7 +16,7 @@ key <- 'key.txt'
 ##---- woprVision ----##
 
 # (optional) install Dr Harpers fix to leaflet.extras::drawToolbar
-# devtools::install_github("dr-harper/leaflet.extras")
+devtools::install_github("dr-harper/leaflet.extras")
 
 # woprVision
 woprVision(key)

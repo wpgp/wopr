@@ -16,7 +16,7 @@ cellids <- function(feature, mastergrid){
   # get cell ids
   if(class(feature$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
     
-    x <- which(!is.na(values(fasterize::fasterize(feature, mastergrid))))
+    x <- which(!is.na(raster::values(fasterize::fasterize(feature, mastergrid))))
     
   } else if(class(feature$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
     
