@@ -7,10 +7,12 @@ woprVision <- function(key='key.txt', woprDir='wopr'){
   
   .GlobalEnv$woprDir <- woprDir
 
-  if(file.exists(key)){
-    .GlobalEnv$key <- dget(key)
+  if(is.null(key)){
+    .GlobalEnv$key <- key
+  } else if(file.exists(as.character(key))){
+    .GlobalEnv$key <- dget(as.character(key))
   } else {
-    .GlobalEnv$key <- NULL
+    .GlobalEnv$key <- key
   }
 
   shiny::shinyAppDir(system.file('woprVision', package='wopr'),
