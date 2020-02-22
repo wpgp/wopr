@@ -1,5 +1,11 @@
 library(leaflet)
 
+# import woprVision_global 
+bins <- wopr:::woprVision_global$bins
+pal <- wopr:::woprVision_global$pal
+agesex <- wopr:::woprVision_global$agesex
+version_info <- wopr:::woprVision_global$version_info
+
 # wopr url
 url <- 'https://api.worldpop.org'
 # url <- 'http://10.19.100.66'
@@ -17,7 +23,7 @@ version <- catalogue[catalogue$country==country,'version'][1]
 data_init <- paste(country,version,sep=' ')
 rm(country, version)
 
-# check global
+# check global for objects defined by woprVision()
 if(!'key' %in% ls()) key <- 'key.txt'
 if(!'woprDir' %in% ls()) woprDir <- normalizePath('wopr')
 

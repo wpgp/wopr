@@ -2,7 +2,7 @@
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); set.seed(seed)
 
 # working directory
-setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'..'))
+setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'../wd'))
 
 # install wopr package
 devtools::install_github('wpgp/wopr', ref='dev')
