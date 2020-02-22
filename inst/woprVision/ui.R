@@ -8,7 +8,8 @@ inputs <-
       tags$head(tags$style(HTML(".navbar-nav {float:none !important;}
                                 .navbar-nav > li:nth-child(3){float:right}
                                 .navbar-nav > li:nth-child(4){float:right}
-                                .navbar-nav > li:nth-child(5){float:right}")))
+                                .navbar-nav > li:nth-child(5){float:right}
+                                .navbar-nav > li:nth-child(6){float:right}")))
     ),
     
     fluidRow(
@@ -115,13 +116,19 @@ navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton
                     tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                  src='API_Overview.pdf')),
            
-           # tab: wopr readme
-           tabPanel('WOPR',
+           # tab: wopr R package readme
+           tabPanel('R package',
                     style='overflow-y:scroll; height: calc(98vh - 80px)',
                     includeMarkdown('www/wopr_README.md')),
            
+           # tab: wopr
+           # tabPanel(tags$a(href='https://wopr.worldpop.org', target='_blank','WOPR')),
+           tabPanel('WOPR',
+                    tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                src='https://wopr.worldpop.org')),
+           
            # tab: data readme
-           tabPanel('Data',
+           tabPanel('Data Readme',
                     style='height: calc(98vh - 80px)',
                     htmlOutput('data_readme'))
 )
