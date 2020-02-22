@@ -59,3 +59,9 @@ getmode <- function(x) {
   uniqx <- unique(x)
   return(uniqx[which.max(tabulate(match(x, uniqx)))])
 }
+
+# cleanup
+onStop(function() {
+  gc()
+})
+

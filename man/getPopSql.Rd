@@ -10,7 +10,8 @@ getPopSql(
   agesexTable,
   getAgesexId = F,
   verbose = T,
-  block_size = 999,
+  max_area = 1000,
+  timeout = 60,
   agesexSelect = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5))))
 )
@@ -23,6 +24,10 @@ getPopSql(
 \item{getAgesexId}{Logical indicating to return the agesex region ID.}
 
 \item{verbose}{Logical indicating to print status updates while processing}
+
+\item{max_area}{Maximum area (sq km) of polygons allowed to query the SQL database}
+
+\item{timeout}{Timeout period (seconds)}
 
 \item{agesexSelect}{Character vector of age-sex groups (e.g. c(m0,m1,m5,m10,m15,f0,f1) includes boys 0-19 and girls under 5)}
 }
