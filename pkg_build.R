@@ -7,6 +7,7 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # package documentation
 devtools::document()
 file.copy('README.md','inst/woprVision/www/wopr_README.md', overwrite=T)
+
 # rmarkdown::render(input='README.md',
 #                   output_format=c('pdf_document'),
 #                   output_file='wopr_README.pdf', 
