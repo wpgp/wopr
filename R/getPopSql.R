@@ -50,9 +50,14 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
       # parse results
       if(length(dbRes$Pop) > 0){
         
-        # unlist population vector
-        pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(stringi::stri_split_fixed(x, ',',simplify=T)))
-
+        # split population vector (method 1)
+        pop_block <- stringi::stri_split_fixed(dbRes$Pop,',',simplify=T) %>% 
+          t()
+        class(pop_block) <- 'numeric'
+        
+        # # split population vector (method 2)
+        # pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(stringi::stri_split_fixed(x, ',',simplify=T)))
+        
         # agesex adjustment
         if(length(agesexSelect) < 36){
           pop_block <- pop_block * apply(agesexTable[dbRes$agesexid, agesexSelect], 1, sum)
