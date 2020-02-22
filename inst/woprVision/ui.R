@@ -11,7 +11,7 @@ inputs <-
                                 .navbar-nav > li:nth-child(5){float:right}
                                 .navbar-nav > li:nth-child(6){float:right}")))
     ),
-    
+
     fluidRow(
       
       # model
@@ -21,6 +21,8 @@ inputs <-
                   selected=data_init),
       
       # submit button
+      shinyjs::useShinyjs(),
+      
       div(style='display:inline-block; float:right', {
         actionButton('submit','Submit')
       }), 

@@ -98,11 +98,11 @@ shinyServer(
     # query wopr
     observeEvent(input$submit, {
       
+      shinyjs::disable('submit')
+      
       rv$N <- rv$agesexid <- NA
       
       if(class(rv$feature)[1]=='sf'){
-        
-        # shinyjs::disable('submit')
         
         withProgress({
           if(version_info[input$data_select,'localSql']){
@@ -132,11 +132,11 @@ shinyServer(
         detail='Fetching population total for selected area and demographic group...', 
         value=0.5)
       }
+      shinyjs::enable('submit')
     })
     
     # side plot
     output$sidePlot <- renderPlot({ 
-      # shinyjs::enable('submit')
       plotPanel(N=rv$N, 
                 agesexSelect=rv$agesexSelect,
                 agesexTable=agesex[[input$data_select]][rv$agesexid,], 
