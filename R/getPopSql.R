@@ -32,10 +32,10 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
     id <- c()
     
     # query database
-    block_size=5e3
+    block_size <- 5e3
     for(i in seq(1,length(cells),by=block_size)){
       
-      if((Sys.time() - t0) > timeout){
+      if(difftime(Sys.time(), t0, units='secs') > timeout){
         warning('Operation timed out after ',timeout,' seconds', call.=F)
         timeout <- TRUE
         break
@@ -50,9 +50,9 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
       # parse results
       if(length(dbRes$Pop) > 0){
         
-        # unlist population vector (need to optimize this step)
-        pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(unlist(stringi::stri_split_fixed(x, ','), use.names=F)))
-        
+        # unlist population vector
+        pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(stringi::stri_split_fixed(x, ',',simplify=T)))
+
         # agesex adjustment
         if(length(agesexSelect) < 36){
           pop_block <- pop_block * apply(agesexTable[dbRes$agesexid, agesexSelect], 1, sum)
@@ -66,6 +66,7 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
         }
         id <- c(id, dbRes$agesexid)
       }
+      suppressWarnings(rm(cells_sub, dbRes, pop_block)); gc()
     }
 
     if(class(pop)=='matrix') { 
