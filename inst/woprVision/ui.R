@@ -80,7 +80,7 @@ inputs <-
   )
 
 # main panel
-navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton',
+navbarPage(footer='wopr v0.2 (R package), WorldPop, University of Southampton',
            title='woprVision', 
            
            # tab: map
@@ -122,7 +122,6 @@ navbarPage(footer='wopr v0.2, WorldPop Research Group, University of Southampton
                     includeMarkdown('www/wopr_README.md')),
            
            # tab: wopr
-           # tabPanel(tags$a(href='https://wopr.worldpop.org', target='_blank','WOPR')),
            tabPanel('WOPR',
                     tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                 src='https://wopr.worldpop.org')),
