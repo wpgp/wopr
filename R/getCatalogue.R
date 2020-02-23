@@ -3,7 +3,7 @@
 #' @return A data frame with a row for each item in the data catalogue.
 #' @export
 
-getCatalogue <- function(spatialQuery=F){
+getCatalogue <- function(spatial_query=F){
   
   server <- endpoint()$endpoint
   
@@ -39,7 +39,7 @@ getCatalogue <- function(spatialQuery=F){
   #   result[i,'filesize'] <- as.numeric(strsplit(strsplit(getURL(result[i,'url'], nobody=1L, header=1L), "\r\n")[[1]][15], ' ')[[1]][2]) / 1024 / 1024
   # }
   
-  if(spatialQuery){
+  if(spatial_query){
     result <- result[result$filetype=='sql',c('country','version')]
   }
   

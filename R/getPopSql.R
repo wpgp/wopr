@@ -2,16 +2,17 @@
 #' @description Returns population estimates from a WOPR SQL database based on cell ids provided.
 #' @param cells A numeric vector of cell ids (see ?cellids)
 #' @param db An SQLite database connection
+#' @param agesex_table The age sex table
 #' @param verbose Logical indicating to print status updates while processing
 #' @param max_area Maximum area (sq km) of polygons allowed to query the SQL database
 #' @param timeout Timeout period (seconds)
-#' @param agesexSelect Character vector of age-sex groups (e.g. c(m0,m1,m5,m10,m15,f0,f1) includes boys 0-19 and girls under 5)
-#' @param getAgesexId Logical indicating to return the agesex region ID.
+#' @param agesex_select Character vector of age-sex groups (e.g. c(m0,m1,m5,m10,m15,f0,f1) includes boys 0-19 and girls under 5)
+#' @param get_agesexid Logical indicating to return the agesex region ID.
 #' @return Estimated population total summed across all cell ids. Result is returned as a numeric vector containing samples from the predicted posterior distribution.
 #' @export
 
-getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area=1e3, timeout=60,
-                      agesexSelect=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))){
+getPopSql <- function(cells, db, agesex_table, get_agesexid=F, verbose=T, max_area=1e3, timeout=60,
+                      agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))){
   
   t0 <- Sys.time()
   
@@ -59,8 +60,8 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
         # pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(stringi::stri_split_fixed(x, ',',simplify=T)))
         
         # agesex adjustment
-        if(length(agesexSelect) < 36){
-          pop_block <- pop_block * apply(agesexTable[dbRes$agesexid, agesexSelect], 1, sum)
+        if(length(agesex_select) < 36){
+          pop_block <- pop_block * apply(agesex_table[dbRes$agesexid, agesex_select], 1, sum)
         }
         
         # bind with previous blocks
@@ -87,7 +88,7 @@ getPopSql <- function(cells, db, agesexTable, getAgesexId=F, verbose=T, max_area
     id <- NA
   }
   
-  if(getAgesexId){
+  if(get_agesexid){
     result <- list(N=pop, agesexid=getmode(id))
   } else {
     result <- pop

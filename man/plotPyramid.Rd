@@ -4,12 +4,12 @@
 \alias{plotPyramid}
 \title{Create an age-sex population pyramid}
 \usage{
-plotPyramid(agesexSelect, agesexTable)
+plotPyramid(agesex_select, agesex_table)
 }
 \arguments{
-\item{agesexSelect}{a character vector of selected Age and Sex groups}
+\item{agesex_select}{a character vector of selected Age and Sex groups}
 
-\item{agesexTable}{The age sex table}
+\item{agesex_table}{The age sex table}
 }
 \description{
 Produces an age sex pyramid plot with the selected age sex classes highlighted.

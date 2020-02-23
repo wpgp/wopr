@@ -4,7 +4,7 @@
 WorldPop Research Group  
 University of Southampton
 
-18 February 2020
+23 February 2020
 
 ## Introduction
 
@@ -19,14 +19,16 @@ Code for the _wopr_ package is openly available on GitHub: <a href='https://gith
 
 ## Installation
 
-Install the _wopr_ R package from WorldPop on GitHub:
+First, start a new R session. Then, install the _wopr_ R package from WorldPop on GitHub:
 
 ```r
-devtools::install_github('wpgp/wopr')
+devtools::install_github('wpgp/wopr', upgrade='never')
 library(wopr)
 ```
 
-When installing the package from GitHub, you may get a message asking you to update a list of your R packages. This is optional unless the _wopr_ installation fails with your current R packages. In the case of a _wopr_ installation failure, you can update individual packages responsible for the error using `install.packages('package_name')`. If you choose to update all of your packages, you should restart R first or you may get a message saying that your current package could not be replaced. In R Studio, you can also update your packages by clicking "Tools > Check for Package Updates".
+_wopr_ installation failure could happen if some of your R packages packages are out of date. You can update individual packages responsible for the error using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can update all of your R packages by clicking "Tools > Check for Package Updates". 
+
+Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not loaded in your R environment.
 
 ## Usage
 
@@ -88,7 +90,7 @@ sf_feature <- sf::st_read('shapefile.shp')
 To submit a spatial query, you must first identify which WOPR databases support spatial queries:
 
 ```r
-getCatalogue(spatialQuery=T)
+getCatalogue(spatial_query=T)
 ```
 
 This will return a `data.frame`:
@@ -112,7 +114,7 @@ To get the total population for a single point location from the NGA v1.2 popula
 ```r
 N <- getPop(feature=wopr_points[1,], 
             country='NGA', 
-            ver='1.2')
+            version='1.2')
 ```
 
 Notice that the population estimate is returned as a vector of samples from the Bayesian posterior distribution:
@@ -139,7 +141,7 @@ To query WOPR using a single polygon works exactly the same as a point-based que
 ```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            ver='1.2')
+            version='1.2')
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=1e2, belowthresh=50)
 ```
@@ -153,7 +155,7 @@ Query the population of children under the age of five within a single polygon:
 ```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            ver='1.2',
+            version='1.2',
             agesex=c('f0','f1','m0','m1'))
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=10, belowthresh=1)
@@ -168,7 +170,7 @@ We can query multiple point or polygon features using the `woprize()` function:
 ```r
 N_table <- woprize(features=wopr_polys, 
                    country='NGA', 
-                   ver='1.2',
+                   version='1.2',
                    agesex=c('m0','m1','f0','f1'),
                    confidence=0.95,
                    tails=2,
@@ -194,22 +196,20 @@ dev.off()
 
 ### Functions
 
-cellids()  
-checkTask()  
-downloadData()  
-endpoint()  
-getCatalogue()  
-getPop()  
-getPopSql()  
-retrieveResults()  
-submitTasks()  
-summaryPop()  
-woprize()  
-writeCatalogue()  
+List names of all functions included with _wopr_:
+```r
+ls('package:wopr')
+```
+
+Get help for any function using:
+```r
+?functionName
+```
+
 
 ## Contributing
 
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Data have been contributed to WOPR by Doug Leasure, Gianluca Boo, Edith Darin, and Claire Dooley from the WorldPop Research Group. Michael Harper at the Flowminder Foundation provided input on a prototype of the shiny application. 
 
 ## License
 

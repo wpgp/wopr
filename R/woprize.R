@@ -2,7 +2,7 @@
 #' @description Query WOPR to get population totals and confidence intervals for sf polygon or point features.
 #' @param features An object of class sf with points or polygons to calculate population totals
 #' @param country ISO-3 code for the country requested
-#' @param ver Version number of population estimates
+#' @param version Version number of population estimates
 #' @param agesex Character vector of age-sex groups
 #' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
@@ -17,7 +17,7 @@
 #' @return A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
 #' @export
 
-woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, spatialjoin=T, summarize=T, timeout=30*60, 
+woprize <- function(features, country, version=NA, confidence=0.95, tails=2, abovethresh=NA, belowthresh=NA, spatialjoin=T, summarize=T, timeout=30*60, 
                     agesex=c("m0","m1","m5","m10","m15","m20","m25","m30","m35","m40","m45","m50","m55","m60","m65","m70","m75","m80",
                              "f0","f1","f5","f10","f15","f20","f25","f30","f35","f40","f45","f50","f55","f60","f65","f70","f75","f80"),
                     key='key.txt', saveMessages=F, url=NA){
@@ -38,7 +38,7 @@ woprize <- function(features, country, ver=NA, confidence=0.95, tails=2, aboveth
     # submit tasks to endpoint
     tasks <- submitTasks(features=features, 
                          country=country, 
-                         ver=ver, 
+                         version=version, 
                          agesex=agesex, 
                          url=wopr_url$endpoint, 
                          key=key)

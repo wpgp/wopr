@@ -14,7 +14,7 @@ retrieveResults(
   summarize = T,
   timeout = 30 * 60,
   verbose = T,
-  saveMessages = F
+  save_messages = F
 )
 }
 \arguments{
@@ -36,7 +36,7 @@ retrieveResults(
 
 \item{verbose}{Logical indicating to print progress updates}
 
-\item{saveMessages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
+\item{save_messages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
 }
 \value{
 A data frame with outputs

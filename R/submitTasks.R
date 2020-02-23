@@ -1,15 +1,15 @@
 #' Submit polygon or point features to WOPR
 #' @param features An object of class sf with polygons or points
 #' @param country ISO-3 code for the country requested
-#' @param agesex Character vector of age-sex groups
+#' @param agesex_select Character vector of age-sex groups
 #' @param url The url of the WorldPop API endpoint (see ?endpoint)
-#' @param ver Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.
+#' @param version Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.
 #' @param key Access key (not required)
 #' @param verbose Logical to toggle progress messages
 #' @return A data frame with information about each task submitted
 #' @export
 
-submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=T){
+submitTasks <- function(features, country, agesex_select, url, version=NA, key=NA, verbose=T){
   
   if(verbose) {
     cat(paste('Submitting',nrow(features),'feature(s) to:\n'))
@@ -20,13 +20,13 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
   if(file.exists(key)) key <- dget(key)
   
   # get latest version
-  if(is.na(ver)){
+  if(is.na(version)){
     catalogue <- getCatalogue(spatialQuery=T)
-    ver <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
+    version <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
   }
   
   # format version
-  ver <- gsub('v','',ver)
+  version <- gsub('v','',version)
   
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
@@ -53,18 +53,18 @@ submitTasks <- function(features, country, agesex, url, ver=NA, key=NA, verbose=
     # create request
     if(geom_type=='polygon'){
       request <- list(iso3 = country,
-                      ver = ver,
+                      ver = version,
                       geojson = suppressWarnings(geojsonio::geojson_json(features[i,])),
-                      agesex = paste(agesex, collapse=','),
+                      agesex = paste(agesex_select, collapse=','),
                       key = key
       )
     } else if(geom_type=='point'){
       coords <- sf::st_coordinates(features[i,])
       request <- list(iso3 = country,
-                      ver = ver,
+                      ver = version,
                       lat = coords[,'Y'],
                       lon = coords[,'X'],
-                      agesex = paste(agesex, collapse=','),
+                      agesex = paste(agesex_select, collapse=','),
                       key = key)
       rm(coords)
     }

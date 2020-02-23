@@ -1,11 +1,11 @@
 #' Create an age-sex population pyramid
 #' @description Produces an age sex pyramid plot with the selected age sex classes highlighted.
-#' @param agesexTable The age sex table
-#' @param agesexSelect a character vector of selected Age and Sex groups
+#' @param agesex_table The age sex table
+#' @param agesex_select a character vector of selected Age and Sex groups
 #' @export
 
-plotPyramid <- function(agesexSelect, agesexTable){
-  if(nrow(agesexTable)>0){
+plotPyramid <- function(agesex_select, agesex_table){
+  if(nrow(agesex_table)>0){
     
     male_groups <- paste0('m',c(0,1,seq(5,80,by=5)))
     female_groups <- paste0('f',c(0,1,seq(5,80,by=5)))
@@ -44,12 +44,12 @@ plotPyramid <- function(agesexSelect, agesexTable){
     # female
     for(g in 2:length(female_groups)){
       
-      if(female_groups[g] %in% agesexSelect){ col <- 'black'
-      } else if(g==2 & female_groups[1] %in% agesexSelect) { col <- 'black'
+      if(female_groups[g] %in% agesex_select){ col <- 'black'
+      } else if(g==2 & female_groups[1] %in% agesex_select) { col <- 'black'
       } else { col <- 'darkgrey' }
       
-      if(g==2) { xleft <- -sum(agesexTable[,female_groups[1:2]])
-      } else { xleft <- -agesexTable[,female_groups[g]] }
+      if(g==2) { xleft <- -sum(agesex_table[,female_groups[1:2]])
+      } else { xleft <- -agesex_table[,female_groups[g]] }
       
       rect(xleft=xleft, xright=-0.0005, ybottom=g-1-height, ytop=g-1+height, col=col, border=NA)
     }
@@ -57,12 +57,12 @@ plotPyramid <- function(agesexSelect, agesexTable){
     # male
     for(g in 2:length(male_groups)){
       
-      if(male_groups[g] %in% agesexSelect) { col <- 'black'
-      } else if(g==2 & male_groups[1] %in% agesexSelect) { col <- 'black'
+      if(male_groups[g] %in% agesex_select) { col <- 'black'
+      } else if(g==2 & male_groups[1] %in% agesex_select) { col <- 'black'
       } else { col <- 'darkgrey' }
       
-      if(g==2) { xright <- sum(agesexTable[,male_groups[1:2]])
-      } else { xright <- agesexTable[,male_groups[g]] }
+      if(g==2) { xright <- sum(agesex_table[,male_groups[1:2]])
+      } else { xright <- agesex_table[,male_groups[g]] }
       
       rect(xleft=0.0005, xright=xright, ybottom=g-1-height, ytop=g-1+height, col=col, border=NA)
     }    

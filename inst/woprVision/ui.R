@@ -133,13 +133,11 @@ ui <- tagList(
                                   src='wopr_README.html')),
              
              # tab: wopr
-             tabPanel('WOPR',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                  src='https://wopr.worldpop.org')),
+             tabPanel('WOPR Download',
+                      htmlOutput('wopr_web')),
              
              # tab: data readme
              tabPanel('Data Readme',
-                      style='height: calc(98vh - 80px)',
                       htmlOutput('data_readme'))
   )
 )

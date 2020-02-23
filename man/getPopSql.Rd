@@ -7,12 +7,12 @@
 getPopSql(
   cells,
   db,
-  agesexTable,
-  getAgesexId = F,
+  agesex_table,
+  get_agesexid = F,
   verbose = T,
   max_area = 1000,
   timeout = 60,
-  agesexSelect = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
+  agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5))))
 )
 }
@@ -21,7 +21,9 @@ getPopSql(
 
 \item{db}{An SQLite database connection}
 
-\item{getAgesexId}{Logical indicating to return the agesex region ID.}
+\item{agesex_table}{The age sex table}
+
+\item{get_agesexid}{Logical indicating to return the agesex region ID.}
 
 \item{verbose}{Logical indicating to print status updates while processing}
 
@@ -29,7 +31,7 @@ getPopSql(
 
 \item{timeout}{Timeout period (seconds)}
 
-\item{agesexSelect}{Character vector of age-sex groups (e.g. c(m0,m1,m5,m10,m15,f0,f1) includes boys 0-19 and girls under 5)}
+\item{agesex_select}{Character vector of age-sex groups (e.g. c(m0,m1,m5,m10,m15,f0,f1) includes boys 0-19 and girls under 5)}
 }
 \value{
 Estimated population total summed across all cell ids. Result is returned as a numeric vector containing samples from the predicted posterior distribution.

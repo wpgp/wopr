@@ -8,14 +8,14 @@
 #' @param summarize Logical indicating to summarize results or return all posterior samples
 #' @param timeout Seconds until function times out
 #' @param verbose Logical indicating to print progress updates
-#' @param saveMessages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
+#' @param save_messages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
 #' @return A data frame with outputs
 #' @export
 
 retrieveResults <- function(tasks, url, 
                             confidence=0.95, tails=2, 
                             abovethresh=NA, belowthresh=NA, 
-                            summarize=T, timeout=30*60, verbose=T, saveMessages=F){
+                            summarize=T, timeout=30*60, verbose=T, save_messages=F){
   t0 <- Sys.time()
   
   if(verbose) {
@@ -222,7 +222,7 @@ retrieveResults <- function(tasks, url,
   output[,c('mean','median','lower','upper','abovethresh','agesexid')] <- lapply(output[c('mean','median','lower','upper','abovethresh','agesexid')], function(x) as.numeric(as.character(x)))  
   
   # drop cols
-  if(!saveMessages) output <- output[,!names(output) %in% c('task_id','message')]
+  if(!save_messages) output <- output[,!names(output) %in% c('task_id','message')]
   
   cat('\n')
   return(output)

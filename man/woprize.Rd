@@ -7,7 +7,7 @@
 woprize(
   features,
   country,
-  ver = NA,
+  version = NA,
   confidence = 0.95,
   tails = 2,
   abovethresh = NA,
@@ -29,7 +29,7 @@ woprize(
 
 \item{country}{ISO-3 code for the country requested}
 
-\item{ver}{Version number of population estimates}
+\item{version}{Version number of population estimates}
 
 \item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 

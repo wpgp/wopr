@@ -6,12 +6,23 @@
 \usage{
 plotPanel(
   N,
-  agesexSelect,
-  agesexTable = NULL,
+  agesex_select,
+  agesex_table = NULL,
   confidence = 95,
   tails = "Interval",
   popthresh = 100
 )
+}
+\arguments{
+\item{agesex_select}{a character vector of selected Age and Sex groups}
+
+\item{agesex_table}{The age sex table}
+
+\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
+
+\item{tails}{The number of tails for the confidence intervals}
+
+\item{popthresh}{Threshold population used to for _abovethresh_ in wopr::summaryPop()}
 }
 \description{
 Produces a panel to hold the population density plot and the population pyramid

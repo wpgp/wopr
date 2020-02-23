@@ -2,19 +2,19 @@
 #' @description Query WOPR using an sf point or polygon to get population estimates as a vector of samples from the Bayesian posterior prediction for that location.
 #' @param feature An object of class sf with a point or polygon to calculate population total. If more than one feature are included, only the first feature will be processed.
 #' @param country The ISO3 country code
-#' @param ver Version number of the population estimate
-#' @param agesex Character vector of age-sex groups
+#' @param version Version number of the population estimate
+#' @param agesex_select Character vector of age-sex groups
 #' @param timeout Seconds until timeout
 #' @param key Key to increase daily quota for REST API requests
 #' @param verbose Logical. Toggles on status updates while processing
-#' @param agesexid Logical. Toggle return of numeric age sex id (for woprVision)
+#' @param get_agesexid Logical. Toggle return of numeric age sex id (for woprVision)
 #' @param url Server url (optional)
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' @export
 
-getPop <- function(feature, country, ver=NA, 
-                   agesex=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5)))),
-                   timeout=5*60, key='key.txt', verbose=T, getAgesexId=F, url=NA){
+getPop <- function(feature, country, version=NA, 
+                   agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5)))),
+                   timeout=5*60, key='key.txt', verbose=T, get_agesexid=F, url=NA){
   
   t0 <- Sys.time()
   
@@ -22,13 +22,13 @@ getPop <- function(feature, country, ver=NA,
   
   if(file.exists(key)) key <- dget(key)
   
-  wopr_url <- endpoint(features=feature, agesex=length(agesex)<36, url=url)
+  wopr_url <- endpoint(features=feature, agesex=length(agesex_select)<36, url=url)
   
   # submit tasks to endpoint
   tasks <- submitTasks(features=feature, 
                        country=country, 
-                       ver=ver, 
-                       agesex=agesex, 
+                       version=version, 
+                       agesex=agesex_select, 
                        url=wopr_url$endpoint,
                        key=key,
                        verbose=verbose)
@@ -47,7 +47,7 @@ getPop <- function(feature, country, ver=NA,
                             summarize=F, 
                             timeout=timeout, 
                             verbose=verbose,
-                            saveMessages=T)
+                            save_messages=T)
   
   if(!is.na(output$message)){
     message(output$message)
@@ -59,7 +59,7 @@ getPop <- function(feature, country, ver=NA,
     N <- NA
   }
   
-  if(getAgesexId) {
+  if(get_agesexid) {
     result <- list(N=N, agesexid=output$agesexid)
   } else {
     result <- N

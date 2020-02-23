@@ -35,6 +35,7 @@ shinyServer(
                                           version==rv$version & 
                                           filetype=='README'},
                                         select='url')[1,1]))
+      rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
 
       # local SQL mode
       if(version_info[input$data_select,'localSql']){
@@ -79,7 +80,7 @@ shinyServer(
     
     # age-sex selection
     observe({
-      rv$agesexSelect <- agesexLookup(input$male,
+      rv$agesex_select <- agesexLookup(input$male,
                                       input$female,
                                       input$male_select,
                                       input$female_select
@@ -109,9 +110,10 @@ shinyServer(
             try({
               i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
                              db=rv$sql,
-                             agesexSelect=rv$agesexSelect,
-                             agesexTable=agesex[[input$data_select]],
-                             getAgesexId=T)
+                             agesex_select=rv$agesex_select,
+                             agesex_table=agesex[[input$data_select]],
+                             get_agesexid=T,
+                             timeout=60)
               rv$N <- i[['N']]
               rv$agesexid <- i[['agesexid']]
             })
@@ -119,11 +121,12 @@ shinyServer(
             try({
               i <- getPop(feature=rv$feature,
                           country=rv$country,
-                          ver=rv$version,
-                          agesex=rv$agesexSelect,
+                          version=rv$version,
+                          agesex_select=rv$agesex_select,
                           key=input$key,
-                          getAgesexId=T,
-                          url=url)
+                          get_agesexid=T,
+                          url=url,
+                          timeout=60)
               rv$N <- i[['N']]
               rv$agesexid <- i[['agesexid']]
             })
@@ -138,8 +141,8 @@ shinyServer(
     # side plot
     output$sidePlot <- renderPlot({ 
       plotPanel(N=rv$N, 
-                agesexSelect=rv$agesexSelect,
-                agesexTable=agesex[[input$data_select]][rv$agesexid,], 
+                agesex_select=rv$agesex_select,
+                agesex_table=agesex[[input$data_select]][rv$agesexid,], 
                 confidence=input$ci_level, 
                 tails=input$ci_type,
                 popthresh=input$popthresh) 
@@ -167,7 +170,7 @@ shinyServer(
                                              content = function(file) write.csv(rv$table, file, row.names=TRUE))
     # clear button
     observeEvent(input$clear_button, {
-      showModal(modalDialog('Are you sure you want to clear all data from the "Saved Estimates" tab?', 
+      showModal(modalDialog('Are you sure you want to clear all saved population estimates?', 
                             title='Confirm',
                             footer=tagList(modalButton('Cancel'),actionButton('clear','Clear Saved Estimates'))
                             ))})
@@ -188,9 +191,15 @@ shinyServer(
                      gc()
                    })
     
+    # WOPR url
+    output$wopr_web <- renderText({
+      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$wopr_url, '"></iframe>', sep = ""))
+      
+    })
+    
     # data readme
     output$data_readme <- renderText({
-      return(paste('<iframe style="height:600px; width:100%" src="', rv$data_readme_url, '"></iframe>', sep = ""))
+      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '"></iframe>', sep = ""))
     })
 })
 

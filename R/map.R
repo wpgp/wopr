@@ -14,13 +14,13 @@ map <- function(country, version, localTiles=F) {
     
     # DarkMatter tiles
     addTiles(urlTemplate='https://api.maptiler.com/maps/darkmatter/{z}/{x}/{y}.png?key=gVR5ppSzDLVxvDV30OUT',
-             attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+             attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>',
              group='Dark Basemap',
              tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=1)) %>%
     
     # OSM tiles
     addTiles(urlTemplate='https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=gVR5ppSzDLVxvDV30OUT',
-             attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+             attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>',
              group='Open Street Map',
              tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=1)) %>%
     
@@ -31,7 +31,7 @@ map <- function(country, version, localTiles=F) {
              group='Population',
              layerId='tiles_population',
              options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
-             attribution='<a href="http://www.worldpop.org">WorldPop, University of Southampton</a>'
+             attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
              ) %>%
     
     # layers control
