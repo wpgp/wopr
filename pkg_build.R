@@ -9,6 +9,12 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # functions
 devtools::document()
 
+# render README to HTML
+rmarkdown::render(input='README.md',
+                  output_format=c('html_document'),
+                  output_file='README.html',
+                  output_dir=getwd())
+
 # # vignettes
 # devtools::build_vignettes(getwd())
 
@@ -16,12 +22,6 @@ devtools::document()
 
 # wopr_README
 file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
-
-# # render README to woprVision (title doesn't render properly)
-# rmarkdown::render(input='README.md',
-#                   output_format=c('pdf_document'),
-#                   output_file='wopr_README.pdf',
-#                   output_dir='inst/woprVision/www')
 
 # copy API_Overview to woprVision
 file.copy('doc/API_Overview.pdf','inst/woprVision/www/API_Overview.pdf', overwrite=T)

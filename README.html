@@ -188,7 +188,7 @@ summary {
 <h4>Doug Leasure</h4>
 <p>WorldPop Research Group<br />
 University of Southampton</p>
-<p>18 February 2020</p>
+<p>23 February 2020</p>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -203,9 +203,11 @@ University of Southampton</p>
 </div>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p>Install the <em>wopr</em> R package from WorldPop on GitHub:</p>
+<p>First, start a new R session. Then, install the <em>wopr</em> R package from WorldPop on GitHub:</p>
 <pre class="r"><code>devtools::install_github('wpgp/wopr')
 library(wopr)</code></pre>
+<p>You may be prompted to update some of your existing R packages. This is not required unless <em>wopr</em> installation failes. You can avoid checking for package updates by adding the argument <code>upgrade='never'</code>. If needed, you can update individual packages responsible for any <em>wopr</em> installation errors using <code>install.packages('package_name')</code>. Or, you can use <code>devtools::install_github('wpgp/wopr', upgrade='ask')</code> to update all of the packages that <em>wopr</em> depends on. In R Studio, you can update all of your R packages by clicking “Tools &gt; Check for Package Updates”.</p>
+<p>Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not loaded in your R environment.</p>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
@@ -244,7 +246,7 @@ plot(wopr_polys)</code></pre>
 <p>Note: ESRI shapefiles (and other file types) can be read into R as <code>sf</code> objects using:</p>
 <pre class="r"><code>sf_feature &lt;- sf::st_read('shapefile.shp')</code></pre>
 <p>To submit a spatial query, you must first identify which WOPR databases support spatial queries:</p>
-<pre class="r"><code>getCatalogue(spatialQuery=T)</code></pre>
+<pre class="r"><code>getCatalogue(spatial_query=T)</code></pre>
 <p>This will return a <code>data.frame</code>:</p>
 <div style="width:200px">
 <table>
@@ -276,7 +278,7 @@ plot(wopr_polys)</code></pre>
 <p>To get the total population for a single point location from the NGA v1.2 population estimates use:</p>
 <pre class="r"><code>N &lt;- getPop(feature=wopr_points[1,], 
             country='NGA', 
-            ver='1.2')</code></pre>
+            version='1.2')</code></pre>
 <p>Notice that the population estimate is returned as a vector of samples from the Bayesian posterior distribution:</p>
 <pre class="r"><code>print(N)
 hist(N)</code></pre>
@@ -290,7 +292,7 @@ hist(N)</code></pre>
 <p>To query WOPR using a single polygon works exactly the same as a point-based query:</p>
 <pre class="r"><code>N &lt;- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            ver='1.2')
+            version='1.2')
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=1e2, belowthresh=50)</code></pre>
 </div>
@@ -300,7 +302,7 @@ summaryPop(N, confidence=0.95, tails=2, abovethresh=1e2, belowthresh=50)</code><
 <p>Query the population of children under the age of five within a single polygon:</p>
 <pre class="r"><code>N &lt;- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            ver='1.2',
+            version='1.2',
             agesex=c('f0','f1','m0','m1'))
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=10, belowthresh=1)</code></pre>
@@ -311,7 +313,7 @@ summaryPop(N, confidence=0.95, tails=2, abovethresh=10, belowthresh=1)</code></p
 <p>We can query multiple point or polygon features using the <code>woprize()</code> function:</p>
 <pre class="r"><code>N_table &lt;- woprize(features=wopr_polys, 
                    country='NGA', 
-                   ver='1.2',
+                   version='1.2',
                    agesex=c('m0','m1','f0','f1'),
                    confidence=0.95,
                    tails=2,
@@ -333,23 +335,15 @@ dev.off()</code></pre>
 </div>
 <div id="functions" class="section level3">
 <h3>Functions</h3>
-<p>cellids()<br />
-checkTask()<br />
-downloadData()<br />
-endpoint()<br />
-getCatalogue()<br />
-getPop()<br />
-getPopSql()<br />
-retrieveResults()<br />
-submitTasks()<br />
-summaryPop()<br />
-woprize()<br />
-writeCatalogue()</p>
+<p>List names of all functions included with <em>wopr</em>:</p>
+<pre class="r"><code>ls('package:wopr')</code></pre>
+<p>Get help for any function using:</p>
+<pre class="r"><code>?functionName</code></pre>
 </div>
 </div>
 <div id="contributing" class="section level2">
 <h2>Contributing</h2>
-<p>The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development.</p>
+<p>The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Data have been contributed to WOPR by Doug Leasure, Gianluca Boo, Edith Darin, and Claire Dooley from the WorldPop Research Group. Michael Harper at the Flowminder Foundation provided input on a prototype of the shiny application.</p>
 </div>
 <div id="license" class="section level2">
 <h2>License</h2>

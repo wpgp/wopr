@@ -1,3 +1,6 @@
+---
+output: html_document
+---
 <h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the <br> WorldPop Open Population Repository</h1><br>
 
 #### Doug Leasure
