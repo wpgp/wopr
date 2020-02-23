@@ -5,7 +5,7 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); seed=runif(1,1,42); 
 setwd(file.path(dirname(rstudioapi::getSourceEditorContext()$path),'../wd'))
 
 # install wopr package
-devtools::install_github('wpgp/wopr', ref='dev', upgrade='never')
+devtools::install_github('wpgp/wopr', ref='dev')
 
 # load package
 library('wopr')
@@ -173,7 +173,8 @@ sql_catalogue <- subset(getCatalogue(),
 downloadData(sql_catalogue, maxsize=100)
 
 # define paths
-path <- file.path('wopr',country,'population',version,
+woprDir <- 'wopr'
+path <- file.path(woprDir,country,'population',version,
                   paste0(country,'_population_',gsub('.','_',as.character(version), fixed=T),'_'))
 
 sql_path <- paste0(path,'sql.sql')
@@ -186,7 +187,7 @@ wopr_sql <- RSQLite::dbConnect(RSQLite::SQLite(), sql_path)
 mastergrid <- raster::raster(mastergrid_path)
 
 # get cellids for a polygon
-cells <- cellids(wopr_polys[1,], mastergrid)
+cells <- cellids(wopr_polys[10,], mastergrid)
 
 # query SQL database
 N <- getPopSql(cells=cells, 
