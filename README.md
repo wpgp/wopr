@@ -15,7 +15,7 @@ University of Southampton
 3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
 4. Get probabilistic estimates of uncertainty for all population estimates.
 
-Code for the _wopr_ package is openly available on GitHub: https://github.com/wpgp/wopr
+Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>
 
 ## Installation
 
@@ -89,7 +89,7 @@ To submit a spatial query, you must first identify which WOPR databases support 
 getCatalogue(spatialQuery=T)
 ```
 
-This will return a `data.table`:
+This will return a `data.frame`:
 
 <div style="width:200px">
 

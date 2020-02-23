@@ -3,14 +3,6 @@ inputs <-
   column(
     width=2,
     style=paste0('height: calc(98vh - 80px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
-    tags$head( 
-      tags$style(HTML("hr {border-top: 1px solid #a6a6a6;}")),
-      tags$head(tags$style(HTML(".navbar-nav {float:none !important;}
-                                .navbar-nav > li:nth-child(3){float:right}
-                                .navbar-nav > li:nth-child(4){float:right}
-                                .navbar-nav > li:nth-child(5){float:right}
-                                .navbar-nav > li:nth-child(6){float:right}")))
-    ),
 
     fluidRow(
       
@@ -82,54 +74,72 @@ inputs <-
   )
 
 # main panel
-navbarPage(footer='wopr v0.2 (R package), WorldPop, University of Southampton',
-           title='woprVision', 
-           
-           # tab: map
-           tabPanel('Map',
-                    fluidRow(
-                      
-                      # inputs panel (left)
-                      inputs,
-                      
-                      # map panel (center)
-                      column(width = 7,
-                             tags$style(type="text/css","#map {height: calc(98vh - 80px) !important;}"),
-                             leaflet::leafletOutput('map')),
-                      
-                      # results panel (right)
-                      column(width = 3,
-                             style='overflow-y:scroll; height: calc(98vh - 80px)',
-                             plotOutput('sidePlot', height='600px', width='100%')))
-           ),
-           
-           # tab: saved estimates
-           tabPanel('Saved', 
-                    style='overflow-y:scroll; max-height:calc(98vh - 80px)',
-                    br(),
-                    downloadButton('download_table', 'Download'),
-                    actionButton('clear_button', 'Clear'),
-                    br(),
-                    tableOutput('results_table')
-           ),
-           
-           # tab: API readme
-           tabPanel('API',
-                    tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                 src='API_Overview.pdf')),
-           
-           # tab: wopr R package readme
-           tabPanel('R package',
-                    style='overflow-y:scroll; height: calc(98vh - 80px)',
-                    includeMarkdown('www/wopr_README.md')),
-           
-           # tab: wopr
-           tabPanel('WOPR',
-                    tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                src='https://wopr.worldpop.org')),
-           
-           # tab: data readme
-           tabPanel('Data Readme',
-                    style='height: calc(98vh - 80px)',
-                    htmlOutput('data_readme'))
+ui <- tagList(
+  
+  tags$style(HTML(".navbar-nav {float:none !important;}
+                  .navbar-nav > li:nth-child(3){float:right}
+                  .navbar-nav > li:nth-child(4){float:right}
+                  .navbar-nav > li:nth-child(5){float:right}
+                  .navbar-nav > li:nth-child(6){float:right}
+                  .navbar-nav > li:nth-child(7){float:right}")),
+  
+  tags$style(HTML(".leaflet-container {background:#2B2D2F")),
+  
+  navbarPage(title='woprVision', 
+             footer='wopr v0.2 (R package), WorldPop, University of Southampton',
+
+             # tab: map
+             tabPanel('Map',
+                      fluidRow(
+                        
+                        # inputs panel (left)
+                        inputs,
+                        
+                        # map panel (center)
+                        column(width = 7,
+                               tags$style(type="text/css","#map {height: calc(98vh - 80px) !important;}"),
+                               leaflet::leafletOutput('map')),
+                        
+                        # results panel (right)
+                        column(width = 3,
+                               style='overflow-y:scroll; height: calc(98vh - 80px)',
+                               plotOutput('sidePlot', height='600px', width='100%')))
+             ),
+             
+             # tab: saved estimates
+             tabPanel('Saved', 
+                      style='overflow-y:scroll; max-height:calc(98vh - 80px)',
+                      br(),
+                      downloadButton('download_table', 'Download'),
+                      actionButton('clear_button', 'Clear'),
+                      br(),
+                      tableOutput('results_table')
+             ),
+             
+             # tab: WorldPop
+             tabPanel(a(href='https://www.worldpop.org', target='_blank', 
+                        style='padding:0px',
+                            img(src='logoWorldPop.png', 
+                                style='height:30px; margin-top:-30px; margin-left:10px'))),
+
+             # tab: API readme
+             tabPanel('REST API',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                  src='API_Overview.pdf')),
+             
+             # tab: wopr R package readme
+             tabPanel('R package',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                  src='wopr_README.html')),
+             
+             # tab: wopr
+             tabPanel('WOPR',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                  src='https://wopr.worldpop.org')),
+             
+             # tab: data readme
+             tabPanel('Data Readme',
+                      style='height: calc(98vh - 80px)',
+                      htmlOutput('data_readme'))
+  )
 )

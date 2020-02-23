@@ -8,20 +8,20 @@ map <- function(country, version, localTiles=F) {
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
     # base maps
-    addProviderTiles(provider='Esri.WorldImagery', group='Satellite') %>% 
+    addProviderTiles(provider='Esri.WorldImagery', group='Satellite Image') %>% 
     # addProviderTiles(provider='Esri.NatGeoWorldMap', group='Map') %>%
     # addProviderTiles(provider='CartoDB.DarkMatter', group='Dark') %>% # 'Esri.WorldGrayCanvas'
     
     # DarkMatter tiles
     addTiles(urlTemplate='https://api.maptiler.com/maps/darkmatter/{z}/{x}/{y}.png?key=gVR5ppSzDLVxvDV30OUT',
              attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
-             group='Dark',
+             group='Dark Basemap',
              tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=1)) %>%
     
     # OSM tiles
     addTiles(urlTemplate='https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=gVR5ppSzDLVxvDV30OUT',
              attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
-             group='Map',
+             group='Open Street Map',
              tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=1)) %>%
     
     # population tiles
@@ -30,12 +30,12 @@ map <- function(country, version, localTiles=F) {
                                 file.path('https://tiles.worldpop.org/wopr',country,'population',version,'population/{z}/{x}/{y}.png')), 
              group='Population',
              layerId='tiles_population',
-             options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.6),
+             options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.75),
              attribution='<a href="http://www.worldpop.org">WorldPop, University of Southampton</a>'
              ) %>%
     
     # layers control
-    addLayersControl(baseGroups=c('Dark','Map','Satellite'), 
+    addLayersControl(baseGroups=c('Dark Basemap','Open Street Map','Satellite Image'), 
                      overlayGroups=c('Population','Custom Area'),  
                      options=layersControlOptions(collapsed=FALSE, autoZIndex=T)) %>%
     

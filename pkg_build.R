@@ -15,7 +15,7 @@ devtools::document()
 ##-- woprVision documentation --##
 
 # wopr_README
-file.copy('README.md','inst/woprVision/www/wopr_README.md', overwrite=T)
+file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
 
 # # render README to woprVision (title doesn't render properly)
 # rmarkdown::render(input='README.md',
