@@ -22,11 +22,11 @@ Code for the _wopr_ package is openly available on GitHub: <a href='https://gith
 First, start a new R session. Then, install the _wopr_ R package from WorldPop on GitHub:
 
 ```r
-devtools::install_github('wpgp/wopr', upgrade='never')
+devtools::install_github('wpgp/wopr')
 library(wopr)
 ```
 
-_wopr_ installation failure could happen if some of your R packages packages are out of date. You can update individual packages responsible for the error using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can update all of your R packages by clicking "Tools > Check for Package Updates". 
+You may be prompted to update some of your existing R packages. This is not required unless _wopr_ installation failes. You can avoid checking for package updates by adding the argument `upgrade='never'`. If needed, you can update individual packages responsible for any _wopr_ installation errors using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can update all of your R packages by clicking "Tools > Check for Package Updates". 
 
 Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not loaded in your R environment.
 
