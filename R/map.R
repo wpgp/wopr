@@ -30,7 +30,7 @@ map <- function(country, version, localTiles=F) {
                                 file.path('https://tiles.worldpop.org/wopr',country,'population',version,'population/{z}/{x}/{y}.png')), 
              group='Population',
              layerId='tiles_population',
-             options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.75),
+             options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
              attribution='<a href="http://www.worldpop.org">WorldPop, University of Southampton</a>'
              ) %>%
     

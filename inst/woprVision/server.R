@@ -159,7 +159,7 @@ shinyServer(
       }
       row.names(rv$table) <- 1:nrow(rv$table)
 
-      showNotification('Population estimate added to the "Saved Estimates" tab.', type='message')
+      showNotification('Population estimate added to the "Saved" tab.', type='message')
     })
 
     # download button
