@@ -20,7 +20,7 @@ woprize(
     "f20", "f25", "f30", "f35", "f40", "f45", "f50", "f55", "f60", "f65", "f70", "f75",
     "f80"),
   key = "key.txt",
-  saveMessages = F,
+  save_messages = F,
   url = NA
 )
 }
@@ -47,7 +47,7 @@ woprize(
 
 \item{key}{API key}
 
-\item{saveMessages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
+\item{save_messages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
 
 \item{url}{Server url (optional)}
 

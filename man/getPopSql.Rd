@@ -7,7 +7,7 @@
 getPopSql(
   cells,
   db,
-  agesex_table,
+  agesex_table = NA,
   get_agesexid = F,
   verbose = T,
   max_area = 1000,

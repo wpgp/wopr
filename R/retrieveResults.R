@@ -130,12 +130,14 @@ retrieveResults <- function(tasks, url,
           }
           
           # area too big
-          if('The requested area was too large' %in% strsplit(result$error_message,'. ',fixed=T)[[1]]){
-            output[feature_id,'message'] <- results[[j]]$error_message
-            tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
-            results[[j]]$data$total <- NA
-            all_abort <- T
-            break
+          if(!is.null(results[[j]]$error_message)){
+            if('The requested area was too large' %in% strsplit(as.character(results[[j]]$error_message),'. ',fixed=T)[[1]]){
+              output[feature_id,'message'] <- results[[j]]$error_message
+              tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
+              results[[j]]$data$total <- NA
+              all_abort <- T
+              break
+            }
           }
         }
         

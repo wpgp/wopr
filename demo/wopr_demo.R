@@ -49,18 +49,18 @@ plot(wopr_points, pch=16)
 plot(wopr_polys)
 
 # see available databases for spatial queries
-getCatalogue(spatialQuery=T)
+getCatalogue(spatial_query=T)
 
 # select database
 country <- 'NGA'
-ver <- 'v1.2'
+version <- 'v1.2'
 
 ##---- population total for a single point ----##
 
 # get population total
 N <- getPop(feature=wopr_points[6,], 
             country=country, 
-            ver=ver,
+            version=version,
             key=key)
 
 # summarize estimated population total (Bayesian posterior prediction)
@@ -72,8 +72,8 @@ hist(N)
 # get population total
 N <- getPop(feature=wopr_points[6,], 
             country=country, 
-            ver=ver,
-            agesex=c('f0','f1','m0','m1'),
+            version=version,
+            agesex_select=c('f0','f1','m0','m1'),
             key=key)
 
 # summarize population total
@@ -85,7 +85,7 @@ hist(N)
 # get population total
 N <- getPop(feature=wopr_polys[1,], 
             country=country, 
-            ver=ver,
+            version=version,
             key=key)
 
 # summarize population total
@@ -97,8 +97,8 @@ hist(N)
 # get population total from WOPR
 N <- getPop(feature=wopr_polys[1,], 
             country=country, 
-            ver=ver,
-            agesex=c('f0','f1','m0','m1'),
+            version=version,
+            agesex_select=c('f0','f1','m0','m1'),
             key=key)
 
 # summarize population total
@@ -112,14 +112,14 @@ hist(N)
 # get population totals
 totals <- woprize(features=wopr_polys, 
                   country=country, 
-                  ver=ver,
-                  #agesex=c('m0','m1','f0','f1'),
+                  version=version,
+                  #agesex_select=c('m0','m1','f0','f1'),
                   confidence=0.95,
                   tails=2,
                   belowthresh=1e5,
                   abovethresh=2e5,
                   key=key,
-                  saveMessages=T
+                  save_messages=T
                   )
 sf::st_drop_geometry(totals)
 
@@ -147,7 +147,7 @@ feature <- geojsonsf::geojson_sf(geojson)
 # submit query
 N <- getPop(feature=feature,
             country=country,
-            ver=ver)
+            version=version)
 
 summaryPop(N)
 hist(N)
@@ -156,40 +156,41 @@ hist(N)
 ##---- SPATIAL QUERIES FROM LOCAL SQL ----##
 
 # check availability of SQL database
-getCatalogue(spatialQuery=T)
+getCatalogue(spatial_query=T)
 
 # select database
 country <- 'NGA'
-ver <- 'v1.2'
+version <- 'v1.2'
 
 # catalogue for sql and mastergrid
 sql_catalogue <- subset(getCatalogue(), 
                         country==country &
                           category=='Population' &
-                          version==ver &
+                          version==version &
                           filetype %in% c('sql','mastergrid'))
 
-# download SQL database and mastergrid
+# download SQL database and mastergrid (the SQL database is a very large file. Reset maxsize to accomodate.)
 downloadData(sql_catalogue, maxsize=100)
 
 # define paths
-path <- file.path('wopr',country,'population',ver,
-                  paste0(country,'_population_',gsub('.','_',as.character(ver), fixed=T),'_'))
+path <- file.path('wopr',country,'population',version,
+                  paste0(country,'_population_',gsub('.','_',as.character(version), fixed=T),'_'))
 
 sql_path <- paste0(path,'sql.sql')
 mastergrid_path <- paste0(path,'mastergrid.tif')
 
 # connect to SQL database
-wopr_sql <- dbConnect(RSQLite::SQLite(), sql_path)
+wopr_sql <- RSQLite::dbConnect(RSQLite::SQLite(), sql_path)
 
 # load mastergrid
-mastergrid <- raster(mastergrid_path)
+mastergrid <- raster::raster(mastergrid_path)
 
 # get cellids for a polygon
-cells <- cellids(feature, mastergrid)
+cells <- cellids(wopr_polys[1,], mastergrid)
 
 # query SQL database
-N <- getPopSql(cells[1:100], wopr_sql)
+N <- getPopSql(cells=cells, 
+               db=wopr_sql)
 
 # summarize results
 summaryPop(N)

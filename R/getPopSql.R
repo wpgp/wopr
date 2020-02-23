@@ -11,7 +11,7 @@
 #' @return Estimated population total summed across all cell ids. Result is returned as a numeric vector containing samples from the predicted posterior distribution.
 #' @export
 
-getPopSql <- function(cells, db, agesex_table, get_agesexid=F, verbose=T, max_area=1e3, timeout=60,
+getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max_area=1e3, timeout=60,
                       agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))){
   
   t0 <- Sys.time()
@@ -61,9 +61,13 @@ getPopSql <- function(cells, db, agesex_table, get_agesexid=F, verbose=T, max_ar
         
         # agesex adjustment
         if(length(agesex_select) < 36){
-          pop_block <- pop_block * apply(agesex_table[dbRes$agesexid, agesex_select], 1, sum)
+          if(is.na(agesex_table)){
+            warning('No agesex_table provided. Returning total population (all age-sex groups).')
+          } else {
+            pop_block <- pop_block * apply(agesex_table[dbRes$agesexid, agesex_select], 1, sum)
+          }
         }
-        
+
         # bind with previous blocks
         if(class(pop)=='matrix') {
           pop <- cbind(pop, pop_block)
