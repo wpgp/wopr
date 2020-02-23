@@ -1,11 +1,11 @@
 #' Download data from WOPR
 #' @param dat Data sets to download provided as a data.frame with at least one row from the wOPR data catalogue (see ?getCatalogue)
-#' @param outdir Directory where downloads should be saved
+#' @param wopr_dir Directory where downloads should be saved
 #' @param maxsize Maximum file size (MB) allowed to download without notification
 #' @return Files are downloaded directly to local disk
 #' @export
 
-downloadData <- function(dat, outdir='wopr', maxsize=100){
+downloadData <- function(dat, wopr_dir='wopr', maxsize=100){
   if(nrow(dat)==0 | !class(dat)=='data.frame'){
     stop('"dat" must be a data.frame with at least one row from the WOPR data catalogue. See ?wopr::getCatalogue for help getting the WOPR catalogue.')
   }
@@ -14,12 +14,12 @@ downloadData <- function(dat, outdir='wopr', maxsize=100){
   
   tryCatch({
     for(i in 1:nrow(dat)){
-      dir.create(outdir, showWarnings=F)
-      dir.create(file.path(outdir,dat[i,'country']), showWarnings=F)
-      dir.create(file.path(outdir,dat[i,'country'], dat[i,'category']), showWarnings=F)
-      dir.create(file.path(outdir,dat[i,'country'], dat[i,'category'], dat[i,'version']), showWarnings=F)
+      dir.create(wopr_dir, showWarnings=F)
+      dir.create(file.path(wopr_dir,dat[i,'country']), showWarnings=F)
+      dir.create(file.path(wopr_dir,dat[i,'country'], dat[i,'category']), showWarnings=F)
+      dir.create(file.path(wopr_dir,dat[i,'country'], dat[i,'category'], dat[i,'version']), showWarnings=F)
       
-      filepath <- file.path(outdir, dat[i,'country'], dat[i,'category'], dat[i,'version'], dat[i,'file'])
+      filepath <- file.path(wopr_dir, dat[i,'country'], dat[i,'category'], dat[i,'version'], dat[i,'file'])
       
       filematch <- dat[i,'hash']==tools::md5sum(filepath)
       
@@ -45,7 +45,7 @@ downloadData <- function(dat, outdir='wopr', maxsize=100){
         }
       }
     }
-    writeCatalogue(outdir)
+    writeCatalogue(wopr_dir)
     
   }, warning=function(w) print(w), 
   error=function(e) print(paste('WOPR download ran into an error:',e)))

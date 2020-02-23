@@ -26,6 +26,9 @@ file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
 # copy API_Overview to woprVision
 file.copy('doc/API_Overview.pdf','inst/woprVision/www/API_Overview.pdf', overwrite=T)
 
+# wopr catalogue for offline woprVision
+write.csv(getCatalogue(), file='inst/woprVision/wopr_catalogue.csv', row.names=F)
+
 ##-- install package --##
 
 # install from source

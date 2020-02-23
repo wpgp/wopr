@@ -29,7 +29,7 @@ inputs <-
       strong('Age-sex Groups'),
       
       # female
-      splitLayout(cellWidths=c('30%','70%'),
+      splitLayout(cellWidths=c('35%','65%'),
                   checkboxInput(inputId="female", label="Female", value=T),
                   shinyWidgets::sliderTextInput(inputId="female_select", 
                                                 label=NULL, 
@@ -38,7 +38,7 @@ inputs <-
                                                 force_edges=T)),
       
       # male
-      splitLayout(cellWidths=c('30%','70%'),
+      splitLayout(cellWidths=c('35%','65%'),
                   checkboxInput(inputId="male", label="Male", value=T),
                   shinyWidgets::sliderTextInput(inputId="male_select", 
                                                 label=NULL, 

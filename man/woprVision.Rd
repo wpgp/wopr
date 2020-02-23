@@ -4,7 +4,14 @@
 \alias{woprVision}
 \title{Run the woprVision application}
 \usage{
-woprVision(key = "key.txt", woprDir = "wopr")
+woprVision(key = "key.txt", wopr_dir = "wopr", local_mode = F)
+}
+\arguments{
+\item{key}{(optional) API access key (character) or a path to a text file that contains the key in quotations (e.g. "iqRvecPORXiFQbsMesKUOPhSmaTegpoT")}
+
+\item{wopr_dir}{Path to WOPR files stored locally.}
+
+\item{local_mode}{Logical indicating to run woprVision in local mode when internet access is not available.}
 }
 \value{
 A shiny application will be executed.

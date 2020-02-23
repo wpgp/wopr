@@ -15,7 +15,7 @@ key <- 'key.txt'
 
 ##---- woprVision ----##
 
-# (optional) install Dr Harpers fix to leaflet.extras::drawToolbar
+# (optional) install Dr Harpers fix to leaflet.extras::removeDrawToolbar
 devtools::install_github("dr-harper/leaflet.extras")
 
 # woprVision
@@ -173,8 +173,8 @@ sql_catalogue <- subset(getCatalogue(),
 downloadData(sql_catalogue, maxsize=100)
 
 # define paths
-woprDir <- 'wopr'
-path <- file.path(woprDir,country,'population',version,
+wopr_dir <- 'wopr'
+path <- file.path(wopr_dir,country,'population',version,
                   paste0(country,'_population_',gsub('.','_',as.character(version), fixed=T),'_'))
 
 sql_path <- paste0(path,'sql.sql')

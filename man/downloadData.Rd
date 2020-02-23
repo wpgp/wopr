@@ -4,12 +4,12 @@
 \alias{downloadData}
 \title{Download data from WOPR}
 \usage{
-downloadData(dat, outdir = "wopr", maxsize = 100)
+downloadData(dat, wopr_dir = "wopr", maxsize = 100)
 }
 \arguments{
 \item{dat}{Data sets to download provided as a data.frame with at least one row from the wOPR data catalogue (see ?getCatalogue)}
 
-\item{outdir}{Directory where downloads should be saved}
+\item{wopr_dir}{Directory where downloads should be saved}
 
 \item{maxsize}{Maximum file size (MB) allowed to download without notification}
 }

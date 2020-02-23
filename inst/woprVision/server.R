@@ -27,7 +27,7 @@ shinyServer(
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
-      rv$path <- file.path(woprDir,rv$country,'population',rv$version)
+      rv$path <- file.path(wopr_dir,rv$country,'population',rv$version)
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       basename(subset(catalogue_full,{
                                         country==rv$country & 
@@ -192,15 +192,14 @@ shinyServer(
                    })
     
     # WOPR url
-    output$wopr_web <- renderText({
+    output$wopr_web <- renderText(
       return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
-      
-    })
-    
+    )
+
     # data readme
-    output$data_readme <- renderText({
-      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, ', frameBorder="0""></iframe>', sep = ""))
-    })
+    output$data_readme <- renderText(
+        return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+    )
 })
 
 
