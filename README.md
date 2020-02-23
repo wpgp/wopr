@@ -26,6 +26,8 @@ devtools::install_github('wpgp/wopr')
 library(wopr)
 ```
 
+When installing the package from GitHub, you may get a message asking you to update a list of your R packages. This is optional unless the _wopr_ installation fails with your current R packages. In the case of a _wopr_ installation failure, you can update individual packages responsible for the error using `install.packages('package_name')`. If you choose to update all of your packages, you should restart R first or you may get a message saying that your current package could not be replaced. In R Studio, you can also update your packages by clicking "Tools > Check for Package Updates".
+
 ## Usage
 
 Demo code is provided in `demo/wopr_demo.R`.
