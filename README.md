@@ -26,25 +26,33 @@ devtools::install_github('wpgp/wopr')
 library(wopr)
 ```
 
-You may be prompted to update some of your existing R packages. This is not required unless _wopr_ installation failes. You can avoid checking for package updates by adding the argument `upgrade='never'`. If needed, you can update individual packages responsible for any _wopr_ installation errors using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can update all of your R packages by clicking "Tools > Check for Package Updates". 
+You may be prompted to update some of your existing R packages. This is not required unless the _wopr_ installation failes. You can avoid checking for package updates by adding the argument `upgrade='never'`. If needed, you can update individual packages that may be responsible for any _wopr_ installation errors using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can also update all of your R packages by clicking "Tools > Check for Package Updates". 
 
 Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not loaded in your R environment.
 
 ## Usage
 
-Demo code is provided in `demo/wopr_demo.R`.
+Demo code is provided in `demo/wopr_demo.R` that follows the examples in this README.
 
-See vignettes available with: `vignette(package='wopr')`
+You can list vignettes that are available using: `vignette(package='wopr')`
 
-If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette describing the API backend for developers: `vignette('wopr_api', package='wopr')`
+If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: `vignette('wopr_api', package='wopr')`
 
 ### woprVision
 
-woprVision is a R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To access woprVision, use:
+woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To access woprVision, use:
 
 ```r
 woprVision()
 ```
+
+We suggest installing Michael Harper's fix to the leaflet.extras draw toolbar:
+
+```r
+devtools::install_github("dr-harper/leaflet.extras")
+```
+
+This is not required, but it fixes a bug that prevents the draw toolbar from being removed from the map when it is inactive.
 
 ### Data Download
 
@@ -68,7 +76,7 @@ Note: `'NGA'` refers to Nigeria. WOPR uses <a href="https://en.wikipedia.org/wik
 
 By default, `downloadData()` will not download files larger than 100 MB unless you change the `maxsize` argument (see `?downloadData`). Using the default settings, a folder named `./wopr` will be created in your R working directory for downloaded files. A spreadsheet listing all WOPR files currently saved to your hard drive can be found in `./wopr/wopr_catalogue.csv`. To list the files that have been downloaded to your working directory from within the R console, use `list.files('wopr', recursive=T)`. In multiple calls to downloadData(), files that you have previously downloaded will be overwritten if your local files do not match the server files (based on an md5sums check). This allows you to keep up-to-date local copies of every file.
 
-You can download the entire WOPR data catalogue using: `downloadData(getCatalogue(), maxsize=Inf)`. Note: Some files in the WOPR data catalogue are very large (e.g. 140 GB), so please ensure that you have enough disk space. If disk space is limited, you can restrict the maximum file size that you woud like to download using the `maxsize` argument.
+You can download the entire WOPR data catalogue using: `downloadData(getCatalogue(), maxsize=Inf)`. Note: Some files in the WOPR data catalogue are very large (e.g. 140 GB), so please ensure that you have enough disk space. If disk space is limited, you can restrict the maximum file size that you woud like to download using the `maxsize` argument (default = 100 MB).
 
 ### Spatial Query
 
@@ -114,7 +122,7 @@ To get the total population for a single point location from the NGA v1.2 popula
 ```r
 N <- getPop(feature=wopr_points[1,], 
             country='NGA', 
-            version='1.2')
+            version='v1.2')
 ```
 
 Notice that the population estimate is returned as a vector of samples from the Bayesian posterior distribution:
@@ -141,22 +149,22 @@ To query WOPR using a single polygon works exactly the same as a point-based que
 ```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            version='1.2')
+            version='v1.2')
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=1e2, belowthresh=50)
 ```
 
 #### Query population for specific demographic groups
 
-To query population estimates for specific demographic groups, you can use the `agesex` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` represents females from five to nine; `'f10'` represents females from 10 to 14; and so on. `'m0'` represents males less than one, etc.
+To query population estimates for specific demographic groups, you can use the `agesex_select` argument (see `?getPop`). This argument accepts a character vector of age-sex groups. `'f0'` represents females less than one year old; `'f1'` represents females from age one to four; `'f5'` represents females from five to nine; `'f10'` represents females from 10 to 14; and so on. `'m0'` represents males less than one, etc.
 
 Query the population of children under the age of five within a single polygon:
 
 ```r
 N <- getPop(feature=wopr_polygons[1,], 
             country='NGA', 
-            version='1.2',
-            agesex=c('f0','f1','m0','m1'))
+            version='v1.2',
+            agesex_select=c('f0','f1','m0','m1'))
 
 summaryPop(N, confidence=0.95, tails=2, abovethresh=10, belowthresh=1)
 ```
@@ -171,7 +179,7 @@ We can query multiple point or polygon features using the `woprize()` function:
 N_table <- woprize(features=wopr_polys, 
                    country='NGA', 
                    version='1.2',
-                   agesex=c('m0','m1','f0','f1'),
+                   agesex_select=c('m0','m1','f0','f1'),
                    confidence=0.95,
                    tails=2,
                    abovethresh=2e4,
@@ -194,26 +202,13 @@ tmap::tm_shape(N_table) + tmap::tm_fill('mean', palette='Reds', legend.reverse=T
 dev.off()
 ```
 
-### Functions
-
-List names of all functions included with _wopr_:
-```r
-ls('package:wopr')
-```
-
-Get help for any function using:
-```r
-?functionName
-```
-
-
 ## Contributing
 
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Dr. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Data have been contributed to WOPR by Doug Leasure, Gianluca Boo, Edith Darin, and Claire Dooley from the WorldPop Research Group. Michael Harper at the Flowminder Foundation provided input on a prototype of the shiny application. 
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Population data have been contributed to WOPR by Doug Leasure, Gianluca Boo, Edith Darin, and Claire Dooley from the WorldPop Research Group. Michael Harper at the Flowminder Foundation contributed to the shiny application.
 
 ## License
 
-#### [GNU General Public License v3.0 (GNU GPLv3)](COPYING)  
+#### <a href='COPYING' target='_blank'>GNU General Public License v3.0 (GNU GPLv3)]</a>  
   
   
   

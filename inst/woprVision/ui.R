@@ -87,6 +87,7 @@ ui <- tagList(
   
   navbarPage(title='woprVision', 
              footer='wopr v0.2 (R package), WorldPop, University of Southampton',
+             inverse=F,
 
              # tab: map
              tabPanel('Map',
@@ -130,6 +131,7 @@ ui <- tagList(
              # tab: wopr R package readme
              tabPanel('R package',
                       tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                  frameBorder='0',
                                   src='wopr_README.html')),
              
              # tab: wopr
