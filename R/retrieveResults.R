@@ -17,6 +17,7 @@ retrieveResults <- function(tasks, url,
                             abovethresh=NA, belowthresh=NA, 
                             summarize=T, timeout=30*60, verbose=T, save_messages=F){
   t0 <- Sys.time()
+  timed_out <- F
   
   if(verbose) {
     cat(paste('Checking status of',nrow(tasks),'tasks until complete or',timeout/60,'minutes elapse:\n'))
@@ -52,7 +53,7 @@ retrieveResults <- function(tasks, url,
   
   progress_indicator <- old_progress_indicator <- myprogress(tasks_remaining, print_progress=F)
   
-  while(tasks_remaining > 0){
+  while(tasks_remaining > 0 & !timed_out){
     
     for(i in which(tasks[,'status'] %in% c('created','started'))){
       
@@ -200,13 +201,11 @@ retrieveResults <- function(tasks, url,
       
       # timeout
       if(difftime(Sys.time(), t0, units='secs')  > timeout){
-        message( paste0('Task timed out after ',timeout,' seconds.') )
-        message( 'Use checkTask(taskid) to retrieve results.' )
-        timeout <- T
+        warning(paste0('Task timed out after ',timeout,' seconds. Use checkTask(taskid) to retrieve results.'), call.=F)
+        timed_out <- T
         break
       }
     }
-    if(timeout==T) break
     if(tasks_remaining > 0) Sys.sleep(1/tasks_remaining)
   }
   

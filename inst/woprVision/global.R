@@ -29,7 +29,7 @@ row.names(catalogue) <- with(catalogue, paste(country, version))
 
 # check for local files
 checkLocal <- function(dir, info){
-  info$localSql <- info$localTiles <- FALSE
+  info$local_sql <- info$local_tiles <- FALSE
   if(dir.exists(dir)){
     for(i in 1:nrow(info)){
       path <- file.path(dir,info$country[i],'population',info$version[i])
@@ -38,9 +38,9 @@ checkLocal <- function(dir, info){
       mastergrid_path <- paste0(file.path(path,prefix),'mastergrid.tif')
       tile_path <- paste0(file.path(path, prefix), 'tiles')
       if(file.exists(sql_path) & file.exists(mastergrid_path)) {
-        info[i,'localSql'] <- TRUE}
+        info[i,'local_sql'] <- TRUE}
       if(dir.exists(tile_path)){
-        info[i,'localTiles'] <- TRUE}
+        info[i,'local_tiles'] <- TRUE}
     }
   }
   return(info)
@@ -48,10 +48,10 @@ checkLocal <- function(dir, info){
 
 version_info <- checkLocal(wopr_dir, version_info)
 
-if(local_mode & sum(version_info$localSql)==0){
+if(local_mode & sum(version_info$local_sql)==0){
   stop('No local SQL databases available in "',wopr_dir,'" to run woprVision in local mode. See ?wopr::downloadData or https://wopr.worldpop.org', call.=F)
 } else if(local_mode){
-  catalogue <- catalogue[row.names(version_info)[version_info$localSql],]
+  catalogue <- catalogue[row.names(version_info)[version_info$local_sql],]
 }
 
 # choose initial data set

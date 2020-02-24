@@ -1,9 +1,12 @@
 #' woprVision: Leaflet map
 #' @description Leaflet map for woprVision.
+#' @param country ISO3 code for country to map
+#' @param version Version of data set to map
+#' @param local_tiles Logical indicating to use locally-stored tiles to display the population raster
 #' @return A Leaflet map.
 #' @export
 
-map <- function(country, version, localTiles=F) {
+map <- function(country, version, local_tiles=F) {
   
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
@@ -25,7 +28,7 @@ map <- function(country, version, localTiles=F) {
              tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=1)) %>%
     
     # population tiles
-    addTiles(urlTemplate=ifelse(localTiles,
+    addTiles(urlTemplate=ifelse(local_tiles,
                                 'tiles/{z}/{x}/{y}.png',
                                 file.path('https://tiles.worldpop.org/wopr',country,'population',version,'population/{z}/{x}/{y}.png')), 
              group='Population',

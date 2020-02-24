@@ -4,7 +4,14 @@
 \alias{map}
 \title{woprVision: Leaflet map}
 \usage{
-map(country, version, localTiles = F)
+map(country, version, local_tiles = F)
+}
+\arguments{
+\item{country}{ISO3 code for country to map}
+
+\item{version}{Version of data set to map}
+
+\item{local_tiles}{Logical indicating to use locally-stored tiles to display the population raster}
 }
 \value{
 A Leaflet map.

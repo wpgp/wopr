@@ -1,5 +1,6 @@
 #' WOPR data catalogue
 #' @description Get a complete listing of data in the WOPR data catalogue.
+#' @param spatial_query Logical. If TRUE will return the data sets that support a spatial query (i.e. contain an SQL database). If FALSE will return the entire data catalogue.
 #' @return A data frame with a row for each item in the data catalogue.
 #' @export
 

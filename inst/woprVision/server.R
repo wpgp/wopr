@@ -12,7 +12,7 @@ shinyServer(
         DBI::dbDisconnect(rv$sql)
       }
       
-      # remove localTiles
+      # remove local_tiles
       if('tiles' %in% resourcePaths()) removeResourcePath('tiles')
 
       # cleanup environment
@@ -38,7 +38,7 @@ shinyServer(
       rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
 
       # local SQL mode
-      if(version_info[input$data_select,'localSql']){
+      if(version_info[input$data_select,'local_sql']){
         
         message(paste0('Using local SQL database for ',input$data_select,'.'))
         
@@ -53,7 +53,7 @@ shinyServer(
       }
       
       # local tiles
-      if(version_info[input$data_select, 'localTiles']){
+      if(version_info[input$data_select, 'local_tiles']){
         
         message(paste0('Using local image tiles for ',input$data_select,'.'))
         
@@ -68,7 +68,7 @@ shinyServer(
     # map
     output$map <- leaflet::renderLeaflet( map(country=rv$country, 
                                               version=rv$version,
-                                              localTiles=version_info[input$data_select, 'localTiles']) )
+                                              local_tiles=version_info[input$data_select, 'local_tiles']) )
 
     # update map: marker with mouse clicks
     observeEvent(input$map_click, {
@@ -106,7 +106,7 @@ shinyServer(
       if(class(rv$feature)[1]=='sf'){
         
         withProgress({
-          if(version_info[input$data_select,'localSql']){
+          if(version_info[input$data_select,'local_sql']){
             try({
               i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
                              db=rv$sql,

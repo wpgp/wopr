@@ -21,7 +21,7 @@ submitTasks <- function(features, country, agesex_select, url, version=NA, key=N
   
   # get latest version
   if(is.na(version)){
-    catalogue <- getCatalogue(spatialQuery=T)
+    catalogue <- getCatalogue(spatial_query=T)
     version <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
   }
   

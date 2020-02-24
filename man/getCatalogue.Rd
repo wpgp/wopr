@@ -6,6 +6,9 @@
 \usage{
 getCatalogue(spatial_query = F)
 }
+\arguments{
+\item{spatial_query}{Logical. If TRUE will return the data sets that support a spatial query (i.e. contain an SQL database). If FALSE will return the entire data catalogue.}
+}
 \value{
 A data frame with a row for each item in the data catalogue.
 }

@@ -12,7 +12,6 @@ woprize(
   tails = 2,
   abovethresh = NA,
   belowthresh = NA,
-  spatialjoin = T,
   summarize = T,
   timeout = 30 * 60,
   agesex = c("m0", "m1", "m5", "m10", "m15", "m20", "m25", "m30", "m35", "m40", "m45",
@@ -50,8 +49,6 @@ woprize(
 \item{save_messages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
 
 \item{url}{Server url (optional)}
-
-\item{spatialJoin}{Logical indicating to join results to sf spatial data or to return a data frame}
 }
 \value{
 A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
