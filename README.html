@@ -244,7 +244,10 @@ downloadData(selection)</code></pre>
 <h3>Spatial Query</h3>
 <p>Population estimates can also be obtained from WOPR using spatial queries (geographic points or polygons) for user-defined geographic area(s) and demographic group(s).</p>
 <p>Spatial queries must be submitted using objects of class <code>sf</code>. You can explore this functionality using example data from Nigeria that are included with the <code>wopr</code> package. Plot the example data using:</p>
-<pre class="r"><code>plot(wopr_points, pch=16)
+<pre class="r"><code>data(wopr_points)
+plot(wopr_points, pch=16)
+
+data(wopr_polys)
 plot(wopr_polys)</code></pre>
 <p>Note: ESRI shapefiles (and other file types) can be read into R as <code>sf</code> objects using:</p>
 <pre class="r"><code>sf_feature &lt;- sf::st_read('shapefile.shp')</code></pre>

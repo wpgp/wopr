@@ -85,7 +85,10 @@ Population estimates can also be obtained from WOPR using spatial queries (geogr
 Spatial queries must be submitted using objects of class `sf`. You can explore this functionality using example data from Nigeria that are included with the `wopr` package. Plot the example data using:
 
 ```r
+data(wopr_points)
 plot(wopr_points, pch=16)
+
+data(wopr_polys)
 plot(wopr_polys)
 ```
 

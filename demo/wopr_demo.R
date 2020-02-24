@@ -45,7 +45,10 @@ downloadData(catalogue)
 ##---- SPATIAL QUERIES ----##
 
 # WOPR example data
+data(wopr_points)
 plot(wopr_points, pch=16)
+
+data(wopr_polys)
 plot(wopr_polys)
 
 # see available databases for spatial queries

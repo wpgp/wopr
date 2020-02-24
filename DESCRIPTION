@@ -26,5 +26,5 @@ Suggests:
   knitr, 
   rmarkdown
 VignetteBuilder: knitr
-LazyData: true
+LazyData: false
 RoxygenNote: 7.0.2

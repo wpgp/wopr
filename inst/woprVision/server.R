@@ -153,16 +153,20 @@ shinyServer(
 
     # save button
     observeEvent(input$save_button, {
-      ct <- resultTable(input, rv)
-
-      if(!'table' %in% names(rv)){
-        rv$table <- ct
+      if(!is.null(rv$table)){
+        ct <- resultTable(input, rv)
+        
+        if(!'table' %in% names(rv)){
+          rv$table <- ct
+        } else {
+          rv$table <- rbind(rv$table, ct)
+        }
+        row.names(rv$table) <- 1:nrow(rv$table)
+        
+        showNotification('Population estimate added to the "Saved" tab.', type='message')
       } else {
-        rv$table <- rbind(rv$table, ct)
+        showNotification('Need to submit a population query before results can be saved.', type='message')
       }
-      row.names(rv$table) <- 1:nrow(rv$table)
-
-      showNotification('Population estimate added to the "Saved" tab.', type='message')
     })
 
     # download button
