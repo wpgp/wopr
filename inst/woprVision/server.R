@@ -24,6 +24,9 @@ shinyServer(
         rv$path <- NULL
       gc()
       
+      # reset pointpoly
+      updateRadioButtons(session=session, inputId='pointpoly', selected='Selected Point')
+      
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
