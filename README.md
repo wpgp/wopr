@@ -208,8 +208,7 @@ dev.off()
 ```
 
 ## Contributing
-
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Population data have been contributed to WOPR many different researchers within the WorldPop Research Group. Michael Harper at the Flowminder Foundation contributed to the shiny application.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Michael Harper at the Flowminder Foundation contributed to the shiny application. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 ## License
 

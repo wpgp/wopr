@@ -23,10 +23,10 @@ devtools::build_vignettes(getwd())
 # wopr_README
 file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
 
-# copy API_Overview to woprVision
+# copy API overview to woprVision
 file.copy('doc/woprAPI.html','inst/woprVision/www/woprAPI.html', overwrite=T)
 
-# copy woprVision Overview to woprVision
+# copy woprVision overview to woprVision
 file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite=T)
 
 # wopr catalogue for offline woprVision

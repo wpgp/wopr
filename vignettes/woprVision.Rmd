@@ -24,11 +24,11 @@ woprVision is an interactive web map that allows you to query population estimat
 This document provides instructions how to use each control panel: 
 
 - Tabs along the top,  
-- User conrols on the left of the "Map" tab,  
+- User controls on the left of the "Map" tab,  
 - Map window in the middle of the "Map" tab, and  
 - Results panel on the right of the "Map" tab.
 
-woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. See the "R package" tab for more information.
+woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the "R package" tab for more information. 
 
 ## Tabs
 
@@ -66,7 +66,7 @@ The "Data Readme" tab provides the WorldPop data release statement for the popul
 This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.
 
 ### R package
-This tab provides a description of the _wopr_ package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally using RStudio, to download data directly from the R console, and to query population estimates for polygons or points using your own shapefiles.
+This tab provides a description of the _wopr_ package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally, to download data directly from the R console, and to submit spatial queries to the WOPR server to get population estimates for polygons or points from your own shapefiles.
 
 ### REST API
 This tab provides an overview of the WOPR REST API. This is the way that the _wopr_ R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.
@@ -144,8 +144,16 @@ The results panel contains two plots that represent the population at the select
 The population estimate is the mean of the probability distribution shown in the plot. The probability distribution is the predicted posterior probability distribution from a Bayesian statistical model (see "Data Readme" tab for details). The confidence intervals are calculated based on the settings selected in the user controls (see "User Controls: Confidence Level" and "user Controls: Confidence Type"). The probability of exceeding the selected population threshold is also reported in the top plot (see "User Controls: Population Threshold"). 
 
 **Age-sex Structure**
-The values in the population pyramid are taken from the WorldPop Global project (citation below). These provide estimates of the proportion of the population in each age-sex group for different regions across the study area. These values were from the following sources:  
+The estimates of demographic structure that make-up the population pyramids are used here with permission from the WorldPop Global High Resolution Population Denominators project (Pezzulo et al. 2017, WorldPop et al. 2018). These data provide regional estimates of the proportion of the population in each age-sex group across the study area. 
 
-- WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href='https://dx.doi.org/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
+## References
+Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href='https://CRAN.R-project.org/package=shiny' target='_blank'>https://CRAN.R-project.org/package=shiny</a>.
 
-- Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href='https://dx.doi.org/10.1038/sdata.2017.89' target='_blank'>https://dx.doi.org/10.1038/sdata.2017.89</a>
+Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library. R package version 2.0.2. <a href='https://CRAN.R-project.org/package=leaflet' target='_blank'>https://CRAN.R-project.org/package=leaflet</a>
+
+Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href='https://dx.doi.org/10.1038/sdata.2017.89' target='_blank'>https://dx.doi.org/10.1038/sdata.2017.89</a>
+
+R Core Team. 2019. R: A Language and Environment for Statistical Computing, version 3.6.2. R Foundation for Statistical Computing: Vienna, Austria. <a href='https://www.R-project.org' target='_blank'>https://www.R-project.org</a>
+
+WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href='https://www.worldpop.org/doi/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
+

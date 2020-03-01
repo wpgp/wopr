@@ -8,8 +8,7 @@
 #' @export
 
 plotPanel <- function(N, agesex_select, agesex_table=NULL, confidence=95, tails='Interval', popthresh=100){
-  
-  if(is.null(N)){
+  if(!is.numeric(N)){
     plot(0,type='n',bty='n',yaxt='n',xaxt='n',ylab=NA,xlab=NA,
          main='Click the map to select a location.\nPush "Submit" to retrieve population estimates.')
   } else {
