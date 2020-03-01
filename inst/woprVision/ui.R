@@ -69,7 +69,7 @@ inputs <-
       hr(),
       
       # access key
-      textInput('key', NULL, key, placeholder='Access Key')
+      textInput('key', NULL, wopr_key, placeholder='Access Key')
       )
   )
 
