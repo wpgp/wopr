@@ -156,7 +156,8 @@ shinyServer(
 
     # save button
     observeEvent(input$save_button, {
-      if(!is.null(rv$table)){
+      
+      if(!is.null(rv$N)){
         ct <- resultTable(input, rv)
         
         if(!'table' %in% names(rv)){
@@ -167,6 +168,7 @@ shinyServer(
         row.names(rv$table) <- 1:nrow(rv$table)
         
         showNotification('Population estimate added to the "Saved" tab.', type='message')
+        
       } else {
         showNotification('Need to submit a population query before results can be saved.', type='message')
       }
