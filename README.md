@@ -36,7 +36,9 @@ Demo code is provided in `demo/wopr_demo.R` that follows the examples in this RE
 
 You can list vignettes that are available using: `vignette(package='wopr')`
 
-If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: `vignette('wopr_api', package='wopr')`
+The woprVision web application is an interactive web map that allows you to query population estimates from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. See the vignette for woprVision with: `vignette('woprVision', package='wopr')`
+
+If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: `vignette('woprAPI', package='wopr')`
 
 ### woprVision
 
@@ -207,7 +209,7 @@ dev.off()
 
 ## Contributing
 
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Population data have been contributed to WOPR by Doug Leasure, Gianluca Boo, Edith Darin, and Claire Dooley from the WorldPop Research Group. Michael Harper at the Flowminder Foundation contributed to the shiny application.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Population data have been contributed to WOPR many different researchers within the WorldPop Research Group. Michael Harper at the Flowminder Foundation contributed to the shiny application.
 
 ## License
 

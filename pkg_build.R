@@ -15,8 +15,8 @@ rmarkdown::render(input='README.md',
                   output_file='README.html',
                   output_dir=getwd())
 
-# # vignettes
-# devtools::build_vignettes(getwd())
+# vignettes
+devtools::build_vignettes(getwd())
 
 ##-- woprVision documentation --##
 
@@ -24,7 +24,10 @@ rmarkdown::render(input='README.md',
 file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
 
 # copy API_Overview to woprVision
-file.copy('doc/API_Overview.pdf','inst/woprVision/www/API_Overview.pdf', overwrite=T)
+file.copy('doc/woprAPI.html','inst/woprVision/www/woprAPI.html', overwrite=T)
+
+# copy woprVision Overview to woprVision
+file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite=T)
 
 # wopr catalogue for offline woprVision
 write.csv(getCatalogue(), file='inst/woprVision/wopr_catalogue.csv', row.names=F)

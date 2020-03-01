@@ -1,0 +1,151 @@
+---
+title: An overview of the woprVision web application
+author: Doug Leasure
+output: rmarkdown::html_vignette #pdf_document
+vignette: >
+  %\VignetteIndexEntry{An overview of the woprVision web application}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+WorldPop Research Group  
+University of Southampton  
+
+1 March 2020
+
+## Introduction
+woprVision is an interactive web map that allows you to query population estimates from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
+
+1. Download the latest population data sets and documentation, 
+2. Retrieve population estimates within user-defined geographic areas by clicking the map,
+3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
+4. Get probabilistic estimates of uncertainty for all population estimates.
+
+This document provides instructions how to use each control panel: 
+
+- Tabs along the top,  
+- User conrols on the left of the "Map" tab,  
+- Map window in the middle of the "Map" tab, and  
+- Results panel on the right of the "Map" tab.
+
+woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. See the "R package" tab for more information.
+
+## Tabs
+
+### Map
+This is the default tab. It can be used to to toggle between datasets and to retrieve population estimates for specific areas by clicking the map or drawing a polygon. This tab contains a Leaflet map in the middle, a user control panel on the left, and a results panel on the right. 
+
+### Saved
+This tab has a spreadsheet that contains any population estimates that you have saved. The spreadsheet can be saved to your computer as a .csv file by clicking "Download" or it can be deleted by clicking "Clear". 
+
+Results include the following columns:
+
+- **Nmean** The population estimate (the mean of the predicted probability distribution).
+- **Nlow** The lower confidence interval of the population estimate.
+- **Nup** The upper confidence interval of the population estimate.
+- **above_thresh** The probability that the population exceeds the population threshold that you provided.
+
+
+The remaining columns record user inputs that were used to generate the results (see below "User Controls: Population Threshold"):
+
+- **name** An optional name for the location that you provided from the user control "Save Result As".
+- **data** The population data set being queried (country and version).
+- **mode** The type of spatial query ('Selected Point' or 'Custom Area').
+- **popthresh** The population threshold.
+- **female_age** The female age selection.
+- **male_age** The male age selection.
+- **confidence_level** The confidence level for confidence intervals.
+- **confidence_type** The type of confidence interval.
+- **geojson** A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab.
+
+
+### Data Readme
+The "Data Readme" tab provides the WorldPop data release statement for the population data set that is currently selected in the "Map" tab. Release statements provide information about the population data set and how it was produced. 
+
+### WOPR Download
+This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.
+
+### R package
+This tab provides a description of the _wopr_ package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally using RStudio, to download data directly from the R console, and to query population estimates for polygons or points using your own shapefiles.
+
+### REST API
+This tab provides an overview of the WOPR REST API. This is the way that the _wopr_ R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.
+
+## User Control Panel
+The user control panel is on the left side of the "Map" tab with controls that you can use to retrieve population estimates.
+
+**Population Data**
+Select the population data set that you would like to query. This includes a country and version number. You can read more about the selected data set in the "Data Readme" tab. 
+
+**Selection Tool**
+You can select point locations with the "Click the Map" tool. You can draw a polygon to select an area with the "Draw an Area" tool.
+
+**Submit Button**
+After you have selected a location (using the "Click the Map" or "Draw an Area" selection tools), use the "Submit" button to retrieve population esimates for that location from the WOPR servers.
+
+**Age-sex Groups**
+Use the sliders to select the age-sex groups that you would like a population estimate for.
+
+**Save Result**
+Click the "Save" button to save the current result to the "Saved" tab. You can add an optional name in the "Save Result As" input box.
+
+**Confidence Level**
+The confidence level for the confidence intervals. This defaults to 95%. In that case, there is a 95% chance that the true population in that location is within the confidence interval provided in the results (based on a given statistical model and input data).
+
+**Confidence Type**
+The type of confidence interval. 
+
+- "Interval" is the default type. Use this if you want to know the range of values that the population is likely to fall within (e.g. 95% chance that the population is between x and y).  
+
+- Use "Lower Limit" if you want to know the value that the population is likely to exceed (e.g. 95% chance that the population is greater than x). 
+
+- Use "Upper Limit" if you want to know the value that the population is likely to be less than. (e.g. 95% chance the population is less than y).
+
+**Population Threshold**
+The population threshold provided here will be used to calculate the probability that the population exceeds that threshold. The default value is 100. This will return the probability that the population exceeds 100 people.
+
+**Access Key**
+An optional WorldPop API access key.
+
+## Map Window
+
+### Basemaps
+The following basemaps can be selected from the topright panel in the map window:
+
+- **Dark** A dark base map from the <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter' target='_blank'>CartoDB.DarkMatter</a> Leaflet base map provider. This base map provides maximum contrast against the population layer.
+
+- **Map** An Open Street Maps base map called <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik' target='_blank'>OpenStreetMap.Mapnik</a> from the Leaflet providers. This base map provides placenames and street names that can be helpful.
+
+- **Satellite** ESRI satellite image base map <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery' target='_blank'>Esri.WorldImagery</a> from the Leaflet providers. This base map provides satellite images that are most useful when zoomed in.
+
+### Map Layers
+The following map layers can be toggled on or off from the top-right panel in the map window:
+
+- **Population** A map layer displaying WorldPop's gridded population estimates. This legend for the map layer appears in the bottom-right corner of the map window when the layer is toggled on.
+
+- **Custom Area** A map layer displaying the polygon that you have drawn with the "Draw an Area" selection tool.
+
+### Draw Toolbar
+The draw toolbar appears on the left side of the map window when you select the "Draw an Area" selection tool. The toolbar has three tools:
+
+- **Draw a Polygon** When you select this tool, you can then draw a polygon by clicking on the map to get a population estimate.
+
+- **Edit Layers** This tool can be used to edit a polygon that you have previously drawn.
+
+- **Delete Layers** This tool can be used to delete the polygon that you have drawn.
+
+### Zoom
+The zoom controls are in the top-left corner of the map window. The plus and minus buttons zoom in and out. The button with the Earth icon resets to the inital zoom level (zoomed out).
+
+## Result Panel
+The results panel contains two plots that represent the population at the selected location. The top plot shows the probability distribution representing the population estimate and the bottom plot shows a population pyramid representing the age-sex structure.
+
+**Population Estimate**
+The population estimate is the mean of the probability distribution shown in the plot. The probability distribution is the predicted posterior probability distribution from a Bayesian statistical model (see "Data Readme" tab for details). The confidence intervals are calculated based on the settings selected in the user controls (see "User Controls: Confidence Level" and "user Controls: Confidence Type"). The probability of exceeding the selected population threshold is also reported in the top plot (see "User Controls: Population Threshold"). 
+
+**Age-sex Structure**
+The values in the population pyramid are taken from the WorldPop Global project (citation below). These provide estimates of the proportion of the population in each age-sex group for different regions across the study area. These values were from the following sources:  
+
+- WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href='https://dx.doi.org/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
+
+- Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href='https://dx.doi.org/10.1038/sdata.2017.89' target='_blank'>https://dx.doi.org/10.1038/sdata.2017.89</a>

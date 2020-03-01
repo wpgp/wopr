@@ -98,18 +98,18 @@ ui <- tagList(
                         
                         # map panel (center)
                         column(width = 7,
-                               tags$style(type="text/css","#map {height: calc(98vh - 80px) !important;}"),
+                               tags$style(type="text/css","#map {height: calc(98vh - 85px) !important;}"),
                                leaflet::leafletOutput('map')),
                         
                         # results panel (right)
                         column(width = 3,
-                               style='overflow-y:scroll; height: calc(98vh - 80px)',
+                               style='overflow-y:scroll; height: calc(98vh - 85px)',
                                plotOutput('sidePlot', height='600px', width='100%')))
              ),
              
              # tab: saved estimates
              tabPanel('Saved', 
-                      style='overflow-y:scroll; max-height:calc(98vh - 80px)',
+                      style='overflow-y:scroll; max-height:calc(98vh - 85px)',
                       br(),
                       downloadButton('download_table', 'Download'),
                       actionButton('clear_button', 'Clear'),
@@ -125,12 +125,13 @@ ui <- tagList(
 
              # tab: API readme
              tabPanel('REST API',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                  src='API_Overview.pdf')),
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                                  frameBorder="0",
+                                  src='woprAPI.html')),
              
              # tab: wopr R package readme
              tabPanel('R package',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
                                   frameBorder='0',
                                   src='wopr_README.html')),
              
@@ -140,6 +141,13 @@ ui <- tagList(
              
              # tab: data readme
              tabPanel('Data Readme',
-                      htmlOutput('data_readme'))
+                      htmlOutput('data_readme')),
+             
+             # tab: API readme
+             tabPanel('Help',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                                  src='woprVision.html',
+                                  frameBorder="0"))
+             
   )
 )

@@ -1,7 +1,7 @@
 ---
 title: An overview of the WOPR API for developers
 author: Doug Leasure and Maksym Bondarenko
-output: pdf_document #rmarkdown::html_vignette
+output: rmarkdown::html_vignette #pdf_document
 vignette: >
   %\VignetteIndexEntry{An overview of the wopr API backend for developers}
   %\VignetteEngine{knitr::rmarkdown}
@@ -11,11 +11,11 @@ vignette: >
 WorldPop Research Group  
 University of Southampton
 
-`r format(Sys.time(), '%d %B %Y')`
+1 March 2020
 
 ## Introduction
 
-The WOPR REST API provides a way for web servers and other computers to communicate with the [WorldPop Open Population Repository](https://wopr.worldpop.org) to submit requests for data and to retrieve results. This can be used to:
+The WOPR REST API provides a way for web servers and other computers to communicate with the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a> to submit requests for data and to retrieve results. This can be used to:
 
 1. Automate the process of downloading the latest WorldPop population data sets and documentation, 
 2. Submit spatial queries (points or polygons) to the WorldPop server to retrieve population estimates within user-defined geographic areas,
@@ -46,7 +46,7 @@ https://wopr.worldpop.org/api/v1.0/data
 
 This API endpoint will return the WOPR data catalogue in JSON format. The JSON is organized with the following hierarchical levels:
 
-**country** A three letter code to identify the country that the dataset represents. WOPR uses [ISO country codes](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) to abbreviate country names. For example `'NGA'` regers to Nigeria.  
+**country** A three letter code to identify the country that the dataset represents. WOPR uses <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3' target='_blank'>ISO country codes</a> to abbreviate country names. For example `'NGA'` regers to Nigeria.  
 
 **category** The category describes the types of data available for a given country. For example, `'Population'` refers to population estimates.  
 
@@ -63,7 +63,7 @@ Each file has the following attributes:
 
 **citation** is the recommended citation.  
 
-**doi** is the official published DOI (digital object identifier) that can be used for citations. The DOI refers to a stable and permanent version of the file that is stored at [ftp://ftp.worldpop.org/repo/wopr](ftp://ftp.worldpop.org/repo/wopr). These files may differ slightly from the files stored at [wopr.worldpop.org](https://wopr.worldpop.org) if minor changes were made since the time of the DOI publication.  
+**doi** is the official published DOI (digital object identifier) that can be used for citations. The DOI refers to a stable and permanent version of the file that is stored at <a href='ftp://ftp.worldpop.org/repo/wopr' target='_blank'>ftp://ftp.worldpop.org/repo/wopr</a>. These files may differ slightly from the files stored at <a href='wopr.worldpop.org' target='_blank'>https://wopr.worldpop.org</a> if minor changes were made since the time of the DOI publication.  
 
 **file** is the file name.  
 
@@ -115,7 +115,7 @@ https://api.worldpop.org/v1/wopr/pointtotal
 
 This endpoint accepts coordinates for a point location and returns the total population. Requests to this API endpoint require the following arguments:  
 
-**iso3** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the country to query (e.g. `NGA`).  
+**iso3** The <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3' target='_blank'>ISO country codes</a> of the country to query (e.g. `NGA`).  
 
 **ver** The version of the population estimates to query (e.g. `1.2`).  
 
@@ -145,7 +145,7 @@ https://api.worldpop.org/v1/wopr/pointagesex
 
 This endpoint accepts coordinates for a point location and returns the population size for a specified age-sex group. Requests to this API endpoint require the following arguments:  
 
-**iso3** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the country to query (e.g. `NGA`).  
+**iso3** The <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3' target='_blank'>ISO country codes</a> of the country to query (e.g. `NGA`).  
 
 **ver** The version of the population estimates to query (e.g. `1.2`).  
 
@@ -174,7 +174,7 @@ https://api.worldpop.org/v1/wopr/polytotal
 
 This endpoint accepts a GeoJSON representing a polygon location and returns the total population. Requests to this API endpoint require the following arguments:  
 
-**iso3** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the country to query (e.g. `NGA`).  
+**iso3** The <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3' target='_blank'>ISO country codes</a> of the country to query (e.g. `NGA`).  
 
 **ver** The version of the population estimates to query (e.g. `1.2`).  
 
@@ -239,7 +239,7 @@ https://api.worldpop.org/v1/wopr/polyagesex
 
 This endpoint accepts a GeoJSON representing a polygon location and returns the population size within a specified age-sex group. Requests to this API endpoint require the following arguments:  
 
-**iso3** The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the country to query (e.g. `NGA`).  
+**iso3** The <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3' target='_blank'>ISO country codes</a> of the country to query (e.g. `NGA`).  
 
 **ver** The version of the population estimates to query (e.g. `1.2`).  
 
