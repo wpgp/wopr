@@ -17,7 +17,7 @@ url <- 'https://api.worldpop.org'
 
 # retrieve catalogue
 if(local_mode){
-  catalogue_full <- read.csv(system.file('woprVision', 'wopr_catalogue.csv', package='wopr'), stringsAsFactors=F)
+  catalogue_full <- read.csv(system.file('extdata', 'wopr_catalogue.csv', package='wopr', mustWork=T), stringsAsFactors=F) 
 } else {
   catalogue_full <- getCatalogue()
 }

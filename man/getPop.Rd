@@ -8,13 +8,13 @@ getPop(
   feature,
   country,
   version = NA,
-  agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
-    5)))),
   timeout = 5 * 60,
   key = "key.txt",
   verbose = T,
   get_agesexid = F,
-  url = NA
+  url = NA,
+  agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
+    5))))
 )
 }
 \arguments{
@@ -23,8 +23,6 @@ getPop(
 \item{country}{The ISO3 country code}
 
 \item{version}{Version number of the population estimate}
-
-\item{agesex_select}{Character vector of age-sex groups}
 
 \item{timeout}{Seconds until timeout}
 
@@ -35,6 +33,8 @@ getPop(
 \item{get_agesexid}{Logical. Toggle return of numeric age sex id (for woprVision)}
 
 \item{url}{Server url (optional)}
+
+\item{agesex_select}{Character vector of age-sex groups}
 }
 \value{
 A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.

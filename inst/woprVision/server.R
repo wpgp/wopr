@@ -109,31 +109,34 @@ shinyServer(
       if(class(rv$feature)[1]=='sf'){
         
         withProgress({
-          if(version_info[input$data_select,'local_sql']){
-            try({
-              i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
-                             db=rv$sql,
-                             agesex_select=rv$agesex_select,
-                             agesex_table=agesex[[input$data_select]],
-                             get_agesexid=T,
-                             timeout=60)
-              rv$N <- i[['N']]
-              rv$agesexid <- i[['agesexid']]
-            })
-          } else {
-            try({
-              i <- getPop(feature=rv$feature,
-                          country=rv$country,
-                          version=rv$version,
-                          agesex_select=rv$agesex_select,
-                          key=input$key,
-                          get_agesexid=T,
-                          url=url,
-                          timeout=60)
-              rv$N <- i[['N']]
-              rv$agesexid <- i[['agesexid']]
-            })
-          }
+          tryCatch({
+            if(version_info[input$data_select,'local_sql']){
+              
+                i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
+                               db=rv$sql,
+                               agesex_select=rv$agesex_select,
+                               agesex_table=agesex[[input$data_select]],
+                               get_agesexid=T,
+                               timeout=60)
+                rv$N <- i[['N']]
+                rv$agesexid <- i[['agesexid']]
+            } else {
+                i <- getPop(feature=rv$feature,
+                            country=rv$country,
+                            version=rv$version,
+                            agesex_select=rv$agesex_select,
+                            key=input$key,
+                            get_agesexid=T,
+                            url=url,
+                            timeout=60)
+                rv$N <- i[['N']]
+                rv$agesexid <- i[['agesexid']]
+            }
+          }, warning=function(w){
+            showNotification(as.character(w), type='warning', duration=15)
+          }, error=function(e){
+            showNotification(as.character(e), type='error', duration=15)
+          })
         }, message='woprizing:', 
         detail='Fetching population total for selected area and demographic group...', 
         value=0.5)

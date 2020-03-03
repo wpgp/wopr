@@ -12,9 +12,10 @@
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' @export
 
-getPop <- function(feature, country, version=NA, 
-                   agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5)))),
-                   timeout=5*60, key='key.txt', verbose=T, get_agesexid=F, url=NA){
+getPop <- function(feature, country, version=NA, timeout=5*60, 
+                   key='key.txt', verbose=T, get_agesexid=F, url=NA,
+                   agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))
+                   ){
   
   t0 <- Sys.time()
   
@@ -50,7 +51,7 @@ getPop <- function(feature, country, version=NA,
                             save_messages=T)
   
   if(!is.na(output$message)){
-    message(output$message)
+    warning(output$message, call.=F)
   }
   
   if('pop1' %in% names(output)) {
