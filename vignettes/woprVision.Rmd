@@ -1,15 +1,11 @@
 ---
 title: An overview of the woprVision web application
-author: Doug Leasure
 output: rmarkdown::html_vignette #pdf_document
 vignette: >
   %\VignetteIndexEntry{An overview of the woprVision web application}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
-
-WorldPop Research Group  
-University of Southampton  
 
 1 March 2020
 
