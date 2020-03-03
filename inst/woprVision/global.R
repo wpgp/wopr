@@ -7,7 +7,7 @@ agesex <- wopr:::woprVision_global$agesex
 version_info <- wopr:::woprVision_global$version_info
 
 # check global for objects defined by woprVision()
-if(!'key' %in% ls()) key <- 'key.txt'
+if(!'wopr_key' %in% ls()) wopr_key <- 'key.txt'
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 if(!'local_mode' %in% ls()) local_mode <- FALSE
 

@@ -51,7 +51,12 @@ getPop <- function(feature, country, version=NA, timeout=5*60,
                             save_messages=T)
   
   if(!is.na(output$message)){
-    warning(output$message, call.=F)
+    if(output$message=='No User Description for this type of error: ValueError'){
+      message(output$message)
+    } else {
+      warning(output$message, call.=F)
+    }
+    
   }
   
   if('pop1' %in% names(output)) {

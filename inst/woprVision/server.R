@@ -133,9 +133,9 @@ shinyServer(
                 rv$agesexid <- i[['agesexid']]
             }
           }, warning=function(w){
-            showNotification(as.character(w), type='warning', duration=15)
+            showNotification(as.character(w), type='warning', duration=10)
           }, error=function(e){
-            showNotification(as.character(e), type='error', duration=15)
+            showNotification(as.character(e), type='error', duration=10)
           })
         }, message='woprizing:', 
         detail='Fetching population total for selected area and demographic group...', 
