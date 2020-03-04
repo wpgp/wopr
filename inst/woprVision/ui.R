@@ -75,6 +75,7 @@ inputs <-
 
 # main panel
 ui <- tagList(
+  tags$head(includeHTML("google-analytics.js")),
   
   tags$style(HTML(".navbar-nav {float:none !important;}
                   .navbar-nav > li:nth-child(3){float:right}
