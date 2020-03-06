@@ -4,11 +4,9 @@
 \alias{woprVision}
 \title{Run the woprVision application}
 \usage{
-woprVision(wopr_key = NULL, wopr_dir = "wopr", local_mode = F)
+woprVision(wopr_dir = "wopr", local_mode = F)
 }
 \arguments{
-\item{wopr_key}{(optional) API access key (character) or a path to a text file that contains the key in quotations (e.g. "iqRvecPORXiFQbsMesKUOPhSmaTegpoT")}
-
 \item{wopr_dir}{Path to WOPR files stored locally.}
 
 \item{local_mode}{Logical indicating to run woprVision in local mode when internet access is not available.}

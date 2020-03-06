@@ -8,7 +8,7 @@ inputs <-
       
       # model
       selectInput('data_select', 
-                  'Population Data', 
+                  HTML('Population Data (by <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">country</a>)'), 
                   choices=paste(catalogue$country, catalogue$version), 
                   selected=data_init),
       
@@ -64,12 +64,8 @@ inputs <-
       selectInput('ci_type','Confidence Type', choices=c('Interval', 'Lower Limit', 'Upper Limit')),
       
       # radioButtons('ci_type','Confidence Type', choices=c('Interval', 'Lower Limit', 'Upper Limit')),
-      numericInput('popthresh', 'Population Threshold', value=100, min=0, max=1e6, step=1),
+      numericInput('popthresh', 'Population Threshold', value=100, min=0, max=1e6, step=1)
       
-      hr(),
-      
-      # access key
-      textInput('key', NULL, wopr_key, placeholder='Access Key')
       )
   )
 

@@ -125,7 +125,6 @@ shinyServer(
                             country=rv$country,
                             version=rv$version,
                             agesex_select=rv$agesex_select,
-                            key=input$key,
                             get_agesexid=T,
                             url=url,
                             timeout=120)
