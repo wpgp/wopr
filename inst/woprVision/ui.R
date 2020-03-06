@@ -8,10 +8,10 @@ inputs <-
       
       # model
       selectInput('data_select', 
-                  HTML('Population Data (by <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">country</a>)'), 
+                  HTML('Select Population Data<br><small>(see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">country codes</a>)</small>'),
                   choices=paste(catalogue$country, catalogue$version), 
                   selected=data_init),
-      
+
       # submit button
       shinyjs::useShinyjs(),
       
