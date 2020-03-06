@@ -117,7 +117,7 @@ shinyServer(
                                agesex_select=rv$agesex_select,
                                agesex_table=agesex[[input$data_select]],
                                get_agesexid=T,
-                               timeout=60)
+                               timeout=120)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
             } else {
@@ -128,7 +128,7 @@ shinyServer(
                             key=input$key,
                             get_agesexid=T,
                             url=url,
-                            timeout=60)
+                            timeout=120)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
             }
