@@ -12,8 +12,15 @@ map <- function(country, version, local_tiles=F) {
     
     # base maps
     addProviderTiles(provider='Esri.WorldImagery', group='Satellite') %>% 
-    addProviderTiles(provider='OpenStreetMap.Mapnik', group='Map') %>% # 'Esri.NatGeoWorldMap'
     addProviderTiles(provider='CartoDB.DarkMatter', group='Dark') %>% # 'Esri.WorldGrayCanvas'
+
+    # basemap tiles
+    addTiles(urlTemplate=ifelse(dir.exists(file.path(wopr_dir,'basemap')),
+                                'basemap/{z}/{x}/{y}.png',
+                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+             group='Map',
+             options=tileOptions(minZoom=1, maxZoom=19, tms=F),
+             attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors') %>%
     
     # population tiles
     addTiles(urlTemplate=ifelse(local_tiles,

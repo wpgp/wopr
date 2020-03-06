@@ -66,6 +66,11 @@ shinyServer(
                                                   gsub('.','_',as.character(rv$version),fixed=T),
                                                   '_tiles')))
       }
+      
+      # local basemap
+      if(dir.exists(file.path(wopr_dir,'basemap'))){
+        addResourcePath('basemap', file.path(wopr_dir,'basemap'))
+      }
     })
 
     # map
