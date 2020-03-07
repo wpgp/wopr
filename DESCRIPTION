@@ -11,7 +11,8 @@ Depends:
 Imports: 
   DBI,
   fasterize, 
-  geojsonio, 
+  geojsonio,
+  geojsonlint,
   httr, 
   leaflet, 
   leaflet.extras, 
