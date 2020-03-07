@@ -42,7 +42,7 @@ column(
                           label=NULL,
                           value='',
                           width='100%',
-                          placeholder='Save As')),
+                          placeholder='Save As (optional)')),
     
     # age-sex groups
     strong('Options:'),br(),
