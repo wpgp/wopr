@@ -16,7 +16,7 @@ column(
     # output type (point/polygon)
     radioButtons('pointpoly',
                  '2. Select a Location',
-                 choiceNames=list('Click the map','Draw an area','Upload File'), 
+                 choiceNames=list('Click the map','Draw an area','Upload GeoJSON file'), 
                  choiceValues=c('Selected Point','Custom Area','Upload File')),
     
     # upload geojson
