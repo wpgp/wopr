@@ -110,12 +110,11 @@ ui <- tagList(
              
              # tab: saved estimates
              tabPanel('Saved', 
-                      style='overflow-y:scroll; max-height:calc(98vh - 85px)',
-                      br(),
                       downloadButton('download_table', 'Download'),
                       actionButton('clear_button', 'Clear'),
                       br(),
-                      tableOutput('results_table')
+                      div(style='overflow-y:scroll; max-height:calc(98vh - 120px)',
+                          tableOutput('results_table'))
              ),
              
              # tab: WorldPop
