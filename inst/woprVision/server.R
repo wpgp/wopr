@@ -89,18 +89,72 @@ shinyServer(
     # age-sex selection
     observe({
       rv$agesex_select <- agesexLookup(input$male,
-                                      input$female,
-                                      input$male_select,
-                                      input$female_select
-                                      )
-      })
+                                       input$female,
+                                       input$male_select,
+                                       input$female_select
+                                       )
+    })
     
-    # sf object
+    # observe selection tool
+    observeEvent(input$pointpoly,{
+      
+      rv$feature <- rv$N <- rv$agesexid <- NULL
+      shinyjs::disable('submit')
+      
+      if(input$pointpoly=='Upload File'){
+        shinyjs::enable('user_json')
+      } else {
+        shinyjs::reset('user_json')
+      }
+    })
+    
+    # observe age-sex selection
+    observeEvent(c(input$male,
+                   input$female,
+                   input$male_select,
+                   input$female_select), {
+                     rv$N <- rv$agesexid <- NULL
+                   })
+    
+    # observe file upload
+    observe({
+      if(!is.null(input$user_json)){
+        updateSelectInput(session, 'pointpoly', selected='Upload File')
+      }
+    })
+    
+    # observe feature
+    observe({
+      if(is.null(rv$feature)){
+        shinyjs::disable('submit')
+      } else {
+        shinyjs::enable('submit')
+      }
+    })
+    
+    # observe results
+    observe({
+      if(is.null(rv$N)){
+        shinyjs::disable('save_button')
+      } else {
+        shinyjs::enable('save_button')
+      }
+    })
+    
+    # create sf object
     observe({
       if(input$pointpoly=='Selected Point'){
         rv$feature <- leaf_sf(input$map_click, input$pointpoly)
-      } else if(input$pointpoly=='Custom Area'){
+      } 
+      if(input$pointpoly=='Custom Area'){
         rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
+      }
+      if(input$pointpoly=='Upload File'){
+        if(is.null(input$user_json)){
+          rv$feature <- NULL
+        } else {
+          rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)[1:20,1]
+        } 
       }
     })
     
@@ -115,8 +169,40 @@ shinyServer(
         
         withProgress({
           tryCatch({
-            if(version_info[input$data_select,'local_sql']){
-              
+            
+            if(input$pointpoly=='Upload File'){
+              if(!is.null(input$user_json)) {
+                
+                # Upload File
+                rv$feature <- woprize(feature=rv$feature, 
+                                      country=rv$country, 
+                                      version=rv$version, 
+                                      agesex_select=rv$agesex_select,
+                                      confidence=input$ci_level/1e3,
+                                      tails=ifelse(input$ci_type=='Interval',2,1),
+                                      abovethresh=input$popthresh,
+                                      url=url,
+                                      timeout=5*60)
+                
+                ct <- resultTable(input, rv)
+                
+                if(!'table' %in% names(rv)) { 
+                  rv$table <- ct
+                } else { 
+                  rv$table <- rbind(rv$table, ct)}
+                row.names(rv$table) <- 1:nrow(rv$table)
+                
+                showNotification(paste('Population estimates for',nrow(rv$feature),'features added to the "Saved" tab.'), type='message', duration=10)
+                
+                shinyjs::reset('user_json')
+                rv$feature <- rv$N <- NULL
+              }
+            } 
+            
+            if(input$pointpoly %in% c('Selected Point', 'Custom Area')) {
+              if(version_info[input$data_select,'local_sql']){
+                
+                # query local SQL
                 i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
                                db=rv$sql,
                                agesex_select=rv$agesex_select,
@@ -125,7 +211,10 @@ shinyServer(
                                timeout=120)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
-            } else {
+                
+              } else {
+                
+                # query wopr
                 i <- getPop(feature=rv$feature,
                             country=rv$country,
                             version=rv$version,
@@ -135,6 +224,7 @@ shinyServer(
                             timeout=120)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
+              }
             }
           }, warning=function(w){
             showNotification(as.character(w), type='warning', duration=10)
@@ -142,13 +232,13 @@ shinyServer(
             showNotification(as.character(e), type='error', duration=10)
           })
         }, message='woprizing:', 
-        detail='Fetching population total for selected area and demographic group...', 
+        detail='Fetching population total for selected location(s) and demographic group...', 
         value=0.5)
       }
       shinyjs::enable('submit')
     })
     
-    # side plot
+    # create plot
     output$sidePlot <- renderPlot({ 
       plotPanel(N=rv$N, 
                 agesex_select=rv$agesex_select,
@@ -158,7 +248,7 @@ shinyServer(
                 popthresh=input$popthresh) 
       })
     
-    # results table
+    # create results table
     output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=T)
 
     # save button
@@ -174,7 +264,7 @@ shinyServer(
         }
         row.names(rv$table) <- 1:nrow(rv$table)
         
-        showNotification('Population estimate added to the "Saved" tab.', type='message')
+        showNotification('Population estimate added to the "Saved" tab.', type='message', duration=10)
         
       } else {
         showNotification('Need to submit a population query before results can be saved.', type='message')
@@ -196,17 +286,6 @@ shinyServer(
       removeModal()
     })
 
-    # clear results with new user selection
-    observeEvent(c(input$data_select, 
-                   input$pointpoly,
-                   input$male,
-                   input$female,
-                   input$male_select,
-                   input$female_select), {
-                     rv$N <- rv$agesexid <- NULL
-                     gc()
-                   })
-    
     # WOPR url
     output$wopr_web <- renderText(
       return(paste('<iframe style="height: calc(98vh - 85px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))

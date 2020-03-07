@@ -51,7 +51,7 @@ woprize <- function(features, country, version=NA, confidence=0.95, tails=2, abo
                               summarize=summarize,
                               timeout=timeout,
                               save_messages=save_messages)
-    
+
     # join results to sf features
     if(class(output)=='data.frame') {
       output <- merge(features, output, 'feature_id')

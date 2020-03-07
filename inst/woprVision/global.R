@@ -12,7 +12,7 @@ if(!'local_mode' %in% ls()) local_mode <- FALSE
 
 # wopr url
 url <- 'https://api.worldpop.org'
-# url <- 'http://10.19.100.66'
+url <- 'http://10.19.100.66'
 
 # retrieve catalogue
 if(local_mode){

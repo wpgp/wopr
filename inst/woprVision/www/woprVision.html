@@ -35,7 +35,7 @@
 
 
 
-<p>6 March 2020</p>
+<p>7 March 2020</p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>woprVision is an interactive web map that allows you to query population estimates from the <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. This can be used to:</p>
@@ -57,72 +57,14 @@
 </ul>
 <p>woprVision is part of the <a href="https://github.com/wpgp/wopr" target="_blank">wopr package</a> for the R statistical programming lanuage. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the “R package” tab for more information.</p>
 </div>
-<div id="quick-start" class="section level2">
-<h2>Quick Start</h2>
-<p>On the “Map” tab:<br />
-1. Select a data set (i.e. country and version)<br />
-2. Click the map to select a location<br />
-3. Click “Submit”&quot; to retrieve the population estimate for that location<br />
-4. Click “Save” to save the population estimate to the “Saved” tab<br />
-5. Click “Draw an Area” and then draw a polygon using the toolbar in the top-left of the map<br />
-6. Click “Submit” to retrieve the population estimate for that area<br />
-7. Use the sliders on the left to select an age and sex group<br />
-8. Click “Submit” to retrieve the population estimate for the selected demographic group in the selected location</p>
-</div>
-<div id="tabs" class="section level2">
-<h2>Tabs</h2>
-<div id="map" class="section level3">
-<h3>Map</h3>
-<p>This is the default tab. It can be used to to toggle between datasets and to retrieve population estimates for specific areas by clicking the map or drawing a polygon. This tab contains a Leaflet map in the middle, a user control panel on the left, and a results panel on the right.</p>
-</div>
-<div id="saved" class="section level3">
-<h3>Saved</h3>
-<p>This tab has a spreadsheet that contains any population estimates that you have saved. The spreadsheet can be saved to your computer as a .csv file by clicking “Download” or it can be deleted by clicking “Clear”.</p>
-<p>Results include the following columns:</p>
-<ul>
-<li><strong>Nmean</strong> The population estimate (the mean of the predicted probability distribution).</li>
-<li><strong>Nlow</strong> The lower confidence interval of the population estimate.</li>
-<li><strong>Nup</strong> The upper confidence interval of the population estimate.</li>
-<li><strong>above_thresh</strong> The probability that the population exceeds the population threshold that you provided.</li>
-</ul>
-<p>The remaining columns record user inputs that were used to generate the results (see below “User Controls: Population Threshold”):</p>
-<ul>
-<li><strong>name</strong> An optional name for the location that you provided from the user control “Save Result As”.</li>
-<li><strong>data</strong> The population data set being queried (country and version).</li>
-<li><strong>mode</strong> The type of spatial query (‘Selected Point’ or ‘Custom Area’).</li>
-<li><strong>popthresh</strong> The population threshold.</li>
-<li><strong>female_age</strong> The female age selection.</li>
-<li><strong>male_age</strong> The male age selection.</li>
-<li><strong>confidence_level</strong> The confidence level for confidence intervals.</li>
-<li><strong>confidence_type</strong> The type of confidence interval.</li>
-<li><strong>geojson</strong> A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab.</li>
-</ul>
-</div>
-<div id="data-readme" class="section level3">
-<h3>Data Readme</h3>
-<p>The “Data Readme” tab provides the WorldPop data release statement for the population data set that is currently selected in the “Map” tab. Release statements provide information about the population data set and how it was produced.</p>
-</div>
-<div id="wopr-download" class="section level3">
-<h3>WOPR Download</h3>
-<p>This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.</p>
-</div>
-<div id="r-package" class="section level3">
-<h3>R package</h3>
-<p>This tab provides a description of the <em>wopr</em> package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally, to download data directly from the R console, and to submit spatial queries to the WOPR server to get population estimates for polygons or points from your own shapefiles.</p>
-</div>
-<div id="rest-api" class="section level3">
-<h3>REST API</h3>
-<p>This tab provides an overview of the WOPR REST API. This is the way that the <em>wopr</em> R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.</p>
-</div>
-</div>
 <div id="user-control-panel" class="section level2">
 <h2>User Control Panel</h2>
 <p>The user control panel is on the left side of the “Map” tab with controls that you can use to retrieve population estimates.</p>
-<p><strong>Population Data</strong> Select the population data set that you would like to query. This includes a country and version number. You can read more about the selected data set in the “Data Readme” tab.</p>
-<p><strong>Selection Tool</strong> You can select point locations with the “Click the Map” tool. You can draw a polygon to select an area with the “Draw an Area” tool.</p>
+<p><strong>Choose Population Data</strong> Select the population data set that you would like to query. This includes a country and version number. You can read more about the selected data set in the “Data Readme” tab.</p>
+<p><strong>Select a Location</strong> You can select point locations with the “Click the Map” tool. You can draw a polygon to select an area with the “Draw an Area” tool. You can upload a geojson file with points or polygons using the “Upload File” tool.</p>
 <p><strong>Submit Button</strong> After you have selected a location (using the “Click the Map” or “Draw an Area” selection tools), use the “Submit” button to retrieve population esimates for that location from the WOPR servers.</p>
-<p><strong>Age-sex Groups</strong> Use the sliders to select the age-sex groups that you would like a population estimate for.</p>
 <p><strong>Save Result</strong> Click the “Save” button to save the current result to the “Saved” tab. You can add an optional name in the “Save Result As” input box.</p>
+<p><strong>Age-sex Groups</strong> Use the sliders to select the age-sex groups that you would like a population estimate for.</p>
 <p><strong>Confidence Level</strong> The confidence level for the confidence intervals. This defaults to 95%. In that case, there is a 95% chance that the true population in that location is within the confidence interval provided in the results (based on a given statistical model and input data).</p>
 <p><strong>Confidence Type</strong> The type of confidence interval.</p>
 <ul>
@@ -170,6 +112,52 @@
 <p>The results panel contains two plots that represent the population at the selected location. The top plot shows the probability distribution representing the population estimate and the bottom plot shows a population pyramid representing the age-sex structure.</p>
 <p><strong>Population Estimate</strong> The population estimate is the mean of the probability distribution shown in the plot. The probability distribution is the predicted posterior probability distribution from a Bayesian statistical model (see “Data Readme” tab for details). The confidence intervals are calculated based on the settings selected in the user controls (see “User Controls: Confidence Level” and “user Controls: Confidence Type”). The probability of exceeding the selected population threshold is also reported in the top plot (see “User Controls: Population Threshold”).</p>
 <p><strong>Age-sex Structure</strong> The estimates of demographic structure that make-up the population pyramids are used here with permission from the WorldPop Global High Resolution Population Denominators project (Pezzulo et al. 2017, WorldPop et al. 2018). These data provide regional estimates of the proportion of the population in each age-sex group across the study area.</p>
+</div>
+<div id="tabs" class="section level2">
+<h2>Tabs</h2>
+<div id="map" class="section level3">
+<h3>Map</h3>
+<p>This is the default tab. It can be used to to toggle between datasets and to retrieve population estimates for specific areas by clicking the map or drawing a polygon. This tab contains a Leaflet map in the middle, a user control panel on the left, and a results panel on the right.</p>
+</div>
+<div id="saved" class="section level3">
+<h3>Saved</h3>
+<p>This tab has a spreadsheet that contains any population estimates that you have saved. The spreadsheet can be saved to your computer as a .csv file by clicking “Download” or it can be deleted by clicking “Clear”.</p>
+<p>Results include the following columns:</p>
+<ul>
+<li><strong>Nmean</strong> The population estimate (the mean of the predicted probability distribution).</li>
+<li><strong>Nlow</strong> The lower confidence interval of the population estimate.</li>
+<li><strong>Nup</strong> The upper confidence interval of the population estimate.</li>
+<li><strong>above_thresh</strong> The probability that the population exceeds the population threshold that you provided.</li>
+</ul>
+<p>The remaining columns record user inputs that were used to generate the results (see below “User Controls: Population Threshold”):</p>
+<ul>
+<li><strong>name</strong> An optional name for the location that you provided from the user control “Save Result As”.</li>
+<li><strong>data</strong> The population data set being queried (country and version).</li>
+<li><strong>mode</strong> The type of spatial query (‘Selected Point’ or ‘Custom Area’).</li>
+<li><strong>popthresh</strong> The population threshold.</li>
+<li><strong>female_age</strong> The female age selection.</li>
+<li><strong>male_age</strong> The male age selection.</li>
+<li><strong>confidence_level</strong> The confidence level for confidence intervals.</li>
+<li><strong>confidence_type</strong> The type of confidence interval.</li>
+<li><strong>geojson</strong> A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab.</li>
+</ul>
+</div>
+<div id="data-readme" class="section level3">
+<h3>Data Readme</h3>
+<p>The “Data Readme” tab provides the WorldPop data release statement for the population data set that is currently selected in the “Map” tab. Release statements provide information about the population data set and how it was produced.</p>
+</div>
+<div id="wopr-download" class="section level3">
+<h3>WOPR Download</h3>
+<p>This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.</p>
+</div>
+<div id="r-package" class="section level3">
+<h3>R package</h3>
+<p>This tab provides a description of the <em>wopr</em> package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally, to download data directly from the R console, and to submit spatial queries to the WOPR server to get population estimates for polygons or points from your own shapefiles.</p>
+</div>
+<div id="rest-api" class="section level3">
+<h3>REST API</h3>
+<p>This tab provides an overview of the WOPR REST API. This is the way that the <em>wopr</em> R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.</p>
+</div>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>

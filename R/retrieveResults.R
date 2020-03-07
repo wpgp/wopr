@@ -162,9 +162,11 @@ retrieveResults <- function(tasks, url,
           }
           
           # find most common agesex id
-          k <- which(Nmean==max(Nmean,na.rm=T))
-          if(!is.null(results[[k]]$data$agesexid)){
-            output[,'agesexid'] <- results[[k]]$data$agesexid
+          if(is.numeric(Nmean) > 0){
+            k <- which(Nmean==max(Nmean,na.rm=T))
+            if(!is.null(results[[k]]$data$agesexid)){
+              output[,'agesexid'] <- results[[k]]$data$agesexid
+            }
           }
           
           # summarize results and add to output data frame

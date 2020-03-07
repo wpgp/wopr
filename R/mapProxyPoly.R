@@ -37,4 +37,19 @@ mapProxyPoly <- function(pointpoly){
       # hide group
       hideGroup('Custom Area')
   }
+  
+  if(pointpoly=='Upload File'){
+    
+    # update map
+    leafletProxy('map') %>% 
+      
+      # clear marker
+      clearMarkers() %>%
+      
+      # remove drawToolbar
+      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
+      
+      # hide group
+      hideGroup('Custom Area')
+  }
 }
