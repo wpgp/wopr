@@ -1,6 +1,8 @@
 ---
 title: An overview of the woprVision web application
-output: rmarkdown::html_vignette #pdf_document
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{An overview of the woprVision web application}
   %\VignetteEngine{knitr::rmarkdown}
