@@ -197,7 +197,7 @@ shinyServer(
                                agesex_select=rv$agesex_select,
                                agesex_table=agesex[[input$data_select]],
                                get_agesexid=T,
-                               timeout=120)
+                               timeout=2*60)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
                 
@@ -210,15 +210,15 @@ shinyServer(
                             agesex_select=rv$agesex_select,
                             get_agesexid=T,
                             url=url,
-                            timeout=120)
+                            timeout=2*60)
                 rv$N <- i[['N']]
                 rv$agesexid <- i[['agesexid']]
               }
             }
           }, warning=function(w){
-            showNotification(as.character(w), type='warning', duration=10)
+            showNotification(as.character(w), type='warning', duration=20)
           }, error=function(e){
-            showNotification(as.character(e), type='error', duration=10)
+            showNotification(as.character(e), type='error', duration=20)
           })
         }, message='woprizing:', 
         detail='Fetching population total for selected location(s) and demographic group(s)...', 

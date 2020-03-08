@@ -189,9 +189,6 @@ retrieveResults <- function(tasks, url,
         }
       }
       
-      # cleanup
-      suppressWarnings(rm(N, task_id, feature_id, tasks_this_feature))
-      
       # check progress
       tasks_remaining <- sum(tasks[,'status'] %in% c('created','started'))
       
@@ -203,10 +200,13 @@ retrieveResults <- function(tasks, url,
       
       # timeout
       if(difftime(Sys.time(), t0, units='secs')  > timeout){
-        warning(paste0('Task timed out after ',timeout,' seconds. Use checkTask(taskid) to retrieve results.'), call.=F)
+        warning(paste0('Task timed out after ',timeout,' seconds. Use the taskid(s) to retrieve results (',paste(tasks_this_feature,sep=', '),'). See wopr R package (?wopr::checkTask) and/or the wopr REST API documentation.'), call.=F)
         timed_out <- T
         break
       }
+      
+      # cleanup
+      suppressWarnings(rm(N, task_id, feature_id, tasks_this_feature))
     }
     if(tasks_remaining > 0) Sys.sleep(1/tasks_remaining)
   }
