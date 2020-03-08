@@ -259,7 +259,7 @@ shinyServer(
     ##-- saved tab --##
     
     # results table
-    output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=T)
+    output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=F)
 
     # download button
     output$download_table <- downloadHandler(filename = paste0('woprVision_',format(Sys.time(), "%Y%m%d%H%M"),'.csv'),

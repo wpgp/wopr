@@ -138,9 +138,9 @@
 <li><strong>Nmean</strong> The population estimate (the mean of the predicted probability distribution).</li>
 <li><strong>Nlow</strong> The lower confidence interval of the population estimate.</li>
 <li><strong>Nup</strong> The upper confidence interval of the population estimate.</li>
-<li><strong>above_thresh</strong> The probability that the population exceeds the population threshold that you provided.</li>
+<li><strong>above_thresh</strong> The probability that the population exceeds the population threshold that you provided (saved in “popthresh” column, described below).</li>
 </ul>
-<p>The remaining columns record user inputs that were used to generate the results (see below “User Controls: Population Threshold”):</p>
+<p>The remaining columns record user inputs that were used to generate the results:</p>
 <ul>
 <li><strong>name</strong> An optional name for the location that you provided from the user control “Save Result As”.</li>
 <li><strong>data</strong> The population data set being queried (country and version).</li>
@@ -150,7 +150,7 @@
 <li><strong>male_age</strong> The male age selection.</li>
 <li><strong>confidence_level</strong> The confidence level for confidence intervals.</li>
 <li><strong>confidence_type</strong> The type of confidence interval.</li>
-<li><strong>geojson</strong> A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab.</li>
+<li><strong>geojson</strong> A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab. Coordinates are in the WGS84 coordinate system (EPSG:4326).</li>
 </ul>
 </div>
 <div id="data-readme" class="section level3">

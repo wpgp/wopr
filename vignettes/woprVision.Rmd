@@ -122,10 +122,10 @@ Results include the following columns:
 - **Nmean** The population estimate (the mean of the predicted probability distribution).
 - **Nlow** The lower confidence interval of the population estimate.
 - **Nup** The upper confidence interval of the population estimate.
-- **above_thresh** The probability that the population exceeds the population threshold that you provided.
+- **above_thresh** The probability that the population exceeds the population threshold that you provided (saved in "popthresh" column, described below).
 
 
-The remaining columns record user inputs that were used to generate the results (see below "User Controls: Population Threshold"):
+The remaining columns record user inputs that were used to generate the results:
 
 - **name** An optional name for the location that you provided from the user control "Save Result As".
 - **data** The population data set being queried (country and version).
@@ -135,7 +135,7 @@ The remaining columns record user inputs that were used to generate the results 
 - **male_age** The male age selection.
 - **confidence_level** The confidence level for confidence intervals.
 - **confidence_type** The type of confidence interval.
-- **geojson** A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab.
+- **geojson** A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab. Coordinates are in the WGS84 coordinate system (EPSG:4326).
 
 
 ### Data Readme
