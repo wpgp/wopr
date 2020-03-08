@@ -244,7 +244,7 @@ shinyServer(
         if(!'table' %in% names(rv)){
           rv$table <- ct
         } else {
-          rv$table <- rbind(rv$table, ct)
+          rv$table <- rbind(ct, rv$table)
         }
         row.names(rv$table) <- 1:nrow(rv$table)
         
