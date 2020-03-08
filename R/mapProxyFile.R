@@ -30,11 +30,12 @@ mapProxyFile <- function(features){
       # add polygons
       addCircles(data=features,
                  radius=56,
+                 weight=15,
                  group='Upload File') %>%
       # fit bounds
       setView(lng=mean(bbox[c('xmin','xmax')]), 
               lat=mean(bbox[c('ymin','ymax')]), 
-              zoom=10)
+              zoom=11)
   }
 }
 

@@ -180,7 +180,7 @@ shinyServer(
               if(!'table' %in% names(rv)) { 
                 rv$table <- ct
               } else { 
-                rv$table <- rbind(rv$table, ct)}
+                rv$table <- rbind(ct, rv$table)}
               row.names(rv$table) <- 1:nrow(rv$table)
               
               showNotification(paste('Population estimates for',nrow(rv$feature),'features added to the "Saved" tab.'), type='message', duration=10)
