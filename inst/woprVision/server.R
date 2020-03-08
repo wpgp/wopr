@@ -4,7 +4,7 @@ shinyServer(
     # reactive values
     rv <- reactiveValues()
     
-    # new data selected
+    ##-- observe new data selected --##
     observeEvent(input$data_select, {
       
       # disconnect from last database
@@ -12,9 +12,6 @@ shinyServer(
         DBI::dbDisconnect(rv$sql)
       }
       
-      # remove local_tiles
-      if('tiles' %in% resourcePaths()) removeResourcePath('tiles')
-
       # cleanup environment
       rv$sql <- 
         rv$mastergrid <- 
@@ -24,6 +21,9 @@ shinyServer(
         rv$path <- NULL
       gc()
       
+      # remove local_tiles
+      if('tiles' %in% resourcePaths()) removeResourcePath('tiles')
+
       # reset pointpoly
       updateRadioButtons(session=session, inputId='pointpoly', selected='Selected Point')
       
@@ -31,6 +31,8 @@ shinyServer(
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
       rv$path <- file.path(wopr_dir,rv$country,'population',rv$version)
+      
+      # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       basename(subset(catalogue_full,{
                                         country==rv$country & 
@@ -42,63 +44,45 @@ shinyServer(
 
       # local SQL mode
       if(version_info[input$data_select,'local_sql']){
-        
         message(paste0('Using local SQL database for ',input$data_select,'.'))
-        
-        # connect to SQL database
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(), 
                                      file.path(rv$path,
                                                paste0(rv$country,'_population_',gsub('.','_',as.character(rv$version), fixed=T),'_sql.sql')))
-        
-        # load mastergrid
         rv$mastergrid <- raster::raster(file.path(rv$path,
                                                   paste0(rv$country,'_population_',gsub('.','_',as.character(rv$version), fixed=T),'_mastergrid.tif')))
       }
       
       # local tiles
       if(version_info[input$data_select, 'local_tiles']){
-        
         message(paste0('Using local image tiles for ',input$data_select,'.'))
-        
         addResourcePath('tiles', file.path(rv$path, 
                                            paste0(rv$country,
                                                   '_population_',
                                                   gsub('.','_',as.character(rv$version),fixed=T),
-                                                  '_tiles')))
-      }
-      
+                                                  '_tiles')))}
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
           addResourcePath('basemap', file.path(wopr_dir,'basemap'))
       }
     })
 
-    # map
+    ##-- map --##
     output$map <- leaflet::renderLeaflet( map(country=rv$country, 
                                               version=rv$version,
                                               local_tiles=version_info[input$data_select, 'local_tiles']) )
 
-    # update map: marker with mouse clicks
+    # map marker with mouse clicks
     observeEvent(input$map_click, {
       mapProxyMarker(input$pointpoly, input$map_click, input$map_zoom)
     })
     
-    # update map: point/polygon selection
-    observe( mapProxyPoly(input$pointpoly) )
-    
-    # age-sex selection
-    observe({
-      rv$agesex_select <- agesexLookup(input$male,
-                                       input$female,
-                                       input$male_select,
-                                       input$female_select
-                                       )
-    })
-    
-    # observe selection tool
+    ##-- observe selection tool (pointpoly) --##
     observeEvent(input$pointpoly,{
       
       rv$feature <- rv$N <- rv$agesexid <- NULL
+      
+      mapProxyPoly(input$pointpoly)
+      
       shinyjs::disable('submit')
       
       if(input$pointpoly=='Upload File'){
@@ -108,7 +92,7 @@ shinyServer(
       }
     })
     
-    # observe age-sex selection
+    ##-- observe age-sex selection --##
     observeEvent(c(input$male,
                    input$female,
                    input$male_select,
@@ -116,24 +100,48 @@ shinyServer(
                      rv$N <- rv$agesexid <- NULL
                    })
     
-    # observe file upload
-    observe({
+    ##-- observe file upload --##
+    observeEvent(input$user_json, {
       if(!is.null(input$user_json)){
+        
         updateSelectInput(session, 'pointpoly', selected='Upload File')
+        
+        rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
+        rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
+        
+        # mapProxyFile(rv$feature)
       }
     })
     
-    # observe feature
+    ##-- observe input --##
     observe({
+      
+      # sf feature
+      if(input$pointpoly=='Selected Point'){
+        rv$feature <- leaf_sf(input$map_click, input$pointpoly)
+      } 
+      if(input$pointpoly=='Custom Area'){
+        rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
+      }
+
+      # age-sex selection
+      rv$agesex_select <- agesexLookup(input$male,
+                                       input$female,
+                                       input$male_select,
+                                       input$female_select)
+    })
+    
+    ##-- observe reactive values (rv) --##
+    observe({
+      
+      # toggle submit button
       if(is.null(rv$feature)){
         shinyjs::disable('submit')
       } else {
         shinyjs::enable('submit')
       }
-    })
-    
-    # observe results
-    observe({
+      
+      # toggle save button
       if(is.null(rv$N)){
         shinyjs::disable('save_button')
       } else {
@@ -141,24 +149,7 @@ shinyServer(
       }
     })
     
-    # create sf object
-    observe({
-      if(input$pointpoly=='Selected Point'){
-        rv$feature <- leaf_sf(input$map_click, input$pointpoly)
-      } 
-      if(input$pointpoly=='Custom Area'){
-        rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
-      }
-      if(input$pointpoly=='Upload File'){
-        if(is.null(input$user_json)){
-          rv$feature <- NULL
-        } else {
-          rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)[1:20,1]
-        } 
-      }
-    })
-    
-    # query wopr
+    ##-- query wopr --##
     observeEvent(input$submit, {
       
       shinyjs::disable('submit')
@@ -232,13 +223,13 @@ shinyServer(
             showNotification(as.character(e), type='error', duration=10)
           })
         }, message='woprizing:', 
-        detail='Fetching population total for selected location(s) and demographic group...', 
+        detail='Fetching population total for selected location(s) and demographic group(s)...', 
         value=0.5)
       }
       shinyjs::enable('submit')
     })
     
-    # create plot
+    ##-- create plot --##
     output$sidePlot <- renderPlot({ 
       plotPanel(N=rv$N, 
                 agesex_select=rv$agesex_select,
@@ -246,11 +237,8 @@ shinyServer(
                 confidence=input$ci_level, 
                 tails=input$ci_type,
                 popthresh=input$popthresh) 
-      })
+    })
     
-    # create results table
-    output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=T)
-
     # save button
     observeEvent(input$save_button, {
       
@@ -265,11 +253,15 @@ shinyServer(
         row.names(rv$table) <- 1:nrow(rv$table)
         
         showNotification('Population estimate added to the "Saved" tab.', type='message', duration=10)
-        
       } else {
         showNotification('Need to submit a population query before results can be saved.', type='message')
       }
     })
+    
+    ##-- saved tab --##
+    
+    # results table
+    output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=T)
 
     # download button
     output$download_table <- downloadHandler(filename = paste0('woprVision_',format(Sys.time(), "%Y%m%d%H%M"),'.csv'),
@@ -279,19 +271,21 @@ shinyServer(
       showModal(modalDialog('Are you sure you want to clear all saved population estimates?', 
                             title='Confirm',
                             footer=tagList(modalButton('Cancel'),actionButton('clear','Clear Saved Estimates'))
-                            ))})
-    
+                            ))
+    })
     observeEvent(input$clear, {
       rv$table <- NULL
       removeModal()
     })
 
-    # WOPR url
+    ##-- tabs --##
+    
+    # wopr download tab
     output$wopr_web <- renderText(
       return(paste('<iframe style="height: calc(98vh - 85px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
     )
 
-    # data readme
+    # readme tab
     output$data_readme <- renderText(
         return(paste('<iframe style="height: calc(98vh - 85px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
     )

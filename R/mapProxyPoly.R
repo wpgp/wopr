@@ -47,9 +47,6 @@ mapProxyPoly <- function(pointpoly){
       clearMarkers() %>%
       
       # remove drawToolbar
-      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
-      
-      # hide group
-      hideGroup('Custom Area')
+      leaflet.extras::removeDrawToolbar(clearFeatures=T)
   }
 }
