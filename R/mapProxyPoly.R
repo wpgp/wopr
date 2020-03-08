@@ -37,7 +37,7 @@ mapProxyPoly <- function(pointpoly){
       # custom polygon controls
       leaflet.extras::addDrawToolbar(
         targetGroup='Custom Area',
-        editOptions = leaflet.extras::editToolbarOptions(),
+        editOptions = leaflet.extras::editToolbarOptions(remove=F),
         singleFeature = TRUE,
         polygonOptions = leaflet.extras::drawPolygonOptions(),
         polylineOptions=F, circleOptions=F, rectangleOptions=F, markerOptions=F, circleMarkerOptions=F

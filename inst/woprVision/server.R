@@ -111,13 +111,14 @@ shinyServer(
         rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
         rv$feature <- sf::st_transform(rv$feature, crs=4326)
         
-        mapProxyFile(rv$feature)
+        mapProxyFile(rv$feature, input$map_zoom)
       }
     })
     
     ## map click
     observeEvent(input$map_click, {
       if(input$pointpoly=='Selected Point'){
+        rv$N <- rv$agesexid <- NULL
         mapProxyMarker(input$map_click, input$map_zoom)
         rv$feature <- leaf_sf(input$map_click, input$pointpoly)
       }
@@ -126,6 +127,7 @@ shinyServer(
     ## draw polygon
     observeEvent(input$map_draw_all_features, {
       if(input$pointpoly=='Custom Area'){
+        rv$N <- rv$agesexid <- NULL
         rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
       }
     })
