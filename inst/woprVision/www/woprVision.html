@@ -38,21 +38,11 @@
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#quick-start">Quick Start</a></li>
-<li><a href="#user-control-panel">User Control Panel</a></li>
-<li><a href="#map-window">Map Window</a><ul>
-<li><a href="#basemaps">Basemaps</a></li>
-<li><a href="#map-layers">Map Layers</a></li>
-<li><a href="#draw-toolbar">Draw Toolbar</a></li>
-<li><a href="#zoom">Zoom</a></li>
-</ul></li>
-<li><a href="#result-panel">Result Panel</a></li>
-<li><a href="#tabs">Tabs</a><ul>
-<li><a href="#map">Map</a></li>
-<li><a href="#saved">Saved</a></li>
-<li><a href="#data-readme">Data Readme</a></li>
-<li><a href="#wopr-download">WOPR Download</a></li>
-<li><a href="#r-package">R package</a></li>
-<li><a href="#rest-api">REST API</a></li>
+<li><a href="#application-components">Application Components</a><ul>
+<li><a href="#user-controls">User Controls</a></li>
+<li><a href="#map-window">Map Window</a></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#tabs">Tabs</a></li>
 </ul></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -91,8 +81,10 @@
 7. Use the sliders to select an age and sex group<br />
 8. Click “Submit” to retrieve the population estimate for the selected demographic group in the selected location</p>
 </div>
-<div id="user-control-panel" class="section level2">
-<h2>User Control Panel</h2>
+<div id="application-components" class="section level2">
+<h2>Application Components</h2>
+<div id="user-controls" class="section level3">
+<h3>User Controls</h3>
 <p>The user control panel is on the left side of the “Map” tab with controls that you can use to retrieve population estimates.</p>
 <p><strong>Choose Population Data</strong> Select the population data set that you would like to query. This includes a country and version number. You can read more about the selected data set in the “Data Readme” tab.</p>
 <p><strong>Select a Location</strong> You can select point locations with the “Click the Map” tool. You can draw a polygon to select an area with the “Draw an Area” tool. You can upload a geojson file with points or polygons using the “Upload File” tool.</p>
@@ -108,54 +100,43 @@
 </ul>
 <p><strong>Population Threshold</strong> The population threshold provided here will be used to calculate the probability that the population exceeds that threshold. The default value is 100. This will return the probability that the population exceeds 100 people.</p>
 </div>
-<div id="map-window" class="section level2">
-<h2>Map Window</h2>
-<div id="basemaps" class="section level3">
-<h3>Basemaps</h3>
-<p>The following basemaps can be selected from the topright panel in the map window:</p>
+<div id="map-window" class="section level3">
+<h3>Map Window</h3>
+<p><strong>Basemaps</strong><br />
+The following basemaps can be selected from the topright panel in the map window:</p>
 <ul>
 <li><p><strong>Dark</strong> A dark base map from the <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter" target="_blank">CartoDB.DarkMatter</a> Leaflet base map provider. This base map provides maximum contrast against the population layer.</p></li>
 <li><p><strong>Map</strong> An Open Street Maps base map called <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik" target="_blank">OpenStreetMap.Mapnik</a> from the Leaflet providers. This base map provides placenames and street names that can be helpful.</p></li>
 <li><p><strong>Satellite</strong> ESRI satellite image base map <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery" target="_blank">Esri.WorldImagery</a> from the Leaflet providers. This base map provides satellite images that are most useful when zoomed in.</p></li>
 </ul>
-</div>
-<div id="map-layers" class="section level3">
-<h3>Map Layers</h3>
-<p>The following map layers can be toggled on or off from the top-right panel in the map window:</p>
+<p><strong>Map Layers</strong><br />
+The following map layers can be toggled on or off from the top-right panel in the map window:</p>
 <ul>
 <li><p><strong>Population</strong> A map layer displaying WorldPop’s gridded population estimates. This legend for the map layer appears in the bottom-right corner of the map window when the layer is toggled on.</p></li>
 <li><p><strong>Custom Area</strong> A map layer displaying the polygon that you have drawn with the “Draw an Area” selection tool.</p></li>
 </ul>
-</div>
-<div id="draw-toolbar" class="section level3">
-<h3>Draw Toolbar</h3>
-<p>The draw toolbar appears on the left side of the map window when you select the “Draw an Area” selection tool. The toolbar has three tools:</p>
+<p><strong>Draw Toolbar</strong><br />
+The draw toolbar appears on the left side of the map window when you select the “Draw an Area” selection tool. The toolbar has three tools:</p>
 <ul>
 <li><p><strong>Draw a Polygon</strong> When you select this tool, you can then draw a polygon by clicking on the map to get a population estimate.</p></li>
 <li><p><strong>Edit Layers</strong> This tool can be used to edit a polygon that you have previously drawn.</p></li>
 <li><p><strong>Delete Layers</strong> This tool can be used to delete the polygon that you have drawn.</p></li>
 </ul>
+<p><strong>Zoom</strong><br />
+The zoom controls are in the top-left corner of the map window. The plus and minus buttons zoom in and out. The button with the Earth icon resets to the inital zoom level (zoomed out).</p>
 </div>
-<div id="zoom" class="section level3">
-<h3>Zoom</h3>
-<p>The zoom controls are in the top-left corner of the map window. The plus and minus buttons zoom in and out. The button with the Earth icon resets to the inital zoom level (zoomed out).</p>
-</div>
-</div>
-<div id="result-panel" class="section level2">
-<h2>Result Panel</h2>
+<div id="results" class="section level3">
+<h3>Results</h3>
 <p>The results panel contains two plots that represent the population at the selected location. The top plot shows the probability distribution representing the population estimate and the bottom plot shows a population pyramid representing the age-sex structure.</p>
 <p><strong>Population Estimate</strong> The population estimate is the mean of the probability distribution shown in the plot. The probability distribution is the predicted posterior probability distribution from a Bayesian statistical model (see “Data Readme” tab for details). The confidence intervals are calculated based on the settings selected in the user controls (see “User Controls: Confidence Level” and “user Controls: Confidence Type”). The probability of exceeding the selected population threshold is also reported in the top plot (see “User Controls: Population Threshold”).</p>
 <p><strong>Age-sex Structure</strong> The estimates of demographic structure that make-up the population pyramids are used here with permission from the WorldPop Global High Resolution Population Denominators project (Pezzulo et al. 2017, WorldPop et al. 2018). These data provide regional estimates of the proportion of the population in each age-sex group across the study area.</p>
 </div>
-<div id="tabs" class="section level2">
-<h2>Tabs</h2>
-<div id="map" class="section level3">
-<h3>Map</h3>
-<p>This is the default tab. It can be used to to toggle between datasets and to retrieve population estimates for specific areas by clicking the map or drawing a polygon. This tab contains a Leaflet map in the middle, a user control panel on the left, and a results panel on the right.</p>
-</div>
-<div id="saved" class="section level3">
-<h3>Saved</h3>
-<p>This tab has a spreadsheet that contains any population estimates that you have saved. The spreadsheet can be saved to your computer as a .csv file by clicking “Download” or it can be deleted by clicking “Clear”.</p>
+<div id="tabs" class="section level3">
+<h3>Tabs</h3>
+<p><strong>Map</strong><br />
+This is the default tab. It can be used to to toggle between datasets and to retrieve population estimates for specific areas by clicking the map or drawing a polygon. This tab contains a Leaflet map in the middle, a user control panel on the left, and a results panel on the right.</p>
+<p><strong>Saved</strong><br />
+This tab has a spreadsheet that contains any population estimates that you have saved. The spreadsheet can be saved to your computer as a .csv file by clicking “Download” or it can be deleted by clicking “Clear”.</p>
 <p>Results include the following columns:</p>
 <ul>
 <li><strong>Nmean</strong> The population estimate (the mean of the predicted probability distribution).</li>
@@ -175,22 +156,14 @@
 <li><strong>confidence_type</strong> The type of confidence interval.</li>
 <li><strong>geojson</strong> A GeoJson that contains the feature geometry of the spatial query that you submitted using the map tab. Coordinates are in the WGS84 coordinate system (EPSG:4326).</li>
 </ul>
-</div>
-<div id="data-readme" class="section level3">
-<h3>Data Readme</h3>
-<p>The “Data Readme” tab provides the WorldPop data release statement for the population data set that is currently selected in the “Map” tab. Release statements provide information about the population data set and how it was produced.</p>
-</div>
-<div id="wopr-download" class="section level3">
-<h3>WOPR Download</h3>
-<p>This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.</p>
-</div>
-<div id="r-package" class="section level3">
-<h3>R package</h3>
-<p>This tab provides a description of the <em>wopr</em> package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally, to download data directly from the R console, and to submit spatial queries to the WOPR server to get population estimates for polygons or points from your own shapefiles.</p>
-</div>
-<div id="rest-api" class="section level3">
-<h3>REST API</h3>
-<p>This tab provides an overview of the WOPR REST API. This is the way that the <em>wopr</em> R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.</p>
+<p><strong>Data Readme</strong><br />
+The “Data Readme” tab provides the WorldPop data release statement for the population data set that is currently selected in the “Map” tab. Release statements provide information about the population data set and how it was produced.</p>
+<p><strong>WOPR Download</strong><br />
+This tab allows you to download the population data directly from the WorldPop Open Population Repository (WOPR). The README files provide descriptions of the datasets that can be reviewed prior to downloading files.</p>
+<p><strong>R package</strong><br />
+This tab provides a description of the <em>wopr</em> package for the R statistical programming language. The package gives you access to the WorldPop Open Population Repository from your R console allowing you to run woprVision locally, to download data directly from the R console, and to submit spatial queries to the WOPR server to get population estimates for polygons or points from your own shapefiles.</p>
+<p><strong>REST API</strong><br />
+This tab provides an overview of the WOPR REST API. This is the way that the <em>wopr</em> R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.</p>
 </div>
 </div>
 <div id="references" class="section level2">

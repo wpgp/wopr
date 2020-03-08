@@ -254,6 +254,7 @@ shinyServer(
       } else {
         showNotification('Need to submit a population query before results can be saved.', type='message')
       }
+      shinyjs::reset('save_name')
     })
     
     ##-- saved tab --##
