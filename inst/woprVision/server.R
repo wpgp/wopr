@@ -141,7 +141,7 @@ shinyServer(
     
     # toggle save button
     observe({  
-      if(is.null(rv$N)){
+      if(is.null(rv$N) | input$pointpoly=='Upload File'){
         shinyjs::disable('save_button')
       } else {
         shinyjs::enable('save_button')
