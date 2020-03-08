@@ -17,7 +17,8 @@ resultTable <- function(inp, rval){
                     abovethresh=inp$popthresh)
   }
   
-  names.result <- c('name','data','mode','pop','pop_low','pop_up','abovethresh','popthresh',
+  names.result <- c('name','data','mode',
+                    'pop','pop_lower','pop_upper','abovethresh','popthresh',
                     'female_age','male_age','confidence_level','confidence_type','geojson')
   
   result <- data.frame(matrix(NA, nrow=nrow(s), ncol=length(names.result)))
@@ -71,26 +72,26 @@ resultTable <- function(inp, rval){
   }
   
   if(inp$ci_type=='Interval'){
-    result$pop_low <- s$lower
-    result$pop_up <- s$upper
+    result$pop_lower <- s$lower
+    result$pop_upper <- s$upper
   } else if(inp$ci_type=='Upper Limit'){
-    result$pop_low <- NA
-    result$pop_up <- s$upper
+    result$pop_lower <- NA
+    result$pop_upper <- s$upper
   } else if(inp$ci_type=='Lower Limit'){
-    result$pop_low <- s$lower
-    result$pop_up <- NA
+    result$pop_lower <- s$lower
+    result$pop_upper <- NA
   }
 
   for(i in 1:nrow(result)){
     result[i,'pop'] <- s[i,'mean']
-    result[i,'pop_low'] <- s[i,'lower']
-    result[i,'pop_up'] <- s[i,'upper']
+    result[i,'pop_lower'] <- s[i,'lower']
+    result[i,'pop_upper'] <- s[i,'upper']
     result[i,'abovethresh'] <- s[i,'abovethresh']
     result[i,'geojson'] <- as.character(geojsonio::geojson_json(rval$feature[i,]))
   }
   result$pop <- as.integer(round(result$pop))
-  result$pop_low <- as.integer(round(result$pop_low))
-  result$pop_up <- as.integer(round(result$pop_up))
+  result$pop_lower <- as.integer(round(result$pop_lower))
+  result$pop_upper <- as.integer(round(result$pop_upper))
   
   return(result)
 }

@@ -5,13 +5,34 @@
 
 mapProxyPoly <- function(pointpoly){
   
+  if(pointpoly=='Selected Point'){
+    
+    # update map
+    leafletProxy('map') %>% 
+      
+      # clear features
+      clearShapes() %>%
+      clearMarkers() %>%
+      
+      # remove drawToolbar
+      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
+      
+      # hide group
+      hideGroup('Custom Area') %>%
+      hideGroup('Upload File')
+  }
+  
   if(pointpoly=='Custom Area'){
     
     # update map
     leafletProxy('map') %>% 
       
-      # clear marker
+      # clear features
+      clearShapes() %>%
       clearMarkers() %>%
+      
+      # hide groups
+      hideGroup('Upload File') %>%
       
       # custom polygon controls
       leaflet.extras::addDrawToolbar(
@@ -25,19 +46,7 @@ mapProxyPoly <- function(pointpoly){
       # show polygon
       showGroup('Custom Area')
   }
-  
-  if(pointpoly=='Selected Point'){
-    
-    # update map
-    leafletProxy('map') %>% 
-      
-      # remove drawToolbar
-      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
 
-      # hide group
-      hideGroup('Custom Area')
-  }
-  
   if(pointpoly=='Upload File'){
     
     # update map
@@ -45,8 +54,11 @@ mapProxyPoly <- function(pointpoly){
       
       # clear marker
       clearMarkers() %>%
-      
+
       # remove drawToolbar
-      leaflet.extras::removeDrawToolbar(clearFeatures=T)
+      leaflet.extras::removeDrawToolbar(clearFeatures=T) %>%
+      
+      # show group
+      showGroup('Upload File')
   }
 }

@@ -27,6 +27,9 @@ shinyServer(
       # reset pointpoly
       updateRadioButtons(session=session, inputId='pointpoly', selected='Selected Point')
       
+      # disable submit
+      shinyjs::disable('submit')
+      
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
@@ -66,41 +69,39 @@ shinyServer(
       }
     })
 
-    ##-- map --##
-    output$map <- leaflet::renderLeaflet( map(country=rv$country, 
-                                              version=rv$version,
-                                              local_tiles=version_info[input$data_select, 'local_tiles']) )
-
-    # map marker with mouse clicks
-    observeEvent(input$map_click, {
-      mapProxyMarker(input$pointpoly, input$map_click, input$map_zoom)
+    ## leaflet map
+    output$map <- leaflet::renderLeaflet({
+      map(country=rv$country, version=rv$version, 
+          local_tiles=version_info[input$data_select, 'local_tiles']) 
     })
-    
-    ##-- observe selection tool (pointpoly) --##
+
+    ## change location selection tool
     observeEvent(input$pointpoly,{
       
-      rv$feature <- rv$N <- rv$agesexid <- NULL
+      rv$N <- rv$agesexid <- NULL
       
       mapProxyPoly(input$pointpoly)
       
-      shinyjs::disable('submit')
-      
       if(input$pointpoly=='Upload File'){
+        
         shinyjs::enable('user_json')
+        
+        if(is.null(input$user_json)){
+          shinyjs::disable('submit')
+        }
       } else {
         shinyjs::reset('user_json')
+        shinyjs::disable('submit')
       }
     })
     
-    ##-- observe age-sex selection --##
-    observeEvent(c(input$male,
-                   input$female,
-                   input$male_select,
-                   input$female_select), {
-                     rv$N <- rv$agesexid <- NULL
-                   })
+    ## age-sex selection
+    observeEvent(c(input$male, input$female, input$male_select, input$female_select), {
+      rv$N <- rv$agesexid <- NULL
+      rv$agesex_select <- agesexLookup(input$male, input$female, input$male_select, input$female_select)
+    })
     
-    ##-- observe file upload --##
+    ## file upload
     observeEvent(input$user_json, {
       if(!is.null(input$user_json)){
         
@@ -108,40 +109,38 @@ shinyServer(
         
         rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
         rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
+        rv$feature <- sf::st_transform(rv$feature, crs=4326)
         
-        # mapProxyFile(rv$feature)
+        mapProxyFile(rv$feature)
       }
     })
     
-    ##-- observe input --##
-    observe({
-      
-      # sf feature
+    ## map click
+    observeEvent(input$map_click, {
       if(input$pointpoly=='Selected Point'){
+        mapProxyMarker(input$map_click, input$map_zoom)
         rv$feature <- leaf_sf(input$map_click, input$pointpoly)
-      } 
+      }
+    })
+    
+    ## draw polygon
+    observeEvent(input$map_draw_all_features, {
       if(input$pointpoly=='Custom Area'){
         rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
       }
-
-      # age-sex selection
-      rv$agesex_select <- agesexLookup(input$male,
-                                       input$female,
-                                       input$male_select,
-                                       input$female_select)
     })
     
-    ##-- observe reactive values (rv) --##
-    observe({
-      
-      # toggle submit button
+    # toggle submit button
+    observeEvent(rv$feature, {
       if(is.null(rv$feature)){
         shinyjs::disable('submit')
       } else {
         shinyjs::enable('submit')
       }
-      
-      # toggle save button
+    })
+    
+    # toggle save button
+    observe({  
       if(is.null(rv$N)){
         shinyjs::disable('save_button')
       } else {
@@ -155,39 +154,36 @@ shinyServer(
       shinyjs::disable('submit')
       
       rv$N <- rv$agesexid <- NA
-      
+
       if(class(rv$feature)[1]=='sf'){
         
         withProgress({
           tryCatch({
             
             if(input$pointpoly=='Upload File'){
-              if(!is.null(input$user_json)) {
-                
-                # Upload File
-                rv$feature <- woprize(feature=rv$feature, 
-                                      country=rv$country, 
-                                      version=rv$version, 
-                                      agesex_select=rv$agesex_select,
-                                      confidence=input$ci_level/1e3,
-                                      tails=ifelse(input$ci_type=='Interval',2,1),
-                                      abovethresh=input$popthresh,
-                                      url=url,
-                                      timeout=5*60)
-                
-                ct <- resultTable(input, rv)
-                
-                if(!'table' %in% names(rv)) { 
-                  rv$table <- ct
-                } else { 
-                  rv$table <- rbind(rv$table, ct)}
-                row.names(rv$table) <- 1:nrow(rv$table)
-                
-                showNotification(paste('Population estimates for',nrow(rv$feature),'features added to the "Saved" tab.'), type='message', duration=10)
-                
-                shinyjs::reset('user_json')
-                rv$feature <- rv$N <- NULL
-              }
+
+              # Upload File
+              rv$feature <- woprize(feature=rv$feature, 
+                                    country=rv$country, 
+                                    version=rv$version, 
+                                    agesex_select=rv$agesex_select,
+                                    confidence=input$ci_level/1e2,
+                                    tails=ifelse(input$ci_type=='Interval',2,1),
+                                    abovethresh=input$popthresh,
+                                    url=url,
+                                    timeout=5*60)
+              
+              ct <- resultTable(input, rv)
+              
+              if(!'table' %in% names(rv)) { 
+                rv$table <- ct
+              } else { 
+                rv$table <- rbind(rv$table, ct)}
+              row.names(rv$table) <- 1:nrow(rv$table)
+              
+              showNotification(paste('Population estimates for',nrow(rv$feature),'features added to the "Saved" tab.'), type='message', duration=10)
+              
+              shinyjs::reset('user_json')
             } 
             
             if(input$pointpoly %in% c('Selected Point', 'Custom Area')) {
@@ -242,7 +238,7 @@ shinyServer(
     # save button
     observeEvent(input$save_button, {
       
-      if(!is.null(rv$N)){
+      if(!is.null(rv$N) & !is.null(rv$feature)){
         ct <- resultTable(input, rv)
         
         if(!'table' %in% names(rv)){

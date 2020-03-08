@@ -7,18 +7,17 @@ mapProxyFile <- function(features){
   
   # feature bounding box
   bbox <- sf::st_bbox(features)
-  
+
   # update map
   leafletProxy('map') %>% 
     
     # add polygons
-    addPolygons(data=features, group='Custom Area') %>%
-    
-    # show polygon
-    showGroup('Custom Area') %>%
+    addPolygons(data=features, group='Upload File') %>%
     
     # fit bounds
-    fitBounds(lng1=bbox$xmin, lng2=bbox$xmax, lat1=bbox$ymin, lat2=bbox$ymax)
+    setView(lng=mean(bbox[c('xmin','xmax')]), 
+            lat=mean(bbox[c('ymin','ymax')]), 
+            zoom=9)
 }
 
 

@@ -4,7 +4,7 @@
 \alias{mapProxyMarker}
 \title{Leaflet map proxy to update on map click}
 \usage{
-mapProxyMarker(pointpoly, map_click, map_zoom)
+mapProxyMarker(map_click, map_zoom)
 }
 \value{
 A n updated leaflet map.

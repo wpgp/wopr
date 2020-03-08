@@ -34,7 +34,7 @@ map <- function(country, version, local_tiles=F) {
     
     # layers control
     addLayersControl(baseGroups=c('Dark','Map','Satellite'), 
-                     overlayGroups=c('Population','Custom Area'),  
+                     overlayGroups=c('Population'),  
                      options=layersControlOptions(collapsed=FALSE, autoZIndex=T)) %>%
     
     # population legend
@@ -47,12 +47,8 @@ map <- function(country, version, local_tiles=F) {
     
     # hide groups by default
     hideGroup('Custom Area') %>%
+    hideGroup('Upload File') %>%
     
-    # full zoom out button
-    addEasyButton(easyButton(
-        icon="fa-globe", title="Zoom Out",
-        onClick=JS("function(btn, map){ map.setZoom(7); }"))) %>%
-      
     # zoom to country boundary
     setView(lng=version_info[paste(country, version),'lng'],
             lat=version_info[paste(country, version),'lat'],
