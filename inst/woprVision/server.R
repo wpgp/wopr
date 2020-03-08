@@ -105,13 +105,22 @@ shinyServer(
     observeEvent(input$user_json, {
       if(!is.null(input$user_json)){
         
-        updateSelectInput(session, 'pointpoly', selected='Upload File')
-        
-        rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
-        rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
-        rv$feature <- sf::st_transform(rv$feature, crs=4326)
-        
-        mapProxyFile(rv$feature)
+        tryCatch({
+          updateSelectInput(session, 'pointpoly', selected='Upload File')
+          
+          rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
+          rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
+          rv$feature <- sf::st_transform(rv$feature, crs=4326)
+          
+          mapProxyFile(rv$feature)
+          
+        }, warning=function(w){
+          shinyjs::reset('user_json')
+          showNotification(as.character(w), type='warning', duration=20)
+        }, error=function(e){
+          shinyjs::reset('user_json')
+          showNotification(as.character(e), type='error', duration=20)
+        })
       }
     })
     
