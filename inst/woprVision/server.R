@@ -111,7 +111,7 @@ shinyServer(
         rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
         rv$feature <- sf::st_transform(rv$feature, crs=4326)
         
-        mapProxyFile(rv$feature, input$map_zoom)
+        mapProxyFile(rv$feature)
       }
     })
     

@@ -4,12 +4,10 @@
 \alias{mapProxyFile}
 \title{Map proxy to make changes when a GeoJSON is uploaded}
 \usage{
-mapProxyFile(features, map_zoom)
+mapProxyFile(features)
 }
 \arguments{
 \item{features}{sf features}
-
-\item{map_zoom}{current leaflet map zoom level}
 }
 \description{
 Update map for polygon mode
