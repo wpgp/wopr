@@ -28,9 +28,7 @@ mapProxyFile <- function(features){
     leafletProxy('map') %>% 
       
       # add polygons
-      addCircles(data=features,
-                 radius=56,
-                 weight=15,
+      addCircles(data=features, radius=56, weight=15, opacity=0.75,
                  group='Upload File') %>%
       # fit bounds
       setView(lng=mean(bbox[c('xmin','xmax')]), 

@@ -89,7 +89,7 @@ ui <- tagList(
   tags$style(HTML(".leaflet-container {background:#2B2D2F}")),
   
   navbarPage(title='woprVision', 
-             footer='wopr v0.2 (R package)',
+             footer=tags$footer('wopr v0.2 (R package)', align='right'),
              inverse=F,
 
              # tab: map

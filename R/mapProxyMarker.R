@@ -12,10 +12,11 @@ mapProxyMarker <- function(map_click, map_zoom){
   leafletProxy('map') %>% 
     
     # clear old marker
-    clearMarkers() %>%
+    clearShapes() %>%
     
     # add new marker
-    addMarkers(lng=x, lat=y, 
+    addCircles(lng=x, lat=y, 
+               radius=56, weight=15, opacity=0.75,
                popup = paste('Long:',round(x,4),'<br/>Lat:',round(y,4)),
                labelOptions = list(noHide=TRUE, textsize=14), 
                popupOptions = list(keepInview=T),
