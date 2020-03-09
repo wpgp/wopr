@@ -31,6 +31,9 @@ column(
     # age-sex groups
     strong('3. Define Age-sex Groups'),
     
+    tags$style('.irs-bar, .irs-bar-edge,
+               .irs-single, .irs-from, .irs-to, .irs-grid-pol {background-color:darkgrey; border-color:darkgrey; }'),
+    
     # female
     splitLayout(cellWidths=c('35%','65%'),
                 checkboxInput(inputId="female", label="Female", value=T),
@@ -51,7 +54,9 @@ column(
     # submit button
     strong('4. Get Population Estimate'), br(),
     
-    shinyjs::disabled(actionButton('submit','Submit...',width='100%')), br(), br(),
+    tags$style(HTML('#submit{background-color:black; color:white}')),
+    
+    shinyjs::disabled(actionButton('submit','Submit',width='100%')), br(), br(),
     
     # save estimate
     strong('5. Save Result'), br(),
