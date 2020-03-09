@@ -92,7 +92,7 @@ ui <- tagList(
                   .navbar-nav > li:nth-child(6){float:right}
                   .navbar-nav > li:nth-child(7){float:right}")),
   
-  tags$style(HTML(".leaflet-container {background:#2B2D2F}")),
+  tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
   
   navbarPage(title='woprVision', 
              # footer=tags$footer('wopr v0.2 (R package)', align='right'),
