@@ -54,7 +54,7 @@ column(
     # submit button
     strong('4. Get Population Estimate'), br(),
     
-    tags$style(HTML('#submit{background-color:#606060; color:white}')),
+    tags$style(HTML('#submit{background-color:#383838; color:white}')),
     
     shinyjs::disabled(actionButton('submit',strong('Submit'),width='100%')), br(), br(),
     
