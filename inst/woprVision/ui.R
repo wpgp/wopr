@@ -2,7 +2,7 @@
 inputs <- 
 column(
   width=2,
-  style=paste0('height: calc(98vh - 80px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
+  style=paste0('height: calc(98vh - 75px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
   shinyjs::useShinyjs(),
 
   fluidRow(
@@ -28,28 +28,8 @@ column(
               buttonLabel = 'Browse',
               placeholder = '.json'),
     
-    # submit button
-    strong('3. Submit to WOPR'), br(),
-    
-    shinyjs::disabled(actionButton('submit','Submit...',width='100%')), br(), br(),
-    
-    # save estimate
-    strong('4. Save Result'), br(),
-    
-    splitLayout(cellWidths=c('30%','70%'),
-                
-                shinyjs::disabled(actionButton('save_button', 'Save', width='100%')), 
-                
-                textInput('save_name',
-                          label=NULL,
-                          value='',
-                          width='100%',
-                          placeholder='Save As (optional)')),
-    
     # age-sex groups
-    strong('Options:'),br(),
-    
-    strong('Age-sex Groups'),
+    strong('3. Define Age-sex Groups'),
     
     # female
     splitLayout(cellWidths=c('35%','65%'),
@@ -67,8 +47,29 @@ column(
                                               choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
                                               selected=c('<1', '80+'),
                                               force_edges=T)),
+
+    # submit button
+    strong('4. Get Population Estimate'), br(),
+    
+    shinyjs::disabled(actionButton('submit','Submit...',width='100%')), br(), br(),
+    
+    # save estimate
+    strong('5. Save Result'), br(),
+    
+    splitLayout(cellWidths=c('30%','70%'),
+                
+                shinyjs::disabled(actionButton('save_button', 'Save', width='100%')), 
+                
+                textInput('save_name',
+                          label=NULL,
+                          value='',
+                          width='100%',
+                          placeholder='Save As (optional)')),
+    
+    # age-sex groups
+    strong('Options:'),br(),
+    
     # confidence level
-    strong('Uncertainty Estimates'),
     sliderInput('ci_level',h5('Confidence Level (%):'), min=50, max=99, value=95, step=5),
     selectInput('ci_type',h5('Confidence Type'), choices=c('Interval', 'Lower Limit', 'Upper Limit')),
     numericInput('popthresh', h5('Population Threshold'), value=100, min=0, max=1e6, step=1)
@@ -89,7 +90,7 @@ ui <- tagList(
   tags$style(HTML(".leaflet-container {background:#2B2D2F}")),
   
   navbarPage(title='woprVision', 
-             footer=tags$footer('wopr v0.2 (R package)', align='right'),
+             # footer=tags$footer('wopr v0.2 (R package)', align='right'),
              inverse=F,
 
              # tab: map
@@ -101,12 +102,12 @@ ui <- tagList(
                         
                         # map panel (center)
                         column(width = 7,
-                               tags$style(type="text/css","#map {height: calc(98vh - 85px) !important;}"),
+                               tags$style(type="text/css","#map {height: calc(98vh - 75px) !important;}"),
                                leaflet::leafletOutput('map')),
                         
                         # results panel (right)
                         column(width = 3,
-                               style='overflow-y:scroll; height: calc(98vh - 85px)',
+                               style='overflow-y:scroll; height: calc(98vh - 75px)',
                                plotOutput('sidePlot', height='600px', width='100%')))
              ),
              
@@ -127,13 +128,13 @@ ui <- tagList(
 
              # tab: API readme
              tabPanel('REST API',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 75px)',
                                   frameBorder="0",
                                   src='woprAPI.html')),
              
              # tab: wopr R package readme
              tabPanel('R package',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 75px)',
                                   frameBorder='0',
                                   src='wopr_README.html')),
              
@@ -147,7 +148,7 @@ ui <- tagList(
              
              # tab: API readme
              tabPanel('Help',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 75px)',
                                   src='woprVision.html',
                                   frameBorder="0"))
              
