@@ -87,7 +87,7 @@ ui <- tagList(
   
   tags$head(
     tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
-    tags$meta(name='keywords', content='WOPR, wopr vision, WorldPop, population, WorldPop Open Population Repository, shiny, R package, spatial data, population map, Bayesian statistics, Nigeria, DRC, Democratic Republic of the Congo')
+    tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo')
   ),
   
   tags$style(HTML(".navbar-nav {float:none !important;}
