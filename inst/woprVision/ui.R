@@ -85,6 +85,11 @@ column(
 ui <- tagList(
   tags$head(includeScript("google-analytics.js")),
   
+  tags$head(
+    tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
+    tags$meta(name='keywords', content='WOPR, wopr vision, WorldPop, population, WorldPop Open Population Repository, shiny, R package, spatial data, population map, Bayesian statistics, Nigeria, DRC, Democratic Republic of the Congo')
+  ),
+  
   tags$style(HTML(".navbar-nav {float:none !important;}
                   .navbar-nav > li:nth-child(3){float:right}
                   .navbar-nav > li:nth-child(4){float:right}
