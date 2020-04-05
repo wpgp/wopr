@@ -10,21 +10,21 @@ version_info <- wopr:::woprVision_global$version_info
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 if(!'local_mode' %in% ls()) local_mode <- FALSE
 
-# wopr url
+# api url
 # url <- 'https://api.worldpop.org'
 url <- 'http://10.19.100.66'
 
-# retrieve catalogue
-if(local_mode){
-  catalogue_full <- read.csv(system.file('extdata', 'wopr_catalogue.csv', package='wopr', mustWork=T), stringsAsFactors=F) 
-} else {
-  catalogue_full <- getCatalogue()
-}
-catalogue <- subset(catalogue_full,
-                    category=='Population' & filetype=='sql',
-                    c('country','version'))  
-catalogue <- with(catalogue, catalogue[order(country, -as.numeric(gsub('v','',version))),])
-row.names(catalogue) <- with(catalogue, paste(country, version))
+# # retrieve catalogue
+# if(local_mode){
+#   catalogue_full <- read.csv(system.file('extdata', 'wopr_catalogue.csv', package='wopr', mustWork=T), stringsAsFactors=F) 
+# } else {
+#   catalogue_full <- getCatalogue()
+# }
+# catalogue <- subset(catalogue_full,
+#                     category=='Population' & filetype=='sql',
+#                     c('country','version'))  
+# catalogue <- with(catalogue, catalogue[order(country, -as.numeric(gsub('v','',version))),])
+# row.names(catalogue) <- with(catalogue, paste(country, version))
 
 # check for local files
 checkLocal <- function(dir, info){
@@ -50,12 +50,13 @@ version_info <- checkLocal(wopr_dir, version_info)
 if(local_mode & sum(version_info$local_sql)==0){
   stop('No local SQL databases available in "',wopr_dir,'" to run woprVision in local mode. See ?wopr::downloadData or https://wopr.worldpop.org', call.=F)
 } else if(local_mode){
-  catalogue <- catalogue[row.names(version_info)[version_info$local_sql],]
+  version_info <- version_info[version_info$local_sql,]
+  # catalogue <- catalogue[row.names(version_info)[version_info$local_sql],]
 }
 
 # choose initial data set
-country <- sample(unique(catalogue$country), 1)
-version <- catalogue[catalogue$country==country,'version'][1]
+country <- sample(unique(version_info$country), 1)
+version <- version_info[version_info$country==country,'version'][1]
 data_init <- paste(country, version, sep=' ')
 rm(country, version)
 

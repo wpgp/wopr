@@ -10,7 +10,7 @@ column(
     # model
     selectInput('data_select', 
                 HTML('1. Choose Population Data<br><small>(see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">country codes</a>)</small>'),
-                choices=paste(catalogue$country, catalogue$version), 
+                choices=paste(version_info$country, version_info$version), 
                 selected=data_init),
 
     # output type (point/polygon)

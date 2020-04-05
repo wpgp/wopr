@@ -37,12 +37,7 @@ shinyServer(
       
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
-                                      basename(subset(catalogue_full,{
-                                        country==rv$country & 
-                                          category=='Population' & 
-                                          version==rv$version & 
-                                          filetype=='README'},
-                                        select='url')[1,1]))
+                                      version_info[input$data_select,'readme'])
       rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
 
       # local SQL mode
@@ -72,7 +67,8 @@ shinyServer(
     ## leaflet map
     output$map <- leaflet::renderLeaflet({
       map(country=rv$country, version=rv$version, 
-          local_tiles=version_info[input$data_select, 'local_tiles']) 
+          local_tiles=version_info[input$data_select, 'local_tiles'],
+          southern=country %in% c('ZMB')) 
     })
 
     ## change location selection tool

@@ -30,7 +30,7 @@ file.copy('doc/woprAPI.html','inst/woprVision/www/woprAPI.html', overwrite=T)
 file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite=T)
 
 # wopr catalogue for offline woprVision
-write.csv(getCatalogue(), file='inst/extdata/wopr_catalogue.csv', row.names=F)
+# write.csv(getCatalogue(), file='inst/extdata/wopr_catalogue.csv', row.names=F)
 
 ##-- install package --##
 

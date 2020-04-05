@@ -57,7 +57,7 @@ submitTasks <- function(features, country, agesex_select, url, version=NA, key=N
                       geojson = suppressWarnings(geojsonio::geojson_json(features[i,])),
                       agesex = paste(agesex_select, collapse=','),
                       key = key
-      )
+                      )
     } else if(geom_type=='point'){
       coords <- sf::st_coordinates(features[i,])
       request <- list(iso3 = country,

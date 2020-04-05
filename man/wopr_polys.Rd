@@ -4,7 +4,9 @@
 \name{wopr_polys}
 \alias{wopr_polys}
 \title{Example polygons for WOPR}
-\format{An object of type _sf_: sfc_POLYGONS and sfc_MULTIPOLYGONS}
+\format{
+An object of type _sf_: sfc_POLYGONS and sfc_MULTIPOLYGONS
+}
 \usage{
 data(wopr_polys)
 }

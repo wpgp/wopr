@@ -6,7 +6,13 @@
 #' @return A Leaflet map.
 #' @export
 
-map <- function(country, version, local_tiles=F) {
+map <- function(country, version, local_tiles=F, southern=F) {
+  
+  if(country %in% c('ZMB')) {
+    southern <- T
+  } else {
+    southern <- F
+  }
   
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
@@ -24,8 +30,8 @@ map <- function(country, version, local_tiles=F) {
     
     # population tiles
     addTiles(urlTemplate=ifelse(local_tiles,
-                                'tiles/{z}/{x}/{y}.png',
-                                file.path('https://tiles.worldpop.org/wopr',country,'population',version,'population/{z}/{x}/{y}.png')), 
+                                paste0('tiles/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'),
+                                file.path('https://tiles.worldpop.org/wopr',country,'population',version,paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))), 
              group='Population',
              layerId='tiles_population',
              options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
