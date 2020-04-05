@@ -31,7 +31,11 @@ map <- function(country, version, local_tiles=F, southern=F) {
     # population tiles
     addTiles(urlTemplate=ifelse(local_tiles,
                                 paste0('tiles/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'),
-                                file.path('https://tiles.worldpop.org/wopr',country,'population',version,paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))), 
+                                file.path('https://tiles.worldpop.org/wopr',
+                                          country,
+                                          'population',
+                                          version,
+                                          paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))), 
              group='Population',
              layerId='tiles_population',
              options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),

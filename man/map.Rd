@@ -4,7 +4,7 @@
 \alias{map}
 \title{woprVision: Leaflet map}
 \usage{
-map(country, version, local_tiles = F)
+map(country, version, local_tiles = F, southern = F)
 }
 \arguments{
 \item{country}{ISO3 code for country to map}

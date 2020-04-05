@@ -204,7 +204,7 @@ shinyServer(
                                get_agesexid=T,
                                timeout=2*60)
                 rv$N <- i[['N']]
-                rv$agesexid <- i[['agesexid']]
+                rv$agesexid <- as.character(i[['agesexid']])
                 
               } else {
                 
@@ -217,7 +217,7 @@ shinyServer(
                             url=url,
                             timeout=2*60)
                 rv$N <- i[['N']]
-                rv$agesexid <- i[['agesexid']]
+                rv$agesexid <- as.character(i[['agesexid']])
               }
             }
           }, warning=function(w){

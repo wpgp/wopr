@@ -83,7 +83,7 @@ column(
 
 # main panel
 ui <- tagList(
-  tags$head(includeScript("google-analytics.js")),
+  # tags$head(includeScript("google-analytics.js")),
   
   tags$head(
     tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),

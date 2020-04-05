@@ -10,21 +10,8 @@ version_info <- wopr:::woprVision_global$version_info
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 if(!'local_mode' %in% ls()) local_mode <- FALSE
 
-# api url
-# url <- 'https://api.worldpop.org'
-url <- 'http://10.19.100.66'
-
-# # retrieve catalogue
-# if(local_mode){
-#   catalogue_full <- read.csv(system.file('extdata', 'wopr_catalogue.csv', package='wopr', mustWork=T), stringsAsFactors=F) 
-# } else {
-#   catalogue_full <- getCatalogue()
-# }
-# catalogue <- subset(catalogue_full,
-#                     category=='Population' & filetype=='sql',
-#                     c('country','version'))  
-# catalogue <- with(catalogue, catalogue[order(country, -as.numeric(gsub('v','',version))),])
-# row.names(catalogue) <- with(catalogue, paste(country, version))
+# dev toggle
+url <- ifelse(T, 'http://10.19.100.66', 'https://api.worldpop.org')
 
 # check for local files
 checkLocal <- function(dir, info){
