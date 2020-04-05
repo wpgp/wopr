@@ -10,7 +10,7 @@ version_info <- wopr:::woprVision_global$version_info
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 if(!'local_mode' %in% ls()) local_mode <- FALSE
 
-# dev toggle
+# toggle development API server
 url <- ifelse(T, 'http://10.19.100.66', 'https://api.worldpop.org')
 
 # check for local files
@@ -38,7 +38,6 @@ if(local_mode & sum(version_info$local_sql)==0){
   stop('No local SQL databases available in "',wopr_dir,'" to run woprVision in local mode. See ?wopr::downloadData or https://wopr.worldpop.org', call.=F)
 } else if(local_mode){
   version_info <- version_info[version_info$local_sql,]
-  # catalogue <- catalogue[row.names(version_info)[version_info$local_sql],]
 }
 
 # choose initial data set

@@ -34,7 +34,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
       
   } else {
 
-    d <- density(N, adjust=2.5)
+    d <- density(N, adjust=3)
     d <- data.frame(cbind(d$x, d$y))
     names(d) <- c('x','y')
     
