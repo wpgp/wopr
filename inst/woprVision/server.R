@@ -18,7 +18,8 @@ shinyServer(
         rv$data_readme_url <- 
         rv$country <- 
         rv$version <- 
-        rv$path <- NULL
+        rv$path <- 
+        rv$N <- rv$agesexid <- NULL
       gc()
       
       # remove local_tiles
