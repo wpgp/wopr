@@ -35,7 +35,7 @@ file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite
 install.packages(getwd(), repo=NULL, type='source')
 
 # # build package tarball
-# pkgbuild::build('pkg')
+# pkgbuild::build()
 
 library(wopr)
 
