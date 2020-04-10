@@ -7,9 +7,6 @@
 
 cellids <- function(feature, mastergrid){
   
-  # check if sf
-  if(!'sf' %in% class(feature)) stop('feature must be class "sf".')
-  
   # keep only first feature
   feature <- feature[1,]
   
@@ -21,6 +18,9 @@ cellids <- function(feature, mastergrid){
   } else if(class(feature$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
     
     x <- raster::cellFromXY(mastergrid, sf::st_coordinates(feature))
+  } else {
+    
+    stop('feature must be class "sf" (sfc_POLYGON, sfc_MULTIPOLYGON, sfc_POINT, or sfc_MULTIPOINT.')
   }
   
   # result

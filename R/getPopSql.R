@@ -93,7 +93,13 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
   }
   
   if(get_agesexid){
-    result <- list(N=pop, agesexid=getmode(id))
+    
+    # get modal id
+    uniq <- unique(id)
+    agesexid <- uniq[which.max(tabulate(match(id, uniq)))]
+    
+    result <- list(N = pop, 
+                   agesexid = agesexid)
   } else {
     result <- pop
   }

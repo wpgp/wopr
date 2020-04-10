@@ -2,6 +2,7 @@
 
 export(agesexLookup)
 export(cellids)
+export(checkLocal)
 export(checkTask)
 export(downloadData)
 export(endpoint)
