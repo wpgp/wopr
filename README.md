@@ -1,6 +1,5 @@
 <h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the <br> WorldPop Open Population Repository</h1><br>
 
-#### Doug Leasure
 WorldPop Research Group  
 University of Southampton
 
@@ -16,7 +15,7 @@ University of Southampton
 4. Get probabilistic estimates of uncertainty for all population estimates.
 5. Run the <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision</a> web application locally from the R console.
 
-Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>
+Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>.
 
 ## Installation
 
@@ -209,7 +208,7 @@ dev.off()
 ```
 
 ## Contributing
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. Maksym Bondarenko and Niko Ves from the WorldPop Spatial Data Infrastructure team developed the WOPR API server. Michael Harper at the Flowminder Foundation contributed to the shiny application. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Michael Harper at the Flowminder Foundation contributed to the shiny application. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 ## License
 

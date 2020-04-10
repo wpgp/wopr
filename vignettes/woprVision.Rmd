@@ -9,7 +9,10 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-7 March 2020
+WorldPop Research Group  
+University of Southampton  
+
+10 April 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
@@ -18,6 +21,7 @@ woprVision is an interactive web map that allows you to query population estimat
 2. Retrieve population estimates within user-defined geographic areas by clicking the map,
 3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
 4. Get probabilistic estimates of uncertainty for all population estimates.
+5. Run the <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision</a> web application locally from the R console.  
 
 This document provides instructions how to use each control panel: 
 

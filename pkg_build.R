@@ -15,8 +15,8 @@ rmarkdown::render(input='README.md',
                   output_file='README.html',
                   output_dir=getwd())
 
-# # vignettes
-# devtools::build_vignettes(getwd())
+# vignettes
+devtools::build_vignettes(getwd())
 
 ##-- woprVision documentation --##
 
