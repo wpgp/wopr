@@ -38,6 +38,8 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     d <- data.frame(cbind(d$x, d$y))
     names(d) <- c('x','y')
     
+    d <- d[d$x>=0,]
+    
     d <- rbind(d[1,],d)
     d <- rbind(d,d[nrow(d),])
     d[c(1,nrow(d)),'y'] <- 0

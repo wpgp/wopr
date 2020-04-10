@@ -43,10 +43,10 @@ If you are intersted in developing your own front end applications that query th
 
 ### woprVision
 
-woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To run woprVision from your R console, use:
+woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. woprVision is available on the web at <a href='https://apps.worldpop.org/woprVision', target='_blank'>https://apps.worldpop.org/woprVision</a>. You can also run woprVision locally from your R console using:
 
 ```r
-woprVision()
+wopr::woprVision()
 ```
 
 We suggest installing Michael Harper's fix to the leaflet.extras draw toolbar:

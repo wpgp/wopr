@@ -218,8 +218,8 @@ library(wopr)</code></pre>
 <p>If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: <code>vignette('woprAPI', package='wopr')</code></p>
 <div id="woprvision" class="section level3">
 <h3>woprVision</h3>
-<p>woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To run woprVision from your R console, use:</p>
-<pre class="r"><code>woprVision()</code></pre>
+<p>woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. woprVision is available on the web at <a href="https://apps.worldpop.org/woprVision" , target="_blank">https://apps.worldpop.org/woprVision</a>. You can also run woprVision locally from your R console using:</p>
+<pre class="r"><code>wopr::woprVision()</code></pre>
 <p>We suggest installing Michael Harper’s fix to the leaflet.extras draw toolbar:</p>
 <pre class="r"><code>devtools::install_github(&quot;dr-harper/leaflet.extras&quot;)</code></pre>
 <p>This is not required, but it fixes a bug that prevents the draw toolbar from being removed from the map when it is inactive.</p>

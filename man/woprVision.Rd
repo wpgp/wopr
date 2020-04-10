@@ -4,12 +4,10 @@
 \alias{woprVision}
 \title{Run the woprVision application}
 \usage{
-woprVision(wopr_dir = "wopr", local_mode = F)
+woprVision(wopr_dir = "wopr")
 }
 \arguments{
 \item{wopr_dir}{Path to WOPR files stored locally.}
-
-\item{local_mode}{Logical indicating to run woprVision in local mode when internet access is not available.}
 }
 \value{
 A shiny application will be executed.
