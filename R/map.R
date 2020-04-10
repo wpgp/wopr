@@ -3,16 +3,11 @@
 #' @param country ISO3 code for country to map
 #' @param version Version of data set to map
 #' @param local_tiles Logical indicating to use locally-stored tiles to display the population raster
+#' @param southern Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)
 #' @return A Leaflet map.
 #' @export
 
 map <- function(country, version, local_tiles=F, southern=F) {
-  
-  if(country %in% c('ZMB')) {
-    southern <- T
-  } else {
-    southern <- F
-  }
   
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
@@ -59,11 +54,12 @@ map <- function(country, version, local_tiles=F, southern=F) {
     hideGroup('Custom Area') %>%
     hideGroup('Upload File') %>%
     
-    # zoom to country boundary
-    setView(lng=version_info[paste(country, version),'lng'],
-            lat=version_info[paste(country, version),'lat'],
-            zoom=version_info[paste(country, version),'zoom']) %>%
-    
+    # zoom to data extent
+    fitBounds(lng1 = version_info[paste(country, version),'xmin'],
+              lng2 = version_info[paste(country, version),'xmax'],
+              lat1 = version_info[paste(country, version),'ymin'],
+              lat2 = version_info[paste(country, version),'ymax']) %>%
+
     # scale bar
     addScaleBar(position='topleft')
 }

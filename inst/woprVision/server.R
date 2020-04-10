@@ -66,9 +66,10 @@ shinyServer(
 
     ## leaflet map
     output$map <- leaflet::renderLeaflet({
-      map(country=rv$country, version=rv$version, 
-          local_tiles=version_info[input$data_select, 'local_tiles'],
-          southern=country %in% c('ZMB')) 
+      map(country = rv$country, 
+          version = rv$version, 
+          local_tiles = version_info[input$data_select, 'local_tiles'],
+          southern = version_info[input$data_select, 'southern']) 
     })
 
     ## change location selection tool

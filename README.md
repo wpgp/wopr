@@ -4,7 +4,7 @@
 WorldPop Research Group  
 University of Southampton
 
-5 March 2020
+10 April 2020
 
 ## Introduction
 
@@ -14,6 +14,7 @@ University of Southampton
 2. Submit spatial queries (points or polygons) to the WorldPop server to retrieve population estimates within user-defined geographic areas,
 3. Get estimates of population sizes for specific demographic groups (i.e. age and sex), and
 4. Get probabilistic estimates of uncertainty for all population estimates.
+5. Run the <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision</a> web application locally from the R console.
 
 Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>
 
@@ -26,9 +27,9 @@ devtools::install_github('wpgp/wopr')
 library(wopr)
 ```
 
-You may be prompted to update some of your existing R packages. This is not required unless the _wopr_ installation failes. You can avoid checking for package updates by adding the argument `upgrade='never'`. If needed, you can update individual packages that may be responsible for any _wopr_ installation errors using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can also update all of your R packages by clicking "Tools > Check for Package Updates". 
+You may be prompted to update some of your existing R packages. This is not required unless the _wopr_ installation fails. You can avoid checking for package updates by adding the argument `upgrade='never'`. If needed, you can update individual packages that may be responsible for any _wopr_ installation errors using `install.packages('package_name')`. Or, you can use `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of the packages that _wopr_ depends on. In R Studio, you can also update all of your R packages by clicking "Tools > Check for Package Updates". 
 
-Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not loaded in your R environment.
+Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not currently loaded in your R environment.
 
 ## Usage
 
@@ -36,13 +37,13 @@ Demo code is provided in `demo/wopr_demo.R` that follows the examples in this RE
 
 You can list vignettes that are available using: `vignette(package='wopr')`
 
-The woprVision web application is an interactive web map that allows you to query population estimates from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. See the vignette for woprVision with: `vignette('woprVision', package='wopr')`
+The <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision web application</a> is an interactive web map that allows you to query population estimates from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. See the vignette for woprVision with: `vignette('woprVision', package='wopr')`
 
 If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: `vignette('woprAPI', package='wopr')`
 
 ### woprVision
 
-woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To access woprVision, use:
+woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. To run woprVision from your R console, use:
 
 ```r
 woprVision()

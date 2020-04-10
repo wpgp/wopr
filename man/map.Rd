@@ -12,6 +12,8 @@ map(country, version, local_tiles = F, southern = F)
 \item{version}{Version of data set to map}
 
 \item{local_tiles}{Logical indicating to use locally-stored tiles to display the population raster}
+
+\item{southern}{Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)}
 }
 \value{
 A Leaflet map.

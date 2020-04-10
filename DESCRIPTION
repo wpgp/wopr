@@ -1,8 +1,8 @@
 Package: wopr
 Title: An R Package to access the WorldPop Open Population Repository (WOPR)
 Description: Provides access to the WorldPop Open Population Repository (WOPR) data catalogue and population estimates for specific locations via REST API.
-Version: 0.2.0
-Date: 2020-02-18
+Version: 0.3.0
+Date: 2020-04-10
 Author: Doug Leasure
 Maintainer: Doug Leasure <D.R.Leasure@soton.ac.uk>
 License: GNU GPLv3

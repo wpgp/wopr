@@ -1,17 +1,19 @@
-library(leaflet)
+library(wopr);library(leaflet)
 
 # import woprVision_global 
+version_info <- wopr:::woprVision_global$version_info
+agesex <- wopr:::woprVision_global$agesex
 bins <- wopr:::woprVision_global$bins
 pal <- wopr:::woprVision_global$pal
-agesex <- wopr:::woprVision_global$agesex
-version_info <- wopr:::woprVision_global$version_info
+
+version_info <- version_info[version_info$active,]
 
 # check global for objects defined by woprVision()
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 if(!'local_mode' %in% ls()) local_mode <- FALSE
 
 # toggle development API server
-url <- ifelse(T, 'http://10.19.100.66', 'https://api.worldpop.org')
+url <- ifelse(F, 'http://10.19.100.66', 'https://api.worldpop.org')
 
 # check for local files
 checkLocal <- function(dir, info){
