@@ -29,7 +29,7 @@ This document provides instructions how to use each control panel:
 woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the "R package" tab for more information. 
 
 ## Quick Start
-On the "Map" tab:
+On the "Map" tab:  
 1. Select a data set (i.e. country and version)  
 2. Click the map to select a location  
 3. Click "Submit"" to retrieve the population estimate for that location  

@@ -15,8 +15,8 @@ rmarkdown::render(input='README.md',
                   output_file='README.html',
                   output_dir=getwd())
 
-# # vignettes
-# devtools::build_vignettes(getwd())
+# vignettes
+devtools::build_vignettes(getwd())
 
 ##-- woprVision documentation --##
 
@@ -37,6 +37,10 @@ install.packages(getwd(), repo=NULL, type='source')
 # # build package tarball
 # pkgbuild::build()
 
+# load package
 library(wopr)
+
+# run app
+wopr::woprVision
 
 
