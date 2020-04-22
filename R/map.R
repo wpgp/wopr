@@ -4,15 +4,19 @@
 #' @param version Version of data set to map
 #' @param local_tiles Logical indicating to use locally-stored tiles to display the population raster
 #' @param southern Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)
+#' @param bins Color bins for legend
+#' @param pal Function for legend color palette (see ?leaflet::colorBin)
 #' @return A Leaflet map.
 #' @export
 
-map <- function(country, version, local_tiles=F, southern=F) {
-  
+map <- function(country, version, local_tiles=F, southern=F,
+                bins=wopr:::woprVision_global$bins,
+                pal=wopr:::woprVision_global$pal) {
+
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
-    
+
     # base maps
-    addProviderTiles(provider='Esri.WorldImagery', group='Satellite') %>% 
+    addProviderTiles(provider='Esri.WorldImagery', group='Satellite') %>%
     addProviderTiles(provider='CartoDB.DarkMatter', group='Dark') %>% # 'Esri.WorldGrayCanvas'
 
     # basemap tiles
@@ -22,7 +26,7 @@ map <- function(country, version, local_tiles=F, southern=F) {
              group='Map',
              options=tileOptions(minZoom=1, maxZoom=19, tms=F),
              attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors') %>%
-    
+
     # population tiles
     addTiles(urlTemplate=ifelse(local_tiles,
                                 paste0('tiles/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'),
@@ -30,30 +34,30 @@ map <- function(country, version, local_tiles=F, southern=F) {
                                           country,
                                           'population',
                                           version,
-                                          paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))), 
+                                          paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))),
              group='Population',
              layerId='tiles_population',
              options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
              attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
              ) %>%
-    
+
     # layers control
-    addLayersControl(baseGroups=c('Dark','Map','Satellite'), 
-                     overlayGroups=c('Population'),  
+    addLayersControl(baseGroups=c('Dark','Map','Satellite'),
+                     overlayGroups=c('Population'),
                      options=layersControlOptions(collapsed=FALSE, autoZIndex=T)) %>%
-    
+
     # population legend
-    addLegend(position='bottomright', 
+    addLegend(position='bottomright',
               pal=pal,
               values=bins,
-              title='People per hectare',
+              title='People per grid cell',
               opacity=1,
               group='Population') %>%
-    
+
     # hide groups by default
     hideGroup('Custom Area') %>%
     hideGroup('Upload File') %>%
-    
+
     # zoom to data extent
     fitBounds(lng1 = version_info[paste(country, version),'xmin'],
               lng2 = version_info[paste(country, version),'xmax'],
