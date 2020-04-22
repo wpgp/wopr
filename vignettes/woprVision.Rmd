@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-10 April 2020
+20 April 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
@@ -32,8 +32,11 @@ This document provides instructions how to use each control panel:
 
 woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the "R package" tab for more information. 
 
+**Suggested citation:**    
+Leasure, Douglas R. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton: Southampton, UK. doi:<a href="https://dx.doi.org/10.5258/SOTON/WP00664" target="_blank">10.5258/SOTON/WP00664</a>.
+
 ## Quick Start
-On the "Map" tab:
+On the "Map" tab:  
 1. Select a data set (i.e. country and version)  
 2. Click the map to select a location  
 3. Click "Submit"" to retrieve the population estimate for that location  

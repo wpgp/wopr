@@ -1,2 +1,5 @@
 ^doc$
 ^Meta$
+wd
+.git*
+wopr.jpg

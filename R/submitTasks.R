@@ -10,46 +10,46 @@
 #' @export
 
 submitTasks <- function(features, country, agesex_select, url, version=NA, key=NA, verbose=T){
-  
+
   if(verbose) {
     cat(paste('Submitting',nrow(features),'feature(s) to:\n'))
     cat(paste(' ',url,'\n'))
   }
-  
+
   # get key
   if(file.exists(key)) key <- dget(key)
-  
+
   # get latest version
   if(is.na(version)){
     catalogue <- getCatalogue(spatial_query=T)
     version <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
   }
-  
+
   # format version
   version <- gsub('v','',version)
-  
+
   # geometry type
   if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
     geom_type <- 'polygon'
   } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
     geom_type <- 'point'
   }
-  
+
   # wgs84
   features <- sf::st_transform(features, crs='+proj=longlat +ellps=WGS84')
-  
+
   # feature ids
   features$feature_id <- 1:nrow(features)
-  
+
   # data frame to list tasks
   tasks <- matrix(NA,ncol=4,nrow=0)
   colnames(tasks) <- c('feature_id','task_id','status','message')
-  
+
   # disaggregate multi-part features
   features <- sf::st_cast(features, toupper(geom_type), warn=F)
-  
+
   for(i in 1:nrow(features)){
-    
+
     # create request
     if(geom_type=='polygon'){
       request <- list(iso3 = country,
@@ -68,10 +68,11 @@ submitTasks <- function(features, country, agesex_select, url, version=NA, key=N
                       key = key)
       rm(coords)
     }
-    
+    if(key=='key.txt') request <- request[-which(names(request)=='key')]
+
     # send request
     response <- httr::content( httr::POST(url=url, body=request, encode="form"), as='parsed')
-    
+
     # save task id
     if(!'taskid' %in% names(response)){
       response$taskid <- NA
@@ -85,14 +86,14 @@ submitTasks <- function(features, country, agesex_select, url, version=NA, key=N
     if(is.null(response$status) & 'taskid' %in% names(response)){
       response$status <- 'created'
     }
-    tasks <- rbind(tasks, data.frame(feature_id = features$feature_id[i], 
-                                     task_id = response$taskid, 
-                                     status = response$status, 
+    tasks <- rbind(tasks, data.frame(feature_id = features$feature_id[i],
+                                     task_id = response$taskid,
+                                     status = response$status,
                                      message = response$error_message))
   }
-  
+
   # format tasks
   for(i in 1:ncol(tasks)) tasks[,i] <- as.character(tasks[,i])
-  
+
   return(tasks)
 }
