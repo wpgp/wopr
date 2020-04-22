@@ -4,7 +4,7 @@
 WorldPop Research Group  
 University of Southampton
 
-10 April 2020
+20 April 2020
 
 ## Introduction
 
@@ -17,6 +17,9 @@ University of Southampton
 5. Run the <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision</a> web application locally from the R console.
 
 Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>
+
+**Suggested citation:**  
+Leasure, Douglas R. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton: Southampton, UK. doi:<a href="https://dx.doi.org/10.5258/SOTON/WP00664" target="_blank">10.5258/SOTON/WP00664</a>.
 
 ## Installation
 

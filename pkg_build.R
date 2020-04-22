@@ -32,7 +32,7 @@ file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite
 ##-- install package --##
 
 # install from source
-install.packages(getwd(), repo=NULL, type='source')
+install.packages(getwd(), lib="C:/RESEARCH/R/R-3.6.3/library", repo=NULL, type='source')
 
 # # build package tarball
 # pkgbuild::build()
@@ -41,6 +41,6 @@ install.packages(getwd(), repo=NULL, type='source')
 library(wopr)
 
 # run app
-wopr::woprVision
+wopr::woprVision()
 
 
