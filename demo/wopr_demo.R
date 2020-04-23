@@ -10,16 +10,13 @@ devtools::install_github('wpgp/wopr')
 # load package
 library('wopr')
 
-# api access key (optional)
-key <- 'key.txt'
-
 ##---- woprVision ----##
 
 # (optional) install Dr Harpers fix to leaflet.extras::removeDrawToolbar
 devtools::install_github("dr-harper/leaflet.extras")
 
 # woprVision
-woprVision(key)
+woprVision()
 
 ##---- DATA DOWNLOAD ----##
 
@@ -32,9 +29,9 @@ View(catalogue)
 downloadData(catalogue[1,])
 
 # Example 2:  Download subset of catalog: NGA Population v1.2
-catalogue_sub <- subset(catalogue, 
-                        country == 'NGA' & 
-                          category == 'Population' & 
+catalogue_sub <- subset(catalogue,
+                        country == 'NGA' &
+                          category == 'Population' &
                           version == 'v1.2')
 downloadData(catalogue_sub)
 
@@ -54,17 +51,12 @@ plot(wopr_polys)
 # see available databases for spatial queries
 getCatalogue(spatial_query=T)
 
-# select database
-country <- 'NGA'
-version <- 'v1.2'
-
 ##---- population total for a single point ----##
 
 # get population total
-N <- getPop(feature=wopr_points[6,], 
-            country=country, 
-            version=version,
-            key=key)
+N <- getPop(feature=wopr_points[6,],
+            country='NGA',
+            version='v1.2')
 
 # summarize estimated population total (Bayesian posterior prediction)
 summaryPop(N, confidence=0.90, tails=2, belowthresh=50, abovethresh=10)
@@ -73,11 +65,10 @@ hist(N)
 ##---- population of children under five for a single point ----##
 
 # get population total
-N <- getPop(feature=wopr_points[6,], 
-            country=country, 
-            version=version,
-            agesex_select=c('f0','f1','m0','m1'),
-            key=key)
+N <- getPop(feature=wopr_points[6,],
+            country='NGA',
+            version='v1.2',
+            agesex_select=c('f0','f1','m0','m1'))
 
 # summarize population total
 summaryPop(N, confidence=0.95, tails=2, belowthresh=1, abovethresh=3)
@@ -86,10 +77,9 @@ hist(N)
 ##---- population estimates for a single polygon ----##
 
 # get population total
-N <- getPop(feature=wopr_polys[1,], 
-            country=country, 
-            version=version,
-            key=key)
+N <- getPop(feature=wopr_polys[1,],
+            country='NGA',
+            version='v1.2')
 
 # summarize population total
 summaryPop(N, confidence=0.95, tails=2, belowthresh=1e5, abovethresh=2e5)
@@ -98,11 +88,10 @@ hist(N)
 ##---- population total for children under five in a single polygon ----##
 
 # get population total from WOPR
-N <- getPop(feature=wopr_polys[1,], 
-            country=country, 
-            version=version,
-            agesex_select=c('f0','f1','m0','m1'),
-            key=key)
+N <- getPop(feature=wopr_polys[1,],
+            country='NGA',
+            version='v1.2',
+            agesex_select=c('f0','f1','m0','m1'))
 
 # summarize population total
 summaryPop(N, confidence=0.95, tails=2, belowthresh=1e4, abovethresh=2e4)
@@ -113,16 +102,14 @@ hist(N)
 ##---- population estimates for multiple features ----##
 
 # get population totals
-totals <- woprize(features=wopr_polys, 
-                  country=country, 
-                  version=version,
+totals <- woprize(features=wopr_polys,
+                  country='NGA',
+                  version='v1.2',
                   #agesex_select=c('m0','m1','f0','f1'),
                   confidence=0.95,
                   tails=2,
                   belowthresh=1e5,
-                  abovethresh=2e5,
-                  key=key,
-                  save_messages=T
+                  abovethresh=2e5
                   )
 sf::st_drop_geometry(totals)
 
@@ -148,53 +135,11 @@ geojson <- '{"type":"FeatureCollection","features":[{"type":"Feature","propertie
 feature <- geojsonsf::geojson_sf(geojson)
 
 # submit query
-N <- getPop(feature=feature,
-            country=country,
-            version=version)
+N <- getPop(feature = feature,
+            country = 'NGA',
+            version = 'v1.2')
 
 summaryPop(N)
 hist(N)
 
 
-##---- SPATIAL QUERIES FROM LOCAL SQL ----##
-
-# check availability of SQL database
-getCatalogue(spatial_query=T)
-
-# select database
-country <- 'NGA'
-version <- 'v1.2'
-
-# catalogue for sql and mastergrid
-sql_catalogue <- subset(getCatalogue(), 
-                        country==country &
-                          category=='Population' &
-                          version==version &
-                          filetype %in% c('sql','mastergrid'))
-
-# download SQL database and mastergrid (the SQL database is a very large file. Reset maxsize to accomodate.)
-downloadData(sql_catalogue, maxsize=100)
-
-# define paths
-wopr_dir <- 'wopr'
-path <- file.path(wopr_dir,country,'population',version,
-                  paste0(country,'_population_',gsub('.','_',as.character(version), fixed=T),'_'))
-
-sql_path <- paste0(path,'sql.sql')
-mastergrid_path <- paste0(path,'mastergrid.tif')
-
-# connect to SQL database
-wopr_sql <- RSQLite::dbConnect(RSQLite::SQLite(), sql_path)
-
-# load mastergrid
-mastergrid <- raster::raster(mastergrid_path)
-
-# get cellids for a polygon
-cells <- cellids(wopr_polys[10,], mastergrid)
-
-# query SQL database
-N <- getPopSql(cells=cells, 
-               db=wopr_sql)
-
-# summarize results
-summaryPop(N)
