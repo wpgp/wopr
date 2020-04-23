@@ -1,10 +1,9 @@
 library(wopr);library(leaflet)
 
-# import woprVision_global 
+# import woprVision_global
 version_info <- wopr:::woprVision_global$version_info
 agesex <- wopr:::woprVision_global$agesex
-bins <- wopr:::woprVision_global$bins
-pal <- wopr:::woprVision_global$pal
+palette <- wopr:::woprVision_global$palette
 
 version_info <- version_info[version_info$active,]
 

@@ -4,7 +4,14 @@
 \alias{map}
 \title{woprVision: Leaflet map}
 \usage{
-map(country, version, local_tiles = F, southern = F)
+map(
+  country,
+  version,
+  local_tiles = F,
+  southern = F,
+  bins = wopr:::woprVision_global$bins,
+  pal = wopr:::woprVision_global$pal
+)
 }
 \arguments{
 \item{country}{ISO3 code for country to map}
@@ -14,6 +21,10 @@ map(country, version, local_tiles = F, southern = F)
 \item{local_tiles}{Logical indicating to use locally-stored tiles to display the population raster}
 
 \item{southern}{Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)}
+
+\item{bins}{Color bins for legend}
+
+\item{pal}{Function for legend color palette (see ?leaflet::colorBin)}
 }
 \value{
 A Leaflet map.
