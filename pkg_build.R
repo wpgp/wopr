@@ -1,5 +1,5 @@
 # cleanup
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T)
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); .libPaths('c:/research/r/library')
 
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
