@@ -11,7 +11,7 @@ version_info <- version_info[version_info$active,]
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 
 # toggle development API server
-url <- ifelse(T, 'http://10.19.100.66', 'https://api.worldpop.org')
+url <- ifelse(F, 'http://10.19.100.66', 'https://api.worldpop.org')
 
 # check for local files
 version_info <- checkLocal(wopr_dir, version_info)
