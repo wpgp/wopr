@@ -16,7 +16,7 @@ plotPanel <- function(N, agesex_select, agesex_table=NULL, confidence=95, tails=
                       'See the "Help" tab for more information.'),
            cex = 1.5,
            y.intersp = 2,
-           bty= 'n')
+           bty = 'n')
   } else {
     layout(matrix(c(1,2), ncol=1, byrow=T), height=c(1,1))
 
