@@ -15,7 +15,7 @@ plotPanel <- function(N, agesex_select, agesex_table=NULL, confidence=95, tails=
            legend = c(as.expression(bquote(bold('Click the map to select a location.'))),
                       as.expression(bquote(bold('Push "Submit" to get population estimates.'))),
                       as.expression(bquote(bold('See the "Help" tab for more information.')))),
-           cex = 1.35,
+           cex = 1.2,
            y.intersp = 2,
            bty = 'n')
   } else {
