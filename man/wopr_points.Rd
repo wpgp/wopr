@@ -4,9 +4,7 @@
 \name{wopr_points}
 \alias{wopr_points}
 \title{Example points for WOPR}
-\format{
-An object of type _sf_: sfc_POINTS and sfc_MULTIPOINTS
-}
+\format{An object of type _sf_: sfc_POINTS and sfc_MULTIPOINTS}
 \usage{
 data(wopr_points)
 }
