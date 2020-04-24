@@ -1,6 +1,5 @@
 ---
 title: An overview of the WOPR API for developers
-author: Doug Leasure and Maksym Bondarenko
 output: rmarkdown::html_vignette #pdf_document
 vignette: >
   %\VignetteIndexEntry{An overview of the wopr API backend for developers}
@@ -9,7 +8,7 @@ vignette: >
 ---
 
 WorldPop Research Group  
-University of Southampton
+University of Southampton  
 
 1 March 2020
 

@@ -10,7 +10,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Doug Leasure and Maksym Bondarenko" />
 
 
 <title>An overview of the WOPR API for developers</title>
@@ -93,7 +92,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">An overview of the WOPR API for developers</h1>
-<h4 class="author">Doug Leasure and Maksym Bondarenko</h4>
 
 
 
@@ -150,15 +148,15 @@ University of Southampton</p>
 <h2>Spatial Queries</h2>
 <p>Spatial queries can be submitted to WOPR as points or polygon locations in a GeoJSON format using several different WOPR API endpoints that will be described below. Spatial requests are supported for any data releases in the category <code>'Population'</code> that contain an SQL database <code>file_type='sql'</code> (see Data Download above).</p>
 <p>Before describing the API endpoints, a note about the format of the results. WOPR will return population estimates for the queried location and demographic group as a JSON that contains a vector of numbers representing the population estimate for a given location: <code>122,88,108,119,98,92,98,101,121,103,127,122,103,118,...</code>. A histogram of these numbers will graphically illustrate the population estimate and its uncertainty as a probability distribution:</p>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAGIklEQVR4nO2di5ajKhAA8f9/+p69yRjwVaiogFVnkzjadGONoiZmNgyySXi6A7WjIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAi4SVAIYf7y7/U79ZkMv+UhWrY4J6tciZ4XyJFTZkHQspMw/WGYLc4tl6tzO1WBHDllfiv+91NYcTJbNEwXZ5bL3t62UxXIkVVnXPHYVvIyjD9Fu2DcPH2N981hSLfOf097dsmtjp/OkFnn0+9hXP+QrmtigATNd82hS0Hpoh1bULKfzjM0u4vFjwVBS2NQ1Hy6rUwlvEbQkCMoVflL07qg4bubbQj6zpkMIMmcBVlDl4KWBukxeEgMJXPSNY82pjiyNUHxOVA8Hk8O82PskBpajx2XdilotoOMsUM6L50zlRBtX6FpQfOJWFcSm0RO58yHq0m+0VU750ELgpJVWBI0zBdP9s9ZjjDZsBoS1CoKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIOCToTVZ3rWv0UdZrHO1b0ZC8vIKd6xqONGqavev6+UTuip5Uyv51DQrCJgqCNgqSkb1HsZedBR08D3rThrfvTPpgu5ZREKAgoMwY1PE1bOGjWElBdVgvXLyooCuSHu9FfenaFrTSTkE3plNQbq5HB+smBF2QfH8vMsPvPMxPJxoQhMPCywXxpYaCoJ2CoN3LBTkGcbhHsXrSKSg3l4Igl4Igl4LSFLNrUwUtp1AQpFAQpFAQpFAQpFAQpOhJUMnP+KoVVMtf26lW0FDiLxL1LWg476h7QcNJR90LCidvFL9W0BOfICa1xr91VSbdyRTrW9AzgsoeowukqE5QieoKyk53PkVdggp9Va5fQYWq9iwoLxwOdG8X9P9JUtho162gMOTcxxVtPW8TtC84KAiCV7902LWgzwCzWfzXxRcKCtGDwxV0Nt35FAqCFE0KuuEGqmoF5bxZhl3sWtCu4BcO0vuCFQTBbxSU8X7QWhdv/mT1uaMYh7/4KFakqoKy0+1vunZrYi2CDo/XGbP3ZKxW0NNv2lcv6Ol0CspsWrGgf7sX1L7wMF+/oPD3LyP6govV6gWF6IHBDx/FbrwPpk1BBcrloiCg7THoXkE5/61kZUexmwU9m05BmU2rFVTkuNmxoFCkZL+CCtXsVhCf4exKd6apgqCpgqCpgqCpgqCpgqBppYLO3Wlf4g2augU9l27mVkErLRQELRQELRQELRQELQ4Juv7TjcYFHS6bjYIABQEKAhQE7Exd/nOxvgThCcjLBYXFycPp0hYKghYKghY9CHIM4vBSR7H5e5B9CCqW7pSG+ZLrrlo7EbS7fjaP7WKrE00LKjdI9ymo4GFeQWspDnzpac+S4qP17YKmgRdtQc8IWq0/+cWFqrlSkP9buExREHBU0GvEXruiT47FU46uQlEhB7IXCSlTp2i7Ytk7E7Rze32doL0nqm8TxJca+7Mr6I4QBd1Sp0A7xyAM9ygmKQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBBwlaDxin/90j8jhIqM7cd7Ao4l4hpXpA3JxJEQKhIKJdosUjphlDVEE0dCsMio5VwiqHIFk3ceLxEUkkbNCQoh/fUuVw7bIVwmnmxKUM7as0Msk0w1Jejv+a4tqENBJcbWdKhT0EqONIWCZjnSlzYE3XOiOFXS0InicOOlRvRRZkOXGv2gIEBBgIIABQEKAhQEKAhQEKAgQEGAggAFAQoCFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBwNOCsr4kPF18Z6cfF5S8bAdlRJanEkHb/VDQ706Wz3R8f2f4LQzf5+99QZPoazv4FLGg8ZHc3xnWp9Poazv4FNEYNL8pL5KSzJtHdywouj9s+D4vCfrGvlDQdHJN0J8dBbmLrdVXENVfPIpFe9YQj0GpqXcImp/ZfE96vmPQZ3p+HjRNc10HK6GqPlXVmS9V9amqznypqk9VdaZGFAQoCFAQoCBAQYCCAAUBCgIUBCgIUBCgIEBBgIIABQEKAhQEKAhQEKAg4D8EKDkedS1NkgAAAABJRU5ErkJggg==" /><!-- --></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAABlBMVEUAAAD///+l2Z/dAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAGTElEQVR4nO2dgZKjIBAF4f9/+movxgCib0BUhO6qbIwOA/QpGHX3nIdD3NMN6B0ECRAkQJAAQQIECRAkQJAAQQIECRAkQJAAQQIECRAkQJAAQQIECRAkQJAAQQIECRAkQJAAQQIECRAkQJAAQQIECRAkQJDgJkHOue3b3/uy9Fl0v+0u2JZdY6quRcsb5LBUkxGUd+LSD36z2VqdVedxqgY5LNX8Ov795HacbDb5dLOxOvP+dpyqQQ5TPWvHQ1vRm18/BYdgWDx+D49N7+O98+9HySF51PDTGYz1fNrt1/67uK+RASVoe2j6IQXFmwr2oOg43WZ47SEWvjKCcmNQUDzdV1IJ0wjyFkGxyl+atwvyy2F2IGhZkwwg0ZqMLD+koNwgvQb7yFC0Ju55sDOFkW8TFJ4DheNxMs2vsT42tB+7bh1S0OYAWWN9vC5ek0oI9i/3akHbhVBXFBtFpmu2w1WSb3X1nvOgjKCoCzlBfrs5OT43OVyyY71I0FtBkABBAgQJECRAkABBAgQJECRAkABBAgQJECRAkABBAgQJECRAkABBAgQJqgTNZLWor8GtrGkclXXURW9TUNhXV1Po1ZT29XNH7oqWdEp5Xx2CZBEEiTIIgpXSWWyys6DK86CZdryyM+nKcm8GQQIECdqMQQN/h208izUR1NU1g8ZNaCOobbpzIEhQ24Sdcgi6I10g6PnhqHNBjTNXgCBBl9N8Lt07BMkvq5ML0u1FkCiHIFFuckGMQTqcWayDdAgyJ0GQSIIgkQRBIgmCRBIEiSQIEkkQFBbNXDxEULYogkTRAQW1uLTevaCn/9pO94J8i79INLYgf97R8IL8SUfDC3InHxS/UNBD91ij2ta/ddUmXW1RsQc9JajJP83QglrUjyBzugYt6UpQozFwXEHNr1ScKNqpIFu4mOhmF/T/JMkdlBtWkAtGIUvwdILKgh2CRPDuLx0OLegzwBxW/zM0oSAXvHQ4gs6mO9mSTToEjSHowgeouhdkuVimhqCxBRUFTzhIlwUjSATPKMhwPWhvDLr1zuqTs5gObzyLZX8h7M2C7OmK4xEk4rsXVD1eG1aXVd+poEcu2r9J0CPpEGSPf4Ggv8NL1N58ms8tKkG3PscQN8Hd/WX15B50qyAXvGRwJ7MYgo43I6grQYxBWZJZTM0LXcxi9dVV8O7zIAQdb755kG5x5jWwINekynEFyfmpLF1FfN+CWlWKIFu6mngEiXgEiXgEiXgEifjOBZ27SldYOFtZ34LuTWc2gCAEiSgEiSgEiSgEiSgEiaizgq6/hfhyQYUVV4AgAYIECBIUJm5zX2xcQW6zUJVuWEH6DARBohyCRLnJBTEG6fD6WUz81sEggk6kq+lsQZmrvpYNI8jUhgpuPMRyi6MJOjNIzyDo1DSPoOxq8y2whoKaDteXCzoufO0edLug3TEo+TdzXXOlIP63cEhBkKBW0DRiH+nok0P0xYN0G8yV2lt3RWRNeBsGFlS3m1ZX+jpB8stq40rfJqjVN0IEtaoUQa0COxHEGKTDmcUgBkECBAkQJECQAEECBAkQJECQAEECBAkQJECQ4GZB64WAwysCacx+8C/A2SLXJesliXsFuW+N60I2ylmDiyPXpcMGpE2+jbU7LviYiXLG4OLIdemwAZk234RJkPPWbrtorS3S+Z4FrW0T7bPuF2ZB/i2CvkPjBYJUt+PRqldBF+5BJkHOErlXww3YBukqQXLHjLVMJ8htfuYif/dkZhMUvZ09GPfK3cHatl8j98JswUlHZeS6dNyAbLlbuOSrRnAz8+1fNV4IggQIEiBIgCABggQIEiBIgCABggQIEiBIgCABggQIEiBIgCABggQIEiBIgCABggQIEiBIgCABggQIEjwtyPRLwunmOxv9uKDo7TjIENmeTgQdtwNBv+dYPsvhs57ut9EtP6MHWJz5SZZTDXyKUND6Cj98BeWW4+hrG/gUwRi0feYukBKt20YPLCh4OswvP3OCltgJBaWLe4K+dhDEIbZXP4JU/dlZLDiyfDgGxabmELQ9s1lOepYx6LO8PQ9K01zXwE7oqk1dNWahqzZ11ZiFrtrUVWN6BEECBAkQJECQAEECBAkQJECQAEECBAkQJECQAEECBAkQJECQAEECBAkQJECQ4B+xKzjPVDZRJwAAAABJRU5ErkJggg==" /><!-- --></p>
 <p>The most likely population estimate is the mean of this distribution (e.g. 100 people, in this case).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(x)</code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   58.00   93.00  100.00   99.99  107.00  144.00</code></pre>
+##   65.00   93.00  100.00   99.87  106.00  140.00</code></pre>
 <p>The 95% confidence intervals for the population estimate can be calculated as the 0.025 and 0.975 quantiles:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(x, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</code></pre></div>
 <pre><code>##  2.5% 97.5% 
-##    81   120</code></pre>
+##    81   119</code></pre>
 <p><br><br></p>
 <hr />
 </div>

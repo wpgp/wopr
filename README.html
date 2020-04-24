@@ -187,7 +187,6 @@ summary {
 <p>WorldPop Research Group<br />
 University of Southampton</p>
 <p>20 April 2020</p>
-</div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p><em>wopr</em> is an R package that provides API access to the <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. This gives users the ability to:</p>
@@ -198,7 +197,7 @@ University of Southampton</p>
 <li>Get probabilistic estimates of uncertainty for all population estimates.</li>
 <li>Run the <a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a> web application locally from the R console.</li>
 </ol>
-<p>Code for the <em>wopr</em> package is openly available on GitHub: <a href="https://github.com/wpgp/wopr" target="_blank">https://github.com/wpgp/wopr</a></p>
+<p>Code for the <em>wopr</em> package is openly available on GitHub: <a href="https://github.com/wpgp/wopr" target="_blank">https://github.com/wpgp/wopr</a>.</p>
 <p><strong>Suggested citation:</strong><br />
 Leasure, Douglas R. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton: Southampton, UK. doi:<a href="https://dx.doi.org/10.5258/SOTON/WP00664" target="_blank">10.5258/SOTON/WP00664</a>.</p>
 </div>
@@ -218,7 +217,7 @@ library(wopr)</code></pre>
 <p>If you are intersted in developing your own front end applications that query the WOPR API, please read the vignette that describes the API backend for developers: <code>vignette('woprAPI', package='wopr')</code></p>
 <div id="woprvision" class="section level3">
 <h3>woprVision</h3>
-<p>woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. woprVision is available on the web at <a href="https://apps.worldpop.org/woprVision" , target="_blank">https://apps.worldpop.org/woprVision</a>. You can also run woprVision locally from your R console using:</p>
+<p>woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. woprVision is available on the web at <a href="https://apps.worldpop.org/woprVision" target="_blank">https://apps.worldpop.org/woprVision</a>. You can also run woprVision locally from your R console using:</p>
 <pre class="r"><code>wopr::woprVision()</code></pre>
 <p>We suggest installing Michael Harper’s fix to the leaflet.extras draw toolbar:</p>
 <pre class="r"><code>devtools::install_github(&quot;dr-harper/leaflet.extras&quot;)</code></pre>
