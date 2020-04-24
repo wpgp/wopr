@@ -79,7 +79,7 @@ retrieveResults <- function(tasks, url,
           output[feature_id,'message'] <-  result$error_message
 
           # abort unless value error (which may mean settled area = 0)
-          if(!result$error_message=='No User Description for this type of error: ValueError'){
+          if(!result$error_message=='General WP Error. No settled grid cells'){
             abort <- T
           }
         }
@@ -137,7 +137,7 @@ retrieveResults <- function(tasks, url,
           if(results[[j]]$error){
             output[feature_id,'message'] <- results[[j]]$error_message
             tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
-            if(!results[[j]]$error_message=='No User Description for this type of error: ValueError'){
+            if(!results[[j]]$error_message=='General WP Error. No settled grid cells'){
               results[[j]]$data$total <- NA
               all_abort <- T
               break
