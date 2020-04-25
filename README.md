@@ -17,9 +17,6 @@ University of Southampton
 
 Code for the _wopr_ package is openly available on GitHub: <a href='https://github.com/wpgp/wopr' target='_blank'>https://github.com/wpgp/wopr</a>.
 
-**Suggested citation:**  
-Leasure, Douglas R. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton: Southampton, UK. doi:<a href="https://dx.doi.org/10.5258/SOTON/WP00664" target="_blank">10.5258/SOTON/WP00664</a>.
-
 ## Installation
 
 First, start a new R session. Then, install the _wopr_ R package from WorldPop on GitHub:
@@ -213,9 +210,11 @@ dev.off()
 ## Contributing
 The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Michael Harper at the Flowminder Foundation contributed to the shiny application. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
-## License
+**Suggested citation:**  
+Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton: Southampton, UK. doi:<a href="https://dx.doi.org/10.5258/SOTON/WP00664" target="_blank">10.5258/SOTON/WP00664</a>.  
 
-#### <a href='COPYING' target='_blank'>GNU General Public License v3.0 (GNU GPLv3)]</a>  
+## License
+<a href='COPYING' target='_blank'>GNU General Public License v3.0 (GNU GPLv3)]</a>  
   
   
   
