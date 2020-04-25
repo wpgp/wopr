@@ -300,12 +300,12 @@ shinyServer(
 
     # wopr download tab
     output$wopr_web <- renderText(
-      return(paste('<iframe style="height: calc(98vh - 85px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
+      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
     )
 
     # readme tab
     output$data_readme <- renderText(
-        return(paste('<iframe style="height: calc(98vh - 85px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+        return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
     )
 })
 

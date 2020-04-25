@@ -100,7 +100,7 @@ ui <- tagList(
   tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
 
   navbarPage(title='woprVision (beta)',
-             footer=tags$footer(HTML(paste0('R package: <a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
+             footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
              inverse=F,
 
              # tab: map
@@ -138,13 +138,13 @@ ui <- tagList(
 
              # tab: API readme
              tabPanel('REST API',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                   frameBorder="0",
                                   src='woprAPI.html')),
 
              # tab: wopr R package readme
              tabPanel('R package',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                   frameBorder='0',
                                   src='wopr_README.html')),
 
@@ -158,7 +158,7 @@ ui <- tagList(
 
              # tab: API readme
              tabPanel('Help',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 85px)',
+                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                   src='woprVision.html',
                                   frameBorder="0"))
 
