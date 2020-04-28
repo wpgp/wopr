@@ -88,7 +88,7 @@ retrieveResults <- function(tasks, url,
         if(result$status=='finished' & !abort){
 
           # population posterior
-          if(result$error_message=='General WP Error. No settled grid cells'){
+          if(result$error){
             N <- 0
           } else {
             N <- unlist(result$data$total)
