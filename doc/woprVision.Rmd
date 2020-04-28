@@ -165,7 +165,7 @@ The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Res
 Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00664</a>  
 
 ## License
-<a href='COPYING' target='_blank'>GNU General Public License v3.0 (GNU GPLv3)]</a>  
+GNU General Public License v3.0 (GNU GPLv3)  
 
 ## References
 Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href='https://CRAN.R-project.org/package=shiny' target='_blank'>https://CRAN.R-project.org/package=shiny</a>.
