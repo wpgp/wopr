@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-24 April 2020
+28 April 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
