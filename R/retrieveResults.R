@@ -88,13 +88,12 @@ retrieveResults <- function(tasks, url,
         if(result$status=='finished' & !abort){
 
           # population posterior
-          N <- unlist(result$data$total)
-
-          # fill in zero for unsettled areas
-          if(is.null(N)){
+          if(result$error_message=='General WP Error. No settled grid cells'){
             N <- 0
+          } else {
+            N <- unlist(result$data$total)
           }
-
+          
           # agesex id
           if(!is.null(result$data$agesexid)) {
             output[feature_id,'agesexid'] <- result$data$agesexid
@@ -135,8 +134,11 @@ retrieveResults <- function(tasks, url,
 
           # error handling
           if(results[[j]]$error){
+            
             output[feature_id,'message'] <- results[[j]]$error_message
+            
             tasks[tasks[,'task_id'] %in% tasks_this_feature,'status'] <- results[[j]]$status
+            
             if(!results[[j]]$error_message=='General WP Error. No settled grid cells'){
               results[[j]]$data$total <- NA
               all_abort <- T

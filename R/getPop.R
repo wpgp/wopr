@@ -52,11 +52,10 @@ getPop <- function(feature, country, version=NA, timeout=5*60,
 
   if(!is.na(output$message)){
     if(output$message=='General WP Error. No settled grid cells'){
-      message(output$message)
+      message('There were no settled grid cells in this feature (or one of its parts if MULTIPOLYGON or MULTIPOINT).')
     } else {
       warning(output$message, call.=F)
     }
-
   }
 
   if('pop1' %in% names(output)) {
@@ -65,16 +64,16 @@ getPop <- function(feature, country, version=NA, timeout=5*60,
     N <- NA
   }
 
-  if(get_agesexid) {
-    result <- list(N=N, agesexid=output$agesexid)
-  } else {
-    result <- N
-  }
-
   print(difftime(Sys.time(), t0))
   cat('\n')
 
-  return(result)
+  if(get_agesexid) {
+    return(list(N=N, agesexid=output$agesexid))
+  } else {
+    return(N)
+  }
+  
+  
 }
 
 
