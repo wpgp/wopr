@@ -100,6 +100,12 @@ Note: ESRI shapefiles (and other file types) can be read into R as `sf` objects 
 sf_feature <- sf::st_read('shapefile.shp')
 ```
 
+WOPR will return an error if your features contain any geometry errors. To avoid this, you can ensure you have valid geometries using:
+
+```r
+sf_feature <- sf::st_make_valid(sf_feature)
+```
+
 To submit a spatial query, you must first identify which WOPR databases support spatial queries:
 
 ```r

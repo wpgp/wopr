@@ -4,7 +4,6 @@
 #' @param country The ISO3 country code
 #' @param version Version number of the population estimate
 #' @param agesex_select Character vector of age-sex groups
-#' @param timeout Seconds until timeout
 #' @param key Key to increase daily quota for REST API requests
 #' @param verbose Logical. Toggles on status updates while processing
 #' @param get_agesexid Logical. Toggle return of numeric age sex id (for woprVision)
@@ -12,8 +11,8 @@
 #' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
 #' @export
 
-getPop <- function(feature, country, version=NA, timeout=5*60,
-                   key='key.txt', verbose=T, get_agesexid=F, url=NA,
+getPop <- function(feature, country, version=NA, 
+                   key='key.txt', verbose=T, get_agesexid=F, url='https://api.worldpop.org/v1',
                    agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))
                    ){
 
@@ -30,50 +29,48 @@ getPop <- function(feature, country, version=NA, timeout=5*60,
                        country=country,
                        version=version,
                        agesex_select=agesex_select,
-                       url=wopr_url$endpoint,
+                       url_endpoint=wopr_url$endpoint,
                        key=key,
                        verbose=verbose)
 
-  # print task ids
-  if(verbose){
-    cat('Task ID(s):\n')
-    for(i in 1:nrow(tasks)){
-      cat(paste0('  ',tasks[i,'task_id'],'\n'))
+  if(nrow(tasks) > 0){
+    # print task ids
+    if(verbose){
+      cat('Task ID(s):\n')
+      for(i in 1:nrow(tasks)){
+        cat(paste0('  ',tasks[i,'task_id'],'\n'))
+      }
     }
-  }
-
-  # retrieve results
-  output <- retrieveResults(tasks,
-                            url=wopr_url$queue,
-                            summarize=F,
-                            timeout=timeout,
-                            verbose=verbose,
-                            save_messages=T)
-
-  if(!is.na(output$message)){
-    if(output$message=='General WP Error. No settled grid cells'){
-      message('There were no settled grid cells in this feature (or one of its parts if MULTIPOLYGON or MULTIPOINT).')
+    
+    # retrieve results
+    output <- retrieveResults(tasks,
+                              url_queue=wopr_url$queue,
+                              summarize=F,
+                              verbose=verbose,
+                              save_messages=T)
+    
+    if(!is.na(output$message)){
+      if(output$message=='General WP Error. No settled grid cells'){
+        message('No settled grid cells in this feature.')
+      } else {
+        warning(output$message, call.=F)
+      }
+    }
+    
+    if('pop1' %in% names(output)) {
+      N <- as.numeric(output[,which(names(output)=='pop1'):ncol(output)])
     } else {
-      warning(output$message, call.=F)
+      N <- NA
+    }
+    
+    if(get_agesexid) {
+      return(list(N=N, agesexid=output$agesexid))
+    } else {
+      return(N)
     }
   }
-
-  if('pop1' %in% names(output)) {
-    N <- as.numeric(output[,which(names(output)=='pop1'):ncol(output)])
-  } else {
-    N <- NA
-  }
-
   print(difftime(Sys.time(), t0))
   cat('\n')
-
-  if(get_agesexid) {
-    return(list(N=N, agesexid=output$agesexid))
-  } else {
-    return(N)
-  }
-  
-  
 }
 
 

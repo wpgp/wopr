@@ -24,9 +24,9 @@ column(
 
     fileInput("user_json", NULL,
               multiple = FALSE,
-              accept = ".json",
+              accept = c('.geojson','.json'),
               buttonLabel = 'Browse',
-              placeholder = '.json'),
+              placeholder = 'No file selected'),
 
     # age-sex groups
     strong('3. Define Age-sex Groups'),
@@ -69,7 +69,7 @@ column(
                           label=NULL,
                           value='',
                           width='100%',
-                          placeholder='Save As (optional)')),
+                          placeholder=NULL)),
 
     # age-sex groups
     strong('Options:'),br(),

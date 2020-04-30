@@ -6,13 +6,12 @@
 \usage{
 retrieveResults(
   tasks,
-  url,
+  url_queue,
   confidence = 0.95,
   tails = 2,
   abovethresh = NA,
   belowthresh = NA,
   summarize = T,
-  timeout = 30 * 60,
   verbose = T,
   save_messages = F
 )
@@ -20,7 +19,7 @@ retrieveResults(
 \arguments{
 \item{tasks}{A data frame with information about tasks (see ?submitTasks)}
 
-\item{url}{The url of the WorldPop queue to check for results (see ?endpoint)}
+\item{url_queue}{The url of the WorldPop queue to check for results (see ?endpoint)}
 
 \item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 
@@ -31,8 +30,6 @@ retrieveResults(
 \item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
 
 \item{summarize}{Logical indicating to summarize results or return all posterior samples}
-
-\item{timeout}{Seconds until function times out}
 
 \item{verbose}{Logical indicating to print progress updates}
 

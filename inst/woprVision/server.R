@@ -119,7 +119,7 @@ shinyServer(
           updateSelectInput(session, 'pointpoly', selected='Upload File')
 
           rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
-          rv$feature <- rv$feature[1:min(20,nrow(rv$feature)),1]
+          rv$feature <- rv$feature[1:min(100,nrow(rv$feature)),1]
           rv$feature <- sf::st_transform(rv$feature, crs=4326)
 
           mapProxyFile(rv$feature)
@@ -191,8 +191,7 @@ shinyServer(
                                     confidence=input$ci_level/1e2,
                                     tails=ifelse(input$ci_type=='Interval',2,1),
                                     abovethresh=input$popthresh,
-                                    url=url,
-                                    timeout=5*60)
+                                    url=url)
 
               ct <- resultTable(input, rv)
 
@@ -215,8 +214,7 @@ shinyServer(
                                db=rv$sql,
                                agesex_select=rv$agesex_select,
                                agesex_table=agesex[[input$data_select]],
-                               get_agesexid=T,
-                               timeout=2*60)
+                               get_agesexid=T)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
 
@@ -228,8 +226,7 @@ shinyServer(
                             version=rv$version,
                             agesex_select=rv$agesex_select,
                             get_agesexid=T,
-                            url=url,
-                            timeout=2*60)
+                            url=url)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
               }
@@ -241,7 +238,7 @@ shinyServer(
           })
         }, message='woprizing:',
         detail='Fetching population total for selected location(s) and demographic group(s)...',
-        value=0.5)
+        value=1)
       }
       shinyjs::enable('submit')
     })

@@ -250,6 +250,8 @@ data(wopr_polys)
 plot(wopr_polys)</code></pre>
 <p>Note: ESRI shapefiles (and other file types) can be read into R as <code>sf</code> objects using:</p>
 <pre class="r"><code>sf_feature &lt;- sf::st_read('shapefile.shp')</code></pre>
+<p>WOPR will return an error if your features contain any geometry errors. To avoid this, you can ensure you have valid geometries using:</p>
+<pre class="r"><code>sf_feature &lt;- sf::st_make_valid(sf_feature)</code></pre>
 <p>To submit a spatial query, you must first identify which WOPR databases support spatial queries:</p>
 <pre class="r"><code>getCatalogue(spatial_query=T)</code></pre>
 <p>This will return a <code>data.frame</code>:</p>

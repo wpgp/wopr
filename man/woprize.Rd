@@ -13,12 +13,11 @@ woprize(
   abovethresh = NA,
   belowthresh = NA,
   summarize = T,
-  timeout = 30 * 60,
   agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5)))),
   key = "key.txt",
   save_messages = F,
-  url = NA
+  url = "https://api.worldpop.org/v1"
 )
 }
 \arguments{
@@ -37,8 +36,6 @@ woprize(
 \item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
 
 \item{summarize}{Logical indicating to summarize results or return all posterior samples}
-
-\item{timeout}{Seconds until the operation for a single polygon times out}
 
 \item{agesex_select}{Character vector of age-sex groups}
 

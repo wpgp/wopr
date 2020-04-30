@@ -8,11 +8,10 @@ getPop(
   feature,
   country,
   version = NA,
-  timeout = 5 * 60,
   key = "key.txt",
   verbose = T,
   get_agesexid = F,
-  url = NA,
+  url = "https://api.worldpop.org/v1",
   agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5))))
 )
@@ -23,8 +22,6 @@ getPop(
 \item{country}{The ISO3 country code}
 
 \item{version}{Version number of the population estimate}
-
-\item{timeout}{Seconds until timeout}
 
 \item{key}{Key to increase daily quota for REST API requests}
 

@@ -7,8 +7,9 @@
 submitTasks(
   features,
   country,
-  agesex_select,
-  url,
+  url_endpoint,
+  agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
+    5)))),
   version = NA,
   key = NA,
   verbose = T
@@ -19,9 +20,9 @@ submitTasks(
 
 \item{country}{ISO-3 code for the country requested}
 
-\item{agesex_select}{Character vector of age-sex groups}
+\item{url_endpoint}{The url of the WorldPop API endpoint (see ?endpoint)}
 
-\item{url}{The url of the WorldPop API endpoint (see ?endpoint)}
+\item{agesex_select}{Character vector of age-sex groups}
 
 \item{version}{Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.}
 

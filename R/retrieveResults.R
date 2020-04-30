@@ -1,26 +1,24 @@
 #' Retrieve results from WOPR
 #' @param tasks A data frame with information about tasks (see ?submitTasks)
-#' @param url The url of the WorldPop queue to check for results (see ?endpoint)
+#' @param url_queue The url of the WorldPop queue to check for results (see ?endpoint)
 #' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
 #' @param tails The number of tails for the confidence intervals
 #' @param abovethresh The function will return the probability that the population size exceeds _abovethresh_
 #' @param belowthresh The function will return the probability that the population size is less than _belowthresh_
 #' @param summarize Logical indicating to summarize results or return all posterior samples
-#' @param timeout Seconds until function times out
 #' @param verbose Logical indicating to print progress updates
 #' @param save_messages Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()
 #' @return A data frame with outputs
 #' @export
 
-retrieveResults <- function(tasks, url,
+retrieveResults <- function(tasks, url_queue,
                             confidence=0.95, tails=2,
                             abovethresh=NA, belowthresh=NA,
-                            summarize=T, timeout=30*60, verbose=T, save_messages=F){
+                            summarize=T, verbose=T, save_messages=F){
   t0 <- Sys.time()
-  timed_out <- F
-
+  
   if(verbose) {
-    cat(paste('Checking status of',nrow(tasks),'tasks until complete or',timeout/60,'minutes elapse:\n'))
+    cat(paste('Checking status of',nrow(tasks),'tasks:\n'))
     cat('  ')
   }
 
@@ -53,7 +51,7 @@ retrieveResults <- function(tasks, url,
 
   progress_indicator <- old_progress_indicator <- myprogress(tasks_remaining, print_progress=F)
 
-  while(tasks_remaining > 0 & !timed_out){
+  while(tasks_remaining > 0){
 
     for(i in which(tasks[,'status'] %in% c('created','started'))){
 
@@ -66,7 +64,7 @@ retrieveResults <- function(tasks, url,
       if(length(tasks_this_feature)==1){
 
         # parse result
-        result <- httr::content( httr::GET(file.path(url, tasks_this_feature)), as='parsed')
+        result <- httr::content( httr::GET(file.path(url_queue, tasks_this_feature)), as='parsed')
 
         # update task id status
         tasks[i,'status'] <- result$status
@@ -124,7 +122,7 @@ retrieveResults <- function(tasks, url,
         for(j in 1:length(tasks_this_feature)){
 
           # get result
-          results[[j]] <- httr::content( httr::GET(file.path(url, tasks_this_feature[j])), as='parsed')
+          results[[j]] <- httr::content( httr::GET(file.path(url_queue, tasks_this_feature[j])), as='parsed')
 
           # not yet finished
           if(!results[[j]]$status=='finished'){
@@ -201,13 +199,6 @@ retrieveResults <- function(tasks, url,
       progress_indicator <- myprogress(tasks_remaining, print_progress=F)
       if(progress_indicator > (old_progress_indicator+10)){
         old_progress_indicator <- myprogress(tasks_remaining)
-      }
-
-      # timeout
-      if(difftime(Sys.time(), t0, units='secs')  > timeout){
-        warning(paste0('Task timed out after ',timeout,' seconds. Use the taskid(s) to retrieve results (',paste(tasks_this_feature,sep=', '),'). See wopr R package (?wopr::checkTask) and/or the wopr REST API documentation.'), call.=F)
-        timed_out <- T
-        break
       }
 
       # cleanup
