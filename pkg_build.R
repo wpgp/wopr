@@ -1,10 +1,13 @@
 # cleanup
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); .libPaths('c:/research/r/library')
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); 
+
+# R library path
+.libPaths('c:/research/r/library')
 
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-rebuild_docs <- T
+rebuild_docs <- F
 if(rebuild_docs){
   
   ##-- package documentation --##

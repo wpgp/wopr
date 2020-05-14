@@ -21,32 +21,32 @@ woprize(
 )
 }
 \arguments{
-\item{features}{An object of class sf with points or polygons to calculate population totals}
+\item{features}{sf. An object of class sf with points or polygons to calculate population totals.}
 
-\item{country}{ISO-3 code for the country requested}
+\item{country}{character. ISO-3 code for the country requested.}
 
-\item{version}{Version number of population estimates}
+\item{version}{character or numeric. Version number of population estimates.}
 
-\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
+\item{confidence}{numeric. The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals).}
 
-\item{tails}{The number of tails for the confidence intervals}
+\item{tails}{numeric. The number of tails for the confidence intervals.}
 
-\item{abovethresh}{The function will return the probability that the population size exceeds _abovethresh_}
+\item{abovethresh}{numeric. The function will return the probability that the population size exceeds _abovethresh_.}
 
-\item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
+\item{belowthresh}{numeric. The function will return the probability that the population size is less than _belowthresh_.}
 
-\item{summarize}{Logical indicating to summarize results or return all posterior samples}
+\item{summarize}{logical. If TRUE, results will be summarized. If FALSE, all posterior samples will be returned.}
 
-\item{agesex_select}{Character vector of age-sex groups}
+\item{agesex_select}{charcter vector. Age-sex groups (e.g. "m0", "m1", "m5").}
 
-\item{key}{API key}
+\item{key}{character. API key.}
 
-\item{save_messages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
+\item{save_messages}{logical. If TRUE, messages from WOPR will be saved including task ids that can be used to retrieve results later using checkTask().}
 
-\item{url}{Server url (optional)}
+\item{url}{character. Server url (optional).}
 }
 \value{
-A data frame or sf spatial data object with summaries of posterior distribtuions for estimates of total population within each polygon
+sf. An sf spatial data object with summaries of posterior distributions for estimates of total population within each polygon.
 }
 \description{
 Query WOPR to get population totals and confidence intervals for sf polygon or point features.

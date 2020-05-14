@@ -192,6 +192,8 @@ shinyServer(
                                     tails=ifelse(input$ci_type=='Interval',2,1),
                                     abovethresh=input$popthresh,
                                     url=url)
+              
+              print(rv$feature)
 
               ct <- resultTable(input, rv)
 
@@ -276,7 +278,11 @@ shinyServer(
     ##-- saved tab --##
 
     # results table
-    output$results_table <- renderTable( rv$table, digits=3, striped=T, format.args=list(big.mark=",", decimal.mark="."), rownames=F)
+    output$results_table <- renderTable( rv$table[,-which(names(rv$table) %in% c('message','geojson'))], 
+                                         digits = 3, 
+                                         striped = T, 
+                                         format.args = list(big.mark=",", decimal.mark="."), 
+                                         rownames = F)
 
     # download button
     output$download_table <- downloadHandler(filename = paste0('woprVision_',format(Sys.time(), "%Y%m%d%H%M"),'.csv'),

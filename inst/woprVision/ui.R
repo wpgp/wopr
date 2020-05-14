@@ -123,6 +123,7 @@ ui <- tagList(
 
              # tab: saved estimates
              tabPanel('Saved',
+                      HTML('<strong>This tab contains any population estimates that you have saved from the Map tab.<br>Your points or polygons will be added to the saved results in GeoJson format along with any error messages when you click "Download".</strong><br>'),
                       downloadButton('download_table', 'Download'),
                       actionButton('clear_button', 'Clear'),
                       br(),

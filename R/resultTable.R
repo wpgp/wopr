@@ -19,7 +19,7 @@ resultTable <- function(inp, rval){
   
   names.result <- c('name','data','mode',
                     'pop','pop_lower','pop_upper','abovethresh','popthresh',
-                    'female_age','male_age','confidence_level','confidence_type','geojson')
+                    'female_age','male_age','confidence_level','confidence_type','message','geojson')
   
   result <- data.frame(matrix(NA, nrow=nrow(s), ncol=length(names.result)))
   names(result) <- names.result
@@ -28,8 +28,9 @@ resultTable <- function(inp, rval){
   result$data <- inp$data_select
   result$mode <- inp$pointpoly
   result$popthresh <- inp$popthresh
-  result$confidence_level = paste0(inp$ci_level,'%')
-  result$confidence_type = inp$ci_type
+  result$confidence_level <- paste0(inp$ci_level,'%')
+  result$confidence_type <- inp$ci_type
+  if(!is.null(s$message)) result$message <- s$message
   
   if(inp$female){
     if(inp$female_select[1]=='<1'){

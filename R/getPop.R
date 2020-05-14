@@ -46,15 +46,10 @@ getPop <- function(feature, country, version=NA,
     output <- retrieveResults(tasks,
                               url_queue=wopr_url$queue,
                               summarize=F,
-                              verbose=verbose,
-                              save_messages=T)
+                              verbose=verbose)
     
-    if(!is.na(output$message)){
-      if(output$message=='General WP Error. No settled grid cells'){
-        message('No settled grid cells in this feature.')
-      } else {
-        warning(output$message, call.=F)
-      }
+    if(!is.na(output$message)) {
+      warning(output$message, call.=F)
     }
     
     if('pop1' %in% names(output)) {
