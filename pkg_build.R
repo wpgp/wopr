@@ -7,7 +7,7 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T);
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-rebuild_docs <- F
+rebuild_docs <- T
 if(rebuild_docs){
   
   ##-- package documentation --##

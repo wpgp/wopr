@@ -285,8 +285,8 @@ shinyServer(
                                          rownames = F)
 
     # download button
-    output$download_table <- downloadHandler(filename = paste0('woprVision_',format(Sys.time(), "%Y%m%d%H%M"),'.csv'),
-                                             content = function(file) write.csv(rv$table, file, row.names=TRUE))
+    output$download_table <- downloadHandler(filename = function(timestamp=format(Sys.time(), "%Y%m%d%H%M")) paste0('woprVision_',timestamp,'.csv'),
+                                             content = function(file) write.csv(rv$table, file, row.names=FALSE))
     # clear button
     observeEvent(input$clear_button, {
       showModal(modalDialog('Are you sure you want to clear all saved population estimates?',
@@ -297,6 +297,15 @@ shinyServer(
     observeEvent(input$clear, {
       rv$table <- NULL
       removeModal()
+    })
+    observeEvent(is.null(rv$table), {
+      if(is.null(rv$table)){
+        shinyjs::disable('download_table')
+        shinyjs::disable('clear_button')
+      } else {
+        shinyjs::enable('download_table')
+        shinyjs::enable('clear_button')
+      }
     })
 
     ##-- tabs --##

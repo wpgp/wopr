@@ -12,8 +12,7 @@ retrieveResults(
   abovethresh = NA,
   belowthresh = NA,
   summarize = T,
-  verbose = T,
-  save_messages = F
+  verbose = T
 )
 }
 \arguments{
@@ -32,8 +31,6 @@ retrieveResults(
 \item{summarize}{Logical indicating to summarize results or return all posterior samples}
 
 \item{verbose}{Logical indicating to print progress updates}
-
-\item{save_messages}{Save messages from WOPR including task ids that can be used to retrieve results later using checkTask()}
 }
 \value{
 A data frame with outputs

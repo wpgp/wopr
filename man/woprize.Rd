@@ -16,7 +16,6 @@ woprize(
   agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
     5)))),
   key = "key.txt",
-  save_messages = F,
   url = "https://api.worldpop.org/v1"
 )
 }
@@ -40,8 +39,6 @@ woprize(
 \item{agesex_select}{charcter vector. Age-sex groups (e.g. "m0", "m1", "m5").}
 
 \item{key}{character. API key.}
-
-\item{save_messages}{logical. If TRUE, messages from WOPR will be saved including task ids that can be used to retrieve results later using checkTask().}
 
 \item{url}{character. Server url (optional).}
 }
