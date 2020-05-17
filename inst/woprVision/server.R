@@ -202,18 +202,19 @@ shinyServer(
                                     abovethresh=input$popthresh,
                                     url=url)
               
-              # table for saved tab
+              # add settings to woprized features
               ct <- resultTable(input, rv)
               
               # rename columns
-              names(rv$feature)[sapply(c('mean','median','lower','upper'), 
-                                       function(i) which(names(rv$feature)==i))] <- 
-                c('pop_mean','pop_median','pop_lower','pop_upper')
+              names(rv$feature)[names(rv$feature)=='mean'] <- 'pop_mean'
+              names(rv$feature)[names(rv$feature)=='median'] <- 'pop_median'
+              names(rv$feature)[names(rv$feature)=='lower'] <- 'pop_lower'
+              names(rv$feature)[names(rv$feature)=='upper'] <- 'pop_upper'
               
               # remove unwanted columns
-              rv$feature <- rv$feature[,-which(names(rv$feature) %in% c('belowthresh','agesexid'))]
+              for(name in c('belowthresh','agesexid')) rv$feature[,name] <- NULL
               
-              # add settings to woprized features
+              # add settings to woprized results
               rv$feature <- cbind(rv$feature, 
                                   ct[,c('data','female_age','male_age','confidence_level','confidence_type','popthresh')])
               
