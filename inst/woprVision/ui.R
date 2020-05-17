@@ -20,7 +20,7 @@ column(
                  choiceValues=c('Selected Point','Custom Area','Upload File')),
 
     # upload geojson
-    tags$style(".shiny-file-input-progress {display: none}"),
+    # tags$style(".shiny-file-input-progress {display: none}"),
 
     fileInput("user_json", NULL,
               multiple = FALSE,

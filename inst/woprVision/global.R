@@ -7,6 +7,9 @@ palette <- wopr:::woprVision_global$palette
 
 version_info <- version_info[version_info$active,]
 
+# maximum file upload size
+options(shiny.maxRequestSize = 50*1024^2)
+
 # check global for objects defined by woprVision()
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 

@@ -55,7 +55,7 @@ submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0(
   task_limit <- 1e3
   if(nrow(features) > task_limit){
     
-    warning(paste0('Request exceeded ',task_limit,' tasks. Try subsetting your features.'), call.=F)
+    stop(paste0('Request exceeded ',task_limit,' tasks. Try a subset of your features and/or aggregating multi-part features.'), call.=F)
     
   } else {
     

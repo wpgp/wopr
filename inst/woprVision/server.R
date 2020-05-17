@@ -124,7 +124,7 @@ shinyServer(
           
           if(nrow(rv$feature) > geojson_limit){
             rv$feature <- rv$feature[1:min(geojson_limit, nrow(rv$feature)),]
-            showNotification(paste('GeoJSON limit exceeded. Only the first',geojson_limit,'features will be processed.'), type='message', duration=10)
+            showNotification(paste('GeoJSON row limit exceeded. Only the first',geojson_limit,'features will be processed.'), type='warning', duration=10)
           }
           
           # rv$feature <- rv$feature[,1]
@@ -282,10 +282,19 @@ shinyServer(
                 rv$agesexid <- as.character(i[['agesexid']])
               }
             }
+            
           }, warning=function(w){
+            
             showNotification(as.character(w), type='warning', duration=20)
+            
+            if(input$pointpoly=='Upload File') shinyjs::reset('user_json')
+            
           }, error=function(e){
+            
             showNotification(as.character(e), type='error', duration=20)
+            
+            if(input$pointpoly=='Upload File') shinyjs::reset('user_json')
+            
           })
         }, message='woprizing:',
         detail='Fetching population total for selected location(s) and demographic group(s)...',
