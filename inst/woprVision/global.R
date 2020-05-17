@@ -7,6 +7,9 @@ palette <- wopr:::woprVision_global$palette
 
 version_info <- version_info[version_info$active,]
 
+# maximum features allowed to upload in a geojson
+geojson_limit <- 45
+
 # check global for objects defined by woprVision()
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 

@@ -24,12 +24,18 @@ resultTable <- function(inp, rval){
   result <- data.frame(matrix(NA, nrow=nrow(s), ncol=length(names.result)))
   names(result) <- names.result
   
-  result$name <- ifelse(woprized, s[,1], inp$save_name)
+  if(woprized){
+    result$name <- paste0('location_',1:nrow(result))
+  } else {
+    result$name <- inp$save_name
+  }
+  
   result$data <- inp$data_select
   result$mode <- inp$pointpoly
   result$popthresh <- inp$popthresh
   result$confidence_level <- paste0(inp$ci_level,'%')
   result$confidence_type <- inp$ci_type
+  
   if(!is.null(s$message)) result$message <- s$message
   
   if(inp$female){
@@ -88,6 +94,7 @@ resultTable <- function(inp, rval){
     result[i,'pop_lower'] <- s[i,'lower']
     result[i,'pop_upper'] <- s[i,'upper']
     result[i,'abovethresh'] <- s[i,'abovethresh']
+    
     result[i,'geojson'] <- as.character(geojsonio::geojson_json(rval$feature[i,]))
   }
   result$pop <- as.integer(round(result$pop))

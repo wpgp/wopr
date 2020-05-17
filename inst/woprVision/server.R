@@ -119,7 +119,14 @@ shinyServer(
           updateSelectInput(session, 'pointpoly', selected='Upload File')
 
           rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
-          rv$feature <- rv$feature[1:min(100,nrow(rv$feature)),1]
+          
+          if(nrow(rv$feature) > geojson_limit){
+            rv$feature <- rv$feature[1:min(geojson_limit,nrow(rv$feature)),]
+            showNotification(paste('GeoJSON limit exceeded. Only the first',geojson_limit,'features will be processed.'), type='message', duration=10)
+          }
+          
+          # rv$feature <- rv$feature[,1]
+          
           rv$feature <- sf::st_transform(rv$feature, crs=4326)
 
           mapProxyFile(rv$feature)
@@ -193,18 +200,55 @@ shinyServer(
                                     abovethresh=input$popthresh,
                                     url=url)
               
-              print(rv$feature)
-
+              # table for saved tab
               ct <- resultTable(input, rv)
+              
+              # rename columns
+              names(rv$feature)[sapply(c('mean','median','lower','upper'), 
+                                       function(i) which(names(rv$feature)==i))] <- 
+                c('pop_mean','pop_median','pop_lower','pop_upper')
+              
+              # remove unwanted columns
+              rv$feature <- rv$feature[,-which(names(rv$feature) %in% c('belowthresh','agesexid'))]
+              
+              # add settings to woprized features
+              rv$feature <- cbind(rv$feature, 
+                                  ct[,c('data','female_age','male_age','confidence_level','confidence_type','popthresh')])
+              
+              # modal to download results
+              showModal(modalDialog('Population estimates have been added to the attribute table of your GeoJSON. You can download the results as a GeoJSON or as a .csv spreadsheet using the buttons below.',
+                                    footer = tagList(
+                                      downloadButton("download_geojson","Save GeoJSON"),
+                                      downloadButton("download_spreadsheet","Save Spreadsheet"),
+                                      modalButton('Close')),
+                                    title = 'Results')
+                        )
+              
+              # download results as geojson
+              output$download_geojson <- downloadHandler(
+                filename = function() {
+                  paste0('woprized_', gsub('.json','.geojson',input$user_json[,'name'],fixed=T))
+                },
+                content = function(file) {
+                  sf::st_write(obj = rv$feature,
+                               dsn = file,
+                               driver = 'GeoJSON',
+                               quiet = TRUE)
+                },
+                contentType = 'application/json')
 
-              if(!'table' %in% names(rv)) {
-                rv$table <- ct
-              } else {
-                rv$table <- rbind(ct, rv$table)}
-              row.names(rv$table) <- 1:nrow(rv$table)
-
-              showNotification(paste('Population estimates for',nrow(rv$feature),'features added to the "Saved" tab.'), type='message', duration=10)
-
+              # download results as csv
+              output$download_spreadsheet <- downloadHandler(
+                filename = function() {
+                  paste0('woprized_', tools::file_path_sans_ext(input$user_json[,'name']), '.csv')
+                },
+                content = function(file) {
+                  write.csv(x = sf::st_drop_geometry(rv$feature),
+                            file = file,
+                            row.names = FALSE)
+                },
+                contentType = 'application/json')
+              
               shinyjs::reset('user_json')
             }
 
@@ -286,12 +330,21 @@ shinyServer(
 
     # download button
     output$download_table <- downloadHandler(filename = function(timestamp=format(Sys.time(), "%Y%m%d%H%M")) paste0('woprVision_',timestamp,'.csv'),
-                                             content = function(file) write.csv(rv$table, file, row.names=FALSE))
+                                             content = function(file) {
+                                               idrop <- which(sapply(rv$table[,'geojson'], nchar) > 32767)
+                                               if(length(idrop) > 0){
+                                                 rv$table[idrop,'geojson'] <- NA
+                                                 showNotification('GeoJSONs that exceeded the character limit (32,767) were converted to NA.', type='warning', duration=20)
+                                               }
+                                               write.csv(rv$table, file, row.names=FALSE)
+                                               })
     # clear button
     observeEvent(input$clear_button, {
       showModal(modalDialog('Are you sure you want to clear all saved population estimates?',
                             title='Confirm',
-                            footer=tagList(modalButton('Cancel'),actionButton('clear','Clear Saved Estimates'))
+                            footer=tagList(
+                              actionButton('clear','Clear Saved Estimates'), 
+                              modalButton('Cancel'))
                             ))
     })
     observeEvent(input$clear, {

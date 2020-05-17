@@ -1,14 +1,11 @@
 # cleanup
 rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); 
 
-# R library path
-.libPaths('c:/research/r/library')
-
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-rebuild_docs <- T
-if(rebuild_docs){
+# rebuild documentation
+if(T){
   
   ##-- package documentation --##
   
@@ -39,13 +36,13 @@ if(rebuild_docs){
 ##-- install package --##
 
 # install from source
-install.packages(getwd(), repo=NULL, type='source')
+install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
 
 # # build package tarball
 # pkgbuild::build()
 
 # load package
-library(wopr)
+library(wopr, lib='c:/research/r/library')
 
 # run app
 wopr::woprVision()

@@ -13,13 +13,17 @@ mapProxyFile <- function(features){
     # update map
     leafletProxy('map') %>% 
       
+      # clear old polygons
+      clearGroup('Upload File') %>%
+      
       # add polygons
       addPolygons(data=features, 
                   group='Upload File') %>%
+      
       # fit bounds
-      setView(lng=mean(bbox[c('xmin','xmax')]), 
-              lat=mean(bbox[c('ymin','ymax')]), 
-              zoom=10)
+      setView(lng=mean(bbox[c('xmin','xmax')]),
+              lat=mean(bbox[c('ymin','ymax')]),
+              zoom=8)
   }
   
   if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
@@ -27,13 +31,17 @@ mapProxyFile <- function(features){
     # update map
     leafletProxy('map') %>% 
       
-      # add polygons
+      # clear old points
+      clearGroup('Upload File') %>%
+      
+      # add points
       addCircles(data=features, radius=56, weight=15, opacity=0.75,
                  group='Upload File') %>%
+      
       # fit bounds
-      setView(lng=mean(bbox[c('xmin','xmax')]), 
-              lat=mean(bbox[c('ymin','ymax')]), 
-              zoom=11)
+      setView(lng=mean(bbox[c('xmin','xmax')]),
+              lat=mean(bbox[c('ymin','ymax')]),
+              zoom=8)
   }
 }
 
