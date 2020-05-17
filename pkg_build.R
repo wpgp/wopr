@@ -38,9 +38,6 @@ if(T){
 # install from source
 install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
 
-# # build package tarball
-# pkgbuild::build()
-
 # load package
 library(wopr, lib='c:/research/r/library')
 

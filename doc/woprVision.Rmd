@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-28 April 2020
+17 May 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
@@ -159,10 +159,10 @@ This tab provides a description of the _wopr_ package for the R statistical prog
 This tab provides an overview of the WOPR REST API. This is the way that the _wopr_ R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.
 
 ## Contributing
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Michael Harper at the Flowminder Foundation contributed to the shiny application. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 **Suggested citation:**  
-Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.2.0. University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00664</a>  
+Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.2. University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00664</a>  
 
 ## License
 GNU General Public License v3.0 (GNU GPLv3)  
