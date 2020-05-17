@@ -113,6 +113,8 @@ shinyServer(
 
     ## file upload
     observeEvent(input$user_json, {
+      geojson_limit <- 45
+      
       if(!is.null(input$user_json)){
 
         tryCatch({
@@ -121,7 +123,7 @@ shinyServer(
           rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
           
           if(nrow(rv$feature) > geojson_limit){
-            rv$feature <- rv$feature[1:min(geojson_limit,nrow(rv$feature)),]
+            rv$feature <- rv$feature[1:min(geojson_limit, nrow(rv$feature)),]
             showNotification(paste('GeoJSON limit exceeded. Only the first',geojson_limit,'features will be processed.'), type='message', duration=10)
           }
           
