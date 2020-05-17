@@ -218,8 +218,7 @@ shinyServer(
               for(name in c('belowthresh','agesexid')) rv$feature[,name] <- NULL
               
               # add settings to woprized results
-              rv$feature <- cbind(rv$feature, 
-                                  ct)
+              rv$feature[,names(ct)] <- ct
               
               # modal to download results
               showModal(modalDialog('Population estimates have been added to the attribute table of your GeoJSON. You can download the results as a GeoJSON or as a .csv spreadsheet using the buttons below.',
