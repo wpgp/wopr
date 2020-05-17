@@ -1,4 +1,4 @@
-library(wopr);library(leaflet)
+library(wopr);library(leaflet);library(sf)
 
 # import woprVision_global
 version_info <- wopr:::woprVision_global$version_info

@@ -202,8 +202,11 @@ shinyServer(
                                     abovethresh=input$popthresh,
                                     url=url)
               
-              # add settings to woprized features
+              # get settings for woprized features
               ct <- resultTable(input, rv)
+              
+              # keep only settings (remove results)
+              ct <- ct[,c('data','female_age','male_age','confidence_level','confidence_type','popthresh')]
               
               # rename columns
               names(rv$feature)[names(rv$feature)=='mean'] <- 'pop_mean'
@@ -216,7 +219,7 @@ shinyServer(
               
               # add settings to woprized results
               rv$feature <- cbind(rv$feature, 
-                                  ct[,c('data','female_age','male_age','confidence_level','confidence_type','popthresh')])
+                                  ct)
               
               # modal to download results
               showModal(modalDialog('Population estimates have been added to the attribute table of your GeoJSON. You can download the results as a GeoJSON or as a .csv spreadsheet using the buttons below.',
