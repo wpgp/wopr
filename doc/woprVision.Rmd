@@ -2,7 +2,7 @@
 title: An overview of the woprVision web application
 output: 
   rmarkdown::html_vignette:
-    toc: true
+    toc: false
 vignette: >
   %\VignetteIndexEntry{An overview of the woprVision web application}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-17 May 2020
+27 May 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
