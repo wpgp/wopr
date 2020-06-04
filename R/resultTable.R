@@ -69,17 +69,6 @@ resultTable <- function(inp, rval){
     result$male_age <- ''
   }
   
-  # if(inp$ci_type=='Interval'){
-  #   result$pop_lower <- s$lower
-  #   result$pop_upper <- s$upper
-  # } else if(inp$ci_type=='Upper Limit'){
-  #   result$pop_lower <- NA
-  #   result$pop_upper <- s$upper
-  # } else if(inp$ci_type=='Lower Limit'){
-  #   result$pop_lower <- s$lower
-  #   result$pop_upper <- NA
-  # }
-
   for(i in 1:nrow(result)){
     result[i,'pop'] <- s[i,'mean']
     result[i,'pop_lower'] <- s[i,'lower']
@@ -94,10 +83,6 @@ resultTable <- function(inp, rval){
   } else if(inp$ci_type=='Lower Limit'){
     result$pop_upper <- NA
   }
-  
-  # result$pop <- as.integer(round(result$pop))
-  # result$pop_lower <- as.integer(round(result$pop_lower))
-  # result$pop_upper <- as.integer(round(result$pop_upper))
   
   result$pop <- ifelse(s$mean > 5, 
                        as.integer(round(result$pop)), 
