@@ -50,7 +50,7 @@ map <- function(country, version, local_tiles=F, southern=F,
     addLegend(position='bottomright',
               pal=pal,
               values=bins,
-              title='People per grid cell',
+              title='People per grid cell<br>(all age-sex groups)',
               opacity=1,
               group='Population') %>%
 

@@ -1,17 +1,18 @@
 #' Summary statistics
 #' @description Summarize predicted posterior probability distribution for population estimates
-#' @param N Vector of posterior samples for the population total
-#' @param confidence The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
-#' @param tails The number of tails for the confidence intervals
-#' @param belowthresh The function will return the probability that the population size is less than _belowthresh_
-#' @param abovethresh The function will return the probability that the population size exceeds _abovethresh_
+#' @param N numeric vector. Vector of posterior samples for the population total
+#' @param confidence numeric. The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)
+#' @param tails integer. The number of tails for the confidence intervals
+#' @param belowthresh numeric. The function will return the probability that the population size is less than _belowthresh_
+#' @param abovethresh numeric. The function will return the probability that the population size exceeds _abovethresh_
+#' @param round_result logical. If TRUE the results will be rounded to a pre-determined number of digits for each column.
 #' @return A data.frame with columns containing the mean, median, lower and upper confidence intervals for the estimated population total. 
 #' The 'abovethresh' column reports the probability that the population is greater than _abovethresh_. 
 #' The 'belowthresh' column reports the probability that the population is less than _abovethresh_.
 #' Note: One minus 'abovethresh' is the probability that the population is equal to or less than _abovethresh_.
 #' @export
 
-summaryPop <- function(N, confidence=0.95, tails=2, belowthresh=NA, abovethresh=NA){
+summaryPop <- function(N, confidence=0.95, tails=2, belowthresh=NA, abovethresh=NA, round_result=F){
   
   N <- as.numeric(N)
   
@@ -29,8 +30,10 @@ summaryPop <- function(N, confidence=0.95, tails=2, belowthresh=NA, abovethresh=
   round0_cols <- c('mean','median','lower','upper')
   round3_cols <- c('abovethresh', 'belowthresh')
   
-  result[,round0_cols] <- as.integer(round(result[,round0_cols]))
-  result[,round3_cols] <- round(result[,round3_cols], 3)
+  if(round_result){
+    result[,round0_cols] <- as.integer(round(result[,round0_cols]))
+    result[,round3_cols] <- round(result[,round3_cols], 3)
+  }
   
   return(result)
 }

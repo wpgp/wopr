@@ -8,10 +8,11 @@
 
 plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
   
-  s <- summaryPop(N=N, 
-                  confidence=confidence/100, 
-                  tails=ifelse(tails=='Interval',2,1), 
-                  abovethresh=popthresh)
+  s <- summaryPop(N = N, 
+                  confidence = confidence/100, 
+                  tails = ifelse(tails=='Interval',2,1), 
+                  abovethresh = popthresh,
+                  round_result = FALSE)
   
   # plot margins
   par(mar=c(4.5,1,4.5,0.5))
@@ -50,8 +51,19 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
       s$lower <- 0
     }
     
-    ilow <- min(which(d$x >= s$lower))
-    iup <- max(which(d$x <= s$upper))
+    # ilow <- min(which(d$x >= s$lower))
+    # iup <- max(which(d$x <= s$upper)) 
+    
+    if(any(d$x >= s$lower)){
+      ilow <- min(which(d$x >= s$lower))
+    } else{
+      ilow <- 1
+    }
+    if(any(d$x <= s$upper)){
+      iup <- max(which(d$x <= s$upper)) 
+    } else{
+      iup <- nrow(d)
+    }
     
     dsub <- d[ilow:iup,]
     dsub <- rbind(data.frame(x=rep(s$lower,2), 
@@ -94,9 +106,15 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
   
   if(is.numeric(N)){
 
+    # data
+    pop_mean <- ifelse(s$mean > 5, round(s$mean), round(s$mean,1))
+    pop_lower <- ifelse(s$mean > 5, round(s$lower), round(s$lower,1))
+    pop_upper <- ifelse(s$mean > 5, round(s$upper), round(s$upper,1))
+    pop_abovethresh <- round(s$abovethresh*100)
+    
     # Main title
     line <- 3
-    mtext(paste0('Population Estimate: ',prettyNum(s$mean,big.mark=','),' people'),
+    mtext(paste0('Population Estimate: ',prettyNum(pop_mean,big.mark=','),' people'),
           line=line, cex=1.5)
     
     # Sub title A
@@ -104,24 +122,24 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     cex <- 1.25
     if(tails=='Interval'){
       
-      mtext(paste0(round(confidence),'% probability: ', prettyNum(s$lower,big.mark=','),' - ', prettyNum(s$upper, big.mark=','),' people'), 
+      mtext(paste0(round(confidence),'% probability: ', prettyNum(pop_lower,big.mark=','),' - ', prettyNum(pop_upper, big.mark=','),' people'), 
             line=line, cex=cex)
       
     } else if(tails=='Lower Limit'){
       
-      mtext(paste0(round(confidence),'% probability: > ', prettyNum(s$lower,big.mark=','), ' people'), 
+      mtext(paste0(round(confidence),'% probability: > ', prettyNum(pop_lower,big.mark=','), ' people'), 
             line=line, cex=cex)
       
     } else if(tails=='Upper Limit'){
       
-      mtext(paste0(round(confidence),'% probability: < ', prettyNum(s$upper,big.mark=','),' people'), 
+      mtext(paste0(round(confidence),'% probability: < ', prettyNum(pop_upper,big.mark=','),' people'), 
             line=line, cex=cex)
     }
     
     # Sub title B
     if(is.numeric(popthresh)){
       line <- 0.25
-      mtext(paste0(round(s$abovethresh*100),'% probability: > ', prettyNum(popthresh,big.mark=','), ' people (threshold)'),
+      mtext(paste0(pop_abovethresh,'% probability: > ', prettyNum(popthresh,big.mark=','), ' people (threshold)'),
             line=line, cex=cex)
     }
   }
