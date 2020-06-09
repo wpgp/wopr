@@ -6,26 +6,32 @@
 
 checkLocal <- function(dir, info=wopr:::woprVision_global$version_info){
   
-  info$local_sql <- info$local_tiles <- FALSE
+  info$local_sql <- info$local_tiles <- info$local_mastergrid <- FALSE
   
   if(dir.exists(dir)){
     for(i in 1:nrow(info)){
       
       path <- file.path(dir,info$country[i],'population',info$version[i])
       
-      prefix <- paste0(info$country[i],
-                       '_population_',
-                       gsub('.','_',as.character(info$version[i]), fixed=T),'_')
-      
-      sql_path <- paste0(file.path(path, prefix),'sql.sql')
-      mastergrid_path <- paste0(file.path(path,prefix),'mastergrid.tif')
-      tile_path <- paste0(file.path(path, prefix), 'tiles')
-      
-      if(file.exists(sql_path) & file.exists(mastergrid_path)) {
-        info[i,'local_sql'] <- TRUE}
-      if(dir.exists(tile_path)){
-        info[i,'local_tiles'] <- TRUE}
+      if(dir.exists(path)){
+        
+        parsed <- parseFilename(list.files(path))
+        
+        if(any(parsed$file_type=='sql') & any(parsed$file_type=='mastergrid')){
+          info[i,'local_sql'] <- TRUE
+          info[i,'local_sql_path'] <- file.path(path, parsed[which(parsed$file_type=='sql'),'filename'])
+          info[i,'local_mastergrid_path'] <- file.path(path, parsed[which(parsed$file_type=='mastergrid'),'filename'])
+        }
+        
+        if(any(parsed$file_type=='tiles' & parsed$file_extension=='')){
+          info[i,'local_tiles'] <- TRUE
+          info[i,'local_tiles_path'] <- file.path(path, parsed[which(parsed$file_type=='tiles' & parsed$file_extension==''),'filename'])
+        } else if(any(parsed$file_type=='tiles' & parsed$file_extension=='zip')){
+          warning(paste('Tiles for',info$country[i],info$version[i],'still need to be unzipped.'), call.=F)
+        }
+      }
     }
   }
+  
   return(info)
 }
