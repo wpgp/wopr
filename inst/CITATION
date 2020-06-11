@@ -1,4 +1,4 @@
-citHeader("To cite package wopr in publications, please use:")
+citHeader("To cite the wopr R package or the woprVision web application in publications, please use:")
 
 citEntry(entry="Book",
   author = c(person("Douglas", "Leasure", "R"),                     
