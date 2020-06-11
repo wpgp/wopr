@@ -373,10 +373,12 @@ shinyServer(
     ##-- tabs --##
 
     # wopr download tab
-    output$wopr_web <- renderText(
-      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
-    )
-
+    observeEvent(input$download_link, {
+      showModal(modalDialog(HTML(paste0(input$data_select, ' population data can be downloaded from the WorldPop Open Population Repository (WOPR): ',a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
+                            title = 'Data Download')
+      )
+    })
+    
     # readme tab
     output$data_readme <- renderText(
         return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))

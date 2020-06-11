@@ -7,7 +7,7 @@
 writeCatalogue(outdir)
 }
 \arguments{
-\item{outdir}{Output folder where data from the WorldPop GridFree catalogue are stored}
+\item{outdir}{Output folder where data from the WOPR catalogue are stored}
 }
 \value{
 Writes an updated data catalogue to disk as a .csv file.
