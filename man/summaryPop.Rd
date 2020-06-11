@@ -4,18 +4,27 @@
 \alias{summaryPop}
 \title{Summary statistics}
 \usage{
-summaryPop(N, confidence = 0.95, tails = 2, belowthresh = NA, abovethresh = NA)
+summaryPop(
+  N,
+  confidence = 0.95,
+  tails = 2,
+  belowthresh = NA,
+  abovethresh = NA,
+  round_result = F
+)
 }
 \arguments{
-\item{N}{Vector of posterior samples for the population total}
+\item{N}{numeric vector. Vector of posterior samples for the population total}
 
-\item{confidence}{The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
+\item{confidence}{numeric. The confidence level for the confidence intervals (e.g. 0.95 = 95 percent confidence intervals)}
 
-\item{tails}{The number of tails for the confidence intervals}
+\item{tails}{integer. The number of tails for the confidence intervals}
 
-\item{belowthresh}{The function will return the probability that the population size is less than _belowthresh_}
+\item{belowthresh}{numeric. The function will return the probability that the population size is less than _belowthresh_}
 
-\item{abovethresh}{The function will return the probability that the population size exceeds _abovethresh_}
+\item{abovethresh}{numeric. The function will return the probability that the population size exceeds _abovethresh_}
+
+\item{round_result}{logical. If TRUE the results will be rounded to a pre-determined number of digits for each column.}
 }
 \value{
 A data.frame with columns containing the mean, median, lower and upper confidence intervals for the estimated population total. 

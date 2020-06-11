@@ -1,4 +1,4 @@
-citHeader("To cite package wopr in publications, please use:")
+citHeader("To cite the wopr R package or the woprVision web application in publications, please use:")
 
 citEntry(entry="Book",
   author = c(person("Douglas", "Leasure", "R"),                     
@@ -6,8 +6,8 @@ citEntry(entry="Book",
           person("Andrew", "Tatem", "J")),
   title = paste0("wopr: An R package to query the WorldPop Open Population Repository, version ", meta$Version, "."),
   year = 2020,
-  publisher = "{University of Southampton}",
+  publisher = "{WorldPop, University of Southampton}",
   doi = "10.5258/SOTON/WP00664",
   url = "https://github.com/wpgp/wopr",
-  textVersion = paste0('Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version ', meta$Version, '. University of Southampton. doi:10.5258/SOTON/WP00664')
+  textVersion = paste0('Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version ', meta$Version, '. WorldPop, University of Southampton. doi:10.5258/SOTON/WP00664')
 )

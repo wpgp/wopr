@@ -1,6 +1,6 @@
 #' Write WOPR catalogue
 #' @description Creates a catalogue of the WOPR data currently in the output directory.
-#' @param outdir Output folder where data from the WorldPop GridFree catalogue are stored
+#' @param outdir Output folder where data from the WOPR catalogue are stored
 #' @return Writes an updated data catalogue to disk as a .csv file.
 #' @export
 

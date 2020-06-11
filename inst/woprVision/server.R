@@ -37,7 +37,6 @@ shinyServer(
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
-      rv$path <- file.path(wopr_dir,rv$country,'population',rv$version)
 
       # palette
       rv$bins <- c(palette$bins[-length(palette$bins)], round(max(palette$bins[length(palette$bins)-1]+100, version_info[input$data_select,'popmax'])))
@@ -55,20 +54,16 @@ shinyServer(
       if(version_info[input$data_select,'local_sql']){
         message(paste0('Using local SQL database for ',input$data_select,'.'))
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(),
-                                     file.path(rv$path,
-                                               paste0(rv$country,'_population_',gsub('.','_',as.character(rv$version), fixed=T),'_sql.sql')))
-        rv$mastergrid <- raster::raster(file.path(rv$path,
-                                                  paste0(rv$country,'_population_',gsub('.','_',as.character(rv$version), fixed=T),'_mastergrid.tif')))
+                                     version_info[input$data_select, 'local_sql_path'])
+        rv$mastergrid <- raster::raster(version_info[input$data_select, 'local_mastergrid_path'])
       }
 
       # local tiles
       if(version_info[input$data_select, 'local_tiles']){
         message(paste0('Using local image tiles for ',input$data_select,'.'))
-        addResourcePath('tiles', file.path(rv$path,
-                                           paste0(rv$country,
-                                                  '_population_',
-                                                  gsub('.','_',as.character(rv$version),fixed=T),
-                                                  '_tiles')))}
+        addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
+      }
+      
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
           addResourcePath('basemap', file.path(wopr_dir,'basemap'))
@@ -378,10 +373,12 @@ shinyServer(
     ##-- tabs --##
 
     # wopr download tab
-    output$wopr_web <- renderText(
-      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$wopr_url, '", frameBorder="0"></iframe>', sep = ""))
-    )
-
+    observeEvent(input$download_link, {
+      showModal(modalDialog(HTML(paste0(input$data_select, ' population data can be downloaded from the WorldPop Open Population Repository (WOPR): ',a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
+                            title = 'Data Download')
+      )
+    })
+    
     # readme tab
     output$data_readme <- renderText(
         return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))

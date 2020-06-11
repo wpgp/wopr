@@ -132,10 +132,8 @@ ui <- tagList(
              ),
 
              # tab: WorldPop
-             tabPanel(a(href='https://www.worldpop.org', target='_blank',
-                        style='padding:0px',
-                            img(src='logoWorldPop.png',
-                                style='height:30px; margin-top:-30px; margin-left:10px'))),
+             tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
+                        img(src='logoWorldPop.png', style='height:30px; margin-top:-30px; margin-left:10px'))),
 
              # tab: API readme
              tabPanel('REST API',
@@ -150,11 +148,10 @@ ui <- tagList(
                                   src='wopr_README.html')),
 
              # tab: wopr
-             tabPanel('WOPR Download',
-                      htmlOutput('wopr_web')),
-
+             tabPanel(actionLink('download_link','Data Download', style = 'padding:0px; margin:-15px 15px 0px 15px')),
+             
              # tab: data readme
-             tabPanel('Data Readme',
+             tabPanel('Data README',
                       htmlOutput('data_readme')),
 
              # tab: API readme

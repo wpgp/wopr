@@ -6,16 +6,11 @@
 
 resultTable <- function(inp, rval){
   
-  if(inp$pointpoly=='Upload File'){
-    woprized <- T
-    s <- sf::st_drop_geometry(rval$feature)
-  } else {
-    woprized <- F
-    s <- summaryPop(N=rval$N, 
-                    confidence=inp$ci_level/100, 
-                    tails=ifelse(inp$ci_type=='Interval',2,1), 
-                    abovethresh=inp$popthresh)
-  }
+  s <- summaryPop(N = rval$N, 
+                  confidence = inp$ci_level/100, 
+                  tails = ifelse(inp$ci_type=='Interval',2,1), 
+                  abovethresh = inp$popthresh,
+                  round_result = FALSE)
   
   names.result <- c('name','data','mode',
                     'pop','pop_lower','pop_upper','abovethresh','popthresh',
@@ -24,12 +19,8 @@ resultTable <- function(inp, rval){
   result <- data.frame(matrix(NA, nrow=nrow(s), ncol=length(names.result)))
   names(result) <- names.result
   
-  if(woprized){
-    result$name <- paste0('location_',1:nrow(result))
-  } else {
-    result$name <- inp$save_name
-  }
-  
+  result$name <- inp$save_name
+
   result$data <- inp$data_select
   result$mode <- inp$pointpoly
   result$popthresh <- inp$popthresh
@@ -78,17 +69,6 @@ resultTable <- function(inp, rval){
     result$male_age <- ''
   }
   
-  if(inp$ci_type=='Interval'){
-    result$pop_lower <- s$lower
-    result$pop_upper <- s$upper
-  } else if(inp$ci_type=='Upper Limit'){
-    result$pop_lower <- NA
-    result$pop_upper <- s$upper
-  } else if(inp$ci_type=='Lower Limit'){
-    result$pop_lower <- s$lower
-    result$pop_upper <- NA
-  }
-
   for(i in 1:nrow(result)){
     result[i,'pop'] <- s[i,'mean']
     result[i,'pop_lower'] <- s[i,'lower']
@@ -97,9 +77,21 @@ resultTable <- function(inp, rval){
     
     result[i,'geojson'] <- as.character(geojsonio::geojson_json(rval$feature[i,]))
   }
-  result$pop <- as.integer(round(result$pop))
-  result$pop_lower <- as.integer(round(result$pop_lower))
-  result$pop_upper <- as.integer(round(result$pop_upper))
   
+  if(inp$ci_type=='Upper Limit'){
+    result$pop_lower <- NA
+  } else if(inp$ci_type=='Lower Limit'){
+    result$pop_upper <- NA
+  }
+  
+  result$pop <- ifelse(s$mean > 5, 
+                       as.integer(round(result$pop)), 
+                       round(result$pop,3))
+  result$pop_lower <- ifelse(s$mean > 5, 
+                             as.integer(round(result$pop_lower)), 
+                             round(result$pop_lower,3))
+  result$pop_upper <- ifelse(s$mean > 5, 
+                             as.integer(round(result$pop_upper)), 
+                             round(result$pop_upper,3))
   return(result)
 }
