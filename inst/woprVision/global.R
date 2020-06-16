@@ -5,7 +5,7 @@ version_info <- wopr:::woprVision_global$version_info
 agesex <- wopr:::woprVision_global$agesex
 palette <- wopr:::woprVision_global$palette
 
-version_info <- version_info[version_info$active,]
+version_info <- version_info[as.logical(version_info$active),]
 
 # maximum file upload size
 options(shiny.maxRequestSize = 50*1024^2)
