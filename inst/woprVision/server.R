@@ -48,7 +48,7 @@ shinyServer(
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       version_info[input$data_select,'readme'])
-      rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
+      rv$wopr_url <- version_info[input$data_select, 'url'] # paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
 
       # deactivation message
       if(version_info[input$data_select,'deprecated']){
