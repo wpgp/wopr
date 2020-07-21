@@ -27,6 +27,6 @@ version_info <- checkLocal(wopr_dir, version_info)
 
 # choose initial data set
 country <- sample(unique(version_info$country), 1)
-version <- version_info[version_info$country==country,'version'][1]
+version <- version_info[version_info$country==country & version_info$deprecated==F,'version'][1]
 data_init <- paste(country, version, sep=' ')
 rm(country, version)
