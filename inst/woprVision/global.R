@@ -10,6 +10,7 @@ dev <- TRUE
 if(dev){
   url <- 'http://10.19.100.66/v1'
   version_info['BFA v1.0', 'active'] <- T
+  version_info['GHA v1.0', 'active'] <- T
 } else {
   url <- 'https://api.worldpop.org/v1'
 }

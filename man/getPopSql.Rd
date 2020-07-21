@@ -12,7 +12,7 @@ getPopSql(
   verbose = T,
   max_area = 1000,
   timeout = 60,
-  agesex_select = c(paste0("m", c(0, 1, seq(5, 80, 5))), paste0("f", c(0, 1, seq(5, 80,
+  agesex_select = c(paste0("f", c(0, 1, seq(5, 80, 5))), paste0("m", c(0, 1, seq(5, 80,
     5))))
 )
 }

@@ -12,7 +12,7 @@
 #' @export
 
 getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max_area=1e3, timeout=60,
-                      agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5))))){
+                      agesex_select=c(paste0('f',c(0,1,seq(5,80,5))),paste0('m',c(0,1,seq(5,80,5))))){
   
   t0 <- Sys.time()
   
@@ -52,8 +52,7 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
       if(length(dbRes$Pop) > 0){
         
         # split population vector (method 1)
-        pop_block <- stringi::stri_split_fixed(dbRes$Pop,',',simplify=T) %>% 
-          t()
+        pop_block <- t(stringi::stri_split_fixed(dbRes$Pop,',',simplify=T))
         class(pop_block) <- 'numeric'
         
         # # split population vector (method 2)
@@ -61,15 +60,22 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
         
         # agesex adjustment
         if(length(agesex_select) < 36){
-          if(is.na(agesex_table)){
-            warning('No agesex_table provided. Returning total population (all age-sex groups).')
+          if(!'data.frame' %in% class(agesex_table)){
+            
+            warning('No agesex_table available.', call.=F)
+            
+          } else if(is.na(dbRes$agesexid)){
+            
+            warning('No agesex_id returned from database.', call.=F)
+            
           } else {
+            
             pop_block <- pop_block * apply(agesex_table[dbRes$agesexid, agesex_select], 1, sum)
           }
         }
 
         # bind with previous blocks
-        if(class(pop)=='matrix') {
+        if('matrix' %in% class(pop)) {
           pop <- cbind(pop, pop_block)
         } else {
           pop <- pop_block
@@ -79,7 +85,7 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
       suppressWarnings(rm(cells_sub, dbRes, pop_block)); gc()
     }
 
-    if(class(pop)=='matrix') { 
+    if('matrix' %in% class(pop)) { 
       pop <- apply(pop, 1, sum)
     }
   }
