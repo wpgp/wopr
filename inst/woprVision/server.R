@@ -51,7 +51,7 @@ shinyServer(
       rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
 
       # deactivation message
-      if(version_info[input$data_select,'inactive_warning']){
+      if(version_info[input$data_select,'deprecated']){
         showModal(modalDialog(HTML(paste0(input$data_select,' is a deprecated version and will be removed from woprVision soon. The data will continue be available for download from <a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
                               title='Friendly Message:',
                               footer=tagList(modalButton('Okay, thanks.'))))
