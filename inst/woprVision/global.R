@@ -1,9 +1,18 @@
-library(wopr);library(shiny);library(leaflet);library(sf)
+library(shiny);library(leaflet);library(sf)
 
 # import woprVision_global
 version_info <- wopr:::woprVision_global$version_info
 agesex <- wopr:::woprVision_global$agesex
 palette <- wopr:::woprVision_global$palette
+
+# toggle development API server
+dev <- TRUE
+if(dev){
+  url <- 'http://10.19.100.66/v1'
+  version_info$active <- T
+} else {
+  url <- 'https://api.worldpop.org/v1'
+}
 
 version_info <- version_info[as.logical(version_info$active),]
 
@@ -12,9 +21,6 @@ options(shiny.maxRequestSize = 50*1024^2)
 
 # check global for objects defined by woprVision()
 if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
-
-# toggle development API server
-url <- ifelse(F, 'http://10.19.100.66/v1', 'https://api.worldpop.org/v1')
 
 # check for local files
 version_info <- checkLocal(wopr_dir, version_info)
