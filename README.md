@@ -3,7 +3,7 @@
 WorldPop Research Group  
 University of Southampton
 
-16 June 2020
+29 July 2020
 
 ## Introduction
 
@@ -217,7 +217,7 @@ dev.off()
 The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 ## Suggested Citation 
-Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.4. University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00664</a> 
+Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.4. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a> 
 
 ## License
 GNU General Public License v3.0 (GNU GPLv3)]
