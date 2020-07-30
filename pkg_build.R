@@ -35,6 +35,9 @@ if(T){
 
 ##-- install package --##
 
+# restart R
+rstudioapi::restartSession()
+
 # install from source
 install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
 
