@@ -6,7 +6,7 @@ agesex <- wopr:::woprVision_global$agesex
 palette <- wopr:::woprVision_global$palette
 
 # toggle development API server
-dev <- FALSE
+dev <- TRUE
 if(dev){
   url <- 'http://10.19.100.66/v1'
   version_info$active <- T
