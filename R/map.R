@@ -6,12 +6,14 @@
 #' @param southern Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)
 #' @param bins Color bins for legend
 #' @param pal Function for legend color palette (see ?leaflet::colorBin)
+#' @param dict Dictionnary for text translation
 #' @return A Leaflet map.
 #' @export
 
 map <- function(country, version, local_tiles=F, southern=F,
                 bins=wopr:::woprVision_global$bins,
-                pal=wopr:::woprVision_global$pal) {
+                pal=wopr:::woprVision_global$pal,
+                dict=dit_en) {
 
   leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
 
@@ -50,7 +52,7 @@ map <- function(country, version, local_tiles=F, southern=F,
     addLegend(position='bottomright',
               pal=pal,
               values=bins,
-              title='People per grid cell<br>(all age-sex groups)',
+              title=dict[["lg_map_legend"]],
               opacity=1,
               group='Population') %>%
 

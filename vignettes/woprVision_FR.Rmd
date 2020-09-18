@@ -1,0 +1,182 @@
+---
+title: Mode d'emploi de l'application web woprVision
+output: 
+  rmarkdown::html_vignette:
+    toc: false
+vignette: >
+  %\VignetteIndexEntry{An overview of the woprVision web application}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+WorldPop Research Group  
+University of Southampton  
+
+30 July 2020
+
+
+# Introduction
+woprVision est une carte web interactive qui vous permet de récupérer les estimations de population pour des lieux et des groupes démographiques spécifiques à partir du <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. Voici les différentes utilisations:
+
+1. Télécharger les dernières données démographiques et la documentation afférentes, 
+2. Obtenir les estimations de population dans les zones géographiques définies par l'utilisateur en cliquant sur la carte,
+3. Obtenir des estimations de la taille de la population pour des groupes démographiques spécifiques (c'est-à-dire en termes d'âge et de sexe), 
+4. Obtenir des estimations probabilistes de l'incertitude pour toutes les estimations de la population.
+5. Exécutez l'application web <a href='https://apps.worldpop.org/woprVision' target='_blank'>woprVision</a> localement à partir de la console R.  
+
+Ce document fournit des instructions sur l'utilisation de chaque élément: 
+
+- les onglets du bord supérieur,  
+- les outils à gauche de l'onglet "Carte",  
+- la carte au milieu de l'onglet "Carte", et  
+- l'onglet "Sauvegarde" à droite de l'onglet "Carte".
+
+woprVision fait partie du <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> du language de programmation statistique R. woprVision a été créé en utilisant les packages shiny et leaflet pour R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Voir l'onglet "R package" pour plus d'informations (en anglais). 
+
+# Démarrage rapide
+Sur l'onglet "Carte" :  
+1. Sélectionnez un jeu de données (c'est-à-dire un pays et une version)  
+2. Cliquez sur la carte pour sélectionner un lieu  
+3. Cliquez sur "Calculer" pour obtenir l'estimation de la population de ce lieu  
+4. Cliquez sur "Sauvegarder" pour enregistrer l'estimation de la population dans l'onglet "Sauvegarde"  
+5. Cliquez sur "Dessiner une zone", puis dessinez un polygone à l'aide de la barre d'outils en haut à gauche de la carte
+6. Cliquez sur "Calculer" pour obtenir l'estimation de la population de cette zone  
+7. Utilisez les curseurs pour sélectionner un groupe d'âge et de sexe  
+8. Cliquez sur "Calculer" pour avoir l'estimation de la population du lieu choisi pour le groupe démographique sélectionné.  
+
+# Composantes de l'interface 
+
+## Outils de contrôle
+Le panneau de contrôle se trouve sur le côté gauche de l'onglet "Carte" avec des outils que vous pouvez utiliser pour extraire les estimations de la population.
+
+**Choisissez les données de population**
+Sélectionnez le jeu de données de population que vous souhaitez. Cela comprend un pays et un numéro de version. Vous pouvez en savoir plus sur le jeu de donnée sélectionné dans l'onglet "Lisez-moi". 
+
+**Sélectionnez un lieu **
+Vous pouvez sélectionner des lieux avec l'outil "Cliquer sur la carte". Vous pouvez dessiner un polygone pour sélectionner une zone avec l'outil "Dessiner une zone". Vous pouvez charger un fichier geojson avec des points ou des polygones avec l'outil "Charger un fichier GeoJSON". 
+
+**Bouton "Calculer" **
+Après avoir sélectionné un lieu (à l'aide des outils de sélection "Cliquer sur la carte" ou "Dessiner une zone"), utilisez le bouton "Calculer" pour extraire les estimations de population de ce lieu à partir des serveurs de WOPR. 
+
+**Enregistrer les résultats**
+Cliquez sur le bouton "Sauvegarder" pour enregistrer le résultat actuel dans l'onglet "Sauvegarde". Vous pouvez ajouter un nom facultatif dans la zone de saisie "Sauvegarder".
+
+
+**Groupes par âge et sexe**
+Utilisez les curseurs pour sélectionner les groupes d'âge et de sexe pour lesquels vous souhaitez obtenir une estimation démographique.
+
+**Niveau de confiance**
+Le niveau de confiance pour les intervalles de confiance. Il est de 95% par défaut. Cela signifie que il y a 95 % de chances que la population réelle de cette localité se situe dans l'intervalle de confiance fourni dans les résultats.
+
+**Type de confiance**
+Le type d'intervalle de confiance. 
+
+- "Intervalle" est le type par défaut. Utilisez-le si vous voulez connaître la fourchette de valeurs dans laquelle la population est susceptible de se situer (par exemple, 95 % de chances que la population se situe entre x et y).  
+
+- Utilisez "Borne inférieure" si vous voulez connaître la valeur que la population est susceptible de dépasser (par exemple, 95 % de chances que la population soit supérieure à x). 
+
+- Utilisez "Borne supérieure" si vous voulez connaître la valeur que la population ne devrait probablement pas dépasser. (par exemple, 95% de chances que la population soit inférieure à y).
+
+**Seuil de population**
+Le seuil de population fourni ici sera utilisé pour calculer la probabilité que la population dépasse ce seuil. La valeur par défaut est 100. La probabilité que la population dépasse 100 personnes sera donc retournée.
+
+## La carte
+
+**Fonds de carte**  
+Les fonds de carte suivants peuvent être sélectionnés dans le panneau en haut à droite de la carte :
+
+- **Dark** Un fond de carte sombre provenant du <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter' target='_blank'>CartoDB.DarkMatter</a> partagé par le fournisseur de fond de carte Leaflet. Ce fond de carte offre un contraste maximal par rapport à la couche de population.
+
+- **Map** Un fond de carte de OpenStreetMap appelée <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik' target='_blank'>OpenStreetMap.Mapnik</a> partagé par Leaflet. Ce fond de carte fournit des noms de lieux et des noms de rues qui peuvent être utiles.
+
+- **Satellite** Imagerie Satellite ESRI <a href='https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery' target='_blank'>Esri.WorldImagery</a> partagé par Leaflet. Ce fond de carte fournit des images satellites qui sont le plus utiles lorsque l'on zoome sur des localités précises.
+
+**Couches cartographiques**  
+Les couches cartographiques suivantes peuvent être activées ou désactivées à partir du panneau supérieur droit sur la carte:
+
+- **Population** Une carte affichant les estimations carroyée de la population produite par WorldPop. Cette légende apparaît dans le coin inférieur droit de la fenêtre de la carte lorsque la couche est activée.
+
+- **Custom Area** Une couche  affichant le polygone que vous avez dessiné avec l'outil de sélection "Dessiner une zone".
+
+**Barre d'outils de dessin**  
+La barre d'outils de dessin apparaît sur le côté gauche de la fenêtre de la carte lorsque vous sélectionnez l'outil de sélection "Dessiner une zone". La barre d'outils comporte trois outils :
+
+- **Draw a Polygon** Lorsque vous sélectionnez cet outil, vous pouvez alors dessiner un polygone en cliquant sur la carte pour obtenir une estimation de la population.
+
+- **Edit Layers** Cet outil peut être utilisé pour modifier un polygone que vous avez précédemment dessiné.
+
+- **Delete Layers** Cet outil peut être utilisé pour supprimer le polygone que vous avez dessiné.
+
+**Zoom**  
+Les commandes de zoom se trouvent dans le coin supérieur gauche de la fenêtre de la carte. Les boutons plus et moins permettent de zoomer en avant et en arrière. Le bouton avec l'icône de la Terre revient au niveau de zoom initial (zoom arrière).
+
+## Résultats
+Le panneau de résultats contient deux graphiques qui représentent la population à l'endroit choisi. Le graphique du haut montre la distribution de probabilité représentant l'estimation de la population et le graphique du bas montre une pyramide des âges représentant la structure âge-sexe.
+
+**Estimation de la population**
+L'estimation de la population est la moyenne de la distribution de probabilité indiquée dans le graphique. La distribution de probabilité est la distribution de probabilité postérieure prédite à partir d'un modèle statistique bayésien (voir l'onglet "Lisez-moi" pour plus de détails). Les intervalles de confiance sont calculés sur la base des paramètres sélectionnés dans les outils de contrôles (voir "Outils de contrôle: niveau de confiance" et "Outils de contrôle: type de confiance"). La probabilité de dépasser le seuil de population sélectionné est également indiquée dans le graphique du haut (voir "Outils de contrôle: seuil de population"). 
+
+**Structure par âge et sexe**
+Les estimations de la structure démographique qui composent les pyramides des âges sont utilisées ici avec l'autorisation du projet WorldPop Global High Resolution Population Denominators (Pezzulo et al. 2017, WorldPop et al. 2018). Ces données fournissent des estimations régionales de la proportion de la population pour chaque groupe d'âge et de sexe dans la zone d'étude. 
+
+## Onglets
+
+**Carte**  
+C'est l'onglet par défaut. Il peut être utilisé pour changer de jeux de données et pour récupérer les estimations de population pour des zones spécifiques en cliquant sur la carte ou en dessinant un polygone. Cet onglet contient une carte au centre, un panneau de contrôles à gauche et un panneau de résultats à droite. 
+
+**Sauvegarde** 
+Cet onglet comporte une feuille de calcul qui contient toutes les estimations de population que vous avez enregistrées. La feuille de calcul peut être enregistrée sur votre ordinateur sous forme de fichier .csv en cliquant sur "Télécharger" ou supprimée en cliquant sur "Effacer". 
+
+Les résultats comprennent les colonnes suivantes :
+
+- **Nmean** L'estimation de la population (la moyenne de la distribution de probabilité prévue).
+- **Nlow** L'intervalle de confiance inférieur de l'estimation de la population.
+- **Nup** L'intervalle de confiance supérieur de l'estimation de la population.
+- **above_thresh** La probabilité que la population dépasse le seuil de population que vous avez fourni (enregistré dans la colonne "popthresh", décrite ci-dessous).
+
+
+Les autres colonnes enregistrent les paramètres qui ont été utilisés pour générer les résultats :
+
+- **name** Un nom facultatif pour l'emplacement que vous avez fourni à partir du bouton "Sauvegarder".
+- **data** Le jeu de données de population choisi (pays et version).
+- **mode** Le type d'objet spatial ("Selected Points" ou "Custom Area").
+- **popthresh** Le seuil de population.
+- **female_age** La sélection par âge pour les femmes.
+- **male_age** La sélection par âge pour les hommes.
+- **confidence_level** Niveau de confiance des intervalles de confiance.
+- **confidence_type**  Type d'intervalle de confiance.
+- **geojson** Un fichier GeoJson qui contient la géométrie des caractéristiques de la requête spatiale que vous avez soumise en utilisant l'onglet carte. Les coordonnées sont dans le système de coordonnées WGS84 (EPSG:4326).
+
+**Lisez-moi**  
+L'onglet "Lisez-moi" fournit le communiqué de publication des données WorldPop pour le jeu de données de population qui est actuellement sélectionné dans l'onglet "Carte". Les communiqués de publication fournissent des informations sur le jeu de données démographiques et sur la manière dont il a été produit. 
+
+**Télécharger les données**  
+Cet onglet vous permet de télécharger les jeux de données de population directement à partir du WorldPop Open Population Repository (WOPR). Les fichiers README fournissent des descriptions des jeux de données qui peuvent être examinées avant le téléchargement des fichiers.
+
+**Package R**  
+Cet onglet fournit une description du paquet _wopr_ pour le langage de programmation statistique R. Le paquet vous donne accès au WorldPop Open Population Repository depuis votre console R, ce qui vous permet d'exécuter woprVision localement, de télécharger des données directement depuis la console R et de soumettre des requêtes spatiales au serveur WOPR pour obtenir des estimations de population pour des polygones ou des points à partir de vos propres shapefiles.
+
+**REST API**  
+Cet onglet donne un aperçu de l'API WOPR REST. C'est la façon dont le paquet R _wopr_  et _woprVision_ communiquent avec les serveurs WorldPop pour récupérer les estimations de population. Le document fournit les informations de base dont vous avez besoin pour développer vos propres applications qui interrogent les données du WorldPop Open Population Repository à l'aide de l'API REST.
+
+# Contribuer
+Le WorldPop Open Population Repository (WOPR) a été développé par le groupe de recherche WorldPop au sein du département de géographie et de sciences environnementales de l'université de Southampton. Le financement a été assuré par la Fondation Bill et Melinda Gates et le ministère britannique du développement international (OPP1182408). Le professeur Andy Tatem assure la supervision du groupe de recherche WorldPop. Le paquet wopr R a été développé par Doug Leasure. Maksym Bondarenko et Niko Ves ont développé le serveur backend API. Les données sur la population ont été fournies au WOPR par de nombreux chercheurs différents au sein du WorldPop Research Group.
+
+
+# Citation suggérée 
+Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.4. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a>  
+
+# Licence
+GNU General Public License v3.0 (GNU GPLv3)  
+
+# Bibliographie
+Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href='https://CRAN.R-project.org/package=shiny' target='_blank'>https://CRAN.R-project.org/package=shiny</a>.
+
+Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library. R package version 2.0.2. <a href='https://CRAN.R-project.org/package=leaflet' target='_blank'>https://CRAN.R-project.org/package=leaflet</a>
+
+Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href='https://dx.doi.org/10.1038/sdata.2017.89' target='_blank'>https://dx.doi.org/10.1038/sdata.2017.89</a>
+
+R Core Team. 2019. R: A Language and Environment for Statistical Computing, version 3.6.2. R Foundation for Statistical Computing: Vienna, Austria. <a href='https://www.R-project.org' target='_blank'>https://www.R-project.org</a>
+
+WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href='https://www.worldpop.org/doi/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
+

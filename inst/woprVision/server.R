@@ -1,17 +1,17 @@
 shinyServer(
   function(input, output, session){
-
+    
     # reactive values
     rv <- reactiveValues()
-
+    
     ##-- observe new data selected --##
     observeEvent(input$data_select, {
-
+      
       # disconnect from last database
       if(!is.null(rv$sql)) {
         DBI::dbDisconnect(rv$sql)
       }
-
+      
       # cleanup environment
       rv$sql <-
         rv$mastergrid <-
@@ -24,59 +24,61 @@ shinyServer(
         rv$N <-
         rv$agesexid <- NULL
       gc()
-
+      
       # remove local_tiles
       if('tiles' %in% resourcePaths()) removeResourcePath('tiles')
-
+      
       # reset pointpoly
       updateRadioButtons(session=session, inputId='pointpoly', selected='Selected Point')
-
+      
       # disable submit
       shinyjs::disable('submit')
-
+      
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
-
+      
       # palette
       rv$bins <- c(palette$bins[-length(palette$bins)], round(max(palette$bins[length(palette$bins)-1]+100, version_info[input$data_select,'popmax'])))
       rv$pal <- leaflet::colorBin(palette=palette$cols[2:nrow(palette)],
                                   bins=rv$bins,
                                   na.color=palette$cols[1],
                                   domain=1:1000, pretty=F, alpha=T, reverse=F)
-
+      
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       version_info[input$data_select,'readme'])
       rv$wopr_url <- version_info[input$data_select, 'url'] # paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
-
+      
+      
+      
       # deactivation message
       if(version_info[input$data_select,'deprecated']){
-        showModal(modalDialog(HTML(paste0(input$data_select,' is a deprecated version and will be removed from woprVision soon. The data will continue be available for download from <a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
-                              title='Friendly Message:',
-                              footer=tagList(modalButton('Okay, thanks.'))))
+        showModal(modalDialog(HTML(paste0(input$data_select,rv$dict[["lg_annoyingmessage"]], '<a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
+                              title=rv$dict[["lg_annoyingmessage_title"]],
+                              footer=tagList(modalButton(rv$dict[["lg_thks"]]))))
       }
       
       # local SQL mode
       if(version_info[input$data_select,'local_sql']){
-        message(paste0('Using local SQL database for ',input$data_select,'.'))
+        message(paste0(rv$dict[["lg_localSQL"]],input$data_select,'.'))
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(),
                                      version_info[input$data_select, 'local_sql_path'])
         rv$mastergrid <- raster::raster(version_info[input$data_select, 'local_mastergrid_path'])
       }
-
+      
       # local tiles
       if(version_info[input$data_select, 'local_tiles']){
-        message(paste0('Using local image tiles for ',input$data_select,'.'))
+        message(paste0(rv$dict[["lg_localtiles"]],input$data_select,'.'))
         addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
       }
       
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
-          addResourcePath('basemap', file.path(wopr_dir,'basemap'))
+        addResourcePath('basemap', file.path(wopr_dir,'basemap'))
       }
     })
-
+    
     ## leaflet map
     output$map <- leaflet::renderLeaflet({
       map(country = rv$country,
@@ -84,20 +86,21 @@ shinyServer(
           local_tiles = version_info[input$data_select, 'local_tiles'],
           southern = version_info[input$data_select, 'southern'],
           bins = rv$bins,
-          pal = rv$pal)
+          pal = rv$pal,
+          dict=rv$dict)
     })
-
+    
     ## change location selection tool
     observeEvent(input$pointpoly,{
-
+      
       rv$N <- rv$agesexid <- NULL
-
+      
       mapProxyPoly(input$pointpoly)
-
+      
       if(input$pointpoly=='Upload File'){
-
+        
         shinyjs::enable('user_json')
-
+        
         if(is.null(input$user_json)){
           shinyjs::disable('submit')
         }
@@ -106,35 +109,35 @@ shinyServer(
         shinyjs::disable('submit')
       }
     })
-
+    
     ## age-sex selection
     observeEvent(c(input$male, input$female, input$male_select, input$female_select), {
       rv$N <- rv$agesexid <- NULL
       rv$agesex_select <- agesexLookup(input$male, input$female, input$male_select, input$female_select)
     })
-
+    
     ## file upload
     observeEvent(input$user_json, {
       geojson_limit <- 45
       
       if(!is.null(input$user_json)){
-
+        
         tryCatch({
           updateSelectInput(session, 'pointpoly', selected='Upload File')
-
+          
           rv$feature <- sf::st_read(input$user_json[,'datapath'], quiet=T)
           
           if(nrow(rv$feature) > geojson_limit){
             rv$feature <- rv$feature[1:min(geojson_limit, nrow(rv$feature)),]
-            showNotification(paste('GeoJSON row limit exceeded. Only the first',geojson_limit,'features will be processed.'), type='warning', duration=10)
+            showNotification(paste(rv$dict[["lg_gjson_limit1"]],geojson_limit,rv$dict[["lg_gjson_limit2"]]), type='warning', duration=10)
           }
           
           # rv$feature <- rv$feature[,1]
           
           rv$feature <- sf::st_transform(rv$feature, crs=4326)
-
+          
           mapProxyFile(rv$feature)
-
+          
         }, warning=function(w){
           shinyjs::reset('user_json')
           showNotification(as.character(w), type='warning', duration=20)
@@ -144,7 +147,7 @@ shinyServer(
         })
       }
     })
-
+    
     ## map click
     observeEvent(input$map_click, {
       if(input$pointpoly=='Selected Point'){
@@ -153,7 +156,7 @@ shinyServer(
         rv$feature <- leaf_sf(input$map_click, input$pointpoly)
       }
     })
-
+    
     ## draw polygon
     observeEvent(input$map_draw_all_features, {
       if(input$pointpoly=='Custom Area'){
@@ -161,7 +164,7 @@ shinyServer(
         rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
       }
     })
-
+    
     # toggle submit button
     observeEvent(rv$feature, {
       if(is.null(rv$feature)){
@@ -170,7 +173,7 @@ shinyServer(
         shinyjs::enable('submit')
       }
     })
-
+    
     # toggle save button
     observe({
       if(is.null(rv$N) | input$pointpoly=='Upload File'){
@@ -179,21 +182,21 @@ shinyServer(
         shinyjs::enable('save_button')
       }
     })
-
+    
     ##-- query wopr --##
     observeEvent(input$submit, {
-
+      
       shinyjs::disable('submit')
-
+      
       rv$N <- rv$agesexid <- NA
-
+      
       if(class(rv$feature)[1]=='sf'){
-
+        
         withProgress({
           tryCatch({
-
+            
             if(input$pointpoly=='Upload File'){
-
+              
               # Upload File
               rv$feature <- woprize(feature=rv$feature,
                                     country=rv$country,
@@ -223,13 +226,13 @@ shinyServer(
               rv$feature[,names(ct)] <- ct
               
               # modal to download results
-              showModal(modalDialog('Population estimates have been added to the attribute table of your GeoJSON. You can download the results as a GeoJSON or as a .csv spreadsheet using the buttons below.',
+              showModal(modalDialog(rv$dict[['lg_gson_download']],
                                     footer = tagList(
-                                      downloadButton("download_geojson","Save GeoJSON"),
-                                      downloadButton("download_spreadsheet","Save Spreadsheet"),
-                                      modalButton('Close')),
+                                      downloadButton("download_geojson",rv$dict[['lg_save_gson']]),
+                                      downloadButton("download_spreadsheet",rv$dict[['lg_save_csv']]),
+                                      modalButton(rv$dict[['lg_close']])),
                                     title = 'Results')
-                        )
+              )
               
               # download results as geojson
               output$download_geojson <- downloadHandler(
@@ -243,7 +246,7 @@ shinyServer(
                                quiet = TRUE)
                 },
                 contentType = 'application/json')
-
+              
               # download results as csv
               output$download_spreadsheet <- downloadHandler(
                 filename = function() {
@@ -258,10 +261,10 @@ shinyServer(
               
               shinyjs::reset('user_json')
             }
-
+            
             if(input$pointpoly %in% c('Selected Point', 'Custom Area')) {
               if(version_info[input$data_select,'local_sql']){
-
+                
                 # query local SQL
                 i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
                                db=rv$sql,
@@ -270,9 +273,9 @@ shinyServer(
                                get_agesexid=T)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
-
+                
               } else {
-
+                
                 # query wopr
                 i <- getPop(feature=rv$feature,
                             country=rv$country,
@@ -299,69 +302,72 @@ shinyServer(
             
           })
         }, message='woprizing:',
-        detail='Fetching population total for selected location(s) and demographic group(s)...',
+        detail=rv$dict[['lg_woprizing_message']],
         value=1)
       }
       shinyjs::enable('submit')
     })
-
+    
     ##-- create plot --##
+    
     output$sidePlot <- renderPlot({
+      
       plotPanel(N=rv$N,
                 agesex_select=rv$agesex_select,
                 agesex_table=agesex[[input$data_select]][rv$agesexid,],
                 confidence=input$ci_level,
                 tails=input$ci_type,
-                popthresh=input$popthresh)
+                popthresh=input$popthresh,
+                dict=rv$dict)
     })
-
+    
     # save button
     observeEvent(input$save_button, {
-
+      
       if(!is.null(rv$N) & !is.null(rv$feature)){
         ct <- resultTable(input, rv)
-
+        
         if(!'table' %in% names(rv)){
           rv$table <- ct
         } else {
           rv$table <- rbind(ct, rv$table)
         }
         row.names(rv$table) <- 1:nrow(rv$table)
-
-        showNotification('Population estimate added to the "Saved" tab.', type='message', duration=10)
+        
+        showNotification(rv$dict[['lg_saving_message']], type='message', duration=10)
       } else {
-        showNotification('Need to submit a population query before results can be saved.', type='message')
+        showNotification(rv$dict[['lg_saving_eror']], type='message')
       }
       shinyjs::reset('save_name')
     })
-
+    
     ##-- saved tab --##
-
+    
     # results table
     output$results_table <- renderTable( rv$table[,-which(names(rv$table) %in% c('message','geojson'))], 
                                          digits = 3, 
                                          striped = T, 
                                          format.args = list(big.mark=",", decimal.mark="."), 
                                          rownames = F)
-
+    
     # download button
     output$download_table <- downloadHandler(filename = function(timestamp=format(Sys.time(), "%Y%m%d%H%M")) paste0('woprVision_',timestamp,'.csv'),
                                              content = function(file) {
                                                idrop <- which(sapply(rv$table[,'geojson'], nchar) > 32767)
                                                if(length(idrop) > 0){
                                                  rv$table[idrop,'geojson'] <- NA
-                                                 showNotification('GeoJSONs that exceeded the character limit (32,767) were converted to NA.', type='warning', duration=20)
+                                                 showNotification(rv$dict[['lg_geojson_error']], type='warning', duration=20)
                                                }
                                                write.csv(rv$table, file, row.names=FALSE)
-                                               })
+                                             })
     # clear button
     observeEvent(input$clear_button, {
-      showModal(modalDialog('Are you sure you want to clear all saved population estimates?',
-                            title='Confirm',
+      showModal(modalDialog(rv$dict[['lg_clear_save']],
+                            title=rv$dict[['lg_confirm']],
                             footer=tagList(
-                              actionButton('clear','Clear Saved Estimates'), 
-                              modalButton('Cancel'))
-                            ))
+                              actionButton('clear',rv$dict[['lg_clear_button']]), 
+                              modalButton(rv$dict[['lg_cancel']]))
+      ))
     })
     observeEvent(input$clear, {
       rv$table <- NULL
@@ -376,21 +382,80 @@ shinyServer(
         shinyjs::enable('clear_button')
       }
     })
-
+    
+    ##-- translation --##
+    observe({
+      if(input$navbar_id =="panel_lg"){
+        updateNavbarPage(session, 'navbar_id', selected = "panel_map")
+        
+      }
+    })
+    
+    observeEvent(input$lang_select,{
+      
+      translate <- function(str){
+        output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
+        
+      }
+      lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
+      
+      if(input$lang_select=="FR"){
+        rv$dict <- dict_fr
+        
+        
+        
+      }else{
+        rv$dict <- dict_en
+        
+      }
+      #specific case: confidence type
+      
+      output$confidence_type <- renderText(
+        return(paste0(
+          '<div class="form-group shiny-input-container">
+            <label class="control-label" for="ci_type">
+             <h5>
+             <div id="lg_confidence_type" class="shiny-html-output"></div>
+              </h5>
+             </label>
+         <div>
+       <select id="ci_type"><option value="Interval" selected>',rv$dict[['lg_interval']],'</option>
+          <option value="Lower Limit">',rv$dict[['lg_lower']],'</option>
+          <option value="Upper Limit">',rv$dict[['lg_upper']],'</option></select>
+       <script type="application/json" data-for="ci_type" data-nonempty="">{}</script>
+         </div>
+        </div>'
+        ))
+      )
+      
+      
+    })
+    
+    
+    
+    
+    
     ##-- tabs --##
-
+    # help tab
+    observeEvent(input$lang_select,{
+      output$helpfile <- renderText(
+        return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', 
+                     rv$dict[["lg_helpfile"]], '", frameBorder="0"></iframe>', sep = ""))
+      )
+    })
+    
     # wopr download tab
     observeEvent(input$download_link, {
-      showModal(modalDialog(HTML(paste0(input$data_select, ' population data can be downloaded from the WorldPop Open Population Repository (WOPR): ',a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
-                            title = 'Data Download')
+      showModal(modalDialog(HTML(paste0(input$data_select, rv$dict[['lg_download_popup']],a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
+                            title = rv$dict[['lg_data_download']])
       )
     })
     
     # readme tab
     output$data_readme <- renderText(
-        return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
     )
-})
+  })
 
 
 

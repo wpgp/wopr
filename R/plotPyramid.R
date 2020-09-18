@@ -2,9 +2,10 @@
 #' @description Produces an age sex pyramid plot with the selected age sex classes highlighted.
 #' @param agesex_table The age sex table
 #' @param agesex_select a character vector of selected Age and Sex groups
+#' @param dict Dictionnary for text translation
 #' @export
 
-plotPyramid <- function(agesex_select, agesex_table){
+plotPyramid <- function(agesex_select, agesex_table, dict){
   if(nrow(agesex_table)>0){
     
     male_groups <- paste0('m',c(0,1,seq(5,80,by=5)))
@@ -33,11 +34,11 @@ plotPyramid <- function(agesex_select, agesex_table){
     axis(2, at=at, las=2, cex.axis=cex.axis,
          labels=c('0-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+')
          )
-    mtext('Age Group', 2, line=4.5, cex=cex.label)
-    mtext('Proportion of Population', 1, line=3, cex=cex.label)
+    mtext(dict[['lg_agegroup']], 2, line=4.5, cex=cex.label)
+    mtext(dict[['lg_plot_proppop']], 1, line=3, cex=cex.label)
     
-    text(x=-0.05, y=ylim[2], 'Female', cex=cex.main)
-    text(x=0.05, y=ylim[2], 'Male', cex=cex.main)
+    text(x=-0.05, y=ylim[2], dict[['lg_female']], cex=cex.main)
+    text(x=0.05, y=ylim[2], dict[['lg_male']], cex=cex.main)
     
     height <- 0.4
   
