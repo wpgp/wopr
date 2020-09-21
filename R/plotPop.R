@@ -4,9 +4,10 @@
 #' @param confidence The confidence level for the confidence intervals (i.e. percentage from 0 to 100)
 #' @param tails The confidence type: 'Interval', 'Lower Threshold', or 'Upper Threshold'
 #' @param popthresh The function will return the probability that the population size exceeds _popthresh_
+#' @param dict Dictionnary for text translation
 #' @export
 
-plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
+plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict_en){
   
   s <- summaryPop(N = N, 
                   confidence = confidence/100, 
@@ -23,7 +24,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
 
   if(!is.numeric(N)){
     
-    plot(NA, main='Population Estimate: NA', xlab='Population', ylab=NA, 
+    plot(NA, main=dict[['lg_plot_mainNA']], xlab='Population', ylab=NA, 
          yaxt='n', type='n', xlim=c(0,1), ylim=c(0,1),
          cex.main=cex.main, cex.lab=cex.lab, cex.axis=cex.axis)
     
@@ -92,9 +93,9 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     lines(d, lwd=2)
     
     legend('topright',
-           legend=c('Mean',
+           legend=c(dict[['lg_mean']],
                     paste0(confidence, '% CI'),
-                    'Threshold'),
+                    dict[['lg_threshold']]),
            lwd=c(2,2,3),
            lty=c(2,3,1),
            col=c('black','black','darkgrey'),
@@ -114,7 +115,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     
     # Main title
     line <- 3
-    mtext(paste0('Population Estimate: ',prettyNum(pop_mean,big.mark=','),' people'),
+    mtext(paste0(dict[['lg_plot_main1']],prettyNum(pop_mean,big.mark=','),dict[['lg_plot_main2']]),
           line=line, cex=1.5)
     
     # Sub title A
@@ -122,24 +123,24 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100){
     cex <- 1.25
     if(tails=='Interval'){
       
-      mtext(paste0(round(confidence),'% probability: ', prettyNum(pop_lower,big.mark=','),' - ', prettyNum(pop_upper, big.mark=','),' people'), 
+      mtext(paste0(round(confidence),'%', dict[['lg_probability']], ': ', prettyNum(pop_lower,big.mark=','),' - ', prettyNum(pop_upper, big.mark=','),dict[['lg_plot_main2']]), 
             line=line, cex=cex)
       
     } else if(tails=='Lower Limit'){
       
-      mtext(paste0(round(confidence),'% probability: > ', prettyNum(pop_lower,big.mark=','), ' people'), 
+      mtext(paste0(round(confidence),'%', dict[['lg_probability']], ': > ', prettyNum(pop_lower,big.mark=','), dict[['lg_plot_main2']]), 
             line=line, cex=cex)
       
     } else if(tails=='Upper Limit'){
       
-      mtext(paste0(round(confidence),'% probability: < ', prettyNum(pop_upper,big.mark=','),' people'), 
+      mtext(paste0(round(confidence),'%', dict[['lg_probability']], ': < ', prettyNum(pop_upper,big.mark=','),dict[['lg_plot_main2']]), 
             line=line, cex=cex)
     }
     
     # Sub title B
     if(is.numeric(popthresh)){
       line <- 0.25
-      mtext(paste0(pop_abovethresh,'% probability: > ', prettyNum(popthresh,big.mark=','), ' people (threshold)'),
+      mtext(paste0(pop_abovethresh,'%', dict[['lg_probability']], ': > ', prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']]),
             line=line, cex=cex)
     }
   }

@@ -30,3 +30,10 @@ country <- sample(unique(version_info$country), 1)
 version <- version_info[version_info$country==country & version_info$deprecated==F,'version'][1]
 data_init <- paste(country, version, sep=' ')
 rm(country, version)
+
+#load dictionnaries for translation
+dict_en <- yaml::read_yaml("www/EN.yaml")
+dict_fr <- yaml::read_yaml("www/FR.yaml", fileEncoding="UTF-8")
+keys <- names(dict_en)
+
+
