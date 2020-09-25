@@ -4,7 +4,13 @@
 \alias{plotPop}
 \title{Plot population estimate}
 \usage{
-plotPop(N, confidence = 95, tails = "Interval", popthresh = 100)
+plotPop(
+  N,
+  confidence = 95,
+  tails = "Interval",
+  popthresh = 100,
+  dict = dict_en
+)
 }
 \arguments{
 \item{N}{Numerical vector. Population estimate from WOPR.}
@@ -14,6 +20,8 @@ plotPop(N, confidence = 95, tails = "Interval", popthresh = 100)
 \item{tails}{The confidence type: 'Interval', 'Lower Threshold', or 'Upper Threshold'}
 
 \item{popthresh}{The function will return the probability that the population size exceeds _popthresh_}
+
+\item{dict}{Dictionnary for text translation}
 }
 \description{
 Plot population estimate

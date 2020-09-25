@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-30 July 2020
+25 September 2020
 
 
 # Introduction
@@ -164,7 +164,7 @@ Le WorldPop Open Population Repository (WOPR) a été développé par le groupe 
 
 
 # Citation suggérée 
-Leasure DR, Bondarenko M, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.4. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a>  
+Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.3.4. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a>  
 
 # Licence
 GNU General Public License v3.0 (GNU GPLv3)  

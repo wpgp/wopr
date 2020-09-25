@@ -86,8 +86,7 @@ inputs <-
 # main panel
 ui <- fluidPage(
   tagList(
-    # tags$head(includeScript("google-analytics.js")),
-    
+
     tags$head(
       tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
       tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo')
@@ -102,14 +101,12 @@ ui <- fluidPage(
                   .navbar-nav > li:nth-child(9){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
-    
+    tags$style(".selectize-control {margin-bottom:-35px; margin-top:-5px; margin-right:-20px}"),
     
     navbarPage(title='woprVision (beta)',
                footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",
-               
-               
                
                tabPanel(uiOutput('lg_map_name'),
                         value="panel_map",
@@ -150,11 +147,10 @@ ui <- fluidPage(
                                     NULL,
                                     choices=c("EN", "FR"),
                                     selected= "EN",
-                                    width="100%", 
+                                    width="50px", 
                                     selectize = T),
                         value="panel_lg",
                         id="panel_lg"),
-               
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',

@@ -10,7 +10,8 @@ plotPanel(
   agesex_table = NULL,
   confidence = 95,
   tails = "Interval",
-  popthresh = 100
+  popthresh = 100,
+  dict = dict_en
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ plotPanel(
 \item{tails}{The number of tails for the confidence intervals}
 
 \item{popthresh}{Threshold population used to for _abovethresh_ in wopr::summaryPop()}
+
+\item{dict}{Dictionnary for text translation}
 }
 \description{
 Produces a panel to hold the population density plot and the population pyramid

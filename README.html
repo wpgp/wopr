@@ -193,7 +193,7 @@ University of Southampton</p>
 <ol style="list-style-type: decimal">
 <li>Download WorldPop population data sets directly from the R console,</li>
 <li>Submit spatial queries (points or polygons) to the WorldPop server to retrieve population estimates within user-defined geographic areas,</li>
-<li>Get estimates of population sizes for specific demographic groups (i.e. age and sex), and</li>
+<li>Get estimates of population sizes for specific demographic groups (i.e. age and sex), and</li>
 <li>Get probabilistic estimates of uncertainty for all population estimates.</li>
 <li>Run the <a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a> web application locally from the R console.</li>
 </ol>
@@ -204,7 +204,7 @@ University of Southampton</p>
 <p>First, start a new R session. Then, install the <em>wopr</em> R package from WorldPop on GitHub:</p>
 <pre class="r"><code>devtools::install_github('wpgp/wopr')
 library(wopr)</code></pre>
-<p>You may be prompted to update some of your existing R packages. This is not required unless the <em>wopr</em> installation fails. You can avoid checking for package updates by adding the argument <code>upgrade='never'</code>. If needed, you can update individual packages that may be responsible for any <em>wopr</em> installation errors using <code>install.packages('package_name')</code>. Or, you can use <code>devtools::install_github('wpgp/wopr', upgrade='ask')</code> to update all of the packages that <em>wopr</em> depends on. In R Studio, you can also update all of your R packages by clicking “Tools &gt; Check for Package Updates”.</p>
+<p>You may be prompted to update some of your existing R packages. This is not required unless the <em>wopr</em> installation fails. You can avoid checking for package updates by adding the argument <code>upgrade='never'</code>. If needed, you can update individual packages that may be responsible for any <em>wopr</em> installation errors using <code>install.packages('package_name')</code>. Or, you can use <code>devtools::install_github('wpgp/wopr', upgrade='ask')</code> to update all of the packages that <em>wopr</em> depends on. In R Studio, you can also update all of your R packages by clicking &quot;Tools &gt; Check for Package Updates&quot;.</p>
 <p>Note: When updating multiple packages, it may be necessary to restart your R session before each installation to ensure that packages being updated are not currently loaded in your R environment.</p>
 </div>
 <div id="usage" class="section level2">
@@ -217,7 +217,7 @@ library(wopr)</code></pre>
 <h3>woprVision</h3>
 <p>woprVision is an R shiny application that allows you to browse an interactive map to get population estimates for specific locations and demographic groups. woprVision is available on the web at <a href="https://apps.worldpop.org/woprVision" target="_blank">https://apps.worldpop.org/woprVision</a>. You can also run woprVision locally from your R console using:</p>
 <pre class="r"><code>wopr::woprVision()</code></pre>
-<p>We suggest installing Michael Harper’s fix to the leaflet.extras draw toolbar:</p>
+<p>We suggest installing Michael Harper's fix to the leaflet.extras draw toolbar:</p>
 <pre class="r"><code>devtools::install_github(&quot;dr-harper/leaflet.extras&quot;)</code></pre>
 <p>This is not required, but it fixes a bug that prevents the draw toolbar from being removed from the map when it is inactive.</p>
 </div>
@@ -237,7 +237,7 @@ selection &lt;- subset(catalogue,
 downloadData(selection)</code></pre>
 <p>Note: <code>'NGA'</code> refers to Nigeria. WOPR uses <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> to abbreviate country names.</p>
 <p>By default, <code>downloadData()</code> will not download files larger than 100 MB unless you change the <code>maxsize</code> argument (see <code>?downloadData</code>). Using the default settings, a folder named <code>./wopr</code> will be created in your R working directory for downloaded files. A spreadsheet listing all WOPR files currently saved to your hard drive can be found in <code>./wopr/wopr_catalogue.csv</code>. To list the files that have been downloaded to your working directory from within the R console, use <code>list.files('wopr', recursive=T)</code>. In multiple calls to downloadData(), files that you have previously downloaded will be overwritten if your local files do not match the server files (based on an md5sums check). This allows you to keep up-to-date local copies of every file.</p>
-<p>You can download the entire WOPR data catalogue using: <code>downloadData(getCatalogue(), maxsize=Inf)</code>. Note: Some files in the WOPR data catalogue are very large (e.g. 140 GB), so please ensure that you have enough disk space. If disk space is limited, you can restrict the maximum file size that you woud like to download using the <code>maxsize</code> argument (default = 100 MB).</p>
+<p>You can download the entire WOPR data catalogue using: <code>downloadData(getCatalogue(), maxsize=Inf)</code>. Note: Some files in the WOPR data catalogue are very large (e.g. 140 GB), so please ensure that you have enough disk space. If disk space is limited, you can restrict the maximum file size that you woud like to download using the <code>maxsize</code> argument (default = 100 MB).</p>
 </div>
 <div id="spatial-query" class="section level3">
 <h3>Spatial Query</h3>

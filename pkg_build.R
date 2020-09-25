@@ -31,6 +31,9 @@ if(T){
   
   # copy woprVision overview to woprVision
   file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite=T)
+  
+  # copy woprVision_FR overview to woprVision_FR
+  file.copy('doc/woprVisionFR.html','inst/woprVision/www/woprVisionFR.html', overwrite=T)
 }
 
 ##-- install package --##

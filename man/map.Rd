@@ -10,7 +10,8 @@ map(
   local_tiles = F,
   southern = F,
   bins = wopr:::woprVision_global$bins,
-  pal = wopr:::woprVision_global$pal
+  pal = wopr:::woprVision_global$pal,
+  dict = dit_en
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ map(
 \item{bins}{Color bins for legend}
 
 \item{pal}{Function for legend color palette (see ?leaflet::colorBin)}
+
+\item{dict}{Dictionnary for text translation}
 }
 \value{
 A Leaflet map.
