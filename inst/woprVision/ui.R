@@ -1,164 +1,183 @@
 # left panel: user inputs
 inputs <-
-column(
-  width=2,
-  style=paste0('height: calc(98vh - 75px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
-  shinyjs::useShinyjs(),
-
-  fluidRow(
-
-    # model
-    selectInput('data_select',
-                HTML('1. Choose Population Data<br><small>(see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">country codes</a>)</small>'),
-                choices=paste(version_info$country, version_info$version),
-                selected=data_init),
-
-    # output type (point/polygon)
-    radioButtons('pointpoly',
-                 '2. Select a Location',
-                 choiceNames=list('Click the map','Draw an area','Upload GeoJSON file'),
-                 choiceValues=c('Selected Point','Custom Area','Upload File')),
-
-    # upload geojson
-    # tags$style(".shiny-file-input-progress {display: none}"),
-
-    fileInput("user_json", NULL,
-              multiple = FALSE,
-              accept = c('.geojson','.json'),
-              buttonLabel = 'Browse',
-              placeholder = 'No file selected'),
-
-    # age-sex groups
-    strong('3. Define Age-sex Groups'),
-
-    tags$style('.irs-bar, .irs-bar-edge,
+  column(
+    width=2,
+    style=paste0('height: calc(98vh - 75px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
+    shinyjs::useShinyjs(),
+    
+    fluidRow(
+      
+      # model
+      selectInput('data_select',
+                  HTML(paste(uiOutput('lg_select_data1', inline=T),'<br><small>(',uiOutput('lg_select_data2', inline=T),'<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">',uiOutput('lg_select_data3', inline=T), '</a>)</small>')),
+                  choices=paste(version_info$country, version_info$version),
+                  selected=data_init),
+      
+      
+      # output type (point/polygon)
+      radioButtons('pointpoly',
+                   uiOutput('lg_select_location'),
+                   choiceNames=list(uiOutput('lg_click_map'),uiOutput('lg_draw_area'),uiOutput('lg_upload_gjson')),
+                   choiceValues=c('Selected Point','Custom Area','Upload File')),
+      # upload geojson
+      # tags$style(".shiny-file-input-progress {display: none}"),
+      
+      fileInput("user_json", NULL,
+                multiple = FALSE,
+                accept = c('.geojson','.json'),
+                buttonLabel = uiOutput('lg_browse'),
+                placeholder = 'No file selected'),
+      
+      # age-sex groups
+      strong(uiOutput('lg_define_agesex')),
+      
+      tags$style('.irs-bar, .irs-bar-edge,
                .irs-single, .irs-from, .irs-to, .irs-grid-pol {background-color:darkgrey; border-color:darkgrey; }'),
-
-    # female
-    splitLayout(cellWidths=c('35%','65%'),
-                checkboxInput(inputId="female", label="Female", value=T),
-                shinyWidgets::sliderTextInput(inputId="female_select",
-                                              label=NULL,
-                                              choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
-                                              selected=c('<1', '80+'),
-                                              force_edges=T)),
-    # male
-    splitLayout(cellWidths=c('35%','65%'),
-                checkboxInput(inputId="male", label="Male", value=T),
-                shinyWidgets::sliderTextInput(inputId="male_select",
-                                              label=NULL,
-                                              choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
-                                              selected=c('<1', '80+'),
-                                              force_edges=T)),
-
-    # submit button
-    strong('4. Get Population Estimate'), br(),
-
-    tags$style(HTML('#submit{background-color:#383838; color:white}')),
-
-    shinyjs::disabled(actionButton('submit',strong('Submit'),width='100%')), br(), br(),
-
-    # save estimate
-    strong('5. Save Result'), br(),
-
-    splitLayout(cellWidths=c('30%','70%'),
-
-                shinyjs::disabled(actionButton('save_button', 'Save', width='100%')),
-
-                textInput('save_name',
-                          label=NULL,
-                          value='',
-                          width='100%',
-                          placeholder='Result Name (optional)')),
-
-    # age-sex groups
-    strong('Options:'),br(),
-
-    # confidence level
-    sliderInput('ci_level',h5('Confidence Level (%):'), min=50, max=99, value=95, step=5),
-    selectInput('ci_type',h5('Confidence Type'), choices=c('Interval', 'Lower Limit', 'Upper Limit')),
-    numericInput('popthresh', h5('Population Threshold'), value=100, min=0, max=1e6, step=1)
+      
+      # female
+      splitLayout(cellWidths=c('35%','65%'),
+                  checkboxInput(inputId="female", label=uiOutput("lg_female"), value=T),
+                  shinyWidgets::sliderTextInput(inputId="female_select",
+                                                label=NULL,
+                                                choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
+                                                selected=c('<1', '80+'),
+                                                force_edges=T)),
+      # male
+      splitLayout(cellWidths=c('35%','65%'),
+                  checkboxInput(inputId="male", label=uiOutput("lg_male"), value=T),
+                  shinyWidgets::sliderTextInput(inputId="male_select",
+                                                label=NULL,
+                                                choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
+                                                selected=c('<1', '80+'),
+                                                force_edges=T)),
+      
+      # submit button
+      strong(uiOutput('lg_get_pop_estimates')), br(),
+      
+      tags$style(HTML('#submit{background-color:#383838; color:white}')),
+      
+      shinyjs::disabled(actionButton('submit',strong(uiOutput('lg_submit')),width='100%')), br(), br(),
+      
+      # save estimate
+      strong(uiOutput('lg_save_result')), br(),
+      
+      splitLayout(cellWidths=c('30%','70%'),
+                  
+                  shinyjs::disabled(actionButton('save_button', uiOutput('lg_save'), width='100%')),
+                  
+                  textInput('save_name',
+                            label=NULL,
+                            value='',
+                            width='100%',
+                            placeholder='Result Name (optional)')),
+      
+      # age-sex groups
+      strong(uiOutput('lg_options')),br(),
+      
+      # confidence level
+      sliderInput('ci_level',h5(uiOutput('lg_confidence_level')), min=50, max=99, value=95, step=5),
+      htmlOutput("confidence_type"),
+      numericInput('popthresh', h5(uiOutput('lg_pop_threshold')), value=100, min=0, max=1e6, step=1)
+    )
   )
-)
+
+
 
 # main panel
-ui <- tagList(
-  # tags$head(includeScript("google-analytics.js")),
-
-  tags$head(
-    tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
-    tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo')
-  ),
-
-  tags$style(HTML(".navbar-nav {float:none !important;}
-                  .navbar-nav > li:nth-child(3){float:right}
+ui <- fluidPage(
+  tagList(
+    # tags$head(includeScript("google-analytics.js")),
+    
+    tags$head(
+      tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
+      tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo')
+    ),
+    
+    tags$style(HTML(".navbar-nav {float:none !important;}
                   .navbar-nav > li:nth-child(4){float:right}
                   .navbar-nav > li:nth-child(5){float:right}
                   .navbar-nav > li:nth-child(6){float:right}
-                  .navbar-nav > li:nth-child(7){float:right}")),
-
-  tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
-
-  navbarPage(title='woprVision (beta)',
-             footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
-             inverse=F,
-
-             # tab: map
-             tabPanel('Map',
-                      fluidRow(
-
-                        # inputs panel (left)
-                        inputs,
-
-                        # map panel (center)
-                        column(width = 7,
-                               tags$style(type="text/css","#map {height: calc(98vh - 75px) !important;}"),
-                               leaflet::leafletOutput('map')),
-
-                        # results panel (right)
-                        column(width = 3,
-                               style='overflow-y:scroll; height: calc(98vh - 75px)',
-                               plotOutput('sidePlot', height='600px', width='100%')))
-             ),
-
-             # tab: saved estimates
-             tabPanel('Saved',
-                      HTML('<strong>This tab contains any population estimates that you have saved from the Map tab.<br>When you click "Download", your points or polygons will be added to the saved results in GeoJson format along with any error messages.</strong><br><br>'),
-                      downloadButton('download_table', 'Download'),
-                      actionButton('clear_button', 'Clear'),
-                      br(),
-                      div(style='overflow-y:scroll; max-height:calc(98vh - 120px)',
-                          tableOutput('results_table'))
-             ),
-
-             # tab: WorldPop
-             tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
-                        img(src='logoWorldPop.png', style='height:30px; margin-top:-30px; margin-left:10px'))),
-
-             # tab: API readme
-             tabPanel('REST API',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                  frameBorder="0",
-                                  src='woprAPI.html')),
-
-             # tab: wopr R package readme
-             tabPanel('R package',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                  frameBorder='0',
-                                  src='wopr_README.html')),
-
-             # tab: wopr
-             tabPanel(actionLink('download_link','Data Download', style = 'padding:0px; margin:-15px 15px 0px 15px')),
-             
-             # tab: data readme
-             tabPanel('Data README',
-                      htmlOutput('data_readme')),
-
-             # tab: API readme
-             tabPanel('Help',
-                      tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
-                                  src='woprVision.html',
-                                  frameBorder="0"))
-
+                  .navbar-nav > li:nth-child(7){float:right}
+                  .navbar-nav > li:nth-child(8){float:right}
+                  .navbar-nav > li:nth-child(9){float:right}")),
+    
+    tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
+    
+    
+    navbarPage(title='woprVision (beta)',
+               footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
+               inverse=F,
+               id="navbar_id",
+               
+               
+               
+               tabPanel(uiOutput('lg_map_name'),
+                        value="panel_map",
+                        id="panel_map",
+                        fluidRow(
+                          
+                          # inputs panel (left)
+                          inputs,
+                          
+                          # map panel (center)
+                          column(width = 7,
+                                 tags$style(type="text/css","#map {height: calc(98vh - 75px) !important;}"),
+                                 leaflet::leafletOutput('map')),
+                          
+                          # results panel (right)
+                          column(width = 3,
+                                 style='overflow-y:scroll; height: calc(98vh - 75px)',
+                                 plotOutput('sidePlot', height='600px', width='100%')))
+               ),
+               
+               # tab: saved estimates
+               tabPanel(uiOutput('lg_saved'),
+                        HTML(paste0('<strong>', uiOutput('lg_tab_saved1', inline=T), '<br>',
+                                    uiOutput('lg_tab_saved2', inline=T), '</strong><br><br>')),
+                        downloadButton('download_table', uiOutput('lg_download')),
+                        actionButton('clear_button', uiOutput('lg_clear')),
+                        br(),
+                        div(style='overflow-y:scroll; max-height:calc(98vh - 120px)',
+                            tableOutput('results_table'))
+               ),
+               
+               # tab: API readme
+               tabPanel(uiOutput('lg_help'),
+                        htmlOutput('helpfile')),
+               
+               #tab: language selection
+               tabPanel(selectInput("lang_select",
+                                    NULL,
+                                    choices=c("EN", "FR"),
+                                    selected= "EN",
+                                    width="100%", 
+                                    selectize = T),
+                        value="panel_lg",
+                        id="panel_lg"),
+               
+               
+               # tab: WorldPop
+               tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
+                          img(src='logoWorldPop.png', style='height:30px; margin-top:-30px; margin-left:10px'))),
+               
+               # tab: API readme
+               tabPanel('REST API',
+                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                    frameBorder="0",
+                                    src='woprAPI.html')),
+               
+               # tab: wopr R package readme
+               tabPanel('R package',
+                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                                    frameBorder='0',
+                                    src='wopr_README.html')),
+               # tab: wopr
+               tabPanel(actionLink('download_link',uiOutput('lg_data_download'), style = 'padding:0px; margin:-15px 15px 0px 15px')),
+               
+               # tab: data readme
+               tabPanel(uiOutput('lg_readme_data'),
+                        htmlOutput('data_readme'))
+               
+    )
   )
 )

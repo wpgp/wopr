@@ -1,0 +1,71 @@
+lg_select_location: 2. Select a Location 
+lg_select_data1: 1. Choose Population Data
+lg_select_data2: see
+lg_select_data3: country codes
+lg_click_map: Click the map
+lg_draw_area: Draw an area
+lg_upload_gjson: Upload GeoJSON file
+lg_selected_pt: Selected Point
+lg_custom_area: Custom Area
+lg_upload_file: Upload File
+lg_browse: Browse
+lg_no_file_selected: No file selected
+lg_define_agesex: 3. Define Age-sex Groups
+lg_agegroup: Age group
+lg_female: Female
+lg_male: Male
+lg_get_pop_estimates: 4. Get Population Estimate
+lg_submit: Submit
+lg_save_result: 5. Save Result
+lg_save: Save
+lg_options: "Options:"
+lg_result_type: Result Name (optional)
+lg_confidence_level: "Confidence Level (%):"
+lg_confidence_type: Confidence Type
+lg_pop_threshold: Population Threshold
+lg_interval: Interval
+lg_lower: Lower Limit
+lg_upper: Upper Limit
+lg_tab_saved1: This tab contains any population estimates that you have saved from the Map tab.
+lg_tab_saved2: When you click "Download", your points or polygons will be added to the saved results in GeoJson format along with any error messagess
+lg_download: Download
+lg_clear: Clear
+lg_saved: Saved
+lg_map_name: Map
+lg_data_download: Data Download
+lg_readme_data: Data README
+lg_help: Help
+lg_helpfile: 'woprVision.html'
+lg_r_package: R Package
+lg_panel1: Click the map to select a location.
+lg_panel2: Push "Submit" to get population estimates.
+lg_panel3: See the "Help" tab for more information.
+lg_download_popup: ' population data can be downloaded from the WorldPop Open Population Repository (WOPR): '
+lg_woprizing_message: Fetching population total for selected location(s) and demographic group(s)...
+lg_saving_message: Population estimate added to the "Saved" tab.
+lg_saving_eror: Need to submit a population query before results can be saved.
+lg_clear_save: Are you sure you want to clear all saved population estimates?
+lg_clear_button: 'Clear Saved Estimates'
+lg_cancel: Cancel
+lg_confirm: Confirm
+lg_gson_download: 'Population estimates have been added to the attribute table of your GeoJSON. You can download the results as a GeoJSON or as a .csv spreadsheet using the buttons below.'
+lg_save_gson: Save GeoJSON
+lg_save_csv: Save Spreadsheet
+lg_close: Close
+lg_plot_mainNA: 'Population Estimates: NA'
+lg_mean: Mean
+lg_threshold: 'Threshold'
+lg_plot_main1: 'Population Estimate: '
+lg_plot_main2: ' people'
+lg_plot_main3: ' people (threshold)'
+lg_probability: ' probability'
+lg_plot_proppop: Proportion of Population
+lg_map_legend: 'People per grid cell<br>(all age-sex groups)'
+lg_annoyingmessage: ' is a deprecated version and will be removed from woprVision soon. The data will continue be available for download from '
+lg_annoyingmessage_title: 'Friendly Message:'
+lg_thks: 'Okay, thanks.'
+lg_localSQL: 'Using local SQL database for '
+lg_localtiles: 'Using local image tiles for '
+lg_gjson_limit1: 'GeoJSON row limit exceeded. Only the first'
+lg_gjson_limit2: 'features will be processed.'
+
