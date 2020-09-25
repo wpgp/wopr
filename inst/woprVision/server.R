@@ -384,55 +384,35 @@ shinyServer(
     })
     
     ##-- translation --##
-    observe({
-      if(input$navbar_id =="panel_lg"){
-        updateNavbarPage(session, 'navbar_id', selected = "panel_map")
-        
-      }
-    })
-    
-    observeEvent(input$lang_select,{
+    observeEvent(input$lang_select, {
       
       translate <- function(str){
         output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
-        
       }
+      
       lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
       
       if(input$lang_select=="FR"){
         rv$dict <- dict_fr
-        
-        
-        
       }else{
         rv$dict <- dict_en
-        
       }
-      #specific case: confidence type
       
+      # specific case: confidence type
       output$confidence_type <- renderText(
         return(paste0(
           '<div class="form-group shiny-input-container">
-            <label class="control-label" for="ci_type">
-             <h5>
-             <div id="lg_confidence_type" class="shiny-html-output"></div>
-              </h5>
-             </label>
-         <div>
-       <select id="ci_type"><option value="Interval" selected>',rv$dict[['lg_interval']],'</option>
+          <label class="control-label" for="ci_type">
+          <h5><div id="lg_confidence_type" class="shiny-html-output"></div></h5>
+          </label>
+          <div><select id="ci_type"><option value="Interval" selected>',rv$dict[['lg_interval']],'</option>
           <option value="Lower Limit">',rv$dict[['lg_lower']],'</option>
           <option value="Upper Limit">',rv$dict[['lg_upper']],'</option></select>
-       <script type="application/json" data-for="ci_type" data-nonempty="">{}</script>
-         </div>
-        </div>'
+          <script type="application/json" data-for="ci_type" data-nonempty="">{}</script></div>
+          </div>'
         ))
       )
-      
-      
     })
-    
-    
-    
     
     
     ##-- tabs --##

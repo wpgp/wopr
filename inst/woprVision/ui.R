@@ -97,11 +97,10 @@ ui <- fluidPage(
                   .navbar-nav > li:nth-child(5){float:right}
                   .navbar-nav > li:nth-child(6){float:right}
                   .navbar-nav > li:nth-child(7){float:right}
-                  .navbar-nav > li:nth-child(8){float:right}
-                  .navbar-nav > li:nth-child(9){float:right}")),
+                  .navbar-nav > li:nth-child(8){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
-    tags$style("#lang_div .selectize-control {margin-bottom:-35px; margin-top:-5px; margin-right:-20px}"),
+    tags$style("#lang_div .selectize-control {margin-bottom:-20px; margin-top:0px; margin-right:0px;}"),
     
     navbarPage(title='woprVision (beta)',
                footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
@@ -124,6 +123,14 @@ ui <- fluidPage(
                           # results panel (right)
                           column(width = 3,
                                  style='overflow-y:scroll; height: calc(98vh - 75px)',
+                                 tags$div(id='lang_div',
+                                          style="display:inline-block; float:right",
+                                          selectInput("lang_select",
+                                                      NULL,
+                                                      choices=c("EN", "FR"),
+                                                      selected= "EN",
+                                                      width="65px", 
+                                                      selectize = T)),
                                  plotOutput('sidePlot', height='600px', width='100%')))
                ),
                
@@ -141,17 +148,6 @@ ui <- fluidPage(
                # tab: API readme
                tabPanel(uiOutput('lg_help'),
                         htmlOutput('helpfile')),
-               
-               #tab: language selection
-               tabPanel(tags$div(id='lang_div',
-                                 selectInput("lang_select",
-                                    NULL,
-                                    choices=c("EN", "FR"),
-                                    selected= "EN",
-                                    width="50px", 
-                                    selectize = T)),
-                        value="panel_lg",
-                        id="panel_lg"),
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',

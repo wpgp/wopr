@@ -22,7 +22,8 @@ Imports:
   shiny, 
   shinyWidgets,
   shinyjs,
-  stringi
+  stringi,
+  yaml
 Suggests: 
   knitr, 
   rmarkdown
