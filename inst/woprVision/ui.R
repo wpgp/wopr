@@ -101,7 +101,7 @@ ui <- fluidPage(
                   .navbar-nav > li:nth-child(9){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
-    tags$style(".selectize-control {margin-bottom:-35px; margin-top:-5px; margin-right:-20px}"),
+    tags$style("#lang_div .selectize-control {margin-bottom:-35px; margin-top:-5px; margin-right:-20px}"),
     
     navbarPage(title='woprVision (beta)',
                footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
@@ -143,12 +143,13 @@ ui <- fluidPage(
                         htmlOutput('helpfile')),
                
                #tab: language selection
-               tabPanel(selectInput("lang_select",
+               tabPanel(tags$div(id='lang_div',
+                                 selectInput("lang_select",
                                     NULL,
                                     choices=c("EN", "FR"),
                                     selected= "EN",
                                     width="50px", 
-                                    selectize = T),
+                                    selectize = T)),
                         value="panel_lg",
                         id="panel_lg"),
                
