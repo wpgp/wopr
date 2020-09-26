@@ -7,6 +7,7 @@
 #' @param dict Dictionnary for text translation
 #' @description Produces a panel to hold the population density plot and the population pyramid
 #' @export
+
 plotPanel <- function(N, agesex_select, agesex_table=NULL, confidence=95, tails='Interval', popthresh=100, dict=dict_en){
   if(!is.numeric(N)){
     

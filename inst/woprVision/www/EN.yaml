@@ -58,6 +58,8 @@ lg_threshold: 'Threshold'
 lg_plot_main1: 'Population Estimate: '
 lg_plot_main2: ' people'
 lg_plot_main3: ' people (threshold)'
+lg_plot_main4: 'More than '
+lg_plot_main5: '* Estimate of uncertainty not measured for this location.'
 lg_probability: ' probability'
 lg_plot_proppop: Proportion of Population
 lg_map_legend: 'People per grid cell<br>(all age-sex groups)'

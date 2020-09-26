@@ -16,12 +16,13 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
                   round_result = FALSE)
   
   # plot margins
-  par(mar=c(4.5,1,4.5,0.5))
+  par(mar=c(4.5, 1.5, 4.5, 0.5))
   
   cex.main <- 1.5
   cex.lab <- 1.25
   cex.axis <- 1.1
 
+  ##-- plot --##
   if(!is.numeric(N)){
     
     plot(NA, main=dict[['lg_plot_mainNA']], xlab='Population', ylab=NA, 
@@ -30,9 +31,14 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
     
   } else if(length(N)==1){
       
-    plot(0, main=NULL, xlab='Population', ylab=NA, 
-         yaxt='n', type='n', xlim=c(0,1), 
+    xlim <- c(0.5*N, 1.5*N)
+    if(xlim[2]==0) xlim[2] <- 1
+    
+    plot(N, main=NULL, xlab='Population', ylab=NA,  
+         yaxt='n', type='n', xlim=xlim, ylim=c(0,1),
          cex.main=cex.main, cex.lab=cex.lab, cex.axis=cex.axis)
+    
+    abline(v=N, lty=2, lwd=2)
       
   } else {
 
@@ -51,9 +57,6 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
     } else if(tails=='Upper Limit') {
       s$lower <- 0
     }
-    
-    # ilow <- min(which(d$x >= s$lower))
-    # iup <- max(which(d$x <= s$upper)) 
     
     if(any(d$x >= s$lower)){
       ilow <- min(which(d$x >= s$lower))
@@ -75,10 +78,12 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
                              y=c(mean(d$y[c(iup,iup+1)]),0)))
     
     plot(d, 
-         main=NULL, xlab='Population', ylab=NA, 
+         main=NULL, xlab='Population', ylab=NA,  
          yaxt='n', type='n', 
          xlim=quantile(N,probs=c(0,0.99)),
          cex.main=cex.main, cex.lab=cex.lab, cex.axis=cex.axis)
+    
+    mtext('Probability', 2, line=0.5, cex=cex.lab)
     
     polygon(d, col='lightgrey', border=NA)
     polygon(dsub, col='grey', border=NA)
@@ -105,13 +110,19 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
            cex=1.1)
   }
   
+  #-- plot title--##
   if(is.numeric(N)){
 
     # data
     pop_mean <- ifelse(s$mean > 5, round(s$mean), round(s$mean,1))
-    pop_lower <- ifelse(s$mean > 5, round(s$lower), round(s$lower,1))
-    pop_upper <- ifelse(s$mean > 5, round(s$upper), round(s$upper,1))
-    pop_abovethresh <- round(s$abovethresh*100)
+    
+    if(length(N)>1){
+      pop_lower <- ifelse(s$mean > 5, round(s$lower), round(s$lower,1))
+      pop_upper <- ifelse(s$mean > 5, round(s$upper), round(s$upper,1))
+      pop_abovethresh <- round(s$abovethresh*100)
+    } else {
+      pop_lower <- pop_upper <- pop_abovethresh <- NA
+    }
     
     # Main title
     line <- 3
@@ -121,7 +132,12 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
     # Sub title A
     line <- 1.5
     cex <- 1.25
-    if(tails=='Interval'){
+    if(length(N)==1){
+      
+      mtext(paste0(round(confidence),'%', dict[['lg_probability']], ':  Unknown'), 
+            line=line, cex=cex)
+      
+    } else if(tails=='Interval'){
       
       mtext(paste0(round(confidence),'%', dict[['lg_probability']], ': ', prettyNum(pop_lower,big.mark=','),' - ', prettyNum(pop_upper, big.mark=','),dict[['lg_plot_main2']]), 
             line=line, cex=cex)
@@ -140,9 +156,30 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
     # Sub title B
     if(is.numeric(popthresh)){
       line <- 0.25
-      mtext(paste0(pop_abovethresh,'%', dict[['lg_probability']], ': > ', prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']]),
-            line=line, cex=cex)
+      
+      if(length(N)==1){
+        
+        mtext(paste0(dict[['lg_plot_main4']], prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']],':  Unknown'), 
+              line=line, cex=cex)
+        
+      } else {
+        mtext(paste0(dict[['lg_plot_main4']], prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']],': ', pop_abovethresh, '%', dict[['lg_probability']]),
+              line=line, cex=cex)
+      }
     }
   }
+  
+  # No uncertainty footnote
+  if(length(N)==1 & is.numeric(N[1])){
+    legend(x = xlim[1], 
+           y = 0, 
+           legend = dict[['lg_plot_main5']], 
+           adj = c(0,1),
+           xjust = 0,
+           yjust = 0,
+           box.col = 'white',
+           bg = 'white')
+  }
+  
 }
 

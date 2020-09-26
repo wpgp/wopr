@@ -87,7 +87,7 @@ shinyServer(
           southern = version_info[input$data_select, 'southern'],
           bins = rv$bins,
           pal = rv$pal,
-          dict=rv$dict)
+          dict = rv$dict)
     })
     
     ## change location selection tool
@@ -309,7 +309,6 @@ shinyServer(
     })
     
     ##-- create plot --##
-    
     output$sidePlot <- renderPlot({
       
       plotPanel(N=rv$N,
@@ -386,6 +385,8 @@ shinyServer(
     ##-- translation --##
     observeEvent(input$lang_select, {
       
+      rv$N <- rv$agesexid <- NULL
+      
       translate <- function(str){
         output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
       }
@@ -416,6 +417,7 @@ shinyServer(
     
     
     ##-- tabs --##
+    
     # help tab
     observeEvent(input$lang_select,{
       output$helpfile <- renderText(

@@ -59,6 +59,8 @@ lg_threshold: 'Seuil'
 lg_plot_main1: 'Population estimée: '
 lg_plot_main2: ' personnes'
 lg_plot_main3: ' personnes (seuil)'
+lg_plot_main4: 'Plus de '
+lg_plot_main5: "* Estimation de l'incertitude non mesurée pour cet emplacement."
 lg_probability: ' probabilité'
 lg_plot_proppop: Proportion de la population
 lg_map_legend: 'Effectif par carreau<br>(tout groupe démographique compris)'

@@ -100,10 +100,20 @@ ui <- fluidPage(
                   .navbar-nav > li:nth-child(8){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
-    tags$style("#lang_div .selectize-control {margin-bottom:-20px; margin-top:0px; margin-right:0px;}"),
+    
+    tags$style("#lang_div .selectize-control {margin-bottom:-15px; margin-top:10px; margin-left:10px; margin-right:5px; z-index:10000;}"),
+
+    tags$div(id='lang_div',
+             style="display:inline-block; float:right",
+             selectInput("lang_select",
+                         NULL,
+                         choices=c("EN", "FR"),
+                         selected= "EN",
+                         width="80px", 
+                         selectize = T)),
     
     navbarPage(title='woprVision (beta)',
-               footer=tags$footer(HTML(paste0('<a href="https://github.com/wpgp/wopr" target="_blank">wopr v',packageVersion('wopr'),'</a>')), align='right'),
+               footer=tags$footer(HTML(paste0('Source data: <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository (WOPR)</a>, Source code: <a href="https://github.com/wpgp/wopr" target="_blank">wopr R package v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",
                
@@ -123,14 +133,6 @@ ui <- fluidPage(
                           # results panel (right)
                           column(width = 3,
                                  style='overflow-y:scroll; height: calc(98vh - 75px)',
-                                 tags$div(id='lang_div',
-                                          style="display:inline-block; float:right",
-                                          selectInput("lang_select",
-                                                      NULL,
-                                                      choices=c("EN", "FR"),
-                                                      selected= "EN",
-                                                      width="65px", 
-                                                      selectize = T)),
                                  plotOutput('sidePlot', height='600px', width='100%')))
                ),
                
@@ -138,10 +140,10 @@ ui <- fluidPage(
                tabPanel(uiOutput('lg_saved'),
                         HTML(paste0('<strong>', uiOutput('lg_tab_saved1', inline=T), '<br>',
                                     uiOutput('lg_tab_saved2', inline=T), '</strong><br><br>')),
-                        downloadButton('download_table', uiOutput('lg_download')),
-                        actionButton('clear_button', uiOutput('lg_clear')),
+                        downloadButton('download_table', uiOutput('lg_download', inline=T)),
+                        actionButton('clear_button', uiOutput('lg_clear', inline=T)),
                         br(),
-                        div(style='overflow-y:scroll; max-height:calc(98vh - 120px)',
+                        div(style='overflow-y:scroll; height:calc(98vh - 169px);',
                             tableOutput('results_table'))
                ),
                
