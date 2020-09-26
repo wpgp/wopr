@@ -39,7 +39,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
          cex.main=cex.main, cex.lab=cex.lab, cex.axis=cex.axis)
     
     abline(v=N, lty=2, lwd=2)
-      
+    
   } else {
 
     d <- density(N, adjust=3)
@@ -159,7 +159,7 @@ plotPop <- function(N, confidence=95, tails='Interval', popthresh=100, dict=dict
       
       if(length(N)==1){
         
-        mtext(paste0(dict[['lg_plot_main4']], prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']],':  Unknown'), 
+        mtext(paste0(dict[['lg_plot_main4']], prettyNum(popthresh,big.mark=','), dict[['lg_plot_main3']],':  ',ifelse(pop_mean > popthresh, 'Yes', 'No')), 
               line=line, cex=cex)
         
       } else {
