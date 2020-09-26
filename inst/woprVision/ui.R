@@ -93,11 +93,10 @@ ui <- fluidPage(
     ),
     
     tags$style(HTML(".navbar-nav {float:none !important;}
-                  .navbar-nav > li:nth-child(4){float:right}
-                  .navbar-nav > li:nth-child(5){float:right}
                   .navbar-nav > li:nth-child(6){float:right}
                   .navbar-nav > li:nth-child(7){float:right}
-                  .navbar-nav > li:nth-child(8){float:right}")),
+                  .navbar-nav > li:nth-child(8){float:right}
+                  .navbar-nav > li:nth-child(9){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
     
@@ -147,7 +146,14 @@ ui <- fluidPage(
                             tableOutput('results_table'))
                ),
                
-               # tab: API readme
+               # tab: data readme
+               tabPanel(uiOutput('lg_readme_data'),
+                        htmlOutput('data_readme')),
+               
+               # tab: data download
+               tabPanel(actionLink('download_link', uiOutput('lg_data_download'), style = 'padding:0px; margin:-15px 15px 0px 15px')),
+               
+               # tab: help
                tabPanel(uiOutput('lg_help'),
                         htmlOutput('helpfile')),
                
@@ -155,24 +161,20 @@ ui <- fluidPage(
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
                           img(src='logoWorldPop.png', style='height:30px; margin-top:-30px; margin-left:10px'))),
                
-               # tab: API readme
+               # tab: Apps
+               tabPanel(a(href='https://apps.worldpop.org', target='_blank', style='margin-top:-30px; margin-left:10px', 'Apps')),
+               
+               # tab: API 
                tabPanel('REST API',
                         tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                     frameBorder="0",
                                     src='woprAPI.html')),
                
-               # tab: wopr R package readme
+               # tab: R package
                tabPanel('R package',
                         tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                     frameBorder='0',
-                                    src='wopr_README.html')),
-               # tab: wopr
-               tabPanel(actionLink('download_link',uiOutput('lg_data_download'), style = 'padding:0px; margin:-15px 15px 0px 15px')),
-               
-               # tab: data readme
-               tabPanel(uiOutput('lg_readme_data'),
-                        htmlOutput('data_readme'))
-               
+                                    src='wopr_README.html'))
     )
   )
 )
