@@ -25,7 +25,7 @@ lg_confidence_type: Tipo de Confiança
 lg_pop_threshold: Limiar Populacional
 lg_interval: Intervalo
 lg_lower: Limite inferior
-lg_upper: Upper Limit
+lg_upper: Limite superior
 lg_tab_saved1: Este separador contém quaisquer estimativas da população que tenha guardado do separador Mapa.
 lg_tab_saved2: Ao clicar em "Download", os seus pontos ou polígonos serão adicionados aos resultados guardados no formato GeoJson juntamente com qualquer mensagem de erro
 lg_download: Descarregar
