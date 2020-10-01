@@ -106,7 +106,7 @@ ui <- fluidPage(
              style="display:inline-block; float:right",
              selectInput("lang_select",
                          NULL,
-                         choices=c("EN", "ES", "FR", "PT"),
+                         choices=lang_choices,
                          selected= "EN",
                          width="80px", 
                          selectize = T)),

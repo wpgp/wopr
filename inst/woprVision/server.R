@@ -394,6 +394,8 @@ shinyServer(
           output[[str]] <- renderUI(dict_pt[[str]])
         } else if(input$lang_select=="ES") {
           output[[str]] <- renderUI(dict_es[[str]])
+        } else if(input$lang_select=="ZH") {
+          output[[str]] <- renderUI(dict_zh[[str]])
         } else {
           output[[str]] <- renderUI(dict_en[[str]])
         }
@@ -409,6 +411,8 @@ shinyServer(
         rv$dict <- dict_pt
       } else if(input$lang_select=="ES") {
         rv$dict <- dict_es
+      } else if(input$lang_select=="ZH") {
+        rv$dict <- dict_zh
       } else {
         rv$dict <- dict_en
       }

@@ -1,0 +1,73 @@
+lg_select_location: 2. 选择一个位置 
+lg_select_data1: 1. 选择人口数据
+lg_select_data2: 看到
+lg_select_data3: 国家代码
+lg_click_map: 点击地图
+lg_draw_area: 画一个区域
+lg_upload_gjson: 上传GeoJSON文件
+lg_selected_pt: 选择点
+lg_custom_area: 自定义区域
+lg_upload_file: 上传文件
+lg_browse: 浏览
+lg_no_file_selected: 没有选择文件
+lg_define_agesex: 3. 界定年龄性别组
+lg_agegroup: 年龄组
+lg_female: 女性
+lg_male: 男性
+lg_get_pop_estimates: 4. 获取人口估计数
+lg_submit: 提交
+lg_save_result: 5. 保存结果
+lg_save: 保存
+lg_options: "选项："
+lg_result_type: 结果名称 (可选)
+lg_confidence_level: "信心度 (%):"
+lg_confidence_type: 信心类型
+lg_pop_threshold: 人口阈值
+lg_interval: 间隔
+lg_lower: 下限
+lg_upper: 上限
+lg_tab_saved1: 此选项卡包含您从 "地图 "选项卡保存的任何人口估计数。
+lg_tab_saved2: 当您点击 "下载 "时，您的点或多边形将被添加到以GeoJson格式保存的结果中，同时还有任何错误信息。
+lg_download: 下载中心
+lg_clear: 清楚
+lg_saved: 已保存
+lg_map_name: 地图
+lg_data_download: 数据下载
+lg_readme_data: 数据 README
+lg_help: 帮忙
+lg_helpfile: 'woprVision.html'
+lg_r_package: R包
+lg_panel1: 点击地图选择一个位置。
+lg_panel2: 按 "提交 "即可获得人口估算。
+lg_panel3: 更多信息请参见 "帮助 "标签。
+lg_download_popup: ' 人口数据可从WorldPop Open Population Repository（WOPR）下载。 '
+lg_woprizing_message: 取所选地点和人口组的人口总数。
+lg_saving_message: 人口估计数添加到 "已保存 "选项卡。
+lg_saving_eror: 需要提交人口查询才能保存结果。
+lg_clear_save: 你确定要清除所有保存的人口估计？
+lg_clear_button: '清除保存的估计'
+lg_cancel: 取消
+lg_confirm: 确认
+lg_gson_download: '人口估计值已被添加到您的GeoJSON的属性表中。您可以使用下面的按钮将结果下载为GeoJSON或.csv电子表格。'
+lg_save_gson: 保存GeoJSON
+lg_save_csv: 保存电子表格
+lg_close: 关闭
+lg_plot_mainNA: '人口估计。估计数：'
+lg_mean: Mean
+lg_threshold: '阈值'
+lg_plot_main1: '人口估计： '
+lg_plot_main2: ' 人'
+lg_plot_main3: ' 人 (门槛)'
+lg_plot_main4: '不止 '
+lg_plot_main5: '* 该地点的不确定性估计未测量。'
+lg_probability: ' 可能性'
+lg_plot_proppop: 占人口比例
+lg_map_legend: '每个网格单元的人数<br>(所有年龄性别组)'
+lg_annoyingmessage: ' 是一个过时的版本，并将很快从woprVision中移除。这些数据将继续可以从 '
+lg_annoyingmessage_title: '友好留言。'
+lg_thks: '好的，谢谢'
+lg_localSQL: '使用本地SQL数据库进行 '
+lg_localtiles: '使用本地图像瓦片进行 '
+lg_gjson_limit1: '超过GeoJSON行限制。只有第一个'
+lg_gjson_limit2: '特征将被处理。'
+

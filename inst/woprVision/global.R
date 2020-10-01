@@ -32,10 +32,12 @@ data_init <- paste(country, version, sep=' ')
 rm(country, version)
 
 #load dictionnaries for translation
-dict_en <- yaml::read_yaml("www/EN.yaml")
-dict_fr <- yaml::read_yaml("www/FR.yaml", fileEncoding="UTF-8")
-dict_pt <- yaml::read_yaml("www/PT.yaml", fileEncoding="UTF-8")
-dict_es <- yaml::read_yaml("www/ES.yaml", fileEncoding="UTF-8")
+lang_choices <- c("EN", "ES", "FR", "PT")
+dict_en <- yaml::read_yaml("www/yaml/EN.yaml")
+dict_fr <- yaml::read_yaml("www/yaml/FR.yaml", fileEncoding="UTF-8")
+dict_pt <- yaml::read_yaml("www/yaml/PT.yaml", fileEncoding="UTF-8")
+dict_es <- yaml::read_yaml("www/yaml/ES.yaml", fileEncoding="UTF-8")
+dict_zh <- yaml::read_yaml("www/yaml/ZH.yaml", fileEncoding="UTF-8")
 keys <- names(dict_en)
 
 
