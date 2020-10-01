@@ -388,14 +388,24 @@ shinyServer(
       rv$N <- rv$agesexid <- NULL
       
       translate <- function(str){
-        output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
+        if(input$lang_select=="FR") {
+          output[[str]] <- renderUI(dict_fr[[str]])
+        } else if(input$lang_select=="PT") {
+          output[[str]] <- renderUI(dict_pt[[str]])
+        } else {
+          output[[str]] <- renderUI(dict_en[[str]])
+        }
+        
+        # output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
       }
       
       lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
       
       if(input$lang_select=="FR"){
         rv$dict <- dict_fr
-      }else{
+      } else if(input$lang_select=="PT") {
+        rv$dict <- dict_pt
+      } else {
         rv$dict <- dict_en
       }
       

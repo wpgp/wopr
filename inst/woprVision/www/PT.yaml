@@ -1,0 +1,73 @@
+lg_select_location: 2. Seleccione um Local 
+lg_select_data1: 1. Escolher Dados da População
+lg_select_data2: ver
+lg_select_data3: códigos de países
+lg_click_map: Clique no mapa
+lg_draw_area: Desenhar uma área
+lg_upload_gjson: Carregar ficheiro GeoJSON
+lg_selected_pt: Ponto seleccionado
+lg_custom_area: Área personalizada
+lg_upload_file: Carregar ficheiro
+lg_browse: Navegar
+lg_no_file_selected: Nenhum ficheiro seleccionado
+lg_define_agesex: 3. Definir grupos etários-sexuais
+lg_agegroup: Grupo etário
+lg_female: Feminino
+lg_male: Homem
+lg_get_pop_estimates: 4. Obter Estimativa da População
+lg_submit: Submeter
+lg_save_result: 5. Salvar Resultado
+lg_save: Guardar
+lg_options: "Opções:"
+lg_result_type: Nome do resultado (opcional)
+lg_confidence_level: "Nível de Confiança (%):"
+lg_confidence_type: Tipo de Confiança
+lg_pop_threshold: Limiar Populacional
+lg_interval: Intervalo
+lg_lower: Limite inferior
+lg_upper: Upper Limit
+lg_tab_saved1: Este separador contém quaisquer estimativas da população que tenha guardado do separador Mapa.
+lg_tab_saved2: Ao clicar em "Download", os seus pontos ou polígonos serão adicionados aos resultados guardados no formato GeoJson juntamente com qualquer mensagem de erro
+lg_download: Descarregar
+lg_clear: Limpar
+lg_saved: Guardado
+lg_map_name: Mapa
+lg_data_download: Download de dados
+lg_readme_data: LEIAME de dados
+lg_help: Ajuda
+lg_helpfile: 'woprVision.html'
+lg_r_package: Pacote R
+lg_panel1: Clique no mapa para seleccionar um local.
+lg_panel2: Carregar em "Submeter" para obter estimativas da população.
+lg_panel3: Ver o separador "Ajuda" para mais informações.
+lg_download_popup: ' Os dados populacionais podem ser descarregados do WorldPop Open Population Repository (WOPR): '
+lg_woprizing_message: Total da população para localização(ões) e grupo(s) demográfico(s) seleccionado(s)...
+lg_saving_message: Estimativa da população adicionada ao separador "Guardado".
+lg_saving_eror: Necessidade de submeter uma consulta da população antes que os resultados possam ser guardados.
+lg_clear_save: Tem a certeza de que quer limpar todas as estimativas da população poupada?
+lg_clear_button: 'Estimativas claras de poupança'
+lg_cancel: Cancelar
+lg_confirm: Confirme
+lg_gson_download: 'As estimativas da população foram adicionadas à tabela de atributos do seu GeoJSON. Pode descarregar os resultados como um GeoJSON ou como uma folha de cálculo .csv usando os botões abaixo.'
+lg_save_gson: Salvar GeoJSON
+lg_save_csv: Guardar folha de cálculo
+lg_close: Fechar
+lg_plot_mainNA: 'Estimativas da população: NA'
+lg_mean: Média
+lg_threshold: 'Limiar'
+lg_plot_main1: 'Estimativa da População: '
+lg_plot_main2: ' pessoas'
+lg_plot_main3: ' pessoas (limiar)'
+lg_plot_main4: 'Mais de '
+lg_plot_main5: '* Estimativa da incerteza não medida para este local.'
+lg_probability: ' probabilidade'
+lg_plot_proppop: Proporção da população
+lg_map_legend: 'Pessoas por célula da grelha<br>(todos os grupos etários e sexos)'
+lg_annoyingmessage: ' é uma versão depreciada e será retirada da woprVision em breve. Os dados continuarão a estar disponíveis para download em '
+lg_annoyingmessage_title: 'Mensagem amigável:'
+lg_thks: 'Está bem, obrigado.'
+lg_localSQL: 'Utilização de base de dados SQL local para '
+lg_localtiles: 'Utilização de azulejos de imagem locais para '
+lg_gjson_limit1: 'O limite de fila do GeoJSON foi excedido. Apenas o primeiro'
+lg_gjson_limit2: 'características serão processadas.'
+
