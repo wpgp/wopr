@@ -31,7 +31,7 @@ version <- version_info[version_info$country==country & version_info$deprecated=
 data_init <- paste(country, version, sep=' ')
 rm(country, version)
 
-#load dictionnaries for translation
+# load dictionnaries for translation
 dict_en <- yaml::read_yaml("www/yaml/EN.yaml")
 dict_fr <- yaml::read_yaml("www/yaml/FR.yaml", fileEncoding="UTF-8")
 dict_pt <- yaml::read_yaml("www/yaml/PT.yaml", fileEncoding="UTF-8")
