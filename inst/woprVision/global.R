@@ -37,7 +37,7 @@ dict_en <- yaml::read_yaml("www/yaml/EN.yaml")
 dict_fr <- yaml::read_yaml("www/yaml/FR.yaml", fileEncoding="UTF-8")
 dict_pt <- yaml::read_yaml("www/yaml/PT.yaml", fileEncoding="UTF-8")
 dict_es <- yaml::read_yaml("www/yaml/ES.yaml", fileEncoding="UTF-8")
-dict_zh <- yaml::read_yaml("www/yaml/ZH.yaml", fileEncoding="UTF-8")
+# dict_zh <- yaml::read_yaml("www/yaml/ZH.yaml", fileEncoding="UTF-8")
 keys <- names(dict_en)
 
 
