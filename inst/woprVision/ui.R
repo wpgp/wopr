@@ -39,16 +39,16 @@ inputs <-
                   checkboxInput(inputId="female", label=uiOutput("lg_female"), value=T),
                   shinyWidgets::sliderTextInput(inputId="female_select",
                                                 label=NULL,
-                                                choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
-                                                selected=c('<1', '80+'),
+                                                choices=agesex_choices,
+                                                selected=c('<1','80+'),
                                                 force_edges=T)),
       # male
       splitLayout(cellWidths=c('35%','65%'),
                   checkboxInput(inputId="male", label=uiOutput("lg_male"), value=T),
                   shinyWidgets::sliderTextInput(inputId="male_select",
                                                 label=NULL,
-                                                choices=c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+'),
-                                                selected=c('<1', '80+'),
+                                                choices=agesex_choices,
+                                                selected=c('<1','80+'),
                                                 force_edges=T)),
       
       # submit button
@@ -72,7 +72,7 @@ inputs <-
                             placeholder='Result Name (optional)')),
       
       # age-sex groups
-      strong(uiOutput('lg_options')),br(),
+      br(),strong(uiOutput('lg_options')),
       
       # confidence level
       sliderInput('ci_level',h5(uiOutput('lg_confidence_level')), min=50, max=99, value=95, step=5),
@@ -171,7 +171,7 @@ ui <- fluidPage(
                                     src='woprAPI.html')),
                
                # tab: R package
-               tabPanel('R package',
+               tabPanel(uiOutput('lg_r_package'),
                         tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
                                     frameBorder='0',
                                     src='wopr_README.html'))

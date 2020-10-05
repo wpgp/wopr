@@ -50,6 +50,6 @@ library(wopr, lib='c:/research/r/library')
 citation('wopr')
 
 # run app
-wopr::woprVision()
+wopr::woprVision() 
 
 

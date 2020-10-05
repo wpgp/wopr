@@ -52,6 +52,24 @@ shinyServer(
       
       
       
+      
+      # update agesex choices
+      if( sum(agesex[[input$data_select]][,c('f1','m1')]) == 0 ){
+        shinyWidgets::updateSliderTextInput(session, 'female_select', 
+                                            choices = c('0-4',agesex_choices[-c(1:2)]),
+                                            selected = c('0-4','80+'))
+        shinyWidgets::updateSliderTextInput(session, 'male_select', 
+                                            choices = c('0-4',agesex_choices[-c(1:2)]),
+                                            selected = c('0-4','80+'))
+      } else {
+        shinyWidgets::updateSliderTextInput(session, 'female_select', 
+                                            choices = agesex_choices,
+                                            selected = c('<1','80+'))
+        shinyWidgets::updateSliderTextInput(session, 'male_select', 
+                                            choices = agesex_choices,
+                                            selected = c('<1','80+'))
+      }
+      
       # deactivation message
       if(version_info[input$data_select,'deprecated']){
         showModal(modalDialog(HTML(paste0(input$data_select,rv$dict[["lg_annoyingmessage"]], '<a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
@@ -317,6 +335,7 @@ shinyServer(
                 confidence=input$ci_level,
                 tails=input$ci_type,
                 popthresh=input$popthresh,
+                popmax=version_info[input$data_select,'popmax'],
                 dict=rv$dict)
     })
     

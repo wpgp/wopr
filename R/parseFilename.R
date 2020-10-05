@@ -55,11 +55,11 @@ parseFilename <- function(filenames){
       n <- length(x_split)
       if(testNumeric(tools::file_path_sans_ext(x_split[n]))){
         result[i,'file_extension'] <- tools::file_ext(x_split[n])
-      } else if(n==4 | testNumeric(x_split[n-1])){
+      } else if(n==4 | testNumeric(x_split[max(1,n-1)])){
         result[i,'file_type'] <- tools::file_path_sans_ext(x_split[n])
         result[i,'file_extension'] <- tools::file_ext(x_split[n])
       } else {
-        result[i,'file_type'] <- x_split[n-1]
+        result[i,'file_type'] <- x_split[max(1,n-1)]
         result[i,'file_optional'] <- tools::file_path_sans_ext(x_split[n])
         result[i,'file_extension'] <- tools::file_ext(x_split[n])
       }

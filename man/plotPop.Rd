@@ -9,6 +9,7 @@ plotPop(
   confidence = 95,
   tails = "Interval",
   popthresh = 100,
+  popmax = NA,
   dict = dict_en
 )
 }
@@ -20,6 +21,8 @@ plotPop(
 \item{tails}{The confidence type: 'Interval', 'Lower Threshold', or 'Upper Threshold'}
 
 \item{popthresh}{The function will return the probability that the population size exceeds _popthresh_}
+
+\item{popmax}{numeric. Maximum population size for a pixel in the country}
 
 \item{dict}{Dictionnary for text translation}
 }

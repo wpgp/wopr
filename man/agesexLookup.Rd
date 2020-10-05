@@ -7,7 +7,13 @@
 agesexLookup(male, female, male_select, female_select)
 }
 \arguments{
-\item{ui}{user input from ui}
+\item{male}{logical. Toggle male age-sex selection}
+
+\item{female}{logical. Toggle female age-sex selection}
+
+\item{male_select}{character vector. Male age-sex selection (e.g. c('m0','m1') is males under 5 years old)}
+
+\item{female_select}{character vector. Female age-sex selection (e.g. c('m0','m1','m5') is females under 10 years old)}
 }
 \description{
 Format shiny age-group selection for WOPR

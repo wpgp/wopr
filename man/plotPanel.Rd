@@ -11,6 +11,7 @@ plotPanel(
   confidence = 95,
   tails = "Interval",
   popthresh = 100,
+  popmax = NA,
   dict = dict_en
 )
 }
@@ -24,6 +25,8 @@ plotPanel(
 \item{tails}{The number of tails for the confidence intervals}
 
 \item{popthresh}{Threshold population used to for _abovethresh_ in wopr::summaryPop()}
+
+\item{popmax}{numeric. Maximum population size for a pixel in the country}
 
 \item{dict}{Dictionnary for text translation}
 }
