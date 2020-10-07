@@ -4,18 +4,19 @@ output:
   rmarkdown::html_vignette:
     toc: false
 vignette: >
-  %\VignetteIndexEntry{An overview of the woprVision web application}
+  %\VignetteIndexEntry{Mode d'emploi de l'application web woprVision}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
 ---
 
-WorldPop Research Group  
-University of Southampton  
+Groupe de recherche WorldPop  
+Université de Southampton  
 
-25 September 2020
+7 Octobre 2020
 
 
-# Introduction
+## Introduction
 woprVision est une carte web interactive qui vous permet de récupérer les estimations de population pour des lieux et des groupes démographiques spécifiques à partir du <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. Voici les différentes utilisations:
 
 1. Télécharger les dernières données démographiques et la documentation afférentes, 
@@ -33,7 +34,7 @@ Ce document fournit des instructions sur l'utilisation de chaque élément:
 
 woprVision fait partie du <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> du language de programmation statistique R. woprVision a été créé en utilisant les packages shiny et leaflet pour R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Voir l'onglet "R package" pour plus d'informations (en anglais). 
 
-# Démarrage rapide
+## Démarrage rapide
 Sur l'onglet "Carte" :  
 1. Sélectionnez un jeu de données (c'est-à-dire un pays et une version)  
 2. Cliquez sur la carte pour sélectionner un lieu  
@@ -44,9 +45,9 @@ Sur l'onglet "Carte" :
 7. Utilisez les curseurs pour sélectionner un groupe d'âge et de sexe  
 8. Cliquez sur "Calculer" pour avoir l'estimation de la population du lieu choisi pour le groupe démographique sélectionné.  
 
-# Composantes de l'interface 
+## Composantes de l'interface 
 
-## Outils de contrôle
+### Outils de contrôle
 Le panneau de contrôle se trouve sur le côté gauche de l'onglet "Carte" avec des outils que vous pouvez utiliser pour extraire les estimations de la population.
 
 **Choisissez les données de population**
@@ -80,7 +81,7 @@ Le type d'intervalle de confiance.
 **Seuil de population**
 Le seuil de population fourni ici sera utilisé pour calculer la probabilité que la population dépasse ce seuil. La valeur par défaut est 100. La probabilité que la population dépasse 100 personnes sera donc retournée.
 
-## La carte
+### La carte
 
 **Fonds de carte**  
 Les fonds de carte suivants peuvent être sélectionnés dans le panneau en haut à droite de la carte :
@@ -110,7 +111,7 @@ La barre d'outils de dessin apparaît sur le côté gauche de la fenêtre de la 
 **Zoom**  
 Les commandes de zoom se trouvent dans le coin supérieur gauche de la fenêtre de la carte. Les boutons plus et moins permettent de zoomer en avant et en arrière. Le bouton avec l'icône de la Terre revient au niveau de zoom initial (zoom arrière).
 
-## Résultats
+### Résultats
 Le panneau de résultats contient deux graphiques qui représentent la population à l'endroit choisi. Le graphique du haut montre la distribution de probabilité représentant l'estimation de la population et le graphique du bas montre une pyramide des âges représentant la structure âge-sexe.
 
 **Estimation de la population**
@@ -119,7 +120,7 @@ L'estimation de la population est la moyenne de la distribution de probabilité 
 **Structure par âge et sexe**
 Les estimations de la structure démographique qui composent les pyramides des âges sont utilisées ici avec l'autorisation du projet WorldPop Global High Resolution Population Denominators (Pezzulo et al. 2017, WorldPop et al. 2018). Ces données fournissent des estimations régionales de la proportion de la population pour chaque groupe d'âge et de sexe dans la zone d'étude. 
 
-## Onglets
+### Onglets
 
 **Carte**  
 C'est l'onglet par défaut. Il peut être utilisé pour changer de jeux de données et pour récupérer les estimations de population pour des zones spécifiques en cliquant sur la carte ou en dessinant un polygone. Cet onglet contient une carte au centre, un panneau de contrôles à gauche et un panneau de résultats à droite. 
@@ -163,13 +164,13 @@ Cet onglet donne un aperçu de l'API WOPR REST. C'est la façon dont le paquet R
 Le WorldPop Open Population Repository (WOPR) a été développé par le groupe de recherche WorldPop au sein du département de géographie et de sciences environnementales de l'université de Southampton. Le financement a été assuré par la Fondation Bill et Melinda Gates et le ministère britannique du développement international (OPP1182408). Le professeur Andy Tatem assure la supervision du groupe de recherche WorldPop. Le paquet wopr R a été développé par Doug Leasure. Maksym Bondarenko et Niko Ves ont développé le serveur backend API. Edith Darin a ajouté la fonctionnalité multilingue et la traduction française. Natalia Tejedor Garavito a relu la traduction espagnole. Gianluca Boo a créé le logo du WOPR. Les données sur la population ont été fournies au WOPR par de nombreux chercheurs différents au sein du WorldPop Research Group.
 
 
-# Citation suggérée 
+## Citation suggérée 
 Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.4.0. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a>  
 
-# Licence
+## Licence
 GNU General Public License v3.0 (GNU GPLv3)  
 
-# Bibliographie
+## Bibliographie
 Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href='https://CRAN.R-project.org/package=shiny' target='_blank'>https://CRAN.R-project.org/package=shiny</a>.
 
 Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library. R package version 2.0.2. <a href='https://CRAN.R-project.org/package=leaflet' target='_blank'>https://CRAN.R-project.org/package=leaflet</a>

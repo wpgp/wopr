@@ -35,7 +35,7 @@ lg_map_name: Mapa
 lg_data_download: Download de dados
 lg_readme_data: LEIAME de dados
 lg_help: Ajuda
-lg_helpfile: 'woprVision.html'
+lg_helpfile: 'woprVisionPT.html'
 lg_r_package: Pacote R
 lg_panel1: Clique no mapa para seleccionar um local.
 lg_panel2: Carregar em "Submeter" para obter estimativas da população.

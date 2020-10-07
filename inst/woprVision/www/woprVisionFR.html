@@ -35,11 +35,11 @@
 
 
 
-<p>WorldPop Research Group<br />
-University of Southampton</p>
-<p>25 September 2020</p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<p>Groupe de recherche WorldPop<br />
+Université de Southampton</p>
+<p>7 Octobre 2020</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>woprVision est une carte web interactive qui vous permet de récupérer les estimations de population pour des lieux et des groupes démographiques spécifiques à partir du <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. Voici les différentes utilisations:</p>
 <ol style="list-style-type: decimal">
 <li>Télécharger les dernières données démographiques et la documentation afférentes,</li>
@@ -60,8 +60,8 @@ University of Southampton</p>
 </ul>
 <p>woprVision fait partie du <a href="https://github.com/wpgp/wopr" target="_blank">wopr package</a> du language de programmation statistique R. woprVision a été créé en utilisant les packages shiny et leaflet pour R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Voir l'onglet &quot;R package&quot; pour plus d'informations (en anglais).</p>
 </div>
-<div id="démarrage-rapide" class="section level1">
-<h1>Démarrage rapide</h1>
+<div id="démarrage-rapide" class="section level2">
+<h2>Démarrage rapide</h2>
 <p>Sur l'onglet &quot;Carte&quot; :<br />
 1. Sélectionnez un jeu de données (c'est-à-dire un pays et une version)<br />
 2. Cliquez sur la carte pour sélectionner un lieu<br />
@@ -71,10 +71,10 @@ University of Southampton</p>
 7. Utilisez les curseurs pour sélectionner un groupe d'âge et de sexe<br />
 8. Cliquez sur &quot;Calculer&quot; pour avoir l'estimation de la population du lieu choisi pour le groupe démographique sélectionné.</p>
 </div>
-<div id="composantes-de-linterface" class="section level1">
-<h1>Composantes de l'interface</h1>
-<div id="outils-de-contrôle" class="section level2">
-<h2>Outils de contrôle</h2>
+<div id="composantes-de-linterface" class="section level2">
+<h2>Composantes de l'interface</h2>
+<div id="outils-de-contrôle" class="section level3">
+<h3>Outils de contrôle</h3>
 <p>Le panneau de contrôle se trouve sur le côté gauche de l'onglet &quot;Carte&quot; avec des outils que vous pouvez utiliser pour extraire les estimations de la population.</p>
 <p><strong>Choisissez les données de population</strong> Sélectionnez le jeu de données de population que vous souhaitez. Cela comprend un pays et un numéro de version. Vous pouvez en savoir plus sur le jeu de donnée sélectionné dans l'onglet &quot;Lisez-moi&quot;.</p>
 <p><strong>Sélectionnez un lieu </strong> Vous pouvez sélectionner des lieux avec l'outil &quot;Cliquer sur la carte&quot;. Vous pouvez dessiner un polygone pour sélectionner une zone avec l'outil &quot;Dessiner une zone&quot;. Vous pouvez charger un fichier geojson avec des points ou des polygones avec l'outil &quot;Charger un fichier GeoJSON&quot;.</p>
@@ -90,8 +90,8 @@ University of Southampton</p>
 </ul>
 <p><strong>Seuil de population</strong> Le seuil de population fourni ici sera utilisé pour calculer la probabilité que la population dépasse ce seuil. La valeur par défaut est 100. La probabilité que la population dépasse 100 personnes sera donc retournée.</p>
 </div>
-<div id="la-carte" class="section level2">
-<h2>La carte</h2>
+<div id="la-carte" class="section level3">
+<h3>La carte</h3>
 <p><strong>Fonds de carte</strong><br />
 Les fonds de carte suivants peuvent être sélectionnés dans le panneau en haut à droite de la carte :</p>
 <ul>
@@ -115,14 +115,14 @@ La barre d'outils de dessin apparaît sur le côté gauche de la fenêtre de la 
 <p><strong>Zoom</strong><br />
 Les commandes de zoom se trouvent dans le coin supérieur gauche de la fenêtre de la carte. Les boutons plus et moins permettent de zoomer en avant et en arrière. Le bouton avec l'icône de la Terre revient au niveau de zoom initial (zoom arrière).</p>
 </div>
-<div id="résultats" class="section level2">
-<h2>Résultats</h2>
+<div id="résultats" class="section level3">
+<h3>Résultats</h3>
 <p>Le panneau de résultats contient deux graphiques qui représentent la population à l'endroit choisi. Le graphique du haut montre la distribution de probabilité représentant l'estimation de la population et le graphique du bas montre une pyramide des âges représentant la structure âge-sexe.</p>
 <p><strong>Estimation de la population</strong> L'estimation de la population est la moyenne de la distribution de probabilité indiquée dans le graphique. La distribution de probabilité est la distribution de probabilité postérieure prédite à partir d'un modèle statistique bayésien (voir l'onglet &quot;Lisez-moi&quot; pour plus de détails). Les intervalles de confiance sont calculés sur la base des paramètres sélectionnés dans les outils de contrôles (voir &quot;Outils de contrôle: niveau de confiance&quot; et &quot;Outils de contrôle: type de confiance&quot;). La probabilité de dépasser le seuil de population sélectionné est également indiquée dans le graphique du haut (voir &quot;Outils de contrôle: seuil de population&quot;).</p>
 <p><strong>Structure par âge et sexe</strong> Les estimations de la structure démographique qui composent les pyramides des âges sont utilisées ici avec l'autorisation du projet WorldPop Global High Resolution Population Denominators (Pezzulo et al. 2017, WorldPop et al. 2018). Ces données fournissent des estimations régionales de la proportion de la population pour chaque groupe d'âge et de sexe dans la zone d'étude.</p>
 </div>
-<div id="onglets" class="section level2">
-<h2>Onglets</h2>
+<div id="onglets" class="section level3">
+<h3>Onglets</h3>
 <p><strong>Carte</strong><br />
 C'est l'onglet par défaut. Il peut être utilisé pour changer de jeux de données et pour récupérer les estimations de population pour des zones spécifiques en cliquant sur la carte ou en dessinant un polygone. Cet onglet contient une carte au centre, un panneau de contrôles à gauche et un panneau de résultats à droite.</p>
 <p><strong>Sauvegarde</strong> Cet onglet comporte une feuille de calcul qui contient toutes les estimations de population que vous avez enregistrées. La feuille de calcul peut être enregistrée sur votre ordinateur sous forme de fichier .csv en cliquant sur &quot;Télécharger&quot; ou supprimée en cliquant sur &quot;Effacer&quot;.</p>
@@ -158,22 +158,22 @@ Cet onglet donne un aperçu de l'API WOPR REST. C'est la façon dont le paquet R
 <div id="contribuer" class="section level1">
 <h1>Contribuer</h1>
 <p>Le WorldPop Open Population Repository (WOPR) a été développé par le groupe de recherche WorldPop au sein du département de géographie et de sciences environnementales de l'université de Southampton. Le financement a été assuré par la Fondation Bill et Melinda Gates et le ministère britannique du développement international (OPP1182408). Le professeur Andy Tatem assure la supervision du groupe de recherche WorldPop. Le paquet wopr R a été développé par Doug Leasure. Maksym Bondarenko et Niko Ves ont développé le serveur backend API. Edith Darin a ajouté la fonctionnalité multilingue et la traduction française. Natalia Tejedor Garavito a relu la traduction espagnole. Gianluca Boo a créé le logo du WOPR. Les données sur la population ont été fournies au WOPR par de nombreux chercheurs différents au sein du WorldPop Research Group.</p>
-</div>
-<div id="citation-suggérée" class="section level1">
-<h1>Citation suggérée</h1>
+<div id="citation-suggérée" class="section level2">
+<h2>Citation suggérée</h2>
 <p>Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.4.0. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00679</a></p>
 </div>
-<div id="licence" class="section level1">
-<h1>Licence</h1>
+<div id="licence" class="section level2">
+<h2>Licence</h2>
 <p>GNU General Public License v3.0 (GNU GPLv3)</p>
 </div>
-<div id="bibliographie" class="section level1">
-<h1>Bibliographie</h1>
+<div id="bibliographie" class="section level2">
+<h2>Bibliographie</h2>
 <p>Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href="https://CRAN.R-project.org/package=shiny" target="_blank">https://CRAN.R-project.org/package=shiny</a>.</p>
 <p>Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web Maps with the JavaScript 'Leaflet' Library. R package version 2.0.2. <a href="https://CRAN.R-project.org/package=leaflet" target="_blank">https://CRAN.R-project.org/package=leaflet</a></p>
 <p>Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href="https://dx.doi.org/10.1038/sdata.2017.89" target="_blank">https://dx.doi.org/10.1038/sdata.2017.89</a></p>
 <p>R Core Team. 2019. R: A Language and Environment for Statistical Computing, version 3.6.2. R Foundation for Statistical Computing: Vienna, Austria. <a href="https://www.R-project.org" target="_blank">https://www.R-project.org</a></p>
 <p>WorldPop (<a href="https://www.worldpop.org" target="_blank">www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href="https://www.worldpop.org/doi/10.5258/SOTON/WP00646" target="_blank">https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a></p>
+</div>
 </div>
 
 

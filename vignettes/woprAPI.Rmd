@@ -2,7 +2,7 @@
 title: An overview of the WOPR API for developers
 output: rmarkdown::html_vignette #pdf_document
 vignette: >
-  %\VignetteIndexEntry{An overview of the wopr API backend for developers}
+  %\VignetteIndexEntry{An overview of the wopr API for developers}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
