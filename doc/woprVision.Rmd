@@ -30,7 +30,7 @@ This document provides instructions how to use each control panel:
 - Map window in the middle of the "Map" tab, and  
 - Results panel on the right of the "Map" tab.
 
-woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming lanuage. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the "R package" tab for more information. 
+woprVision is part of the <a href='https://github.com/wpgp/wopr' target='_blank'>wopr package</a> for the R statistical programming language. woprVision was created using the shiny and leaflet packages for R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). See the "R package" tab for more information. 
 
 ## Quick Start
 On the "Map" tab:  
