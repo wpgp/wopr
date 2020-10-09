@@ -77,7 +77,12 @@ inputs <-
       # confidence level
       sliderInput('ci_level',h5(uiOutput('lg_confidence_level')), min=50, max=99, value=95, step=5),
       htmlOutput("confidence_type"),
-      numericInput('popthresh', h5(uiOutput('lg_pop_threshold')), value=100, min=0, max=1e6, step=1)
+      numericInput('popthresh', h5(uiOutput('lg_pop_threshold')), value=100, min=0, max=1e6, step=1),
+      
+      # toggle plots
+      shinyjs::hidden(
+        checkboxInput('toggle_plots', label=NULL, value=F)
+      )
     )
   )
 
@@ -132,7 +137,16 @@ ui <- fluidPage(
                           # results panel (right)
                           column(width = 3,
                                  style='overflow-y:scroll; height: calc(98vh - 75px)',
-                                 plotOutput('sidePlot', height='600px', width='100%')))
+                                 conditionalPanel("input.toggle_plots == true",
+                                   plotOutput('sidePlot', height='600px', width='100%')),
+                                 conditionalPanel("input.toggle_plots == false",
+                                                  br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+                                                  h4(uiOutput('lg_panel1')),br(),
+                                                  h4(uiOutput('lg_panel2')),br(),
+                                                  h4(uiOutput('lg_panel3'))
+                                                  )
+                                 )
+                          )
                ),
                
                # tab: saved estimates

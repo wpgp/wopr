@@ -10,21 +10,8 @@
 #' @export
 
 plotPanel <- function(N, agesex_select, agesex_table=NULL, confidence=95, tails='Interval', popthresh=100, popmax=NA, dict=dict_en){
-  if(!is.numeric(N)){
+  if(is.numeric(N)){
     
-
-    par(mar=c(0,0,0,0))
-    plot(0,type='n',bty='n',yaxt='n',xaxt='n',ylab=NA,xlab=NA,xlim=c(0,1),ylim=c(0,1))
-    
-    legend(x = -0.1,
-           y = 0.7,
-           legend = c(as.expression(bquote(bold(.(dict[['lg_panel1']])))),
-                      as.expression(bquote(bold(.(dict[['lg_panel2']])))),
-                      as.expression(bquote(bold(.(dict[['lg_panel3']]))))),
-           cex = 1.2,
-           y.intersp = 2,
-           bty = 'n')
-  } else {
     layout(matrix(c(1,2), ncol=1, byrow=T), height=c(1,1))
 
     plotPop(N=N, confidence=confidence, tails=tails, popthresh=popthresh, popmax=popmax, dict=dict)

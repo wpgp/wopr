@@ -196,8 +196,10 @@ shinyServer(
     observe({
       if(is.null(rv$N) | input$pointpoly=='Upload File'){
         shinyjs::disable('save_button')
+        updateCheckboxInput(session, 'toggle_plots', value=F)
       } else {
         shinyjs::enable('save_button')
+        updateCheckboxInput(session, 'toggle_plots', value=T)
       }
     })
     
