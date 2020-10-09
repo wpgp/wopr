@@ -12,7 +12,7 @@
 
 
 
-<title>Una visión general de la aplicación web woprVision</title>
+<title>Visión general de la aplicación web woprVision</title>
 
 
 
@@ -31,11 +31,11 @@
 
 
 
-<h1 class="title toc-ignore">Una visión general de la aplicación web woprVision</h1>
+<h1 class="title toc-ignore">Visión general de la aplicación web woprVision</h1>
 
 
 
-<p>Grupo de Investigación de WorldPop<br />
+<p>Grupo de Investigación WorldPop<br />
 Universidad de Southampton</p>
 <p>7 Octubre 2020</p>
 <div id="introducción" class="section level2">
@@ -43,14 +43,10 @@ Universidad de Southampton</p>
 <p>woprVision es un mapa web interactivo que permite consultar las estimaciones de población para lugares y grupos demográficos específicos desde el <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. Esto puede ser usado para:</p>
 <ol style="list-style-type: decimal">
 <li>Descargar los últimos conjuntos de datos de población y documentación,</li>
-<li>Recuperar las estimaciones de población dentro de las áreas geográficas definidas por el usuario haciendo clic en el mapa,</li>
+<li>Extraer las estimaciones de población dentro de las áreas geográficas definidas por el usuario haciendo clic en el mapa,</li>
 <li>Obtener estimaciones del tamaño de la población para grupos demográficos específicos (es decir, edad y sexo), y</li>
-<li><ol start="4" style="list-style-type: decimal">
 <li>Obtener estimaciones probabilísticas de incertidumbre para todas las estimaciones de población.</li>
-</ol></li>
-<li><ol start="5" style="list-style-type: decimal">
-<li>Ejecute la aplicación web <a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a> localmente desde la consola R.</li>
-</ol></li>
+<li>Ejecutar la aplicación web <a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a> localmente desde la consola R.</li>
 </ol>
 <p>Este documento proporciona instrucciones sobre cómo utilizar cada panel de control:</p>
 <ul>
@@ -62,31 +58,31 @@ Universidad de Southampton</p>
 </li>
 <li>Panel de resultados a la derecha de la pestaña &quot;Mapa&quot;.</li>
 </ul>
-<p>woprVision es parte del paquete <a href="https://github.com/wpgp/wopr" target="_blank">wopr</a> para el lenguaje de programación estadística R. woprVision fue creado usando los paquetes de brillantes y folletos para R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Vea la pestaña &quot;Paquete R&quot; para más información.</p>
+<p>woprVision es parte del paquete <a href="https://github.com/wpgp/wopr" target="_blank">wopr</a> para el lenguaje de programación estadística R. woprVision fue creado usando los paquetes de shiny y leaflet para R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Vea la pestaña &quot;Paquete R&quot; para más información.</p>
 </div>
-<div id="quick-start" class="section level2">
-<h2>Quick Start</h2>
+<div id="inicio-rapido" class="section level2">
+<h2>Inicio rapido</h2>
 <p>En la pestaña &quot;Mapa&quot;:<br />
 1. Seleccione un conjunto de datos (es decir, país y versión)<br />
 2. Haga clic en el mapa para seleccionar una ubicación<br />
 3. Haga clic en &quot;Enviar&quot;&quot; para recuperar la estimación de la población de ese lugar<br />
 4. Haga clic en &quot;Guardar&quot; para guardar la estimación de población en la pestaña &quot;Guardado&quot;.<br />
 5. Haga clic en &quot;Dibujar un área&quot; y luego dibuje un polígono usando la barra de herramientas en la parte superior izquierda del mapa<br />
-6. 6. Pulse &quot;Enviar&quot; para recuperar la estimación de la población de esa zona<br />
+6. Pulse &quot;Enviar&quot; para extraer la estimación de la población de esa zona<br />
 7. Use los controles deslizantes para seleccionar un grupo de edad y sexo<br />
-8. Haga clic en &quot;Enviar&quot; para recuperar la estimación de la población del grupo demográfico seleccionado en el lugar elegido</p>
+8. Haga clic en &quot;Enviar&quot; para extraer la estimación de la población del grupo demográfico seleccionado en el lugar elegido</p>
 </div>
 <div id="componentes-de-la-aplicación" class="section level2">
 <h2>Componentes de la aplicación</h2>
-<div id="user-controls" class="section level3">
-<h3>User Controls</h3>
-<p>El panel de control del usuario está en el lado izquierdo de la pestaña &quot;Mapa&quot; con controles que puede utilizar para recuperar las estimaciones de población.</p>
+<div id="controles-del-usuario" class="section level3">
+<h3>Controles del usuario</h3>
+<p>El panel de control del usuario está en el lado izquierdo de la pestaña &quot;Mapa&quot; con controles que puede utilizar para extraer las estimaciones de población.</p>
 <p><strong>Elija los datos de población</strong><br />
-Seleccione el conjunto de datos de población que desea consultar. Esto incluye un país y un número de versión. Puede leer más sobre el conjunto de datos seleccionado en la pestaña &quot;Léame datos&quot;.</p>
+Seleccione el conjunto de datos de población que desea consultar. Esto incluye un país y un número de versión. Puede leer más sobre el conjunto de datos seleccionado en la pestaña &quot;archivo Léame&quot;.</p>
 <p><strong>Seleccione una ubicación</strong><br />
-Puedes seleccionar las ubicaciones de los puntos con la herramienta &quot;Haz clic en el mapa&quot;. Puedes dibujar un polígono para seleccionar un área con la herramienta &quot;Dibuja un área&quot;. Puedes subir un archivo geojson con puntos o polígonos con la herramienta &quot;Subir archivo&quot;.</p>
-<p><strong>Botón de envío</strong><br />
-Una vez que haya seleccionado una ubicación (utilizando las herramientas de selección &quot;Haga clic en el mapa&quot; o &quot;Dibuje un área&quot;), utilice el botón &quot;Enviar&quot; para recuperar las estimaciones de población para esa ubicación desde los servidores del WOPR.</p>
+Puedes seleccionar ubicaciones de puntos con la herramienta &quot;Haz clic en el mapa&quot;. Puedes dibujar un polígono para seleccionar un área con la herramienta &quot;Dibuja un área&quot;. Puedes subir un archivo geojson con puntos o polígonos con la herramienta &quot;Subir archivo&quot;.</p>
+<p><strong>Botón de envíar</strong><br />
+Una vez que haya seleccionado una ubicación (utilizando las herramientas de selección &quot;Haga clic en el mapa&quot; o &quot;Dibuje un área&quot;), utilice el botón &quot;Enviar&quot; para extraer las estimaciones de población para esa ubicación de los servidores de WOPR.</p>
 <p><strong>Guardar resultado</strong><br />
 Haga clic en el botón &quot;Guardar&quot; para guardar el resultado actual en la pestaña &quot;Guardado&quot;. Puede agregar un nombre opcional en el cuadro de entrada &quot;Guardar resultado como&quot;.</p>
 <p><strong>Grupos de edad y sexo</strong><br />
@@ -96,52 +92,52 @@ El nivel de confianza para los intervalos de confianza. Este valor por defecto e
 <p><strong>Tipo de confianza</strong><br />
 El tipo de intervalo de confianza.</p>
 <ul>
-<li><p>&quot;Intervalo&quot; es el tipo predeterminado. Utilícelo si quiere saber el rango de valores en el que probablemente se encuentre la población (por ejemplo, el 95% de probabilidades de que la población esté entre x e y).</p></li>
+<li><p>&quot;Intervalo&quot; es el tipo predeterminado. Utilícelo si quiere saber el rango de valores en el que probablemente se encuentre la población (por ejemplo, el 95% de probabilidades de que la población esté entre x y y).</p></li>
 <li><p>Utilice &quot;Límite inferior&quot; si desea saber el valor que probablemente exceda la población (por ejemplo, 95% de probabilidades de que la población sea mayor que x).</p></li>
 <li><p>Use &quot;Límite superior&quot; si quiere saber el valor que la población probablemente sea menor que. (por ejemplo, 95% de probabilidad de que la población sea menor que y).</p></li>
 </ul>
-<p><strong>Límite de población</strong><br />
-El umbral de población que se indica aquí se utilizará para calcular la probabilidad de que la población supere ese umbral. El valor por defecto es 100. Esto devolverá la probabilidad de que la población exceda de 100 personas.</p>
+<p><strong>Umbral de población</strong><br />
+El umbral de población que se indica aquí se utilizará para calcular la probabilidad de que la población supere ese umbral. El valor por defecto es 100. Esto devolverá la probabilidad de que la población exceda 100 personas.</p>
 </div>
-<div id="map-window" class="section level3">
-<h3>Map Window</h3>
-<p><strong>Basemaps</strong><br />
+<div id="ventana-del-mapa" class="section level3">
+<h3>Ventana del mapa</h3>
+<p><strong>Mapas base</strong><br />
 Los siguientes mapas base pueden ser seleccionados desde el panel superior derecho de la ventana del mapa:</p>
 <ul>
-<li><p><strong>Oscuridad</strong> Un mapa base oscuro del <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter" target="_blank">CartoDB.DarkMatter</a> Proveedor del mapa base del folleto. Este mapa base proporciona el máximo contraste con la capa de población.</p></li>
-<li><p><strong>Map</strong> Un mapa base de Open Street Maps llamado <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik" target="_blank">OpenStreetMap.Mapnik</a> de los proveedores del Folleto. Este mapa base proporciona nombres de lugares y calles que pueden ser útiles.</p></li>
-<li><p><strong>Satélite</strong> Mapa base de imágenes satelitales ESRI <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery" target="_blank">Esri.WorldImagery</a> de los proveedores del Folleto. Este mapa base proporciona imágenes satelitales que son más útiles cuando se hace un zoom.</p></li>
+<li><p><strong>Oscuro</strong> Un mapa base oscuro del <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter" target="_blank">CartoDB.DarkMatter</a> Proveedor del mapa base del Leaflet. Este mapa base proporciona el máximo contraste con la capa de población.</p></li>
+<li><p><strong>Mapa</strong> Un mapa base de Open Street Maps llamado <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik" target="_blank">OpenStreetMap.Mapnik</a> de los proveedores del Leaflet. Este mapa base proporciona nombres de lugares y calles que pueden ser útiles.</p></li>
+<li><p><strong>Satélite</strong> Mapa base de imágenes satelitales ESRI <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery" target="_blank">Esri.WorldImagery</a> de los proveedores del Leaflet. Este mapa base proporciona imágenes satelitales que son más útiles cuando se hace un zoom.</p></li>
 </ul>
 <p><strong>Capas del mapa</strong><br />
 Las siguientes capas del mapa pueden ser activadas o desactivadas desde el panel superior derecho de la ventana del mapa:</p>
 <ul>
 <li><p><strong>Población</strong> Una capa del mapa que muestra las estimaciones de la población de WorldPop en cuadrículas. Esta leyenda para la capa del mapa aparece en la esquina inferior derecha de la ventana del mapa cuando se activa la capa.</p></li>
-<li><p><strong>Área personalizada</strong> Una capa de mapa que muestra el polígono que se ha dibujado con la herramienta de selección &quot;Dibujar un área&quot;.</p></li>
+<li><p><strong>Área personalizada</strong> Una capa de mapa que muestra el polígono que ha dibujado con la herramienta de selección &quot;Dibujar un área&quot;.</p></li>
 </ul>
 <p><strong>Barra de herramientas de dibujo</strong><br />
 La barra de herramientas de dibujo aparece en el lado izquierdo de la ventana del mapa cuando se selecciona la herramienta de selección &quot;Dibujar un área&quot;. La barra de herramientas tiene tres herramientas:</p>
 <ul>
 <li><p><strong>Dibujar un polígono</strong> Cuando seleccione esta herramienta, podrá dibujar un polígono haciendo clic en el mapa para obtener una estimación de la población.</p></li>
 <li><p><strong>Editar capas</strong> Esta herramienta puede usarse para editar un polígono que haya dibujado previamente.</p></li>
-<li><p><strong>Borrar Capas</strong> Esta herramienta se puede usar para borrar el polígono que ha dibujado.</p></li>
+<li><p><strong>Borrar Capas</strong> Esta herramienta se puede usar para borrar el polígono que haya dibujado.</p></li>
 </ul>
 <p><strong>Zoom</strong><br />
 Los controles de zoom están en la esquina superior izquierda de la ventana del mapa. Los botones de más y menos acercan y alejan el zoom. El botón con el icono de la Tierra restablece el nivel de zoom inicial (alejado).</p>
 </div>
-<div id="results" class="section level3">
-<h3>Results</h3>
-<p>El panel de resultados contiene dos gráficos que representan la población en el lugar seleccionado. La gráfica superior muestra la distribución de probabilidad que representa la estimación de la población y la gráfica inferior muestra una pirámide de población que representa la estructura de edad y sexo.</p>
+<div id="resultados" class="section level3">
+<h3>Resultados</h3>
+<p>El panel de resultados contiene dos gráficos que representan la población en el lugar seleccionado. La gráfica superior muestra la distribución de probabilidad que representa la estimación de la población y la gráfica inferior muestra una pirámide de la población que representa la estructura de edad y sexo.</p>
 <p><strong>Estimación de la población</strong><br />
 La estimación de la población es la media de la distribución de probabilidad que se muestra en el gráfico. La distribución de probabilidad es la distribución de probabilidad posterior pronosticada a partir de un modelo estadístico bayesiano (véase la ficha &quot;Léeme los datos&quot; para más detalles). Los intervalos de confianza se calculan sobre la base de los ajustes seleccionados en los controles de usuario (véase &quot;Controles de usuario: Nivel de confianza&quot; y &quot;Controles de usuario: Tipo de confianza&quot;). La probabilidad de exceder el umbral de población seleccionado también se informa en el gráfico superior (véase &quot;Controles de usuario: Umbral de población&quot;).</p>
-<p><strong>Estructura de edad-sexual</strong><br />
+<p><strong>Estructura de edad-sexo</strong><br />
 Las estimaciones de la estructura demográfica que conforman las pirámides de población se utilizan aquí con el permiso del proyecto WorldPop Global High Resolution Population Denominators (Pezzulo et al. 2017, WorldPop et al. 2018). Estos datos proporcionan estimaciones regionales de la proporción de la población en cada grupo de edad y sexo en toda la zona de estudio.</p>
 </div>
-<div id="tabs" class="section level3">
-<h3>Tabs</h3>
+<div id="pestañas" class="section level3">
+<h3>Pestañas</h3>
 <p><strong>Mapa</strong><br />
-Esta es la pestaña predeterminada. Se puede utilizar para alternar entre conjuntos de datos y recuperar estimaciones de población para áreas específicas haciendo clic en el mapa o dibujando un polígono. Esta pestaña contiene un mapa del Folleto en el centro, un panel de control de usuario a la izquierda y un panel de resultados a la derecha.</p>
+Esta es la pestaña predeterminada. Se puede utilizar para alternar entre conjuntos de datos y recuperar estimaciones de población para áreas específicas haciendo clic en el mapa o dibujando un polígono. Esta pestaña contiene un mapa del Leaflet en el centro, un panel de control de usuario a la izquierda y un panel de resultados a la derecha.</p>
 <p><strong>Guardado</strong><br />
-Esta pestaña tiene una hoja de cálculo que contiene cualquier estimación de población que hayas guardado. La hoja de cálculo puede guardarse en tu ordenador como un archivo .csv haciendo clic en &quot;Descargar&quot; o puede eliminarse haciendo clic en &quot;Borrar&quot;.</p>
+Esta pestaña tiene una hoja de cálculo que contiene cualquier estimación de población que haya guardado. La hoja de cálculo puede guardarse en su ordenador como un archivo .csv haciendo clic en &quot;Descargar&quot; o puede eliminarse haciendo clic en &quot;Borrar&quot;.</p>
 <p>Los resultados incluyen las siguientes columnas:</p>
 <ul>
 <li><strong>Nmean</strong> La estimación de la población (la media de la distribución de probabilidad prevista).</li>
@@ -161,19 +157,19 @@ Esta pestaña tiene una hoja de cálculo que contiene cualquier estimación de p
 <li><strong>confidence_type</strong> El tipo de intervalo de confianza.</li>
 <li><strong>geojson</strong> Un GeoJson que contiene la geometría de la característica de la consulta espacial que se presentó usando la pestaña del mapa. Las coordenadas están en el sistema de coordenadas WGS84 (EPSG:4326).</li>
 </ul>
-<p><strong>Data Readme</strong><br />
-La pestaña &quot;Data Readme&quot; proporciona la declaración de divulgación de datos del WorldPop para el conjunto de datos de población que está actualmente seleccionado en la pestaña &quot;Mapa&quot;. Las declaraciones de divulgación proporcionan información sobre el conjunto de datos de población y cómo se produjo.</p>
+<p><strong>archivos LÉAME</strong><br />
+La pestaña &quot;archivos LÉAME&quot; proporciona la declaración de divulgación de datos del WorldPop para el conjunto de datos de población que está actualmente seleccionado en la pestaña &quot;Mapa&quot;. Las declaraciones de divulgación proporcionan información sobre el conjunto de datos de población y cómo se produjo.</p>
 <p><strong>Descarga de WOPR</strong><br />
 Esta pestaña permite descargar los datos de población directamente del WorldPop Open Population Repository (WOPR). Los archivos LÉAME proporcionan descripciones de los conjuntos de datos que pueden ser revisados antes de descargar los archivos.</p>
 <p><strong>Paquete R</strong><br />
-Esta pestaña proporciona una descripción del paquete <em>wopr</em> para el lenguaje de programación estadística R. El paquete le da acceso al WorldPop Open Population Repository desde su consola R, permitiéndole ejecutar woprVision localmente, descargar los datos directamente desde la consola R y enviar consultas espaciales al servidor WOPR para obtener estimaciones de población para polígonos o puntos desde sus propios archivos shape.</p>
+Esta pestaña proporciona una descripción del paquete <em>wopr</em> para el lenguaje de programación estadística R. El paquete le da acceso al WorldPop Open Population Repository desde su consola R, permitiéndole ejecutar woprVision localmente, descargar los datos directamente desde la consola R y enviar consultas espaciales al servidor WOPR para obtener estimaciones de población para polígonos o puntos desde sus propios shapefiles.</p>
 <p><strong>REST API</strong><br />
-Esta pestaña proporciona una visión general del WOPR REST API. Esta es la forma en que el paquete <em>wopr</em> R y woprVision se comunican con los servidores de WorldPop para recuperar las estimaciones de población. El documento proporciona la información básica que usted necesita para desarrollar sus propias aplicaciones que consultan datos del WorldPop Open Population Repository usando REST API.</p>
+Esta pestaña proporciona una visión general del WOPR REST API. Esta es la forma en que el paquete <em>wopr</em> R y woprVision se comunican con los servidores de WorldPop para extraer las estimaciones de población. El documento proporciona la información básica que usted necesita para desarrollar sus propias aplicaciones que consultan datos del WorldPop Open Population Repository usando REST API.</p>
 </div>
 </div>
 <div id="contribuyendo" class="section level2">
 <h2>Contribuyendo</h2>
-<p>El Repositorio Abierto de Población del WorldPop (WOPR) fue desarrollado por el Grupo de Investigación del WorldPop dentro del Departamento de Geografía y Ciencias Ambientales de la Universidad de Southampton. La financiación fue proporcionada por la Fundación Bill y Melinda Gates y el Departamento de Desarrollo Internacional del Reino Unido (OPP1182408). El profesor Andy Tatem se encarga de la supervisión del Grupo de Investigación del WorldPop. El paquete wopr R fue desarrollado por Doug Leasure. Maksym Bondarenko y Niko Ves desarrollaron el servidor de la API. Edith Darin añadió funcionalidad multilingüe a la aplicación Shiny y a la traducción al francés. Natalia Tejedor Garavito revisó la traducción al español. Gianluca Boo creó el logo de WOPR. Los datos de población han sido aportados al WOPR por muchos investigadores diferentes dentro del Grupo de Investigación del WorldPop.</p>
+<p>El WorldPop Open Population Repository (WOPR) fue desarrollado por el Grupo de Investigación del WorldPop dentro del Departamento de Geografía y Ciencias Ambientales de la Universidad de Southampton. La financiación fue proporcionada por la Fundación Bill y Melinda Gates y el Departamento de Desarrollo Internacional del Reino Unido (OPP1182408). El profesor Andy Tatem se encarga de la supervisión del Grupo de Investigación del WorldPop. El paquete wopr R fue desarrollado por Doug Leasure. Maksym Bondarenko y Niko Ves desarrollaron el servidor de la API. Edith Darin añadió funcionalidad multilingüe a la aplicación Shiny y a la traducción al francés. Natalia Tejedor Garavito revisó la traducción al español. Gianluca Boo creó el logo de WOPR. Los datos de población han sido aportados al WOPR por muchos investigadores diferentes dentro del Grupo de Investigación de WorldPop.</p>
 </div>
 <div id="cita-sugerida" class="section level2">
 <h2>Cita sugerida</h2>
