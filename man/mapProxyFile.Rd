@@ -4,7 +4,7 @@
 \alias{mapProxyFile}
 \title{Map proxy to make changes when a GeoJSON is uploaded}
 \usage{
-mapProxyFile(features)
+mapProxyFile(features = NULL)
 }
 \arguments{
 \item{features}{sf features}

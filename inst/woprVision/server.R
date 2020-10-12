@@ -218,7 +218,7 @@ shinyServer(
             if(input$pointpoly=='Upload File'){
               
               # Upload File
-              rv$feature <- woprize(feature=rv$feature,
+              feature <- woprize(feature=rv$feature,
                                     country=rv$country,
                                     version=rv$version,
                                     agesex_select=rv$agesex_select,
@@ -234,16 +234,16 @@ shinyServer(
               ct <- ct[,c('data','female_age','male_age','confidence_level','confidence_type','popthresh')]
               
               # rename columns
-              names(rv$feature)[names(rv$feature)=='mean'] <- 'pop_mean'
-              names(rv$feature)[names(rv$feature)=='median'] <- 'pop_median'
-              names(rv$feature)[names(rv$feature)=='lower'] <- 'pop_lower'
-              names(rv$feature)[names(rv$feature)=='upper'] <- 'pop_upper'
+              names(feature)[names(feature)=='mean'] <- 'pop_mean'
+              names(feature)[names(feature)=='median'] <- 'pop_median'
+              names(feature)[names(feature)=='lower'] <- 'pop_lower'
+              names(feature)[names(feature)=='upper'] <- 'pop_upper'
               
               # remove unwanted columns
-              for(name in c('belowthresh','agesexid')) rv$feature[,name] <- NULL
+              for(name in c('belowthresh','agesexid')) feature[,name] <- NULL
               
               # add settings to woprized results
-              rv$feature[,names(ct)] <- ct
+              feature[,names(ct)] <- ct
               
               # modal to download results
               showModal(modalDialog(rv$dict[['lg_gson_download']],
@@ -260,7 +260,7 @@ shinyServer(
                   paste0('woprized_', gsub('.json','.geojson',input$user_json[,'name'],fixed=T))
                 },
                 content = function(file) {
-                  sf::st_write(obj = rv$feature,
+                  sf::st_write(obj = feature,
                                dsn = file,
                                driver = 'GeoJSON',
                                quiet = TRUE)
@@ -273,13 +273,15 @@ shinyServer(
                   paste0('woprized_', tools::file_path_sans_ext(input$user_json[,'name']), '.csv')
                 },
                 content = function(file) {
-                  write.csv(x = sf::st_drop_geometry(rv$feature),
+                  write.csv(x = sf::st_drop_geometry(feature),
                             file = file,
                             row.names = FALSE)
                 },
                 contentType = 'application/json')
               
-              shinyjs::reset('user_json')
+              # shinyjs::reset('user_json')
+              # mapProxyFile()
+              # rv$feature <- NULL
             }
             
             if(input$pointpoly %in% c('Selected Point', 'Custom Area')) {
