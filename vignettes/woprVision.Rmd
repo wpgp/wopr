@@ -12,7 +12,7 @@ vignette: >
 WorldPop Research Group  
 University of Southampton  
 
-25 September 2020
+13 October 2020
 
 ## Introduction
 woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the <a href='https://wopr.worldpop.org' target='_blank'>WorldPop Open Population Repository</a>. This can be used to:
@@ -106,7 +106,7 @@ The draw toolbar appears on the left side of the map window when you select the 
 - **Delete Layers** This tool can be used to delete the polygon that you have drawn.
 
 **Zoom**  
-The zoom controls are in the top-left corner of the map window. The plus and minus buttons zoom in and out. The button with the Earth icon resets to the inital zoom level (zoomed out).
+The zoom controls are in the top-left corner of the map window. The plus and minus buttons zoom in and out. The button with the Earth icon resets to the initial zoom level (zoomed out).
 
 ### Results
 The results panel contains two plots that represent the population at the selected location. The top plot shows the probability distribution representing the population estimate and the bottom plot shows a population pyramid representing the age-sex structure.
@@ -159,7 +159,7 @@ This tab provides a description of the _wopr_ package for the R statistical prog
 This tab provides an overview of the WOPR REST API. This is the way that the _wopr_ R package and woprVision communicate with WorldPop servers to retrieve population estimates. The document provides the basic information that you need to develop your own applications that query data from the WorldPop Open Population Repository using REST API.
 
 ## Contributing
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Edith Darin added multi-lingual functionality to the Shiny app and the French translation. Natalia Tejedor Garavito proofread the Spanish translation. Gianluca Boo created the WOPR logo. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill & Melinda Gates Foundation and the United Kingdom Foreign, Commonwealth & Development Office (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Edith Darin added multi-lingual functionality to the Shiny app and the French translation. Natalia Tejedor Garavito proofread the Spanish translation. Sandra Baptista proofread the Portuguese translation. Gianluca Boo created the WOPR logo. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 ## Suggested Citation  
 Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.4.0. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00688</a>  
@@ -176,5 +176,5 @@ Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd
 
 R Core Team. 2019. R: A Language and Environment for Statistical Computing, version 3.6.2. R Foundation for Statistical Computing: Vienna, Austria. <a href='https://www.R-project.org' target='_blank'>https://www.R-project.org</a>
 
-WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href='https://www.worldpop.org/doi/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
+WorldPop (<a href='https://www.worldpop.org' target='_blank'>www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill & Melinda Gates Foundation (OPP1134076). <a href='https://www.worldpop.org/doi/10.5258/SOTON/WP00646' target='_blank'>https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a>
 
