@@ -1,37 +1,37 @@
 # cleanup
-rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T); 
+rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T);
 
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
 # rebuild documentation
 if(T){
-  
+
   ##-- package documentation --##
-  
+
   # functions
   devtools::document()
-  
+
   # render README to HTML
   rmarkdown::render(input='README.md',
                     output_format=c('html_document'),
                     output_file='README.html',
                     output_dir=getwd())
-  
+
   # vignettes
   devtools::build_vignettes(getwd())
-  
+
   ##-- woprVision documentation --##
-  
+
   # wopr_README
   file.copy('README.html','inst/woprVision/www/wopr_README.html', overwrite=T)
-  
+
   # copy API overview to woprVision
   file.copy('doc/woprAPI.html','inst/woprVision/www/woprAPI.html', overwrite=T)
-  
+
   # copy woprVision overview to woprVision
   file.copy('doc/woprVision.html','inst/woprVision/www/woprVision.html', overwrite=T)
-  
+
   # copy translated woprVision overview to woprVision
   file.copy('doc/woprVisionFR.html','inst/woprVision/www/woprVisionFR.html', overwrite=T)
   file.copy('doc/woprVisionES.html','inst/woprVision/www/woprVisionES.html', overwrite=T)
@@ -52,6 +52,6 @@ library(wopr, lib='c:/research/r/library')
 citation('wopr')
 
 # run app
-wopr::woprVision('e:/wopr') 
+wopr::woprVision()
 
 
