@@ -10,8 +10,8 @@ lg_custom_area: Zone dessinée
 lg_upload_file: Charger un fichier
 lg_browse: Parcourir
 lg_no_file_selected: Pas de fichier sélectionné
-lg_define_agesex: 3. Définir les groupes par âge et sexe
-lg_agegroup: Groupe d'âge
+lg_define_agesex: 3. Définir les classes d'âge et de sexe
+lg_agegroup: Classes d'âge
 lg_female: Femme
 lg_male: Homme
 lg_get_pop_estimates: 4. Calculer les estimations
