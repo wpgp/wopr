@@ -1,9 +1,8 @@
 <h1><img src="./wopr.jpg" width="90" alt="" align="left" hspace="10px"> wopr: An R package to query the <br> WorldPop Open Population Repository</h1><br>
 
-WorldPop Research Group  
-University of Southampton
+WorldPop, University of Southampton
 
-26 September 2020
+17 November 2020
 
 ## Introduction
 
@@ -208,7 +207,7 @@ dev.off()
 ```
 
 ## Contributing
-The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Edith Darin added multi-lingual functionality to the Shiny app and the French translation. Natalia Tejedor Garavito proofread the Spanish translation. Gianluca Boo created the WOPR logo. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
+The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Foreign, Commonwealth & Development Office (OPP1182408, OPP1182425, INV-002697). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Edith Darin added multi-lingual functionality to the Shiny app and the French translation. Natalia Tejedor Garavito proofread the Spanish translation. Gianluca Boo created the WOPR logo. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.
 
 ## Suggested Citation 
 Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.4.0. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00688</a> 
