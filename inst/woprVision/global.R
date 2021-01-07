@@ -8,7 +8,7 @@ palette <- wopr:::woprVision_global$palette
 # toggle development API server
 dev <- TRUE
 if(dev){
-  url <- 'http://10.19.100.66/v1'
+  url <- 'http://152.78.226.148/v1'
   version_info$active <- T
 } else {
   url <- 'https://api.worldpop.org/v1'
