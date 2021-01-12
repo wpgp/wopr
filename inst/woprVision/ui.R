@@ -32,7 +32,7 @@ inputs <-
       strong(uiOutput('lg_define_agesex')),
       
       tags$style('.irs-bar, .irs-bar-edge,
-               .irs-single, .irs-from, .irs-to, .irs-grid-pol {background-color:darkgrey; border-color:darkgrey; }'),
+                 .irs-single, .irs-from, .irs-to, .irs-grid-pol {background-color:darkgrey; border-color:darkgrey; }'),
       
       # female
       splitLayout(cellWidths=c('35%','65%'),
@@ -173,7 +173,7 @@ ui <- fluidPage(
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
-                          img(src='https://www.worldpop.org/resources/wp_logo/wp_logotype_grey75.png', style='height:25px; margin-top:-30px; margin-left:10px; margin-right:10px'))),
+                          img(src='https://www.worldpop.org/resources/wp_logo/wp_logotype_grey75.png', style='height:20px; margin-top:-30px; margin-left:10px; margin-right:10px'))),
                
                # tab: Apps
                tabPanel(a(href='https://apps.worldpop.org', target='_blank', style='margin-top:-30px; margin-left:10px', 'Apps')),
