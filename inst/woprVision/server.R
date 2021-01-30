@@ -471,7 +471,7 @@ shinyServer(
     # help tab
     observeEvent(input$lang_select,{
       output$helpfile <- renderText(
-        return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="',
+        return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="',
                      rv$dict[["lg_helpfile"]], '", frameBorder="0"></iframe>', sep = ""))
       )
     })
@@ -485,7 +485,7 @@ shinyServer(
 
     # readme tab
     output$data_readme <- renderText(
-      return(paste('<iframe style="height: calc(98vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+      return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
     )
   })
 
