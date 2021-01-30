@@ -2,7 +2,7 @@
 inputs <-
   column(
     width=2,
-    style=paste0('height: calc(98vh - 75px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
+    style=paste0('height: calc(97vh - 75px); padding:30px; overflow-y:scroll; border: 1px solid ',gray(0.9),'; background:',gray(0.95)),
     shinyjs::useShinyjs(),
     
     fluidRow(
@@ -131,12 +131,12 @@ ui <- fluidPage(
                           
                           # map panel (center)
                           column(width = 7,
-                                 tags$style(type="text/css","#map {height: calc(98vh - 75px) !important;}"),
+                                 tags$style(type="text/css","#map {height: calc(97vh - 75px) !important;}"),
                                  leaflet::leafletOutput('map')),
                           
                           # results panel (right)
                           column(width = 3,
-                                 style='overflow-y:scroll; height: calc(98vh - 75px)',
+                                 style='overflow-y:scroll; height: calc(97vh - 75px)',
                                  conditionalPanel("input.toggle_plots == true",
                                    plotOutput('sidePlot', height='600px', width='100%')),
                                  conditionalPanel("input.toggle_plots == false",
@@ -156,7 +156,7 @@ ui <- fluidPage(
                         downloadButton('download_table', uiOutput('lg_download', inline=T)),
                         actionButton('clear_button', uiOutput('lg_clear', inline=T)),
                         br(),
-                        div(style='overflow-y:scroll; height:calc(98vh - 169px);',
+                        div(style='overflow-y:scroll; height:calc(97vh - 169px);',
                             tableOutput('results_table'))
                ),
                
@@ -173,20 +173,20 @@ ui <- fluidPage(
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
-                          img(src='https://www.worldpop.org/resources/wp_logo/wp_logotype_grey75.png', style='height:20px; margin-top:-30px; margin-left:10px; margin-right:10px'))),
+                          img(src='https://www.worldpop.org/resources/wp_logo/wp_logotype_grey75.png', style='height:23px; margin-top:-30px; margin-left:10px; margin-right:10px'))),
                
                # tab: Apps
                tabPanel(a(href='https://apps.worldpop.org', target='_blank', style='margin-top:-30px; margin-left:10px', 'Apps')),
                
                # tab: API 
                tabPanel('REST API',
-                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(97vh - 80px)',
                                     frameBorder="0",
                                     src='woprAPI.html')),
                
                # tab: R package
                tabPanel(uiOutput('lg_r_package'),
-                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(98vh - 80px)',
+                        tags$iframe(style='overflow-y:scroll; width:100%; height: calc(97vh - 80px)',
                                     frameBorder='0',
                                     src='wopr_README.html'))
     )
