@@ -1,6 +1,6 @@
 citHeader("To cite the wopr R package or the woprVision web application in publications, please use:")
 
-citEntry(entry="Book",
+citEntry(entry="manual",
   author = c(person("Douglas", "Leasure", "R"),                     
           person("Maksym", "Bondarenko"),
           person("Edith", "Darin"),
