@@ -4,11 +4,12 @@ shinyServer(
     # reactive values
     rv <- reactiveValues()
     
+    # input dataset from url
     observe({
       query <- parseQueryString(session$clientData$url_search)
       if (!is.null(query[['data_select']])) {
         
-        data_select <- query[['data_select']]
+        data_select <- gsub('_', ' ', query[['data_select']])
         
         if(data_select %in% row.names(version_info)){
           updateSelectInput(session, "data_select",
