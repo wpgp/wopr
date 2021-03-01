@@ -121,7 +121,7 @@ ui <- fluidPage(
                footer=tags$footer(HTML(paste0('Source data: <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository (WOPR)</a>, Source code: <a href="https://github.com/wpgp/wopr" target="_blank">wopr R package v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",
-               windowTitle = 'woprVision (beta)',
+               windowTitle = 'woprVision',
                
                tabPanel(uiOutput('lg_map_name'),
                         value="panel_map",

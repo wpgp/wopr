@@ -82,10 +82,19 @@ shinyServer(
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       version_info[input$data_select,'readme'])
-      rv$wopr_url <- version_info[input$data_select, 'url'] # paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
       
+      rv$wopr_url <- version_info[input$data_select, 'url'] 
       
-      
+      # rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
+      #                                 strsplit(as.character(subset(wopr::getCatalogue(),
+      #                                                              country==rv$country &
+      #                                                                category=='Population' &
+      #                                                                version==rv$version &
+      #                                                                filetype =='README',
+      #                                                              'url')),
+      #                                          '/')[[1]][5])
+      #
+      # rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
       
       # update agesex choices
       if( sum(agesex[[input$data_select]][,c('f1','m1')]) == 0 ){
@@ -491,8 +500,13 @@ shinyServer(
     })
     
     # readme tab
+    # output$data_readme <- renderText(
+    #   return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+    # )
     output$data_readme <- renderText(
-      return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
+      return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', 
+                   rv$data_readme_url, 
+                   '", frameBorder="0"></iframe>', sep = ""))
     )
     
   })
