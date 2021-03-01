@@ -105,21 +105,23 @@ ui <- fluidPage(
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
     
+    #tab:lang
     tags$style("#lang_div .selectize-control {margin-bottom:-15px; margin-top:10px; margin-left:10px; margin-right:5px; z-index:10000;}"),
-
+  
     tags$div(id='lang_div',
              style="display:inline-block; float:right",
              selectInput("lang_select",
                          NULL,
-                         choices=c("EN", "ES", "FR", "PT"),
+                         choices=languages,
                          selected= "EN",
                          width="80px", 
                          selectize = T)),
     
-    navbarPage(title='woprVision',
+    navbarPage(title=a(href='https://apps.worldpop.org/woprVision/', target='_self', style='color: #777777; text-decoration: none', 'woprVision (beta)'),
                footer=tags$footer(HTML(paste0('Source data: <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository (WOPR)</a>, Source code: <a href="https://github.com/wpgp/wopr" target="_blank">wopr R package v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",
+               windowTitle = 'woprVision (beta)',
                
                tabPanel(uiOutput('lg_map_name'),
                         value="panel_map",
