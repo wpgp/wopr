@@ -116,7 +116,7 @@ ui <- fluidPage(
                          width="80px", 
                          selectize = T)),
     
-    navbarPage(title='woprVision (beta)',
+    navbarPage(title=a(href='https://apps.worldpop.org/woprVision/', target='_self', style='color: #777777; text-decoration: none', 'woprVision (beta)'),
                footer=tags$footer(HTML(paste0('Source data: <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository (WOPR)</a>, Source code: <a href="https://github.com/wpgp/wopr" target="_blank">wopr R package v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",
