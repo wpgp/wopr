@@ -88,15 +88,20 @@ shinyServer(
 
       # local SQL mode
       if(version_info[input$data_select,'local_sql']){
-        message(paste0(rv$dict[["lg_localSQL"]],input$data_select,'.'))
+        
+        showNotification(paste(rv$dict[["lg_localSQL"]], input$data_select), type='message') # message(paste0('Using local SQL database for ',input$data_select,'.')) 
+        
         rv$sql <- RSQLite::dbConnect(RSQLite::SQLite(),
                                      version_info[input$data_select, 'local_sql_path'])
+        
         rv$mastergrid <- raster::raster(version_info[input$data_select, 'local_mastergrid_path'])
       }
 
       # local tiles
       if(version_info[input$data_select, 'local_tiles']){
-        message(paste0(rv$dict[["lg_localtiles"]],input$data_select,'.'))
+        
+        showNotification(paste(rv$dict[["lg_localtiles"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
+        
         addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
       }
 
