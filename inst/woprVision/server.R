@@ -7,15 +7,23 @@ shinyServer(
     # input dataset from url
     observe({
       query <- parseQueryString(session$clientData$url_search)
-        
+      
       if (!is.null(query[['data']])) {
-        
         query[['data']] <- gsub('v', ' v', query[['data']])
         
         if(query[['data']] %in% row.names(version_info)){
           updateSelectInput(session, 
                             "data_select",
                             selected = query[['data']]
+          )
+        }
+      }  
+      
+      if (!is.null(query[['lang']])) {
+        if(query[['lang']] %in% languages){
+          updateSelectInput(session, 
+                            "lang_select",
+                            selected = query[['lang']]
           )
         }
       }  
@@ -442,34 +450,11 @@ shinyServer(
       rv$N <- rv$agesexid <- NULL
       
       translate <- function(str){
-        if(input$lang_select=="FR") {
-          output[[str]] <- renderUI(dict_fr[[str]])
-        } else if(input$lang_select=="PT") {
-          output[[str]] <- renderUI(dict_pt[[str]])
-        } else if(input$lang_select=="ES") {
-          output[[str]] <- renderUI(dict_es[[str]])
-        } else if(input$lang_select=="ZH") {
-          output[[str]] <- renderUI(dict_zh[[str]])
-        } else {
-          output[[str]] <- renderUI(dict_en[[str]])
-        }
-        
-        # output[[str]] <- renderUI(ifelse(input$lang_select=="FR", dict_fr[[str]], dict_en[[str]] ))
+        output[[str]] <- renderUI(eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
       }
       
       lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
-      
-      if(input$lang_select=="FR"){
-        rv$dict <- dict_fr
-      } else if(input$lang_select=="PT") {
-        rv$dict <- dict_pt
-      } else if(input$lang_select=="ES") {
-        rv$dict <- dict_es
-      } else if(input$lang_select=="ZH") {
-        rv$dict <- dict_zh
-      } else {
-        rv$dict <- dict_en
-      }
+      rv$dict <- eval(parse(text=paste0('dict_', input$lang_select)))
       
       # specific case: confidence type
       output$confidence_type <- renderText(
