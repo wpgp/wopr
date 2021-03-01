@@ -51,7 +51,9 @@ library(wopr, lib='c:/research/r/library')
 
 citation('wopr')
 
-# run app
+# run app (API-mode)
 wopr::woprVision()
 
+# run app (local-mode)
+wopr::woprVision('e:/wopr')
 
