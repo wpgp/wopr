@@ -7,14 +7,15 @@ shinyServer(
     # input dataset from url
     observe({
       query <- parseQueryString(session$clientData$url_search)
-      if (!is.null(query[['data_select']])) {
         
-        data_select <- gsub('_', ' ', query[['data_select']])
+      if (!is.null(query[['data']])) {
         
-        if(data_select %in% row.names(version_info)){
-          updateSelectInput(session, "data_select",
-                            choices = data_select,
-                            selected = data_select
+        query[['data']] <- gsub('v', ' v', query[['data']])
+        
+        if(query[['data']] %in% row.names(version_info)){
+          updateSelectInput(session, 
+                            "data_select",
+                            selected = query[['data']]
           )
         }
       }  
