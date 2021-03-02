@@ -49,6 +49,7 @@ install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
 # load package
 library(wopr, lib='c:/research/r/library')
 
+# citation
 citation('wopr')
 
 # run app (API-mode)
