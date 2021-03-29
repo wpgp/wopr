@@ -22,7 +22,12 @@ submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0(
   # get latest version
   if(is.na(version)){
     catalogue <- getCatalogue(spatial_query=T)
-    version <- max(as.numeric(gsub('v','',catalogue[with(catalogue, country==country),'version'])))
+    if(country %in% catalogue$country){
+      version <- max(as.numeric(gsub('v','',catalogue[catalogue$country==country,'version'])))  
+    } else {
+      stop(paste0('There are no data available for spatial queries for this country (',country,'). Use wopr::getCatalogue(spatial_query=T) to get a list of data that can be queried using points or polygons. See https://wopr.worldpop.org for a list of all data available on WOPR.'),
+           call.=F)
+    }
   }
 
   # format version
@@ -30,14 +35,14 @@ submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0(
 
   # geometry type
   features <- sf::st_cast(features)
-  if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
-    geom_type <- 'polygon'
-  } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
+  if(any(c('sfc_POLYGON','sfc_MULTIPOLYGON') %in% c(class(features$geom), class(features$geometry)))){
+    geom_type <- 'poly'
+  } else if(any(c('sfc_POINT','sfc_MULTIPOINT') %in% c(class(features$geom), class(features$geometry)))){
     geom_type <- 'point'
   } else {
-    stop('Input feature geometries must be of class "sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT".')
+    stop('Input feature geometries must be of class "sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT"')
   }
-
+  
   # wgs84
   features <- sf::st_transform(features, crs='+proj=longlat +ellps=WGS84')
 

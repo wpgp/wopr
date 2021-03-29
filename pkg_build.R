@@ -4,13 +4,13 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T);
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-# rebuild documentation
-if(T){
+# package documentation
+devtools::document()
+
+# rebuild README and vignettes
+if(F){
 
   ##-- package documentation --##
-
-  # functions
-  devtools::document()
 
   # render README to HTML
   rmarkdown::render(input='README.md',
