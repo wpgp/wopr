@@ -36,7 +36,7 @@ submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0(
   # geometry type
   features <- sf::st_cast(features)
   if(any(c('sfc_POLYGON','sfc_MULTIPOLYGON') %in% c(class(features$geom), class(features$geometry)))){
-    geom_type <- 'poly'
+    geom_type <- 'polygon'
   } else if(any(c('sfc_POINT','sfc_MULTIPOINT') %in% c(class(features$geom), class(features$geometry)))){
     geom_type <- 'point'
   } else {

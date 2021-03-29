@@ -17,14 +17,6 @@ endpoint <- function(features=NA, agesex=F, url='https://api.worldpop.org/v1'){
     
   } else {
     
-    # if(class(features$geometry)[1] %in% c('sfc_POLYGON','sfc_MULTIPOLYGON')){
-    #   geom_type <- 'poly'
-    # } else if(class(features$geometry)[1] %in% c('sfc_POINT','sfc_MULTIPOINT')){
-    #   geom_type <- 'point'
-    # } else {
-    #   stop('Input feature geometries must be of class "sfc_POLYGON", "sfc_MULTIPOLYGON", "sfc_POINT", or "sfc_MULTIPOINT"')
-    # }
-
     if(any(c('sfc_POLYGON','sfc_MULTIPOLYGON') %in% c(class(features$geom), class(features$geometry)))){
       geom_type <- 'poly'
     } else if(any(c('sfc_POINT','sfc_MULTIPOINT') %in% c(class(features$geom), class(features$geometry)))){
