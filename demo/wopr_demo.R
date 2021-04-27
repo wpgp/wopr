@@ -29,10 +29,12 @@ downloadData(catalogue[1,])
 catalogue_sub <- subset(catalogue,
                         country == 'NGA' &
                           category == 'Population' &
-                          version == 'v1.2')
+                          version == 'v1.2' & 
+                          filetype == 'gridded')
 downloadData(catalogue_sub)
 
-# Example 3:  Download all data from catalogue
+# Example 3:  Download all data from catalogue 
+#!!! WARNING: THIS REQUIRES A LARGE AMOUNT OF HARD DISK STORAGE!!!
 downloadData(catalogue)
 
 
