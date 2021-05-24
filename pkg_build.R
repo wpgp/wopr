@@ -44,10 +44,10 @@ if(F){
 rstudioapi::restartSession()
 
 # install from source
-install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
+install.packages(getwd(), repo=NULL, type='source', lib='C:/Users/ecd1u18/Documents/custom_library')
 
 # load package
-library(wopr, lib='c:/research/r/library')
+library(wopr, lib='C:/Users/ecd1u18/Documents/custom_library')
 
 # citation
 citation('wopr')
