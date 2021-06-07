@@ -2,7 +2,6 @@ library(shiny);library(leaflet);library(sf)
 
 # import woprVision_global
 version_info <- wopr:::woprVision_global$version_info
-agesex <- wopr:::woprVision_global$agesex
 palette <- wopr:::woprVision_global$palette
 
 # toggle development API server
