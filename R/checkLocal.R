@@ -6,7 +6,7 @@
 
 checkLocal <- function(dir, info=wopr:::woprVision_global$version_info){
   
-  info$local_sql <- info$local_tiles <- info$local_mastergrid <- FALSE
+  info$local_sql <- info$local_tiles <- info$local_mastergrid <- info$local_agesex_table <-  FALSE
   
   if(dir.exists(dir)){
     for(i in 1:nrow(info)){
@@ -23,12 +23,27 @@ checkLocal <- function(dir, info=wopr:::woprVision_global$version_info){
           info[i,'local_mastergrid_path'] <- file.path(path, parsed[which(parsed$file_type=='mastergrid'),'filename'])
         }
         
+        if(any(parsed$file_type=='agesex'& parsed$file_extension=='' )){
+          info[i,'local_agesex_table'] <- TRUE
+          info[i,'local_agesex_table_path'] <- file.path(path, 
+                                                         parsed[which(parsed$file_type=='agesex'& parsed$file_extension==''),'filename'],
+                                                         paste0(parsed[which(parsed$file_type=='agesex'& parsed$file_extension==''),'filename'], "_table.csv"))
+        } 
+        
+        if(!file.exists(info[i,'local_agesex_table_path'])){
+          warning(paste('Age sex table for',
+                        info$country[i],info$version[i],
+                        'not found in ', file.path(path, 
+                                                   parsed[which(parsed$file_type=='agesex'& parsed$file_extension==''),'filename'])))
+        }
+        
         if(any(parsed$file_type=='tiles' & parsed$file_extension=='')){
           info[i,'local_tiles'] <- TRUE
           info[i,'local_tiles_path'] <- file.path(path, parsed[which(parsed$file_type=='tiles' & parsed$file_extension==''),'filename'])
         } else if(any(parsed$file_type=='tiles' & parsed$file_extension=='zip')){
           warning(paste('Tiles for',info$country[i],info$version[i],'still need to be unzipped.'), call.=F)
         }
+        
       }
     }
   }

@@ -47,7 +47,8 @@ shinyServer(
         rv$bins <-
         rv$pal <-
         rv$N <-
-        rv$agesexid <- NULL
+        rv$agesexid <-
+        rv$agesex_table <-  NULL
       gc()
       
       # remove local_tiles
@@ -138,6 +139,13 @@ shinyServer(
         
         addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
       }
+
+      # local age sex table
+      if(version_info[input$data_select, 'local_agesex_table']){
+        
+        showNotification(paste(rv$dict[["lg_localagesex"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
+        
+      }
       
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
@@ -224,7 +232,7 @@ shinyServer(
     })
     
     ## draw polygon
-    observeEvent(input$map_draw_all_features, {
+    observeEvent(input$map_draw_all_features, {    
       if(input$pointpoly=='Custom Area'){
         rv$N <- rv$agesexid <- NULL
         rv$feature <- leaf_sf(input$map_draw_all_features, input$pointpoly)
@@ -333,7 +341,7 @@ shinyServer(
             }
             
             if(input$pointpoly %in% c('Selected Point', 'Custom Area')) {
-              if(version_info[input$data_select,'local_sql']){
+              if(version_info[input$data_select,'local_sql'] & version_info[input$data_select,'local_agesex_table']){
                 
                 # query local SQL
                 i <- getPopSql(cells=cellids(rv$feature, rv$mastergrid),
@@ -343,7 +351,10 @@ shinyServer(
                                get_agesexid=T)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
-                
+                rv$agesex_table <- getAgeSexTable(country=rv$country,
+                                                  version=rv$version,
+                                                  agesexid=rv$agesexid,
+                                                  local_path = version_info[input$data_select,'local_agesex_table_path'] )
               } else {
                 
                 # query wopr
@@ -355,6 +366,11 @@ shinyServer(
                             url=url)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
+                rv$agesex_table <- getAgeSexTable(country=rv$country,
+                                                  version=rv$version,
+                                                  agesexid=rv$agesexid,
+                                                  url = url)
+                
               }
             }
             
@@ -383,7 +399,7 @@ shinyServer(
       
       plotPanel(N=rv$N,
                 agesex_select=rv$agesex_select,
-                agesex_table=agesex[[input$data_select]][rv$agesexid,],
+                agesex_table=rv$agesex_table,
                 confidence=input$ci_level,
                 tails=input$ci_type,
                 popthresh=input$popthresh,
