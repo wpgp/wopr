@@ -1,36 +1,34 @@
-#' Get region-specific age sex proportions either through WOPR API or locally
-#' @description Query WOPR API to get region-specific age and sex proportions
+#' Get country-specific age sex proportions either through WOPR API or locally
+#' @description Get country-and-version-specific age and sex proportions through querying WOPR API or uploading local age sex table
 #' @param country The ISO3 country code
 #' @param version Version number of the population estimate
-#' @param agesexid Character age sex id 
-#' @param url Server url (optional)
-#' @param local Local path for age sex table (optional)
-#' @return A vector of samples from posterior distribution of the population total. If the task times out the function will return the task ID.
+#' @param locator Server url or local path to age sex table (optional)
+#' @return A table with age and sex proportions for the selected country and version
 #' @export
 
-getAgeSexTable <- function(country, version=NA, agesexid, url='https://api.worldpop.org/v1', local_path=""){
+getAgeSexTable <- function(country, version=NA, locator='https://api.worldpop.org/v1'){
   
-  if(nchar(local_path)>1) {
-    table <- read.csv(local_path)
-    table <- table[which(table["id"]==agesexid),]
-    
+  if(!grepl('http', locator)) {
+    table <- read.csv(locator)
+
   } else {
   
   version <- gsub('v','',version)
   
-  queue <- file.path(url,'tasks')
-  server <- file.path(url,'wopr')
+  queue <- file.path(locator,'tasks')
+  server <- file.path(locator,'wopr')
   endpoint <- file.path(server, "proportionsagesex")
   
   request <- list(iso3 = country,
                   ver = version,
-                  id = agesexid
+                  id = 'null'
   )
   
   response <- httr::content( httr::POST(url=endpoint, body=request, encode="form"), as='parsed')
   
-  table <- t(as.data.frame(unlist(response$data[[agesexid]])))
-  row.names(table) <- ""
+  table <- data.frame(do.call(rbind.data.frame, response$data))
+  table$id <- names(response$data)
+
   }
   
   return(table)
