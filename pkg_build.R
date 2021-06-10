@@ -8,16 +8,16 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 devtools::document()
 
 # rebuild README and vignettes
-if(F){
+if(T){
 
   ##-- package documentation --##
 
-  # render README to HTML
-  rmarkdown::render(input='README.md',
-                    output_format=c('html_document'),
-                    output_file='README.html',
+  # render README to markdown and html
+  rmarkdown::render(input='README.rmd',
+                    output_format=c('github_document'),
+                    output_file='README.md',
                     output_dir=getwd())
-
+  
   # vignettes
   devtools::build_vignettes(getwd())
 
