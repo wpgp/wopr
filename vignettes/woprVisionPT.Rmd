@@ -165,7 +165,9 @@ Esta aba fornece uma visão geral do WOPR REST API. Esta é a forma como o pacot
 O WorldPop Open Population Repository (WOPR) foi desenvolvido pelo WorldPop Research Group dentro do Departamento de Geografia e Ciência Ambiental da Universidade de Southampton no Reino Unido. O financiamento foi fornecido pela Fundação Bill & Melinda Gates e pelo Foreign, Commonwealth & Development Office do Reino Unido (OPP1182408, OPP1182425, INV-002697). O Professor Andy Tatem supervisiona o Grupo de Pesquisa WorldPop. O pacote wopr R foi desenvolvido por Doug Leasure. Maksym Bondarenko e Niko Ves desenvolveram o servidor backend do API. Edith Darin adicionou funcionalidade multilingue ao aplicativo Shiny e a tradução francesa. Natalia Tejedor Garavito revisou a tradução em espanhol. Sandra Baptista revisou a tradução em português. Gianluca Boo criou o logótipo do WOPR. Os dados populacionais têm sido contribuídos para o WOPR por muitos investigadores diferentes dentro do Grupo de Pesquisa do WorldPop.
 
 ## Citação Sugerida  
-Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version 0.4.0. WorldPop, University of Southampton. <a href="https://github.com/wpgp/wopr" target="_blank">doi:10.5258/SOTON/WP00688</a>  
+```{r, echo=F, message=F, warning=F, results='asis'}
+cat(readCitationFile('../inst/CITATION', meta=read.dcf('../DESCRIPTION', all=T))$textVersion)
+```
 
 
 ## Licença  

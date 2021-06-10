@@ -68,6 +68,7 @@ lg_annoyingmessage_title: '友好留言。'
 lg_thks: '好的，谢谢'
 lg_localSQL: '使用本地SQL数据库进行 '
 lg_localtiles: '使用本地图像瓦片进行 '
+lg_localagesex: 'Using local age sex table for '
 lg_gjson_limit1: '超过GeoJSON行限制。只有第一个'
 lg_gjson_limit2: '特征将被处理。'
 

@@ -94,7 +94,7 @@ ui <- fluidPage(
 
     tags$head(
       tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
-      tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo')
+      tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo, Zambia, Burkina Faso, South Sudan, Sierra Leone, Mozambique, Ghana')
     ),
     
     tags$style(HTML(".navbar-nav {float:none !important;}
@@ -117,7 +117,7 @@ ui <- fluidPage(
                          width="80px", 
                          selectize = T)),
     
-    navbarPage(title=a(href='https://apps.worldpop.org/woprVision/', target='_self', style='color: #777777; text-decoration: none', 'woprVision (beta)'),
+    navbarPage(title=a(href='https://apps.worldpop.org/woprVision/', target='_self', style='color: #777777; text-decoration: none', 'woprVision'),
                footer=tags$footer(HTML(paste0('Source data: <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository (WOPR)</a>, Source code: <a href="https://github.com/wpgp/wopr" target="_blank">wopr R package v',packageVersion('wopr'),'</a>')), align='right'),
                inverse=F,
                id="navbar_id",

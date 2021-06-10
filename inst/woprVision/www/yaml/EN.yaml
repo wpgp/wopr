@@ -71,6 +71,7 @@ lg_annoyingmessage_title: 'Friendly Message:'
 lg_thks: 'Okay, thanks.'
 lg_localSQL: 'Using local SQL database for '
 lg_localtiles: 'Using local image tiles for '
+lg_localagesex: 'Using local age sex table for '
 lg_gjson_limit1: 'GeoJSON row limit exceeded. Only the first'
 lg_gjson_limit2: 'features will be processed.'
 

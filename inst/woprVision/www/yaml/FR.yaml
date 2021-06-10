@@ -72,6 +72,7 @@ lg_annoyingmessage_title: 'Note amicale:'
 lg_thks: "D'accord, merci."
 lg_localSQL: 'Utilisation de la base locale SQL pour '
 lg_localtiles: 'Utilisation des tuiles image locales pour '
+lg_localagesex: 'Utilisation de la table age sex locale pour '
 lg_gjson_limit1: 'La limite des lignes du GeoJSON a été atteinte. Seulement les'
 lg_gjson_limit2: 'premiers attributs seront pris en compte.'
 

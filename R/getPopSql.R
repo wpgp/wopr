@@ -64,7 +64,7 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
             
             warning('No agesex_table available.', call.=F)
             
-          } else if(is.na(dbRes$agesexid)){
+          } else if(sum(is.na(dbRes$agesexid))>0){
             
             warning('No agesex_id returned from database.', call.=F)
             

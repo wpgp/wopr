@@ -4,20 +4,25 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T);
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
+# R library
+lib <- NULL
+try(suppressWarnings(source('wd/lib.r')), silent=T)
+lib <- c(lib, .libPaths())
+
 # package documentation
 devtools::document()
 
 # rebuild README and vignettes
-if(F){
+if(T){
 
   ##-- package documentation --##
 
-  # render README to HTML
-  rmarkdown::render(input='README.md',
-                    output_format=c('html_document'),
-                    output_file='README.html',
+  # render README to markdown and html
+  rmarkdown::render(input='README.rmd',
+                    output_format=c('github_document'),
+                    output_file='README.md',
                     output_dir=getwd())
-
+  
   # vignettes
   devtools::build_vignettes(getwd())
 
@@ -44,10 +49,10 @@ if(F){
 rstudioapi::restartSession()
 
 # install from source
-install.packages(getwd(), repo=NULL, type='source', lib='c:/research/r/library')
+install.packages(getwd(), repo=NULL, type='source', lib=lib)
 
 # load package
-library(wopr, lib='c:/research/r/library')
+library(wopr, lib=lib)
 
 # citation
 citation('wopr')

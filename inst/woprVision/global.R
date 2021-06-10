@@ -2,11 +2,10 @@ library(shiny);library(leaflet);library(sf)
 
 # import woprVision_global
 version_info <- wopr:::woprVision_global$version_info
-agesex <- wopr:::woprVision_global$agesex
 palette <- wopr:::woprVision_global$palette
 
 # toggle development API server
-dev <- FALSE
+dev <- F
 if(dev){
   url <- 'http://152.78.226.148/v1'
   version_info$active <- T

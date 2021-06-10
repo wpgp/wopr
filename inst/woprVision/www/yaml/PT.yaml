@@ -71,6 +71,7 @@ lg_annoyingmessage_title: 'Mensagem amigável:'
 lg_thks: 'Está bem, obrigado.'
 lg_localSQL: 'Usando banco de dados SQL local para '
 lg_localtiles: 'Usando telhas de imagem locais para '
+lg_localagesex: 'Usando banco de dados idade e sexo local para '
 lg_gjson_limit1: 'O limite de linhas do GeoJSON foi excedido. Apenas o primeiro'
 lg_gjson_limit2: 'características serão processadas.'
 
