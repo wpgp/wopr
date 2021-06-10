@@ -6,9 +6,9 @@ citEntry(entry="manual",
           person("Edith", "Darin"),
           person("Andrew", "Tatem", "J")),
   title = paste0("wopr: An R package to query the WorldPop Open Population Repository, version ", meta$Version, "."),
-  year = 2020,
+  year = 2021,
   publisher = "{WorldPop, University of Southampton}",
-  doi = "10.5258/SOTON/WP00688",
+  doi = "10.5258/SOTON/WP00716",
   url = "https://github.com/wpgp/wopr",
-  textVersion = paste0('Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2020. wopr: An R package to query the WorldPop Open Population Repository, version ', meta$Version, '. WorldPop, University of Southampton. doi:10.5258/SOTON/WP00688')
+  textVersion = paste0('Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to query the WorldPop Open Population Repository, version ', meta$Version, '. WorldPop, University of Southampton. doi:10.5258/SOTON/WP00716')
 )
