@@ -4,6 +4,11 @@ rm(list=ls()); gc(); cat("\014"); try(dev.off(), silent=T);
 # working directory
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
+# R library
+lib <- NULL
+try(suppressWarnings(source('wd/lib.r')), silent=T)
+lib <- c(lib, .libPaths())
+
 # package documentation
 devtools::document()
 
@@ -44,10 +49,10 @@ if(T){
 rstudioapi::restartSession()
 
 # install from source
-install.packages(getwd(), repo=NULL, type='source', lib='C:/research/R/library')
+install.packages(getwd(), repo=NULL, type='source', lib=lib)
 
 # load package
-library(wopr, lib='C:/research/R/library')
+library(wopr, lib=lib)
 
 # citation
 citation('wopr')
