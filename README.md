@@ -212,7 +212,7 @@ The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Res
 
 ## Suggested Citation
 
-Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to query the WorldPop Open Population Repository, version 1.0.0. WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <https://github.com/wpgp/wopr>
+Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to query the WorldPop Open Population Repository, version 1.0.1. WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <https://github.com/wpgp/wopr>
 
 ## License
 
