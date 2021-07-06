@@ -141,17 +141,23 @@ shinyServer(
       }
 
       # age sex table
-      if(version_info[input$data_select, 'local_agesex_table']){
-        
-        showNotification(paste(rv$dict[["lg_localagesex"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
-        
-        rv$agesex_table <- getAgeSexTable(rv$country, rv$version, version_info[input$data_select, 'local_agesex_table_path'])
-        
-      } else {
-        
-        rv$agesex_table <- getAgeSexTable(rv$country, rv$version, locator=url)
-        
-      }
+      tryCatch({
+
+        if(version_info[input$data_select, 'local_agesex_table']){
+          
+          showNotification(paste(rv$dict[["lg_localagesex"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
+          rv$agesex_table <- getAgeSexTable(rv$country, rv$version, version_info[input$data_select, 'local_agesex_table_path'])
+          
+        } else {
+          
+          rv$agesex_table <- getAgeSexTable(rv$country, rv$version, locator=url)
+          
+        }
+      }, warning=function(w){
+        showNotification(as.character(w), type='warning', duration=20)
+      }, error=function(e){
+        showNotification(as.character(e), type='error', duration=20)
+      })
       
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
