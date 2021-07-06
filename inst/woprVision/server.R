@@ -86,9 +86,6 @@ shinyServer(
       
       rv$wopr_url <- version_info[input$data_select, 'url'] 
       
-      #update age sex table
-      rv$agesex_table <- getAgeSexTable(rv$country, rv$version, locator=url)
-      
       # rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
       #                                 strsplit(as.character(subset(wopr::getCatalogue(),
       #                                                              country==rv$country &
@@ -143,11 +140,16 @@ shinyServer(
         addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
       }
 
-      # local age sex table
+      # age sex table
       if(version_info[input$data_select, 'local_agesex_table']){
         
         showNotification(paste(rv$dict[["lg_localagesex"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
+        
         rv$agesex_table <- getAgeSexTable(rv$country, rv$version, version_info[input$data_select, 'local_agesex_table_path'])
+        
+      } else {
+        
+        rv$agesex_table <- getAgeSexTable(rv$country, rv$version, locator=url)
         
       }
       
