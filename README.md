@@ -319,7 +319,7 @@ Research Group.
 ## Suggested Citation
 
 Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to
-query the WorldPop Open Population Repository, version 1.0.3. WorldPop,
+query the WorldPop Open Population Repository, version 1.0.4. WorldPop,
 University of Southampton. doi: 10.5258/SOTON/WP00716.
 <https://github.com/wpgp/wopr>
 
