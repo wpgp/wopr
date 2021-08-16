@@ -68,6 +68,8 @@ lg_plot_proppop: Proporção da população
 lg_map_legend: 'Pessoas por célula da grelha<br>(todos os grupos de idade e sexo)'
 lg_annoyingmessage: ' é uma versão obsoleta e será removida da woprVision em breve. Os dados continuarão disponíveis para baixar em '
 lg_annoyingmessage_title: 'Mensagem amigável:'
+lg_reviewmessage: ' is currently displayed for review purposes only and may not be distributed further until this message has been removed. Data will be available to download here: '
+lg_reviewmessage_title: 'Disclaimer'
 lg_thks: 'Está bem, obrigado.'
 lg_localSQL: 'Usando banco de dados SQL local para '
 lg_localtiles: 'Usando telhas de imagem locais para '

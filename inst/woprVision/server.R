@@ -86,16 +86,6 @@ shinyServer(
       
       rv$wopr_url <- version_info[input$data_select, 'url'] 
       
-      # rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
-      #                                 strsplit(as.character(subset(wopr::getCatalogue(),
-      #                                                              country==rv$country &
-      #                                                                category=='Population' &
-      #                                                                version==rv$version &
-      #                                                                filetype =='README',
-      #                                                              'url')),
-      #                                          '/')[[1]][5])
-      #
-      # rv$wopr_url <- paste0('https://wopr.worldpop.org/?',file.path(rv$country,'Population',rv$version))
       
       # update agesex choices
       if( sum(rv$agesex_table[,c('f1','m1')]) == 0 ){
@@ -118,6 +108,13 @@ shinyServer(
       if(version_info[input$data_select,'deprecated']){
         showModal(modalDialog(HTML(paste0(input$data_select,rv$dict[["lg_annoyingmessage"]], '<a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
                               title=rv$dict[["lg_annoyingmessage_title"]],
+                              footer=tagList(modalButton(rv$dict[["lg_thks"]]))))
+      }
+      
+      # review message
+      if(version_info[input$data_select,'under_review']){
+        showModal(modalDialog(HTML(paste0(input$data_select,rv$dict[["lg_reviewmessage"]], '<a href="',rv$wopr_url,'" target="blank">',rv$wopr_url,'</a>')),
+                              title=rv$dict[["lg_reviewmessage_title"]],
                               footer=tagList(modalButton(rv$dict[["lg_thks"]]))))
       }
       
