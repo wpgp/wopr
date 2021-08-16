@@ -5,7 +5,7 @@ version_info <- wopr:::woprVision_global$version_info
 palette <- wopr:::woprVision_global$palette
 
 # toggle development API server
-dev <- T
+dev <- F
 if(dev){
   url <- 'http://152.78.226.148/v1'
   version_info$active <- T
