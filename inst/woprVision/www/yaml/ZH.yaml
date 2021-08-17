@@ -65,7 +65,7 @@ lg_plot_proppop: 占人口比例
 lg_map_legend: '每个网格单元的人数<br>(所有年龄性别组)'
 lg_annoyingmessage: ' 是一个过时的版本，并将很快从woprVision中移除。这些数据将继续可以从 '
 lg_annoyingmessage_title: '友好留言。'
-lg_reviewmessage: ' is currently displayed for review purposes only and may not be distributed further until this message has been removed. Data will be available to download here: '
+lg_reviewmessage: ' is currently displayed for review purposes only and may not be distributed further until this message has been removed. Data will be available to download following completion of the review process from: '
 lg_reviewmessage_title: 'Disclaimer'
 lg_thks: '好的，谢谢'
 lg_localSQL: '使用本地SQL数据库进行 '
