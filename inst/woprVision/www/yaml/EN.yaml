@@ -68,6 +68,8 @@ lg_plot_proppop: Proportion of Population
 lg_map_legend: 'People per grid cell<br>(all age-sex groups)'
 lg_annoyingmessage: ' is a deprecated version and will be removed from woprVision soon. The data will continue be available for download from '
 lg_annoyingmessage_title: 'Friendly Message:'
+lg_reviewmessage: ' is currently displayed for review purposes only and may not be distributed further until this message has been removed. Data will be available to download following completion of the review process from: '
+lg_reviewmessage_title: 'Disclaimer'
 lg_thks: 'Okay, thanks.'
 lg_localSQL: 'Using local SQL database for '
 lg_localtiles: 'Using local image tiles for '

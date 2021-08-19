@@ -7,7 +7,6 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 # R library
 lib <- NULL
 try(suppressWarnings(source('wd/lib.r')), silent=T)
-lib <- c(lib, .libPaths())
 
 # package documentation
 devtools::document()
