@@ -49,8 +49,7 @@ for any *wopr* installation errors using
 `install.packages('package_name')`. Or, you can use
 `devtools::install_github('wpgp/wopr', upgrade='ask')` to update all of
 the packages that *wopr* depends on. In R Studio, you can also update
-all of your R packages by clicking “Tools &gt; Check for Package
-Updates”.
+all of your R packages by clicking “Tools \> Check for Package Updates”.
 
 Note: When updating multiple packages, it may be necessary to restart
 your R session before each installation to ensure that packages being
@@ -319,7 +318,7 @@ Research Group.
 ## Suggested Citation
 
 Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to
-query the WorldPop Open Population Repository, version 1.0.4. WorldPop,
+query the WorldPop Open Population Repository, version 1.0.5. WorldPop,
 University of Southampton. doi: 10.5258/SOTON/WP00716.
 <https://github.com/wpgp/wopr>
 
