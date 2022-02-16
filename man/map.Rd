@@ -9,9 +9,10 @@ map(
   version,
   local_tiles = F,
   southern = F,
+  dev = F,
   bins = wopr:::woprVision_global$bins,
   pal = wopr:::woprVision_global$pal,
-  dict = dit_en
+  dict = dict_EN
 )
 }
 \arguments{

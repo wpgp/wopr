@@ -162,6 +162,7 @@ shinyServer(
           version = rv$version,
           local_tiles = version_info[input$data_select, 'local_tiles'],
           southern = version_info[input$data_select, 'southern'],
+          dev = dev,
           bins = rv$bins,
           pal = rv$pal,
           dict = rv$dict)
