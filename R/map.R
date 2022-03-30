@@ -1,3 +1,47 @@
+imageMapLayerOptions <- function(
+  format = "jpgpng",
+  f = "json",
+  opacity = 1,
+  position = "front",
+  maxZoom = NULL,
+  minZoom = NULL,
+  from = NULL,
+  to = NULL,
+  bandIds = NULL,
+  noData = NULL,
+  noDataInterpretation = NULL,
+  pixelType = NULL,
+  renderingRule = NULL,
+  mosaicRule = NULL,
+  token = NULL,
+  proxy = NULL,
+  useCors = TRUE,
+  ...
+) {
+  leaflet::filterNULL(list(
+    format = format,
+    f = f,
+    opacity = opacity,
+    position = position,
+    maxZoom = maxZoom,
+    minZoom = minZoom,
+    from = from,
+    to = to,
+    bandIds = bandIds,
+    noData = noData,
+    noDataInterpretation = noDataInterpretation,
+    pixelType = pixelType,
+    renderingRule = renderingRule,
+    mosaicRule = mosaicRule,
+    token = token,
+    proxy = proxy,
+    useCors = useCors,
+    ...
+  ))
+}
+
+
+
 #' woprVision: Leaflet map helper
 #' @description Display ESRI ImageServer tiles for the Leaflet in woprVision
 #' @param map A map widget object created from leaflet()
@@ -8,7 +52,7 @@
 #' @return A Leaflet map.
 #' @export
 #' 
-addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL, opacity) {
+addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL,  options = NULL) {
   
   dependancy <-   htmltools::htmlDependency(
     "esri-leaflet",
@@ -16,12 +60,14 @@ addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL, opacity
     src = file.path(system.file(package = "wopr"), "htmlwidgets/"),
     script = c("esri-leaflet-prod.js","esri-leaflet-bindings.js")
   )
-  
+  if (is.null(options)) {
+    options <- list()
+  }
   map$dependencies <- c(map$dependencies,  list(dependancy))
   
   leaflet::invokeMethod(
     map, leaflet::getMapData(map),
-    "addEsriImageMapLayer", url, layerId, group, opacity)
+    "addEsriImageMapLayer", url, layerId, group,  options)
   
 }
 
@@ -41,7 +87,8 @@ addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL, opacity
 map <- function(country, version, local_tiles=F, southern=F, dev=F,
                 bins=wopr:::woprVision_global$bins,
                 pal=wopr:::woprVision_global$pal,
-                dict=dict_EN) {
+                dict=dict_EN,
+                token = NULL) {
   
   m <- leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
@@ -103,7 +150,8 @@ map <- function(country, version, local_tiles=F, southern=F, dev=F,
       addEsriImageMapLayer(
         url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
                    country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
-        group='Population', layerId='tiles_population', opacity = 0.8) 
+        group='Population', layerId='tiles_population', options= leaflet::filterNULL(list(opacity=0.8, token=token))
+      )
   }
   
   
