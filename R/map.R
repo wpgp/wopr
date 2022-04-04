@@ -1,47 +1,3 @@
-imageMapLayerOptions <- function(
-  format = "jpgpng",
-  f = "json",
-  opacity = 1,
-  position = "front",
-  maxZoom = NULL,
-  minZoom = NULL,
-  from = NULL,
-  to = NULL,
-  bandIds = NULL,
-  noData = NULL,
-  noDataInterpretation = NULL,
-  pixelType = NULL,
-  renderingRule = NULL,
-  mosaicRule = NULL,
-  token = NULL,
-  proxy = NULL,
-  useCors = TRUE,
-  ...
-) {
-  leaflet::filterNULL(list(
-    format = format,
-    f = f,
-    opacity = opacity,
-    position = position,
-    maxZoom = maxZoom,
-    minZoom = minZoom,
-    from = from,
-    to = to,
-    bandIds = bandIds,
-    noData = noData,
-    noDataInterpretation = noDataInterpretation,
-    pixelType = pixelType,
-    renderingRule = renderingRule,
-    mosaicRule = mosaicRule,
-    token = token,
-    proxy = proxy,
-    useCors = useCors,
-    ...
-  ))
-}
-
-
-
 #' woprVision: Leaflet map helper
 #' @description Display ESRI ImageServer tiles for the Leaflet in woprVision
 #' @param map A map widget object created from leaflet()
@@ -76,15 +32,14 @@ addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL,  option
 #' @description Leaflet map for woprVision.
 #' @param country ISO3 code for country to map
 #' @param version Version of data set to map
-#' @param local_tiles Logical indicating to use locally-stored tiles to display the population raster
-#' @param southern Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)
 #' @param bins Color bins for legend
 #' @param pal Function for legend color palette (see ?leaflet::colorBin)
-#' @param dict Dictionnary for text translation
+#' @param dict Dictionary for text translation
+#' @param token Token generated for access to password-protected datasets
 #' @return A Leaflet map.
 #' @export
 
-map <- function(country, version, local_tiles=F, southern=F, dev=F,
+map <- function(country, version, 
                 bins=wopr:::woprVision_global$bins,
                 pal=wopr:::woprVision_global$pal,
                 dict=dict_EN,
@@ -97,9 +52,7 @@ map <- function(country, version, local_tiles=F, southern=F, dev=F,
     addProviderTiles(provider='CartoDB.DarkMatter', group='Dark', options = providerTileOptions(zIndex=1)) %>% # 'Esri.WorldGrayCanvas'
     
     # basemap tiles
-    addTiles(urlTemplate=ifelse(dir.exists(file.path(wopr_dir,'basemap')),
-                                'basemap/{z}/{x}/{y}.png',
-                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+    addTiles(urlTemplate='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
              group='Map',
              options=tileOptions(minZoom=1, maxZoom=19, tms=F, zIndex=1),
              attribution='<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors') %>% 
@@ -131,29 +84,12 @@ map <- function(country, version, local_tiles=F, southern=F, dev=F,
     addScaleBar(position='topleft')
   
   # population tiles
-  if (dev|local_tiles) {
-    m %>% 
-      addTiles(urlTemplate=ifelse(local_tiles,
-                                  paste0('tiles/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'),
-                                  file.path('https://tiles.worldpop.org/wopr',
-                                            country,
-                                            'population',
-                                            version,
-                                            paste0('population/{z}/{x}/',ifelse(southern,'{-y}','{y}'),'.png'))),
-               group='Population',
-               layerId='tiles_population',
-               options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8, zIndex = 3),
-               attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
-      )
-  } else {
-    m %>% 
-      addEsriImageMapLayer(
-        url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
-                   country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
-        group='Population', layerId='tiles_population', options= leaflet::filterNULL(list(opacity=0.8, token=token))
-      )
-  }
-  
+  m %>% 
+    addEsriImageMapLayer(
+      url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
+                 country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
+      group='Population', layerId='tiles_population', options= leaflet::filterNULL(list(opacity=0.8, token=token))
+    )
   
 }
 
