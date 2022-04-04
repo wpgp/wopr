@@ -476,7 +476,7 @@ shinyServer(
         output[[str]] <- renderUI(rv$dict[[str]])
       }
       
-      lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
+      lapply(keys, function(u) translate(u))
 
       # specific case: confidence type
       output$confidence_type <- renderText(
@@ -508,7 +508,9 @@ shinyServer(
     # wopr download tab
     observeEvent(input$download_link, {
       showModal(modalDialog(HTML(paste0(input$data_select, rv$dict[['lg_download_popup']],a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
-                            title = rv$dict[['lg_data_download']])
+                            title = rv$dict[['lg_data_download']],
+                            easyClose = TRUE,
+                            footer = modalButton("OK"))
       )
     })
     
