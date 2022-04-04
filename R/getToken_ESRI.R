@@ -24,8 +24,6 @@ getToken_ESRI <- function(u, p) {
   
   parsed <- suppressMessages(httr::content(resp,
                                            encoding = "UTF-8",as='parsed'))
-  ),simplifyVector = FALSE)
-  
   
   if (httr::status_code(resp)!=200) {
     mssg <- sprintf("Error ", parsed$error$message)

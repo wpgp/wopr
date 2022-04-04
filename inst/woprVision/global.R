@@ -5,6 +5,8 @@ version_info <- wopr:::woprVision_global$version_info
 palette <- wopr:::woprVision_global$palette
 version_info['SLE v1.0', 'under_review'] <- T
 version_info['SLE v1.0', 'active'] <- T
+
+
 # toggle development API server
 dev <- F
 if(dev){
