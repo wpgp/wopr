@@ -77,4 +77,7 @@ lg_gjson_limit1: 'La limite des lignes du GeoJSON a été atteinte. Seulement le
 lg_gjson_limit2: 'premiers attributs seront pris en compte.'
 lg_reviewmessage: " est actuellement en cours d'examen. Ce jeu de données ne peut être redistribué tant que ce message apparait. Les données seront disponibles ici: "
 lg_reviewmessage_title: "Avertissement"
-
+lg_username: 'Identifiant'
+lg_password: 'Mot de passe'
+lg_failed_login: "Erreur d'identification"
+lg_invalid_login: "Identifiant ou mot de passe invalide."

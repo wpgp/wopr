@@ -520,25 +520,17 @@ shinyServer(
     
     # login tab
     
-    output$login_tab <- renderUI({
-      actionLink("login_input", label=NULL,
-                 icon=icon('lock'), style = 'padding:0px; margin:-15px 15px 0px 15px; color: #3d3d3d')
-    })
     
     observeEvent(input$login_input, {
       
-      #updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
-      
       showModal(modalDialog(
-        textInput("username", "Username"),
-        passwordInput("password", "Password:"),
+        textInput("username", rv$dict[["lg_username"]]),
+        passwordInput("password", rv$dict[["lg_password"]]),
         easyClose = TRUE,
         footer = tagList(
           actionButton("login_output", "OK")
         )
       ))
-      
-      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
       
       
     }, priority=500)  
@@ -556,15 +548,15 @@ shinyServer(
       
       if(token_returned==400){
         showModal(modalDialog(
-          title = "Failed login",
-          "Invalid username or password.",
+          title = rv$dict[["lg_failed_login"]] ,
+          rv$dict[["lg_invalid_login"]] ,
           easyClose = TRUE,
           footer = NULL
         ))
       } else if (is.numeric(token_returned)){
         showModal(modalDialog(
-          title = "Failed login",
-          "Error in generating ESRI token",
+          title = rv$dict[["lg_failed_login"]] ,
+          rv$dict[["lg_issue_token"]],
           easyClose = TRUE,
           footer = NULL
         ))
@@ -576,10 +568,7 @@ shinyServer(
                                                c(version_info_default$version, version_info_review$version))),
                           selected = paste(version_info_review$country[1], version_info_review$version[1]))
         
-        output$login_tab <- renderUI({
-          actionLink("login_input", label=NULL,
-                     icon=icon('lock-open'), style = 'padding:0px; margin:-15px 15px 0px 15px; color: #3d3d3d')
-        })
+        updateActionLink(session, 'login_input', icon=icon('lock-open'))
         
       }
       

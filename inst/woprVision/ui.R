@@ -175,7 +175,8 @@ ui <- fluidPage(
                         htmlOutput('helpfile')),
                
                # tab: login
-               tabPanel(htmlOutput('login_tab')),
+               tabPanel( actionLink("login_input", label=NULL,
+                                    icon=icon('lock'), style = 'padding:0px; margin:-15px 15px 0px 15px')),
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',
