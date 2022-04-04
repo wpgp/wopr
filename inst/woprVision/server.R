@@ -160,12 +160,10 @@ shinyServer(
     output$map <- leaflet::renderLeaflet({
       map(country = rv$country,
           version = rv$version,
-          local_tiles = version_info[input$data_select, 'local_tiles'],
-          southern = version_info[input$data_select, 'southern'],
-          dev = dev,
           bins = rv$bins,
           pal = rv$pal,
-          dict = rv$dict)
+          dict = rv$dict,
+          token= rv$token)
     })
     
     ## change location selection tool
@@ -470,14 +468,16 @@ shinyServer(
     observeEvent(input$lang_select, {
       
       rv$N <- rv$agesexid <- NULL
-      
+      rv$dict <- list()
       translate <- function(str){
-        output[[str]] <- renderUI(eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
+        rv$dict[[str]] <- ifelse(is.null(eval(parse(text=paste0('dict_', input$lang_select)))[[str]]), 
+                                     dict_EN[[str]], 
+                                     eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
+        output[[str]] <- renderUI(rv$dict[[str]])
       }
       
-      lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
-      rv$dict <- eval(parse(text=paste0('dict_', input$lang_select)))
-      
+      lapply(keys, function(u) translate(u))
+
       # specific case: confidence type
       output$confidence_type <- renderText(
         return(paste0(
@@ -508,19 +508,79 @@ shinyServer(
     # wopr download tab
     observeEvent(input$download_link, {
       showModal(modalDialog(HTML(paste0(input$data_select, rv$dict[['lg_download_popup']],a(href=rv$wopr_url, target='_blank', rv$wopr_url))),
-                            title = rv$dict[['lg_data_download']])
+                            title = rv$dict[['lg_data_download']],
+                            easyClose = TRUE,
+                            footer = modalButton("OK"))
       )
     })
     
     # readme tab
-    # output$data_readme <- renderText(
-    #   return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
-    # )
+
     output$data_readme <- renderText(
       return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', 
                    rv$data_readme_url, 
                    '", frameBorder="0"></iframe>', sep = ""))
     )
+    
+    # login tab
+    
+    
+    observeEvent(input$login_input, {
+      req(input$login_input)
+      
+      showModal(modalDialog(
+        textInput("username", rv$dict[["lg_username"]]),
+        passwordInput("password", rv$dict[["lg_password"]]),
+        easyClose = TRUE,
+        footer = tagList(
+          actionButton("login_output", "OK")
+        )
+      ))
+      
+      
+    }, priority=500)  
+    
+    #-- unlock data with login --#
+    
+    observeEvent(input$login_output, {
+      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+      removeModal()
+      rv$password <- input$password
+      rv$username <- input$username
+      
+      token_returned <- getToken_ESRI(rv$username, rv$password)
+      
+      if(token_returned==400){
+        showModal(modalDialog(
+          title = rv$dict[["lg_failed_login"]] ,
+          rv$dict[["lg_invalid_login"]] ,
+          easyClose = TRUE,
+          footer = NULL
+        ))
+      } else if (is.numeric(token_returned)){
+        showModal(modalDialog(
+          title = rv$dict[["lg_failed_login"]] ,
+          rv$dict[["lg_issue_token"]],
+          easyClose = TRUE,
+          footer = NULL
+        ))
+      } else{
+        
+        rv$token <- token_returned
+        updateSelectInput(session, 'data_select',
+                          choices = sort(paste(c(version_info_default$country, version_info_review$country), 
+                                               c(version_info_default$version, version_info_review$version))),
+                          selected = paste(version_info_review$country[1], version_info_review$version[1]))
+        
+        updateActionLink(session, 'login_input', icon=icon('lock-open'))
+        
+      }
+      
+      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+    })
+    
     
   })
 

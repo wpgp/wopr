@@ -76,4 +76,8 @@ lg_localtiles: 'Using local image tiles for '
 lg_localagesex: 'Using local age sex table for '
 lg_gjson_limit1: 'GeoJSON row limit exceeded. Only the first'
 lg_gjson_limit2: 'features will be processed.'
-
+lg_username: 'Username'
+lg_password: 'Password'
+lg_failed_login: "Failed login"
+lg_invalid_login: "Invalid username or password."
+lg_issue_token: "Error in generating ESRI token"

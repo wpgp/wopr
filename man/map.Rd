@@ -7,12 +7,10 @@
 map(
   country,
   version,
-  local_tiles = F,
-  southern = F,
-  dev = F,
   bins = wopr:::woprVision_global$bins,
   pal = wopr:::woprVision_global$pal,
-  dict = dict_EN
+  dict = dict_EN,
+  token = NULL
 )
 }
 \arguments{
@@ -20,15 +18,13 @@ map(
 
 \item{version}{Version of data set to map}
 
-\item{local_tiles}{Logical indicating to use locally-stored tiles to display the population raster}
-
-\item{southern}{Logical indicating if the country is in the southern hemisphere (to use "{-y}" format for Leaflet tiles)}
-
 \item{bins}{Color bins for legend}
 
 \item{pal}{Function for legend color palette (see ?leaflet::colorBin)}
 
-\item{dict}{Dictionnary for text translation}
+\item{dict}{Dictionary for text translation}
+
+\item{token}{Token generated for access to password-protected datasets}
 }
 \value{
 A Leaflet map.
