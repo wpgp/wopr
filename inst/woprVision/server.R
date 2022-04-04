@@ -468,14 +468,16 @@ shinyServer(
     observeEvent(input$lang_select, {
       
       rv$N <- rv$agesexid <- NULL
-      
+      rv$dict <- list()
       translate <- function(str){
-        output[[str]] <- renderUI(eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
+        rv$dict[[str]] <- ifelse(is.null(eval(parse(text=paste0('dict_', input$lang_select)))[[str]]), 
+                                     dict_EN[[str]], 
+                                     eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
+        output[[str]] <- renderUI(rv$dict[[str]])
       }
       
       lapply(keys[!grepl("helpfile", keys)], function(u) translate(u))
-      rv$dict <- eval(parse(text=paste0('dict_', input$lang_select)))
-      
+
       # specific case: confidence type
       output$confidence_type <- renderText(
         return(paste0(
@@ -522,6 +524,7 @@ shinyServer(
     
     
     observeEvent(input$login_input, {
+      req(input$login_input)
       
       showModal(modalDialog(
         textInput("username", rv$dict[["lg_username"]]),
