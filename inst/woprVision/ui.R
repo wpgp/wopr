@@ -10,7 +10,7 @@ inputs <-
       # model
       selectInput('data_select',
                   HTML(paste(uiOutput('lg_select_data1', inline=T),'<br><small>(',uiOutput('lg_select_data2', inline=T),'<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">',uiOutput('lg_select_data3', inline=T), '</a>)</small>')),
-                  choices=paste(version_info$country, version_info$version),
+                  choices=paste(version_info_default$country, version_info_default$version),
                   selected=data_init),
       
       
@@ -91,7 +91,7 @@ inputs <-
 # main panel
 ui <- fluidPage(
   tagList(
-
+    
     tags$head(
       tags$meta(name='description', content='woprVision is an interactive web map that allows you to query population estimates for specific locations and demographic groups from the WorldPop Open Population Repository.'),
       tags$meta(name='keywords', content='WorldPop, WOPR, woprVision, wopr vision, WorldPop Open Population Repository, population, spatial data, population map, gridded population, Bayesian statistics, shiny, R package, Nigeria, DRC, Democratic Republic of the Congo, Zambia, Burkina Faso, South Sudan, Sierra Leone, Mozambique, Ghana')
@@ -101,13 +101,14 @@ ui <- fluidPage(
                   .navbar-nav > li:nth-child(6){float:right}
                   .navbar-nav > li:nth-child(7){float:right}
                   .navbar-nav > li:nth-child(8){float:right}
-                  .navbar-nav > li:nth-child(9){float:right}")),
+                  .navbar-nav > li:nth-child(9){float:right}
+                  .navbar-nav > li:nth-child(10){float:right}")),
     
     tags$style(HTML(".leaflet-container {background:#2B2D2F; cursor:pointer}")),
     
     #tab:lang
     tags$style("#lang_div .selectize-control {margin-bottom:-15px; margin-top:10px; margin-left:10px; margin-right:5px; z-index:10000;}"),
-  
+    
     tags$div(id='lang_div',
              style="display:inline-block; float:right",
              selectInput("lang_select",
@@ -140,15 +141,15 @@ ui <- fluidPage(
                           column(width = 3,
                                  style='overflow-y:scroll; height: calc(97vh - 75px)',
                                  conditionalPanel("input.toggle_plots == true",
-                                   plotOutput('sidePlot', height='600px', width='100%')),
+                                                  plotOutput('sidePlot', height='600px', width='100%')),
                                  conditionalPanel("input.toggle_plots == false",
                                                   br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
                                                   h4(uiOutput('lg_panel1')),br(),
                                                   h4(uiOutput('lg_panel2')),br(),
                                                   h4(uiOutput('lg_panel3'))
-                                                  )
                                  )
                           )
+                        )
                ),
                
                # tab: saved estimates
@@ -172,6 +173,9 @@ ui <- fluidPage(
                # tab: help
                tabPanel(uiOutput('lg_help'),
                         htmlOutput('helpfile')),
+               
+               # tab: login
+               tabPanel(htmlOutput('login_tab')),
                
                # tab: WorldPop
                tabPanel(a(href='https://www.worldpop.org', target='_blank', style='padding:0px',

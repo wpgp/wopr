@@ -160,12 +160,10 @@ shinyServer(
     output$map <- leaflet::renderLeaflet({
       map(country = rv$country,
           version = rv$version,
-          local_tiles = version_info[input$data_select, 'local_tiles'],
-          southern = version_info[input$data_select, 'southern'],
-          dev = dev,
           bins = rv$bins,
           pal = rv$pal,
-          dict = rv$dict)
+          dict = rv$dict,
+          token= rv$token)
     })
     
     ## change location selection tool
@@ -513,14 +511,82 @@ shinyServer(
     })
     
     # readme tab
-    # output$data_readme <- renderText(
-    #   return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', rv$data_readme_url, '", frameBorder="0"></iframe>', sep = ""))
-    # )
+
     output$data_readme <- renderText(
       return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', 
                    rv$data_readme_url, 
                    '", frameBorder="0"></iframe>', sep = ""))
     )
+    
+    # login tab
+    
+    output$login_tab <- renderUI({
+      actionLink("login_input", label=NULL,
+                 icon=icon('lock'), style = 'padding:0px; margin:-15px 15px 0px 15px; color: #3d3d3d')
+    })
+    
+    observeEvent(input$login_input, {
+      
+      #updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+      showModal(modalDialog(
+        textInput("username", "Username"),
+        passwordInput("password", "Password:"),
+        easyClose = TRUE,
+        footer = tagList(
+          actionButton("login_output", "OK")
+        )
+      ))
+      
+      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+      
+    }, priority=500)  
+    
+    #-- unlock data with login --#
+    
+    observeEvent(input$login_output, {
+      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+      removeModal()
+      rv$password <- input$password
+      rv$username <- input$username
+      
+      token_returned <- getToken_ESRI(rv$username, rv$password)
+      
+      if(token_returned==400){
+        showModal(modalDialog(
+          title = "Failed login",
+          "Invalid username or password.",
+          easyClose = TRUE,
+          footer = NULL
+        ))
+      } else if (is.numeric(token_returned)){
+        showModal(modalDialog(
+          title = "Failed login",
+          "Error in generating ESRI token",
+          easyClose = TRUE,
+          footer = NULL
+        ))
+      } else{
+        
+        rv$token <- token_returned
+        updateSelectInput(session, 'data_select',
+                          choices = sort(paste(c(version_info_default$country, version_info_review$country), 
+                                               c(version_info_default$version, version_info_review$version))),
+                          selected = paste(version_info_review$country[1], version_info_review$version[1]))
+        
+        output$login_tab <- renderUI({
+          actionLink("login_input", label=NULL,
+                     icon=icon('lock-open'), style = 'padding:0px; margin:-15px 15px 0px 15px; color: #3d3d3d')
+        })
+        
+      }
+      
+      updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+    })
+    
     
   })
 
