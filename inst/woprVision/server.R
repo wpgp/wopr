@@ -136,7 +136,7 @@ shinyServer(
         
         addResourcePath('tiles', version_info[input$data_select, 'local_tiles_path'])
       }
-
+      
       # age sex table
       if(version_info[input$data_select, 'local_agesex_table']){
         
@@ -353,7 +353,7 @@ shinyServer(
                                get_agesexid=T)
                 rv$N <- i[['N']]
                 rv$agesexid <- as.character(i[['agesexid']])
-
+                
               } else {
                 
                 # query wopr
@@ -471,13 +471,13 @@ shinyServer(
       rv$dict <- list()
       translate <- function(str){
         rv$dict[[str]] <- ifelse(is.null(eval(parse(text=paste0('dict_', input$lang_select)))[[str]]), 
-                                     dict_EN[[str]], 
-                                     eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
+                                 dict_EN[[str]], 
+                                 eval(parse(text=paste0('dict_', input$lang_select)))[[str]])
         output[[str]] <- renderUI(rv$dict[[str]])
       }
       
       lapply(keys, function(u) translate(u))
-
+      
       # specific case: confidence type
       output$confidence_type <- renderText(
         return(paste0(
@@ -515,7 +515,7 @@ shinyServer(
     })
     
     # readme tab
-
+    
     output$data_readme <- renderText(
       return(paste('<iframe style="height: calc(97vh - 80px); width:100%" src="', 
                    rv$data_readme_url, 
@@ -569,15 +569,20 @@ shinyServer(
         
         rv$token <- token_returned
         updateSelectInput(session, 'data_select',
-                          choices = sort(paste(c(version_info_default$country, version_info_review$country), 
-                                               c(version_info_default$version, version_info_review$version))),
-                          selected = paste(version_info_review$country[1], version_info_review$version[1]))
+                          choices = sort(paste(c(version_info_default$country, substr(input$username, 1,3)), 
+                                               c(version_info_default$version, chartr("_", ".", substring(input$username, 4))))),
+                          selected = paste( substr(input$username, 1,3), chartr("_", ".", substring(input$username, 4))))
         
         updateActionLink(session, 'login_input', icon=icon('lock-open'))
+        
+        
+        
         
       }
       
       updateNavbarPage(session, 'navbar_id', selected = 'panel_map')
+      
+      
       
     })
     

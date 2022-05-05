@@ -3,12 +3,9 @@ library(shiny);library(leaflet);library(sf)
 # import woprVision_global
 version_info <- wopr:::woprVision_global$version_info
 palette <- wopr:::woprVision_global$palette
-version_info['SLE v1.0', 'under_review'] <- T
-version_info['SLE v1.0', 'active'] <- T
-
 
 # toggle development API server
-dev <- F
+dev <- T
 if(dev){
   url <- 'http://152.78.226.148/v1'
   version_info$active <- T
@@ -29,7 +26,6 @@ version_info <- checkLocal(wopr_dir, version_info)
 
 # split into review/default
 version_info_default <- version_info[which(version_info$under_review==F),]
-version_info_review <- version_info[which(version_info$under_review==T),]
 
 # choose initial data set
 country <- sample(unique(version_info_default$country), 1)
