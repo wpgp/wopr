@@ -4,7 +4,7 @@
 \alias{addEsriImageMapLayer}
 \title{woprVision: Leaflet map helper}
 \usage{
-addEsriImageMapLayer(map, url, layerId = NULL, group = NULL, opacity)
+addEsriImageMapLayer(map, url, layerId = NULL, group = NULL, options = NULL)
 }
 \arguments{
 \item{map}{A map widget object created from leaflet()}

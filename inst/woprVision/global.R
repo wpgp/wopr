@@ -24,9 +24,12 @@ if(!'wopr_dir' %in% ls()) wopr_dir <- 'wopr'
 # check for local files
 version_info <- checkLocal(wopr_dir, version_info)
 
+# split into review/default
+version_info_default <- version_info[which(version_info$under_review==F),]
+
 # choose initial data set
-country <- sample(unique(version_info$country), 1)
-version <- version_info[version_info$country==country & version_info$deprecated==F,'version'][1]
+country <- sample(unique(version_info_default$country), 1)
+version <- version_info_default[version_info_default$country==country & version_info_default$deprecated==F,'version'][1]
 data_init <- paste(country, version, sep=' ')
 rm(country, version)
 
