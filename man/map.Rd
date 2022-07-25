@@ -4,23 +4,12 @@
 \alias{map}
 \title{woprVision: Leaflet map}
 \usage{
-map(
-  country,
-  version,
-  bins = wopr:::woprVision_global$bins,
-  pal = wopr:::woprVision_global$pal,
-  dict = dict_EN,
-  token = NULL
-)
+map(country, version, dict = dict_EN, token = NULL)
 }
 \arguments{
 \item{country}{ISO3 code for country to map}
 
 \item{version}{Version of data set to map}
-
-\item{bins}{Color bins for legend}
-
-\item{pal}{Function for legend color palette (see ?leaflet::colorBin)}
 
 \item{dict}{Dictionary for text translation}
 

@@ -32,18 +32,36 @@ addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL,  option
 #' @description Leaflet map for woprVision.
 #' @param country ISO3 code for country to map
 #' @param version Version of data set to map
-#' @param bins Color bins for legend
-#' @param pal Function for legend color palette (see ?leaflet::colorBin)
 #' @param dict Dictionary for text translation
 #' @param token Token generated for access to password-protected datasets
 #' @return A Leaflet map.
 #' @export
 
 map <- function(country, version, 
-                bins=wopr:::woprVision_global$bins,
-                pal=wopr:::woprVision_global$pal,
                 dict=dict_EN,
                 token = NULL) {
+  
+  #get legend
+  esri_legend <-  sapply(httr::content( httr::GET(
+    paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
+           country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer/legend?f=json"),
+    httr::add_headers(Authorization = paste("Bearer", token , sep = " "))
+  ))[[1]][[1]]$legend, '[[', 1)
+  
+  bins <-  c(
+    sapply(esri_legend[-length(esri_legend)], function(x) as.integer(strsplit(x, '-')[[1]][1])),
+    as.integer(substr(esri_legend[length(esri_legend)], start=1, stop=nchar(esri_legend[length(esri_legend)])-1)))
+  
+  bins <- c(
+    bins,
+    round(max(bins[length(bins)] + diff(bins[c(length(bins)-1, length(bins))]),
+              version_info[paste(country, version),'popmax']))
+  )
+    
+  pal <- leaflet::colorBin(palette=woprVision_global$palette$cols[2:nrow(woprVision_global$palette)],
+                    bins=bins,
+                    na.color=woprVision_global$palette$cols[1],
+                    domain=1:1000, pretty=F, alpha=T, reverse=F)
   
   m <- leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
