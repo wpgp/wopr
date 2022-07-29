@@ -44,8 +44,6 @@ shinyServer(
         rv$country <-
         rv$version <-
         rv$path <-
-        rv$bins <-
-        rv$pal <-
         rv$N <-
         rv$agesexid <-
         rv$agesex_table <-  NULL
@@ -63,22 +61,6 @@ shinyServer(
       # update version
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
-      
-      # palette
-      if(input$data_select %in% names(palette)){
-        rv$palette <- palette[[input$data_select]]
-      } else {
-        rv$palette <- palette[['default']]
-      }
-      
-      rv$bins <- c(rv$palette$bins[-length(rv$palette$bins)],
-                   round(max(rv$palette$bins[length(rv$palette$bins)-1] + diff(rv$palette$bins[c(length(rv$palette$bins)-2, length(rv$palette$bins)-1)]),
-                             version_info[input$data_select,'popmax'])))
-      
-      rv$pal <- leaflet::colorBin(palette=rv$palette$cols[2:nrow(rv$palette)],
-                                  bins=rv$bins,
-                                  na.color=rv$palette$cols[1],
-                                  domain=1:1000, pretty=F, alpha=T, reverse=F)
       
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
@@ -160,8 +142,6 @@ shinyServer(
     output$map <- leaflet::renderLeaflet({
       map(country = rv$country,
           version = rv$version,
-          bins = rv$bins,
-          pal = rv$pal,
           dict = rv$dict,
           token= rv$token)
     })
