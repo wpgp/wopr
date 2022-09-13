@@ -26,6 +26,10 @@ getAgeSexTable <- function(country, version=NA, locator='https://api.worldpop.or
   
   response <- httr::content( httr::POST(url=endpoint, body=request, encode="form"), as='parsed')
   
+  if(response$error) {
+    warning(response$error_message, call.=F)
+  }
+  
   table <- data.frame(do.call(rbind.data.frame, response$data))
   table$id <- names(response$data)
 
