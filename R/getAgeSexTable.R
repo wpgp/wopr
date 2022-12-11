@@ -33,3 +33,24 @@ getAgeSexTable <- function(country, version=NA, locator='https://api.worldpop.or
   
   return(table)
 }
+
+#' Extract agesex group labels from an agesex table
+#'
+#' @param agesex_table Table retrieved with getAgeSexTable
+#'
+#' @return
+#' @export
+
+getAgeSexNames <-  function(agesex_table){
+  # extract colname for one sex (female)
+  agesex_names <- colnames(agesex_table)[grepl('f[0-9]{1,2}$',colnames(agesex_table))] 
+  ages <- as.integer(gsub('f', '',agesex_names))
+  # transform last group as open ended
+  agesex_choices <- c(paste(ages[-length(ages)], ages[-1]-1, sep='-'), paste0(max(ages), '+'))
+  # relabel the under1
+  if(any(grepl('0-0', agesex_choices))){
+    agesex_choices <- gsub('0-0', '<1', agesex_choices)
+  }
+  
+  return(agesex_choices)
+}

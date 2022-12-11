@@ -46,7 +46,8 @@ shinyServer(
         rv$path <-
         rv$N <-
         rv$agesexid <-
-        rv$agesex_table <-  NULL
+        rv$agesex_table <-  
+        rv$agesex_choices <- NULL
       gc()
       
       # remove local_tiles
@@ -62,29 +63,14 @@ shinyServer(
       rv$country <- unlist(strsplit(input$data_select,' '))[1]
       rv$version <- unlist(strsplit(input$data_select,' '))[2]
       
+      
+      
       # update urls
       rv$data_readme_url <- file.path('https://wopr.worldpop.org/readme',
                                       version_info[input$data_select,'readme'])
       
       rv$wopr_url <- version_info[input$data_select, 'url'] 
       
-      
-      # update agesex choices
-      if( sum(rv$agesex_table[,c('f1','m1')]) == 0 ){
-        shinyWidgets::updateSliderTextInput(session, 'female_select',
-                                            choices = c('0-4',agesex_choices[-c(1:2)]),
-                                            selected = c('0-4','80+'))
-        shinyWidgets::updateSliderTextInput(session, 'male_select',
-                                            choices = c('0-4',agesex_choices[-c(1:2)]),
-                                            selected = c('0-4','80+'))
-      } else {
-        shinyWidgets::updateSliderTextInput(session, 'female_select',
-                                            choices = agesex_choices,
-                                            selected = c('<1','80+'))
-        shinyWidgets::updateSliderTextInput(session, 'male_select',
-                                            choices = agesex_choices,
-                                            selected = c('<1','80+'))
-      }
       
       # deactivation message
       if(version_info[input$data_select,'deprecated']){
@@ -125,13 +111,24 @@ shinyServer(
         showNotification(paste(rv$dict[["lg_localagesex"]], input$data_select), type='message') # message(paste0('Using local image tiles for ',input$data_select,'.')) 
         
         rv$agesex_table <- getAgeSexTable(rv$country, rv$version, version_info[input$data_select, 'local_agesex_table_path'])
+
         
       } else {
         
         rv$agesex_table <- getAgeSexTable(rv$country, rv$version, locator=url)
         
+        
       }
       
+      # update agesex choices
+      rv$agesex_choices <- getAgeSexNames(rv$agesex_table)
+      
+      shinyWidgets::updateSliderTextInput(session, 'female_select',
+                                          choices = rv$agesex_choices,
+                                          selected = c(rv$agesex_choices[1], rv$agesex_choices[length(rv$agesex_choices)]))
+      shinyWidgets::updateSliderTextInput(session, 'male_select',
+                                          choices = rv$agesex_choices,
+                                          selected = c(rv$agesex_choices[1], rv$agesex_choices[length(rv$agesex_choices)]))
       # local basemap
       if(dir.exists(file.path(wopr_dir,'basemap'))){
         addResourcePath('basemap', file.path(wopr_dir,'basemap'))
@@ -169,7 +166,7 @@ shinyServer(
     ## age-sex selection
     observeEvent(c(input$male, input$female, input$male_select, input$female_select), {
       rv$N <- rv$agesexid <- NULL
-      rv$agesex_select <- agesexLookup(input$male, input$female, input$male_select, input$female_select)
+      rv$agesex_select <- agesexLookup(input$male, input$female, input$male_select, input$female_select, rv$agesex_choices, rv$agesex_table)
     })
     
     ## file upload
