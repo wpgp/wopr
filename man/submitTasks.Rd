@@ -22,7 +22,7 @@ submitTasks(
 
 \item{url_endpoint}{The url of the WorldPop API endpoint (see ?endpoint)}
 
-\item{agesex_select}{Character vector of age-sex groups}
+\item{agesex_select}{Character vector of age-sex groups. If it consists of all agesexgroups, it is equal to 'full'}
 
 \item{version}{Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.}
 

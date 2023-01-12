@@ -23,7 +23,12 @@ woprize <- function(features, country, version=NA, confidence=0.95, tails=2, abo
   if(file.exists(key)) key <- dget(key)
   
   # API end point
-  wopr_url <- endpoint(features=features, agesex=length(agesex_select)<36, url=url)
+  agesex_full <- ncol(getAgeSexTable(country=country, version=version, locator=url))-1
+  wopr_url <- endpoint(features=feature, agesex=length(agesex_select)<agesex_full, url=url)
+  
+  if(length(agesex_select)==agesex_full){
+    agesex_select = 'full'
+  }
   
   # feature ids
   features$feature_id <- 1:nrow(features)

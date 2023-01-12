@@ -59,7 +59,7 @@ getPopSql <- function(cells, db, agesex_table=NA, get_agesexid=F, verbose=T, max
         # pop_block <- apply(matrix(dbRes$Pop), 1, function(x) as.numeric(stringi::stri_split_fixed(x, ',',simplify=T)))
         
         # agesex adjustment
-        if(length(agesex_select) < 36){
+        if(length(agesex_select) < ncol(agesex_table)){
           if(!'data.frame' %in% class(agesex_table)){
             
             warning('No agesex_table available.', call.=F)
