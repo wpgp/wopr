@@ -40,7 +40,7 @@ inputs <-
                   shinyWidgets::sliderTextInput(inputId="female_select",
                                                 label=NULL,
                                                 choices=agesex_choices,
-                                                selected=c('<1','80+'),
+                                                selected=c(agesex_choices[1], agesex_choices[length(agesex_choices)]),
                                                 force_edges=T)),
       # male
       splitLayout(cellWidths=c('35%','65%'),
@@ -48,7 +48,7 @@ inputs <-
                   shinyWidgets::sliderTextInput(inputId="male_select",
                                                 label=NULL,
                                                 choices=agesex_choices,
-                                                selected=c('<1','80+'),
+                                                selected=c(agesex_choices[1], agesex_choices[length(agesex_choices)]),
                                                 force_edges=T)),
       
       # submit button

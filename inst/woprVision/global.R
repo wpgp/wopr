@@ -4,7 +4,7 @@ library(shiny);library(leaflet);library(sf)
 version_info <- wopr:::woprVision_global$version_info
 
 # toggle development API server
-dev <- T
+dev <- F
 if(dev){
   url <- 'http://152.78.226.148/v1'
   version_info$active <- T
@@ -30,6 +30,7 @@ version_info_default <- version_info[which(version_info$under_review==F),]
 country <- sample(unique(version_info_default$country), 1)
 version <- version_info_default[version_info_default$country==country & version_info_default$deprecated==F,'version'][1]
 data_init <- paste(country, version, sep=' ')
+agesex_choices <- getAgeSexNames(getAgeSexTable(country, version))
 rm(country, version)
 
 # load dictionnaries for translation
@@ -41,8 +42,3 @@ for (lang in languages) {
 rm(lang)
 
 keys <- names(dict_EN)
-
-# agesex choices
-agesex_choices <- c('<1','1-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80+')
-
-
