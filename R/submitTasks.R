@@ -1,7 +1,7 @@
 #' Submit polygon or point features to WOPR
 #' @param features An object of class sf with polygons or points
 #' @param country ISO-3 code for the country requested
-#' @param agesex_select Character vector of age-sex groups
+#' @param agesex_select Character vector of age-sex groups. If it consists of all agesexgroups, it is equal to 'full'
 #' @param url_endpoint The url of the WorldPop API endpoint (see ?endpoint)
 #' @param version Version number of population estimates. If NA, defaults to latest version. Acceptable formats include: 'v1.2','1.2', or 1.2.
 #' @param key Access key (not required)
@@ -11,6 +11,9 @@
 
 submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0('m',c(0,1,seq(5,80,5))),paste0('f',c(0,1,seq(5,80,5)))), version=NA, key='key.txt', verbose=T){
 
+  # no age above 80 can be requested from the pointagesex API...
+  agesex_select <- agesex_select[!grepl('85', agesex_select)] # TODO: Fix API!
+  
   if(verbose) {
     cat(paste('Submitting',nrow(features),'feature(s) to:\n'))
     cat(paste(' ',url_endpoint,'\n'))
@@ -85,8 +88,11 @@ submitTasks <- function(features, country, url_endpoint, agesex_select=c(paste0(
         rm(coords)
       }
       if(key=='key.txt') request <- request[-which(names(request)=='key')]
-      if(length(agesex_select)==36) request <- request[-which(names(request)=='agesex')]
       
+      #age-sex specification
+      if(any(grepl('full', agesex_select))) request <- request[-which(names(request)=='agesex')]
+      
+
       # send request
       response <- httr::content( httr::POST(url=url_endpoint, body=request, encode="form"), as='parsed')
       

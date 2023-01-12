@@ -21,8 +21,13 @@ getPop <- function(feature, country, version=NA,
   feature <- feature[1,]
 
   if(file.exists(key)) key <- dget(key)
-
-  wopr_url <- endpoint(features=feature, agesex=length(agesex_select)<36, url=url)
+  
+  agesex_full <- ncol(getAgeSexTable(country=country, version=version, locator=url))-1
+  wopr_url <- endpoint(features=feature, agesex=length(agesex_select)<agesex_full, url=url)
+  
+  if(length(agesex_select)==agesex_full){
+    agesex_select = 'full'
+  }
 
   # submit tasks to endpoint
   tasks <- submitTasks(features=feature,
