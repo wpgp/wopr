@@ -14,26 +14,38 @@
 
 <title>An overview of the WOPR API for developers</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -51,55 +63,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -133,7 +144,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -145,7 +336,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<h1 class="title toc-ignore">An overview of the WOPR API for developers</h1>
+<h1 class="title toc-ignore">An overview of the WOPR API for
+developers</h1>
 
 
 
@@ -154,14 +346,24 @@ University of Southampton</p>
 <p>28 August 2020</p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The WOPR REST API provides a way for web servers and other computers to communicate with the <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a> to submit requests for data and to retrieve results. This can be used to:</p>
+<p>The WOPR REST API provides a way for web servers and other computers
+to communicate with the
+<a href="https://wopr.worldpop.org" target="_blank">WorldPop Open
+Population Repository</a> to submit requests for data and to retrieve
+results. This can be used to:</p>
 <ol style="list-style-type: decimal">
-<li>Automate the process of downloading the latest WorldPop population data sets and documentation,</li>
-<li>Submit spatial queries (points or polygons) to the WorldPop server to retrieve population estimates within user-defined geographic areas,</li>
-<li>Get estimates of population sizes for specific demographic groups (i.e. age and sex), and</li>
-<li>Get probabilistic estimates of uncertainty for all population estimates.</li>
+<li>Automate the process of downloading the latest WorldPop population
+data sets and documentation,</li>
+<li>Submit spatial queries (points or polygons) to the WorldPop server
+to retrieve population estimates within user-defined geographic
+areas,</li>
+<li>Get estimates of population sizes for specific demographic groups
+(i.e. age and sex), and</li>
+<li>Get probabilistic estimates of uncertainty for all population
+estimates.</li>
 </ol>
-<p>This document provides instructions how to utilize each of the following API endpoints:</p>
+<p>This document provides instructions how to utilize each of the
+following API endpoints:</p>
 <p><strong>Data Catalogue</strong><br />
 <a href="https://wopr.worldpop.org/api/v1.0/data" class="uri">https://wopr.worldpop.org/api/v1.0/data</a></p>
 <p><strong>Spatial Queries</strong><br />
@@ -178,36 +380,71 @@ University of Southampton</p>
 <p><strong>API Endpoint:</strong><br />
 <a href="https://wopr.worldpop.org/api/v1.0/data" class="uri">https://wopr.worldpop.org/api/v1.0/data</a><br />
 <br><br></p>
-<p>This API endpoint will return the WOPR data catalogue in JSON format. The JSON is organized with the following hierarchical levels:</p>
-<p><strong>country</strong> A three letter code to identify the country that the dataset represents. WOPR uses <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> to abbreviate country names. For example <code>&#39;NGA&#39;</code> regers to Nigeria.</p>
-<p><strong>category</strong> The category describes the types of data available for a given country. For example, <code>&#39;Population&#39;</code> refers to population estimates.</p>
-<p><strong>version</strong> The version of a data release for a given country and data type. For example, <code>&#39;v1.2&#39;</code>.</p>
-<p><strong>file_type</strong> The file_type describes the category of individual files. For example, <code>&#39;gridded&#39;</code> refers to gridded population estimates, and <code>&#39;sql&#39;</code> refers to the SQL database used on the WOPR backend to support the spatial queries described below.<br />
+<p>This API endpoint will return the WOPR data catalogue in JSON format.
+The JSON is organized with the following hierarchical levels:</p>
+<p><strong>country</strong> A three letter code to identify the country
+that the dataset represents. WOPR uses
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO
+country codes</a> to abbreviate country names. For example
+<code>&#39;NGA&#39;</code> regers to Nigeria.</p>
+<p><strong>category</strong> The category describes the types of data
+available for a given country. For example, <code>&#39;Population&#39;</code>
+refers to population estimates.</p>
+<p><strong>version</strong> The version of a data release for a given
+country and data type. For example, <code>&#39;v1.2&#39;</code>.</p>
+<p><strong>file_type</strong> The file_type describes the category of
+individual files. For example, <code>&#39;gridded&#39;</code> refers to gridded
+population estimates, and <code>&#39;sql&#39;</code> refers to the SQL database
+used on the WOPR backend to support the spatial queries described
+below.<br />
 <br><br></p>
 <p>Each file has the following attributes:</p>
-<p><strong>title</strong> is a short descriptive name of the data set.</p>
+<p><strong>title</strong> is a short descriptive name of the data
+set.</p>
 <p><strong>desc</strong> is a longer description of the data set.</p>
 <p><strong>citation</strong> is the recommended citation.</p>
-<p><strong>doi</strong> is the official published DOI (digital object identifier) that can be used for citations. The DOI refers to a stable and permanent version of the file that is stored at <a href="ftp://ftp.worldpop.org/repo/wopr" target="_blank">ftp://ftp.worldpop.org/repo/wopr</a>. These files may differ slightly from the files stored at <a href="wopr.worldpop.org" target="_blank">https://wopr.worldpop.org</a> if minor changes were made since the time of the DOI publication.</p>
+<p><strong>doi</strong> is the official published DOI (digital object
+identifier) that can be used for citations. The DOI refers to a stable
+and permanent version of the file that is stored at
+<a href="ftp://ftp.worldpop.org/repo/wopr" target="_blank">ftp://ftp.worldpop.org/repo/wopr</a>.
+These files may differ slightly from the files stored at
+<a href="wopr.worldpop.org" target="_blank">https://wopr.worldpop.org</a>
+if minor changes were made since the time of the DOI publication.</p>
 <p><strong>file</strong> is the file name.</p>
-<p><strong>file_size</strong> is the size of the file on the hard disk (MB).</p>
+<p><strong>file_size</strong> is the size of the file on the hard disk
+(MB).</p>
 <p><strong>url</strong> is the URL for downloading the file.</p>
 <p><strong>date</strong> is the date the file was released.</p>
-<p><strong>hash</strong> is the MD5 hash that can be used to compare files to ensure their contents are identical.</p>
-<p><strong>git</strong> is the URL for the GitHub repository containing code that is relevant to the data set (e.g. the code used to create the data).<br />
+<p><strong>hash</strong> is the MD5 hash that can be used to compare
+files to ensure their contents are identical.</p>
+<p><strong>git</strong> is the URL for the GitHub repository containing
+code that is relevant to the data set (e.g. the code used to create the
+data).<br />
 <br><br></p>
 <hr />
 </div>
 <div id="spatial-queries" class="section level2">
 <h2>Spatial Queries</h2>
-<p>Spatial queries can be submitted to WOPR as points or polygon locations in a GeoJSON format using several different WOPR API endpoints that will be described below. Spatial requests are supported for any data releases in the category <code>&#39;Population&#39;</code> that contain an SQL database <code>file_type=&#39;sql&#39;</code> (see Data Download above).</p>
-<p>Before describing the API endpoints, a note about the format of the results. WOPR will return population estimates for the queried location and demographic group as a JSON that contains a vector of numbers representing the population estimate for a given location: <code>122,88,108,119,98,92,98,101,121,103,127,122,103,118,...</code>. A histogram of these numbers will graphically illustrate the population estimate and its uncertainty as a probability distribution:</p>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<p>The most likely population estimate is the mean of this distribution (e.g. 100 people, in this case).</p>
+<p>Spatial queries can be submitted to WOPR as points or polygon
+locations in a GeoJSON format using several different WOPR API endpoints
+that will be described below. Spatial requests are supported for any
+data releases in the category <code>&#39;Population&#39;</code> that contain an
+SQL database <code>file_type=&#39;sql&#39;</code> (see Data Download above).</p>
+<p>Before describing the API endpoints, a note about the format of the
+results. WOPR will return population estimates for the queried location
+and demographic group as a JSON that contains a vector of numbers
+representing the population estimate for a given location:
+<code>122,88,108,119,98,92,98,101,121,103,127,122,103,118,...</code>. A
+histogram of these numbers will graphically illustrate the population
+estimate and its uncertainty as a probability distribution:</p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The most likely population estimate is the mean of this distribution
+(e.g. 100 people, in this case).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(x)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   62.00   93.00  100.00   99.99  107.00  138.00</code></pre>
-<p>The 95% confidence intervals for the population estimate can be calculated as the 0.025 and 0.975 quantiles:</p>
+##   60.00   93.00  100.00   99.99  106.25  139.00</code></pre>
+<p>The 95% confidence intervals for the population estimate can be
+calculated as the 0.025 and 0.975 quantiles:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x, <span class="at">probs=</span><span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##  2.5% 97.5% 
 ##    81   120</code></pre>
@@ -219,19 +456,29 @@ University of Southampton</p>
 <p><strong>API Endpoint:</strong><br />
 <a href="https://api.worldpop.org/v1/wopr/pointtotal" class="uri">https://api.worldpop.org/v1/wopr/pointtotal</a><br />
 <br><br></p>
-<p>This endpoint accepts coordinates for a point location and returns the total population. Requests to this API endpoint require the following arguments:</p>
-<p><strong>iso3</strong> The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
-<p><strong>ver</strong> The version of the population estimates to query (e.g. <code>1.2</code>).</p>
-<p><strong>lat</strong> The latitude of the location to query using the WGS84 coordinate system (e.g. <code>11.53579</code>).</p>
-<p><strong>lon</strong> The longitude of the location to query using the WGS84 coordinate system (e.g. <code>4.850808</code>).<br />
+<p>This endpoint accepts coordinates for a point location and returns
+the total population. Requests to this API endpoint require the
+following arguments:</p>
+<p><strong>iso3</strong> The
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO
+country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
+<p><strong>ver</strong> The version of the population estimates to query
+(e.g. <code>1.2</code>).</p>
+<p><strong>lat</strong> The latitude of the location to query using the
+WGS84 coordinate system (e.g. <code>11.53579</code>).</p>
+<p><strong>lon</strong> The longitude of the location to query using the
+WGS84 coordinate system (e.g. <code>4.850808</code>).<br />
 <br><br></p>
 <p>An example of an API request:<br />
 <a href="https://api.worldpop.org/v1/wopr/pointtotal?iso3=NGA&amp;ver=1.2&amp;lat=11.53579&amp;lon=4.850808" class="uri">https://api.worldpop.org/v1/wopr/pointtotal?iso3=NGA&amp;ver=1.2&amp;lat=11.53579&amp;lon=4.850808</a><br />
 <br><br></p>
-<p>This request returns a task identification number <code>2a6a2883-3fd7-5fbf-832c-86e5f35e7c5e</code> that can be used to query the result:<br />
+<p>This request returns a task identification number
+<code>2a6a2883-3fd7-5fbf-832c-86e5f35e7c5e</code> that can be used to
+query the result:<br />
 <a href="https://api.worldpop.org/v1/tasks/2a6a2883-3fd7-5fbf-832c-86e5f35e7c5e" class="uri">https://api.worldpop.org/v1/tasks/2a6a2883-3fd7-5fbf-832c-86e5f35e7c5e</a><br />
 <br><br></p>
-<p>Results for any task id from WOPR can be retrieved in this way, regardless of the endpoint used to submit the request.<br />
+<p>Results for any task id from WOPR can be retrieved in this way,
+regardless of the endpoint used to submit the request.<br />
 <br><br></p>
 <hr />
 </div>
@@ -240,17 +487,34 @@ University of Southampton</p>
 <p><strong>API Endpoint:</strong><br />
 <a href="https://api.worldpop.org/v1/wopr/pointagesex" class="uri">https://api.worldpop.org/v1/wopr/pointagesex</a><br />
 <br><br></p>
-<p>This endpoint accepts coordinates for a point location and returns the population size for a specified age-sex group. Requests to this API endpoint require the following arguments:</p>
-<p><strong>iso3</strong> The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
-<p><strong>ver</strong> The version of the population estimates to query (e.g. <code>1.2</code>).</p>
-<p><strong>lat</strong> The latitude of the location to query using the WGS84 coordinate system (e.g. <code>11.53579</code>).</p>
-<p><strong>lon</strong> The longitude of the location to query using the WGS84 coordinate system (e.g. <code>4.850808</code>).</p>
-<p><strong>agesex</strong> The age-sex groups for which a population estimate is required. This argument accepts a comma-separated vector of age-sex group identifiers. <code>f0</code> represents females less than one year old; <code>f1</code> represents females from age one to four; <code>f5</code> represents females from five to nine; <code>f10</code> represents females from 10 to 14; and so on. <code>m0</code> represents males less than one, etc. The full list of acceptable values: <code>m0, m1, m5, m10, m15, m20, m25, m30, m35, m40, m45, m50, m55, m60, m65, m70, m75, m80, f0, f1, f5, f10, f15, f20, f25, f30, f35, f40, f45, f50, f55, f60, f65, f70, f75, f80</code>.<br />
+<p>This endpoint accepts coordinates for a point location and returns
+the population size for a specified age-sex group. Requests to this API
+endpoint require the following arguments:</p>
+<p><strong>iso3</strong> The
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO
+country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
+<p><strong>ver</strong> The version of the population estimates to query
+(e.g. <code>1.2</code>).</p>
+<p><strong>lat</strong> The latitude of the location to query using the
+WGS84 coordinate system (e.g. <code>11.53579</code>).</p>
+<p><strong>lon</strong> The longitude of the location to query using the
+WGS84 coordinate system (e.g. <code>4.850808</code>).</p>
+<p><strong>agesex</strong> The age-sex groups for which a population
+estimate is required. This argument accepts a comma-separated vector of
+age-sex group identifiers. <code>f0</code> represents females less than
+one year old; <code>f1</code> represents females from age one to four;
+<code>f5</code> represents females from five to nine; <code>f10</code>
+represents females from 10 to 14; and so on. <code>m0</code> represents
+males less than one, etc. The full list of acceptable values:
+<code>m0, m1, m5, m10, m15, m20, m25, m30, m35, m40, m45, m50, m55, m60, m65, m70, m75, m80, f0, f1, f5, f10, f15, f20, f25, f30, f35, f40, f45, f50, f55, f60, f65, f70, f75, f80</code>.<br />
 <br><br></p>
 <p>An example of an API request:<br />
 <a href="https://api.worldpop.org/v1/wopr/pointagesex?iso3=NGA&amp;ver=1.2&amp;lat=11.53579&amp;lon=4.850808&amp;agesex=m0,m1,f0,f1" class="uri">https://api.worldpop.org/v1/wopr/pointagesex?iso3=NGA&amp;ver=1.2&amp;lat=11.53579&amp;lon=4.850808&amp;agesex=m0,m1,f0,f1</a><br />
 <br><br></p>
-<p>This request will return the population of children under five at the specified point location. The task id was <code>38f18d6e-d7d8-5886-828a-45c29da7f766</code>. This can be used to retrieve the result:<br />
+<p>This request will return the population of children under five at the
+specified point location. The task id was
+<code>38f18d6e-d7d8-5886-828a-45c29da7f766</code>. This can be used to
+retrieve the result:<br />
 <a href="https://api.worldpop.org/v1/tasks/38f18d6e-d7d8-5886-828a-45c29da7f766" class="uri">https://api.worldpop.org/v1/tasks/38f18d6e-d7d8-5886-828a-45c29da7f766</a><br />
 <br><br></p>
 <hr />
@@ -260,10 +524,16 @@ University of Southampton</p>
 <p><strong>API Endpoint:</strong><br />
 <a href="https://api.worldpop.org/v1/wopr/polytotal" class="uri">https://api.worldpop.org/v1/wopr/polytotal</a><br />
 <br><br></p>
-<p>This endpoint accepts a GeoJSON representing a polygon location and returns the total population. Requests to this API endpoint require the following arguments:</p>
-<p><strong>iso3</strong> The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
-<p><strong>ver</strong> The version of the population estimates to query (e.g. <code>1.2</code>).</p>
-<p><strong>geojson</strong> A GeoJSON representing the polygon location to query (see example below).</p>
+<p>This endpoint accepts a GeoJSON representing a polygon location and
+returns the total population. Requests to this API endpoint require the
+following arguments:</p>
+<p><strong>iso3</strong> The
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO
+country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
+<p><strong>ver</strong> The version of the population estimates to query
+(e.g. <code>1.2</code>).</p>
+<p><strong>geojson</strong> A GeoJSON representing the polygon location
+to query (see example below).</p>
 <pre><code>{
   &quot;type&quot;: &quot;FeatureCollection&quot;,
   &quot;features&quot;: [
@@ -303,7 +573,9 @@ University of Southampton</p>
 <p>An example of an API request:<br />
 <a href="https://api.worldpop.org/v1/wopr/polytotal?iso3=NGA&amp;ver=1.2&amp;geojson=%7B%22type%22:%22FeatureCollection%22,%22features%22:%5B%7B%22type%22:%22Feature%22,%22properties%22:%7B%7D,%22geometry%22:%7B%22type%22:%22Polygon%22,%22coordinates%22:%5B%5B%5B3.2080078125,7.0027636819827475%5D,%5B3.7902832031250004,7.0027636819827475%5D,%5B3.7902832031250004,7.612997502224103%5D,%5B3.2080078125,7.612997502224103%5D,%5B3.2080078125,7.0027636819827475%5D%5D%5D%7D%7D%5D%7D">https://api.worldpop.org/v1/wopr/polytotal?iso3=NGA&amp;ver=1.2&amp;geojson={“type”:“FeatureCollection”,“features”:[{“type”:“Feature”,“properties”:{},“geometry”:{“type”:“Polygon”,“coordinates”:[[[3.2080078125,7.0027636819827475],[3.7902832031250004,7.0027636819827475],[3.7902832031250004,7.612997502224103],[3.2080078125,7.612997502224103],[3.2080078125,7.0027636819827475]]]}}]}</a><br />
 <br><br></p>
-<p>This request returns a task identification number <code>06b50b9f-d94d-50b9-916a-1d34b767d00a</code> that can be used to query the result:<br />
+<p>This request returns a task identification number
+<code>06b50b9f-d94d-50b9-916a-1d34b767d00a</code> that can be used to
+query the result:<br />
 <a href="https://api.worldpop.org/v1/tasks/06b50b9f-d94d-50b9-916a-1d34b767d00a" class="uri">https://api.worldpop.org/v1/tasks/06b50b9f-d94d-50b9-916a-1d34b767d00a</a><br />
 <br><br></p>
 <hr />
@@ -313,25 +585,50 @@ University of Southampton</p>
 <p><strong>API Endpoint:</strong><br />
 <a href="https://api.worldpop.org/v1/wopr/polyagesex" class="uri">https://api.worldpop.org/v1/wopr/polyagesex</a><br />
 <br><br></p>
-<p>This endpoint accepts a GeoJSON representing a polygon location and returns the population size within a specified age-sex group. Requests to this API endpoint require the following arguments:</p>
-<p><strong>iso3</strong> The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
-<p><strong>ver</strong> The version of the population estimates to query (e.g. <code>1.2</code>).</p>
-<p><strong>geojson</strong> A GeoJSON representing the polygon location to query (see example above).</p>
-<p><strong>agesex</strong> The age-sex groups for which a population estimate is required. This argument accepts a comma-separated vector of age-sex group identifiers. The full list of acceptable values: <code>m0, m1, m5, m10, m15, m20, m25, m30, m35, m40, m45, m50, m55, m60, m65, m70, m75, m80, f0, f1, f5, f10, f15, f20, f25, f30, f35, f40, f45, f50, f55, f60, f65, f70, f75, f80</code>.<br />
+<p>This endpoint accepts a GeoJSON representing a polygon location and
+returns the population size within a specified age-sex group. Requests
+to this API endpoint require the following arguments:</p>
+<p><strong>iso3</strong> The
+<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" target="_blank">ISO
+country codes</a> of the country to query (e.g. <code>NGA</code>).</p>
+<p><strong>ver</strong> The version of the population estimates to query
+(e.g. <code>1.2</code>).</p>
+<p><strong>geojson</strong> A GeoJSON representing the polygon location
+to query (see example above).</p>
+<p><strong>agesex</strong> The age-sex groups for which a population
+estimate is required. This argument accepts a comma-separated vector of
+age-sex group identifiers. The full list of acceptable values:
+<code>m0, m1, m5, m10, m15, m20, m25, m30, m35, m40, m45, m50, m55, m60, m65, m70, m75, m80, f0, f1, f5, f10, f15, f20, f25, f30, f35, f40, f45, f50, f55, f60, f65, f70, f75, f80</code>.<br />
 <br><br></p>
 <p>An example of an API request:<br />
-<a href="https://api.worldpop.org/v1/wopr/polyagesex?iso3=NGA&amp;ver=1.2&amp;agesex=m0,m1,f0,f1&amp;geojson=%7B%22type%22:%22FeatureCollection%22,%22features%22:%5B%7B%22type%22:%22Feature%22,%22properties%22:%7B%7D,%22geometry%22:%7B%22type%22:%22Polygon%22,%22coordinates%22:%5B%5B%5B3.2080078125,7.0027636819827475%5D,%5B3.7902832031250004,7.0027636819827475%5D,%5B3.7902832031250004,7.612997502224103%5D,%5B3.2080078125,7.612997502224103%5D,%5B3.2080078125,7.0027636819827475%5D%5D%5D%7D%7D%5D%7D">https://api.worldpop.org/v1/wopr/polyagesex?iso3=NGA&amp;ver=1.2&amp;agesex=m0,m1,f0,f1&amp;geojson={“type”:“FeatureCollection”,“features”:[{“type”:“Feature”,“properties”:{},“geometry”:{“type”:“Polygon”,“coordinates”:[[[3.2080078125,7.0027636819827475],[3.7902832031250004,7.0027636819827475],[3.7902832031250004,7.612997502224103],[3.2080078125,7.612997502224103],[3.2080078125,7.0027636819827475]]]}}]}</a> <br><br></p>
-<p>This request returns a task identification number <code>b6418707-d795-56ef-9d06-c469e3697782</code> that can be used to query the result:<br />
+<a href="https://api.worldpop.org/v1/wopr/polyagesex?iso3=NGA&amp;ver=1.2&amp;agesex=m0,m1,f0,f1&amp;geojson=%7B%22type%22:%22FeatureCollection%22,%22features%22:%5B%7B%22type%22:%22Feature%22,%22properties%22:%7B%7D,%22geometry%22:%7B%22type%22:%22Polygon%22,%22coordinates%22:%5B%5B%5B3.2080078125,7.0027636819827475%5D,%5B3.7902832031250004,7.0027636819827475%5D,%5B3.7902832031250004,7.612997502224103%5D,%5B3.2080078125,7.612997502224103%5D,%5B3.2080078125,7.0027636819827475%5D%5D%5D%7D%7D%5D%7D">https://api.worldpop.org/v1/wopr/polyagesex?iso3=NGA&amp;ver=1.2&amp;agesex=m0,m1,f0,f1&amp;geojson={“type”:“FeatureCollection”,“features”:[{“type”:“Feature”,“properties”:{},“geometry”:{“type”:“Polygon”,“coordinates”:[[[3.2080078125,7.0027636819827475],[3.7902832031250004,7.0027636819827475],[3.7902832031250004,7.612997502224103],[3.2080078125,7.612997502224103],[3.2080078125,7.0027636819827475]]]}}]}</a>
+<br><br></p>
+<p>This request returns a task identification number
+<code>b6418707-d795-56ef-9d06-c469e3697782</code> that can be used to
+query the result:<br />
 <a href="https://api.worldpop.org/v1/tasks/b6418707-d795-56ef-9d06-c469e3697782" class="uri">https://api.worldpop.org/v1/tasks/b6418707-d795-56ef-9d06-c469e3697782</a><br />
 <br><br></p>
 </div>
 <div id="contributing" class="section level2">
 <h2>Contributing</h2>
-<p>The WorldPop Open Population Repository (WOPR) was developed by the WorldPop Research Group within the Department of Geography and Environmental Science at the University of Southampton. Funding was provided by the Bill and Melinda Gates Foundation and the United Kingdom Department for International Development (OPP1182408). Professor Andy Tatem provides oversight of the WorldPop Research Group. The wopr R package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves developed the API backend server. Edith Darin added multi-lingual functionality to the Shiny app and the French translation. Natalia Tejedor Garavito proofread the Spanish translation. Gianluca Boo created the WOPR logo. Population data have been contributed to WOPR by many different researchers within the WorldPop Research Group.</p>
+<p>The WorldPop Open Population Repository (WOPR) was developed by the
+WorldPop Research Group within the Department of Geography and
+Environmental Science at the University of Southampton. Funding was
+provided by the Bill and Melinda Gates Foundation and the United Kingdom
+Department for International Development (OPP1182408). Professor Andy
+Tatem provides oversight of the WorldPop Research Group. The wopr R
+package was developed by Doug Leasure. Maksym Bondarenko and Niko Ves
+developed the API backend server. Edith Darin added multi-lingual
+functionality to the Shiny app and the French translation. Natalia
+Tejedor Garavito proofread the Spanish translation. Gianluca Boo created
+the WOPR logo. Population data have been contributed to WOPR by many
+different researchers within the WorldPop Research Group.</p>
 </div>
 <div id="suggested-citation" class="section level2">
 <h2>Suggested Citation</h2>
-<p>Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to query the WorldPop Open Population Repository, version 1.3.2. WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <a href="https://github.com/wpgp/wopr" class="uri">https://github.com/wpgp/wopr</a></p>
+<p>Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package
+to query the WorldPop Open Population Repository, version 1.3.3.
+WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <a href="https://github.com/wpgp/wopr" class="uri">https://github.com/wpgp/wopr</a></p>
 </div>
 <div id="license" class="section level2">
 <h2>License</h2>
