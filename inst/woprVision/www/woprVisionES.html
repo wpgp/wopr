@@ -14,16 +14,28 @@
 
 <title>Visión general de la aplicación web woprVision</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
@@ -31,7 +43,187 @@
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -43,7 +235,8 @@
 
 
 
-<h1 class="title toc-ignore">Visión general de la aplicación web woprVision</h1>
+<h1 class="title toc-ignore">Visión general de la aplicación web
+woprVision</h1>
 
 
 
@@ -52,15 +245,25 @@ Universidad de Southampton</p>
 <p>17 Noviembre 2020</p>
 <div id="introducción" class="section level2">
 <h2>Introducción</h2>
-<p>woprVision es un mapa web interactivo que permite consultar las estimaciones de población para lugares y grupos demográficos específicos desde el <a href="https://wopr.worldpop.org" target="_blank">WorldPop Open Population Repository</a>. Esto puede ser usado para:</p>
+<p>woprVision es un mapa web interactivo que permite consultar las
+estimaciones de población para lugares y grupos demográficos específicos
+desde el <a href="https://wopr.worldpop.org" target="_blank">WorldPop
+Open Population Repository</a>. Esto puede ser usado para:</p>
 <ol style="list-style-type: decimal">
-<li>Descargar los últimos conjuntos de datos de población y documentación,</li>
-<li>Extraer las estimaciones de población dentro de las áreas geográficas definidas por el usuario haciendo clic en el mapa,</li>
-<li>Obtener estimaciones del tamaño de la población para grupos demográficos específicos (es decir, edad y sexo), y</li>
-<li>Obtener estimaciones probabilísticas de incertidumbre para todas las estimaciones de población.</li>
-<li>Ejecutar la aplicación web <a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a> localmente desde la consola R.</li>
+<li>Descargar los últimos conjuntos de datos de población y
+documentación,</li>
+<li>Extraer las estimaciones de población dentro de las áreas
+geográficas definidas por el usuario haciendo clic en el mapa,</li>
+<li>Obtener estimaciones del tamaño de la población para grupos
+demográficos específicos (es decir, edad y sexo), y</li>
+<li>Obtener estimaciones probabilísticas de incertidumbre para todas las
+estimaciones de población.</li>
+<li>Ejecutar la aplicación web
+<a href="https://apps.worldpop.org/woprVision" target="_blank">woprVision</a>
+localmente desde la consola R.</li>
 </ol>
-<p>Este documento proporciona instrucciones sobre cómo utilizar cada panel de control:</p>
+<p>Este documento proporciona instrucciones sobre cómo utilizar cada
+panel de control:</p>
 <ul>
 <li>Pestañas a lo largo de la parte superior,<br />
 </li>
@@ -70,122 +273,258 @@ Universidad de Southampton</p>
 </li>
 <li>Panel de resultados a la derecha de la pestaña “Mapa”.</li>
 </ul>
-<p>woprVision es parte del paquete <a href="https://github.com/wpgp/wopr" target="_blank">wopr</a> para el lenguaje de programación estadística R. woprVision fue creado usando los paquetes de shiny y leaflet para R (Chang et al. 2018, Cheng et al. 2018, R Core Team 2019). Vea la pestaña “Paquete R” para más información.</p>
+<p>woprVision es parte del paquete
+<a href="https://github.com/wpgp/wopr" target="_blank">wopr</a> para el
+lenguaje de programación estadística R. woprVision fue creado usando los
+paquetes de shiny y leaflet para R (Chang et al. 2018, Cheng et
+al. 2018, R Core Team 2019). Vea la pestaña “Paquete R” para más
+información.</p>
 </div>
 <div id="inicio-rapido" class="section level2">
 <h2>Inicio rapido</h2>
 <p>En la pestaña “Mapa”:<br />
 1. Seleccione un conjunto de datos (es decir, país y versión)<br />
 2. Haga clic en el mapa para seleccionar una ubicación<br />
-3. Haga clic en “Enviar”” para recuperar la estimación de la población de ese lugar<br />
-4. Haga clic en “Guardar” para guardar la estimación de población en la pestaña “Guardado”.<br />
-5. Haga clic en “Dibujar un área” y luego dibuje un polígono usando la barra de herramientas en la parte superior izquierda del mapa<br />
-6. Pulse “Enviar” para extraer la estimación de la población de esa zona<br />
-7. Use los controles deslizantes para seleccionar un grupo de edad y sexo<br />
-8. Haga clic en “Enviar” para extraer la estimación de la población del grupo demográfico seleccionado en el lugar elegido</p>
+3. Haga clic en “Enviar”” para recuperar la estimación de la población
+de ese lugar<br />
+4. Haga clic en “Guardar” para guardar la estimación de población en la
+pestaña “Guardado”.<br />
+5. Haga clic en “Dibujar un área” y luego dibuje un polígono usando la
+barra de herramientas en la parte superior izquierda del mapa<br />
+6. Pulse “Enviar” para extraer la estimación de la población de esa
+zona<br />
+7. Use los controles deslizantes para seleccionar un grupo de edad y
+sexo<br />
+8. Haga clic en “Enviar” para extraer la estimación de la población del
+grupo demográfico seleccionado en el lugar elegido</p>
 </div>
 <div id="componentes-de-la-aplicación" class="section level2">
 <h2>Componentes de la aplicación</h2>
 <div id="controles-del-usuario" class="section level3">
 <h3>Controles del usuario</h3>
-<p>El panel de control del usuario está en el lado izquierdo de la pestaña “Mapa” con controles que puede utilizar para extraer las estimaciones de población.</p>
+<p>El panel de control del usuario está en el lado izquierdo de la
+pestaña “Mapa” con controles que puede utilizar para extraer las
+estimaciones de población.</p>
 <p><strong>Elija los datos de población</strong><br />
-Seleccione el conjunto de datos de población que desea consultar. Esto incluye un país y un número de versión. Puede leer más sobre el conjunto de datos seleccionado en la pestaña “archivo Léame”.</p>
+Seleccione el conjunto de datos de población que desea consultar. Esto
+incluye un país y un número de versión. Puede leer más sobre el conjunto
+de datos seleccionado en la pestaña “archivo Léame”.</p>
 <p><strong>Seleccione una ubicación</strong><br />
-Puedes seleccionar ubicaciones de puntos con la herramienta “Haz clic en el mapa”. Puedes dibujar un polígono para seleccionar un área con la herramienta “Dibuja un área”. Puedes subir un archivo geojson con puntos o polígonos con la herramienta “Subir archivo”.</p>
+Puedes seleccionar ubicaciones de puntos con la herramienta “Haz clic en
+el mapa”. Puedes dibujar un polígono para seleccionar un área con la
+herramienta “Dibuja un área”. Puedes subir un archivo geojson con puntos
+o polígonos con la herramienta “Subir archivo”.</p>
 <p><strong>Botón de envíar</strong><br />
-Una vez que haya seleccionado una ubicación (utilizando las herramientas de selección “Haga clic en el mapa” o “Dibuje un área”), utilice el botón “Enviar” para extraer las estimaciones de población para esa ubicación de los servidores de WOPR.</p>
+Una vez que haya seleccionado una ubicación (utilizando las herramientas
+de selección “Haga clic en el mapa” o “Dibuje un área”), utilice el
+botón “Enviar” para extraer las estimaciones de población para esa
+ubicación de los servidores de WOPR.</p>
 <p><strong>Guardar resultado</strong><br />
-Haga clic en el botón “Guardar” para guardar el resultado actual en la pestaña “Guardado”. Puede agregar un nombre opcional en el cuadro de entrada “Guardar resultado como”.</p>
+Haga clic en el botón “Guardar” para guardar el resultado actual en la
+pestaña “Guardado”. Puede agregar un nombre opcional en el cuadro de
+entrada “Guardar resultado como”.</p>
 <p><strong>Grupos de edad y sexo</strong><br />
-Utilice los controles deslizantes para seleccionar los grupos de edad y sexo para los que desea una estimación de población.</p>
+Utilice los controles deslizantes para seleccionar los grupos de edad y
+sexo para los que desea una estimación de población.</p>
 <p><strong>Nivel de confianza</strong><br />
-El nivel de confianza para los intervalos de confianza. Este valor por defecto es del 95%. En ese caso, hay una probabilidad del 95% de que la verdadera población de ese lugar se encuentre dentro del intervalo de confianza proporcionado en los resultados (basado en un modelo estadístico determinado y en los datos de entrada).</p>
+El nivel de confianza para los intervalos de confianza. Este valor por
+defecto es del 95%. En ese caso, hay una probabilidad del 95% de que la
+verdadera población de ese lugar se encuentre dentro del intervalo de
+confianza proporcionado en los resultados (basado en un modelo
+estadístico determinado y en los datos de entrada).</p>
 <p><strong>Tipo de confianza</strong><br />
 El tipo de intervalo de confianza.</p>
 <ul>
-<li><p>“Intervalo” es el tipo predeterminado. Utilícelo si quiere saber el rango de valores en el que probablemente se encuentre la población (por ejemplo, el 95% de probabilidades de que la población esté entre x y y).</p></li>
-<li><p>Utilice “Límite inferior” si desea saber el valor que probablemente exceda la población (por ejemplo, 95% de probabilidades de que la población sea mayor que x).</p></li>
-<li><p>Use “Límite superior” si quiere saber el valor que la población probablemente sea menor que. (por ejemplo, 95% de probabilidad de que la población sea menor que y).</p></li>
+<li><p>“Intervalo” es el tipo predeterminado. Utilícelo si quiere saber
+el rango de valores en el que probablemente se encuentre la población
+(por ejemplo, el 95% de probabilidades de que la población esté entre x
+y y).</p></li>
+<li><p>Utilice “Límite inferior” si desea saber el valor que
+probablemente exceda la población (por ejemplo, 95% de probabilidades de
+que la población sea mayor que x).</p></li>
+<li><p>Use “Límite superior” si quiere saber el valor que la población
+probablemente sea menor que. (por ejemplo, 95% de probabilidad de que la
+población sea menor que y).</p></li>
 </ul>
 <p><strong>Umbral de población</strong><br />
-El umbral de población que se indica aquí se utilizará para calcular la probabilidad de que la población supere ese umbral. El valor por defecto es 100. Esto devolverá la probabilidad de que la población exceda 100 personas.</p>
+El umbral de población que se indica aquí se utilizará para calcular la
+probabilidad de que la población supere ese umbral. El valor por defecto
+es 100. Esto devolverá la probabilidad de que la población exceda 100
+personas.</p>
 </div>
 <div id="ventana-del-mapa" class="section level3">
 <h3>Ventana del mapa</h3>
 <p><strong>Mapas base</strong><br />
-Los siguientes mapas base pueden ser seleccionados desde el panel superior derecho de la ventana del mapa:</p>
+Los siguientes mapas base pueden ser seleccionados desde el panel
+superior derecho de la ventana del mapa:</p>
 <ul>
-<li><p><strong>Oscuro</strong> Un mapa base oscuro del <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter" target="_blank">CartoDB.DarkMatter</a> Proveedor del mapa base del Leaflet. Este mapa base proporciona el máximo contraste con la capa de población.</p></li>
-<li><p><strong>Mapa</strong> Un mapa base de Open Street Maps llamado <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik" target="_blank">OpenStreetMap.Mapnik</a> de los proveedores del Leaflet. Este mapa base proporciona nombres de lugares y calles que pueden ser útiles.</p></li>
-<li><p><strong>Satélite</strong> Mapa base de imágenes satelitales ESRI <a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery" target="_blank">Esri.WorldImagery</a> de los proveedores del Leaflet. Este mapa base proporciona imágenes satelitales que son más útiles cuando se hace un zoom.</p></li>
+<li><p><strong>Oscuro</strong> Un mapa base oscuro del
+<a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=CartoDB.DarkMatter" target="_blank">CartoDB.DarkMatter</a>
+Proveedor del mapa base del Leaflet. Este mapa base proporciona el
+máximo contraste con la capa de población.</p></li>
+<li><p><strong>Mapa</strong> Un mapa base de Open Street Maps llamado
+<a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=OpenStreetMap.Mapnik" target="_blank">OpenStreetMap.Mapnik</a>
+de los proveedores del Leaflet. Este mapa base proporciona nombres de
+lugares y calles que pueden ser útiles.</p></li>
+<li><p><strong>Satélite</strong> Mapa base de imágenes satelitales ESRI
+<a href="https://leaflet-extras.github.io/leaflet-providers/preview/#filter=Esri.WorldImagery" target="_blank">Esri.WorldImagery</a>
+de los proveedores del Leaflet. Este mapa base proporciona imágenes
+satelitales que son más útiles cuando se hace un zoom.</p></li>
 </ul>
 <p><strong>Capas del mapa</strong><br />
-Las siguientes capas del mapa pueden ser activadas o desactivadas desde el panel superior derecho de la ventana del mapa:</p>
+Las siguientes capas del mapa pueden ser activadas o desactivadas desde
+el panel superior derecho de la ventana del mapa:</p>
 <ul>
-<li><p><strong>Población</strong> Una capa del mapa que muestra las estimaciones de la población de WorldPop en cuadrículas. Esta leyenda para la capa del mapa aparece en la esquina inferior derecha de la ventana del mapa cuando se activa la capa.</p></li>
-<li><p><strong>Área personalizada</strong> Una capa de mapa que muestra el polígono que ha dibujado con la herramienta de selección “Dibujar un área”.</p></li>
+<li><p><strong>Población</strong> Una capa del mapa que muestra las
+estimaciones de la población de WorldPop en cuadrículas. Esta leyenda
+para la capa del mapa aparece en la esquina inferior derecha de la
+ventana del mapa cuando se activa la capa.</p></li>
+<li><p><strong>Área personalizada</strong> Una capa de mapa que muestra
+el polígono que ha dibujado con la herramienta de selección “Dibujar un
+área”.</p></li>
 </ul>
 <p><strong>Barra de herramientas de dibujo</strong><br />
-La barra de herramientas de dibujo aparece en el lado izquierdo de la ventana del mapa cuando se selecciona la herramienta de selección “Dibujar un área”. La barra de herramientas tiene tres herramientas:</p>
+La barra de herramientas de dibujo aparece en el lado izquierdo de la
+ventana del mapa cuando se selecciona la herramienta de selección
+“Dibujar un área”. La barra de herramientas tiene tres herramientas:</p>
 <ul>
-<li><p><strong>Dibujar un polígono</strong> Cuando seleccione esta herramienta, podrá dibujar un polígono haciendo clic en el mapa para obtener una estimación de la población.</p></li>
-<li><p><strong>Editar capas</strong> Esta herramienta puede usarse para editar un polígono que haya dibujado previamente.</p></li>
-<li><p><strong>Borrar Capas</strong> Esta herramienta se puede usar para borrar el polígono que haya dibujado.</p></li>
+<li><p><strong>Dibujar un polígono</strong> Cuando seleccione esta
+herramienta, podrá dibujar un polígono haciendo clic en el mapa para
+obtener una estimación de la población.</p></li>
+<li><p><strong>Editar capas</strong> Esta herramienta puede usarse para
+editar un polígono que haya dibujado previamente.</p></li>
+<li><p><strong>Borrar Capas</strong> Esta herramienta se puede usar para
+borrar el polígono que haya dibujado.</p></li>
 </ul>
 <p><strong>Zoom</strong><br />
-Los controles de zoom están en la esquina superior izquierda de la ventana del mapa. Los botones de más y menos acercan y alejan el zoom. El botón con el icono de la Tierra restablece el nivel de zoom inicial (alejado).</p>
+Los controles de zoom están en la esquina superior izquierda de la
+ventana del mapa. Los botones de más y menos acercan y alejan el zoom.
+El botón con el icono de la Tierra restablece el nivel de zoom inicial
+(alejado).</p>
 </div>
 <div id="resultados" class="section level3">
 <h3>Resultados</h3>
-<p>El panel de resultados contiene dos gráficos que representan la población en el lugar seleccionado. La gráfica superior muestra la distribución de probabilidad que representa la estimación de la población y la gráfica inferior muestra una pirámide de la población que representa la estructura de edad y sexo.</p>
+<p>El panel de resultados contiene dos gráficos que representan la
+población en el lugar seleccionado. La gráfica superior muestra la
+distribución de probabilidad que representa la estimación de la
+población y la gráfica inferior muestra una pirámide de la población que
+representa la estructura de edad y sexo.</p>
 <p><strong>Estimación de la población</strong><br />
-La estimación de la población es la media de la distribución de probabilidad que se muestra en el gráfico. La distribución de probabilidad es la distribución de probabilidad posterior pronosticada a partir de un modelo estadístico bayesiano (véase la ficha “Léeme los datos” para más detalles). Los intervalos de confianza se calculan sobre la base de los ajustes seleccionados en los controles de usuario (véase “Controles de usuario: Nivel de confianza” y “Controles de usuario: Tipo de confianza”). La probabilidad de exceder el umbral de población seleccionado también se informa en el gráfico superior (véase “Controles de usuario: Umbral de población”).</p>
+La estimación de la población es la media de la distribución de
+probabilidad que se muestra en el gráfico. La distribución de
+probabilidad es la distribución de probabilidad posterior pronosticada a
+partir de un modelo estadístico bayesiano (véase la ficha “Léeme los
+datos” para más detalles). Los intervalos de confianza se calculan sobre
+la base de los ajustes seleccionados en los controles de usuario (véase
+“Controles de usuario: Nivel de confianza” y “Controles de usuario: Tipo
+de confianza”). La probabilidad de exceder el umbral de población
+seleccionado también se informa en el gráfico superior (véase “Controles
+de usuario: Umbral de población”).</p>
 <p><strong>Estructura de edad-sexo</strong><br />
-Las estimaciones de la estructura demográfica que conforman las pirámides de población se utilizan aquí con el permiso del proyecto WorldPop Global High Resolution Population Denominators (Pezzulo et al. 2017, WorldPop et al. 2018). Estos datos proporcionan estimaciones regionales de la proporción de la población en cada grupo de edad y sexo en toda la zona de estudio.</p>
+Las estimaciones de la estructura demográfica que conforman las
+pirámides de población se utilizan aquí con el permiso del proyecto
+WorldPop Global High Resolution Population Denominators (Pezzulo et
+al. 2017, WorldPop et al. 2018). Estos datos proporcionan estimaciones
+regionales de la proporción de la población en cada grupo de edad y sexo
+en toda la zona de estudio.</p>
 </div>
 <div id="pestañas" class="section level3">
 <h3>Pestañas</h3>
 <p><strong>Mapa</strong><br />
-Esta es la pestaña predeterminada. Se puede utilizar para alternar entre conjuntos de datos y recuperar estimaciones de población para áreas específicas haciendo clic en el mapa o dibujando un polígono. Esta pestaña contiene un mapa del Leaflet en el centro, un panel de control de usuario a la izquierda y un panel de resultados a la derecha.</p>
+Esta es la pestaña predeterminada. Se puede utilizar para alternar entre
+conjuntos de datos y recuperar estimaciones de población para áreas
+específicas haciendo clic en el mapa o dibujando un polígono. Esta
+pestaña contiene un mapa del Leaflet en el centro, un panel de control
+de usuario a la izquierda y un panel de resultados a la derecha.</p>
 <p><strong>Guardado</strong><br />
-Esta pestaña tiene una hoja de cálculo que contiene cualquier estimación de población que haya guardado. La hoja de cálculo puede guardarse en su ordenador como un archivo .csv haciendo clic en “Descargar” o puede eliminarse haciendo clic en “Borrar”.</p>
+Esta pestaña tiene una hoja de cálculo que contiene cualquier estimación
+de población que haya guardado. La hoja de cálculo puede guardarse en su
+ordenador como un archivo .csv haciendo clic en “Descargar” o puede
+eliminarse haciendo clic en “Borrar”.</p>
 <p>Los resultados incluyen las siguientes columnas:</p>
 <ul>
-<li><strong>Nmean</strong> La estimación de la población (la media de la distribución de probabilidad prevista).</li>
-<li><strong>Nlow</strong> El intervalo de confianza más bajo de la estimación de la población.</li>
-<li><strong>Nup</strong> El intervalo de confianza superior de la estimación de la población.</li>
-<li><strong>above_thresh</strong> La probabilidad de que la población exceda el umbral de población que usted proporcionó (guardado en la columna “popthresh”, descrita a continuación).</li>
+<li><strong>Nmean</strong> La estimación de la población (la media de la
+distribución de probabilidad prevista).</li>
+<li><strong>Nlow</strong> El intervalo de confianza más bajo de la
+estimación de la población.</li>
+<li><strong>Nup</strong> El intervalo de confianza superior de la
+estimación de la población.</li>
+<li><strong>above_thresh</strong> La probabilidad de que la población
+exceda el umbral de población que usted proporcionó (guardado en la
+columna “popthresh”, descrita a continuación).</li>
 </ul>
-<p>En las demás columnas se registran las entradas del usuario que se utilizaron para generar los resultados:</p>
+<p>En las demás columnas se registran las entradas del usuario que se
+utilizaron para generar los resultados:</p>
 <ul>
-<li><strong>name</strong> Un nombre opcional para la ubicación que proporcionó desde el control de usuario “Save Result As”.</li>
-<li><strong>data</strong> El conjunto de datos de población que se está consultando (país y versión).</li>
-<li><strong>mode</strong> El tipo de consulta espacial (‘Punto seleccionado’ o ‘Área personalizada’).</li>
+<li><strong>name</strong> Un nombre opcional para la ubicación que
+proporcionó desde el control de usuario “Save Result As”.</li>
+<li><strong>data</strong> El conjunto de datos de población que se está
+consultando (país y versión).</li>
+<li><strong>mode</strong> El tipo de consulta espacial (‘Punto
+seleccionado’ o ‘Área personalizada’).</li>
 <li><strong>popthresh</strong> El umbral de población.</li>
 <li><strong>female_age</strong> La selección de la edad femenina.</li>
 <li><strong>male_age</strong> La selección de edad masculina.</li>
-<li><strong>confidence_level</strong> El nivel de confianza para los intervalos de confianza.</li>
-<li><strong>confidence_type</strong> El tipo de intervalo de confianza.</li>
-<li><strong>geojson</strong> Un GeoJson que contiene la geometría de la característica de la consulta espacial que se presentó usando la pestaña del mapa. Las coordenadas están en el sistema de coordenadas WGS84 (EPSG:4326).</li>
+<li><strong>confidence_level</strong> El nivel de confianza para los
+intervalos de confianza.</li>
+<li><strong>confidence_type</strong> El tipo de intervalo de
+confianza.</li>
+<li><strong>geojson</strong> Un GeoJson que contiene la geometría de la
+característica de la consulta espacial que se presentó usando la pestaña
+del mapa. Las coordenadas están en el sistema de coordenadas WGS84
+(EPSG:4326).</li>
 </ul>
 <p><strong>archivos LÉAME</strong><br />
-La pestaña “archivos LÉAME” proporciona la declaración de divulgación de datos del WorldPop para el conjunto de datos de población que está actualmente seleccionado en la pestaña “Mapa”. Las declaraciones de divulgación proporcionan información sobre el conjunto de datos de población y cómo se produjo.</p>
+La pestaña “archivos LÉAME” proporciona la declaración de divulgación de
+datos del WorldPop para el conjunto de datos de población que está
+actualmente seleccionado en la pestaña “Mapa”. Las declaraciones de
+divulgación proporcionan información sobre el conjunto de datos de
+población y cómo se produjo.</p>
 <p><strong>Descarga de WOPR</strong><br />
-Esta pestaña permite descargar los datos de población directamente del WorldPop Open Population Repository (WOPR). Los archivos LÉAME proporcionan descripciones de los conjuntos de datos que pueden ser revisados antes de descargar los archivos.</p>
+Esta pestaña permite descargar los datos de población directamente del
+WorldPop Open Population Repository (WOPR). Los archivos LÉAME
+proporcionan descripciones de los conjuntos de datos que pueden ser
+revisados antes de descargar los archivos.</p>
 <p><strong>Paquete R</strong><br />
-Esta pestaña proporciona una descripción del paquete <em>wopr</em> para el lenguaje de programación estadística R. El paquete le da acceso al WorldPop Open Population Repository desde su consola R, permitiéndole ejecutar woprVision localmente, descargar los datos directamente desde la consola R y enviar consultas espaciales al servidor WOPR para obtener estimaciones de población para polígonos o puntos desde sus propios shapefiles.</p>
+Esta pestaña proporciona una descripción del paquete <em>wopr</em> para
+el lenguaje de programación estadística R. El paquete le da acceso al
+WorldPop Open Population Repository desde su consola R, permitiéndole
+ejecutar woprVision localmente, descargar los datos directamente desde
+la consola R y enviar consultas espaciales al servidor WOPR para obtener
+estimaciones de población para polígonos o puntos desde sus propios
+shapefiles.</p>
 <p><strong>REST API</strong><br />
-Esta pestaña proporciona una visión general del WOPR REST API. Esta es la forma en que el paquete <em>wopr</em> R y woprVision se comunican con los servidores de WorldPop para extraer las estimaciones de población. El documento proporciona la información básica que usted necesita para desarrollar sus propias aplicaciones que consultan datos del WorldPop Open Population Repository usando REST API.</p>
+Esta pestaña proporciona una visión general del WOPR REST API. Esta es
+la forma en que el paquete <em>wopr</em> R y woprVision se comunican con
+los servidores de WorldPop para extraer las estimaciones de población.
+El documento proporciona la información básica que usted necesita para
+desarrollar sus propias aplicaciones que consultan datos del WorldPop
+Open Population Repository usando REST API.</p>
 </div>
 </div>
 <div id="contribuyendo" class="section level2">
 <h2>Contribuyendo</h2>
-<p>El WorldPop Open Population Repository (WOPR) fue desarrollado por el Grupo de Investigación del WorldPop dentro del Departamento de Geografía y Ciencias Ambientales de la Universidad de Southampton. La financiación fue proporcionada por la Fundación Bill &amp; Melinda Gates y el Ministerio de Relaciones Exteriores y de la Mancomunidad de Naciones del Reino Unido (OPP1182408, OPP1182425, INV-002697). El profesor Andy Tatem se encarga de la supervisión del Grupo de Investigación del WorldPop. El paquete wopr R fue desarrollado por Doug Leasure. Maksym Bondarenko y Niko Ves desarrollaron el servidor de la API. Edith Darin añadió funcionalidad multilingüe a la aplicación Shiny y a la traducción al francés. Natalia Tejedor Garavito revisó la traducción al español. Sandra Baptista revisó la traducción al portugués. Gianluca Boo creó el logo de WOPR. Los datos de población han sido aportados al WOPR por muchos investigadores diferentes dentro del Grupo de Investigación de WorldPop.</p>
+<p>El WorldPop Open Population Repository (WOPR) fue desarrollado por el
+Grupo de Investigación del WorldPop dentro del Departamento de Geografía
+y Ciencias Ambientales de la Universidad de Southampton. La financiación
+fue proporcionada por la Fundación Bill &amp; Melinda Gates y el
+Ministerio de Relaciones Exteriores y de la Mancomunidad de Naciones del
+Reino Unido (OPP1182408, OPP1182425, INV-002697). El profesor Andy Tatem
+se encarga de la supervisión del Grupo de Investigación del WorldPop. El
+paquete wopr R fue desarrollado por Doug Leasure. Maksym Bondarenko y
+Niko Ves desarrollaron el servidor de la API. Edith Darin añadió
+funcionalidad multilingüe a la aplicación Shiny y a la traducción al
+francés. Natalia Tejedor Garavito revisó la traducción al español.
+Sandra Baptista revisó la traducción al portugués. Gianluca Boo creó el
+logo de WOPR. Los datos de población han sido aportados al WOPR por
+muchos investigadores diferentes dentro del Grupo de Investigación de
+WorldPop.</p>
 </div>
 <div id="cita-sugerida" class="section level2">
 <h2>Cita sugerida</h2>
-<p>Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package to query the WorldPop Open Population Repository, version 1.3.2. WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <a href="https://github.com/wpgp/wopr" class="uri">https://github.com/wpgp/wopr</a></p>
+<p>Leasure DR, Bondarenko M, Darin E, Tatem AJ. 2021. wopr: An R package
+to query the WorldPop Open Population Repository, version 1.3.3.
+WorldPop, University of Southampton. doi: 10.5258/SOTON/WP00716. <a href="https://github.com/wpgp/wopr" class="uri">https://github.com/wpgp/wopr</a></p>
 </div>
 <div id="licencia" class="section level2">
 <h2>Licencia</h2>
@@ -193,11 +532,29 @@ Esta pestaña proporciona una visión general del WOPR REST API. Esta es la form
 </div>
 <div id="referencias" class="section level2">
 <h2>Referencias</h2>
-<p>Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application Framework for R. R package version 1.1.0, <a href="https://CRAN.R-project.org/package=shiny" target="_blank">https://CRAN.R-project.org/package=shiny</a>.</p>
-<p>Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web Maps with the JavaScript ‘Leaflet’ Library. R package version 2.0.2. <a href="https://CRAN.R-project.org/package=leaflet" target="_blank">https://CRAN.R-project.org/package=leaflet</a></p>
-<p>Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ, Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089 <a href="https://dx.doi.org/10.1038/sdata.2017.89" target="_blank">https://dx.doi.org/10.1038/sdata.2017.89</a></p>
-<p>R Core Team. 2019. R: A Language and Environment for Statistical Computing, version 3.6.2. R Foundation for Statistical Computing: Vienna, Austria. <a href="https://www.R-project.org" target="_blank">https://www.R-project.org</a></p>
-<p>WorldPop (<a href="https://www.worldpop.org" target="_blank">www.worldpop.org</a> - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076). <a href="https://www.worldpop.org/doi/10.5258/SOTON/WP00646" target="_blank">https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a></p>
+<p>Chang W, Cheng J, Allaire JJ, Xie Y. 2018. shiny: Web Application
+Framework for R. R package version 1.1.0,
+<a href="https://CRAN.R-project.org/package=shiny" target="_blank">https://CRAN.R-project.org/package=shiny</a>.</p>
+<p>Cheng J, Karambelkar B, Xie Y. 2018. leaflet: Create Interactive Web
+Maps with the JavaScript ‘Leaflet’ Library. R package version 2.0.2.
+<a href="https://CRAN.R-project.org/package=leaflet" target="_blank">https://CRAN.R-project.org/package=leaflet</a></p>
+<p>Pezzulo C, Hornby GM, Sorichetta A, Gaughan AE, Linard C, Bird TJ,
+Kerr D, Lloyd CT, Tatem AJ. 2017. Sub-national mapping of population
+pyramids and dependency ratios in Africa and Asia. Sci. Data 4:170089
+<a href="https://dx.doi.org/10.1038/sdata.2017.89" target="_blank">https://dx.doi.org/10.1038/sdata.2017.89</a></p>
+<p>R Core Team. 2019. R: A Language and Environment for Statistical
+Computing, version 3.6.2. R Foundation for Statistical Computing:
+Vienna, Austria.
+<a href="https://www.R-project.org" target="_blank">https://www.R-project.org</a></p>
+<p>WorldPop
+(<a href="https://www.worldpop.org" target="_blank">www.worldpop.org</a>
+- School of Geography and Environmental Science, University of
+Southampton; Department of Geography and Geosciences, University of
+Louisville; Departement de Geographie, Universite de Namur) and Center
+for International Earth Science Information Network (CIESIN), Columbia
+University (2018). Global High Resolution Population Denominators
+Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076).
+<a href="https://www.worldpop.org/doi/10.5258/SOTON/WP00646" target="_blank">https://www.worldpop.org/doi/10.5258/SOTON/WP00646</a></p>
 </div>
 
 

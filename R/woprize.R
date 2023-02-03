@@ -24,7 +24,7 @@ woprize <- function(features, country, version=NA, confidence=0.95, tails=2, abo
   
   # API end point
   agesex_full <- ncol(getAgeSexTable(country=country, version=version, locator=url))-1
-  wopr_url <- endpoint(features=feature, agesex=length(agesex_select)<agesex_full, url=url)
+  wopr_url <- endpoint(features=features, agesex=length(agesex_select)<agesex_full, url=url)
   
   if(length(agesex_select)==agesex_full){
     agesex_select = 'full'
