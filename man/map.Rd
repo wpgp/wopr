@@ -4,7 +4,7 @@
 \alias{map}
 \title{woprVision: Leaflet map}
 \usage{
-map(country, version, dict = dict_EN, token = NULL)
+map(country, version, dict = dict_EN, token = NULL, esri_server = F)
 }
 \arguments{
 \item{country}{ISO3 code for country to map}
@@ -14,6 +14,8 @@ map(country, version, dict = dict_EN, token = NULL)
 \item{dict}{Dictionary for text translation}
 
 \item{token}{Token generated for access to password-protected datasets}
+
+\item{esri_server}{T/F to ping population tiles from esri server (more zoom capacity) or from wolrdpop server}
 }
 \value{
 A Leaflet map.

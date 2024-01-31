@@ -34,34 +34,15 @@ addEsriImageMapLayer <- function(map, url, layerId = NULL, group = NULL,  option
 #' @param version Version of data set to map
 #' @param dict Dictionary for text translation
 #' @param token Token generated for access to password-protected datasets
+#' @param esri_server T/F to ping population tiles from esri server (more zoom capacity) or from wolrdpop server
 #' @return A Leaflet map.
 #' @export
 
 map <- function(country, version, 
                 dict=dict_EN,
-                token = NULL) {
+                token = NULL,
+                esri_server = F) {
   
-  #get legend
-  esri_legend <-  sapply(httr::content( httr::GET(
-    paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
-           country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer/legend?f=json"),
-    httr::add_headers(Authorization = paste("Bearer", token , sep = " "))
-  ))[[1]][[1]]$legend, '[[', 1)
-  
-  bins <-  c(
-    sapply(esri_legend[-length(esri_legend)], function(x) as.integer(strsplit(x, '-')[[1]][1])),
-    as.integer(substr(esri_legend[length(esri_legend)], start=1, stop=nchar(esri_legend[length(esri_legend)])-1)))
-  
-  bins <- c(
-    bins,
-    round(max(bins[length(bins)] + diff(bins[c(length(bins)-1, length(bins))]),
-              version_info[paste(country, version),'popmax']))
-  )
-    
-  pal <- leaflet::colorBin(palette=woprVision_global$palette$cols[2:nrow(woprVision_global$palette)],
-                    bins=bins,
-                    na.color=woprVision_global$palette$cols[1],
-                    domain=1:1000, pretty=F, alpha=T, reverse=F)
   
   m <- leaflet(options = leafletOptions(minZoom=1, maxZoom=17)) %>%
     
@@ -80,13 +61,6 @@ map <- function(country, version,
                      overlayGroups=c('Population'),
                      options=layersControlOptions(collapsed=FALSE, autoZIndex=F)) %>%
     
-    # population legend
-    addLegend(position='bottomright',
-              pal=pal,
-              values=bins,
-              title=dict[["lg_map_legend"]],
-              opacity=1,
-              group='Population') %>%
     
     # hide groups by default
     hideGroup('Custom Area') %>%
@@ -102,12 +76,72 @@ map <- function(country, version,
     addScaleBar(position='topleft')
   
   # population tiles
-  m %>% 
-    addEsriImageMapLayer(
-      url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
-                 country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
-      group='Population', layerId='tiles_population', options= leaflet::filterNULL(list(opacity=0.8, token=token))
-    )
   
+  if(esri_server==T){
+    
+    #get legend
+    esri_legend <-  sapply(httr::content( httr::GET(
+      paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
+             country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer/legend?f=json"),
+      httr::add_headers(Authorization = paste("Bearer", token , sep = " "))
+    ))[[1]][[1]]$legend, '[[', 1)
+    
+    bins <-  c(
+      sapply(esri_legend[-length(esri_legend)], function(x) as.integer(strsplit(x, '-')[[1]][1])),
+      as.integer(substr(esri_legend[length(esri_legend)], start=1, stop=nchar(esri_legend[length(esri_legend)])-1)))
+    
+    bins <- c(
+      bins,
+      round(max(bins[length(bins)] + diff(bins[c(length(bins)-1, length(bins))]),
+                version_info[paste(country, version),'popmax']))
+      
+      
+    )
+    
+    # add population tiles from esri tiles server
+    
+    m <-  m |> 
+      addEsriImageMapLayer(
+        url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
+                   country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
+        group='Population', layerId='tiles_population', options= leaflet::filterNULL(list(opacity=0.8, token=token))
+      )
+    
+  } else {
+    
+    # create bins legend based on exponential population distribution and constrained by max pop value
+    bins <-  rexp(10000, 0.005)
+    bins <- bins[bins<version_info[paste(country, version),'popmax']]
+    bins <- round(c(quantile(bins, probs = seq(0, 1, by = 1/7))[-8], version_info[paste(country, version),'popmax']), -1)
+    pal <- leaflet::colorBin(palette=woprVision_global$palette$cols[2:nrow(woprVision_global$palette)],
+                             bins=bins,
+                             na.color=woprVision_global$palette$cols[1],
+                             domain=1:1000, pretty=F, alpha=T, reverse=F)
+    
+    # add population tiles from worldpop tiles server
+    m <- m |> 
+      addTiles(urlTemplate=file.path('https://tiles.worldpop.org/wopr',
+                                        country,
+                                        'population',
+                                        version,
+                                        paste0('population/{z}/{x}/',ifelse(version_info[paste(country, version),'southern'],'{-y}','{y}'),'.png')),
+                  group='Population',
+                  layerId='tiles_population',
+                  options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
+                  attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
+    )
+  }
+  
+  # population legend
+  m |> addLegend(position='bottomright',
+            pal=pal,
+            values=bins,
+            title=dict[["lg_map_legend"]],
+            opacity=1,
+            group='Population') 
+    
+    
+    
+    
 }
 
