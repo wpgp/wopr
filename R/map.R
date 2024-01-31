@@ -110,38 +110,43 @@ map <- function(country, version,
   } else {
     
     # create bins legend based on exponential population distribution and constrained by max pop value
-    bins <-  rexp(10000, 0.005)
-    bins <- bins[bins<version_info[paste(country, version),'popmax']]
-    bins <- round(c(quantile(bins, probs = seq(0, 1, by = 1/7))[-8], version_info[paste(country, version),'popmax']), -1)
-    pal <- leaflet::colorBin(palette=woprVision_global$palette$cols[2:nrow(woprVision_global$palette)],
+
+    if(is.null(woprVision_global$palette[[paste(country, version)]])){
+      palette <- woprVision_global$palette$default
+    } else {
+      palette <-  woprVision_global$palette[[paste(country, version)]]
+    }
+    
+    bins <- round(c(palette$bins[1:7],version_info[paste(country, version),'popmax'] ))
+    pal <- leaflet::colorBin(palette=palette$cols[2:nrow(palette)],
                              bins=bins,
-                             na.color=woprVision_global$palette$cols[1],
+                             na.color=palette$cols[1],
                              domain=1:1000, pretty=F, alpha=T, reverse=F)
     
     # add population tiles from worldpop tiles server
     m <- m |> 
       addTiles(urlTemplate=file.path('https://tiles.worldpop.org/wopr',
-                                        country,
-                                        'population',
-                                        version,
-                                        paste0('population/{z}/{x}/',ifelse(version_info[paste(country, version),'southern'],'{-y}','{y}'),'.png')),
-                  group='Population',
-                  layerId='tiles_population',
-                  options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
-                  attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
-    )
+                                     country,
+                                     'population',
+                                     version,
+                                     paste0('population/{z}/{x}/',ifelse(version_info[paste(country, version),'southern'],'{-y}','{y}'),'.png')),
+               group='Population',
+               layerId='tiles_population',
+               options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
+               attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
+      )
   }
   
   # population legend
   m |> addLegend(position='bottomright',
-            pal=pal,
-            values=bins,
-            title=dict[["lg_map_legend"]],
-            opacity=1,
-            group='Population') 
-    
-    
-    
-    
+                 pal=pal,
+                 values=bins,
+                 title=dict[["lg_map_legend"]],
+                 opacity=1,
+                 group='Population') 
+  
+  
+  
+  
 }
 
