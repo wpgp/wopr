@@ -100,7 +100,7 @@ map <- function(country, version,
     
     # add population tiles from esri tiles server
     
-    m <-  m |> 
+    m <-  m %>%  
       addEsriImageMapLayer(
         url=paste0("https://gis.worldpop.org/arcgis/rest/services/grid3/",
                    country, "_population_", sub("\\.", "_", version), "_gridded/ImageServer"),
@@ -124,7 +124,7 @@ map <- function(country, version,
                              domain=1:1000, pretty=F, alpha=T, reverse=F)
     
     # add population tiles from worldpop tiles server
-    m <- m |> 
+    m <- m %>%  
       addTiles(urlTemplate=file.path('https://tiles.worldpop.org/wopr',
                                      country,
                                      'population',
@@ -138,7 +138,7 @@ map <- function(country, version,
   }
   
   # population legend
-  m |> addLegend(position='bottomright',
+  m %>%  addLegend(position='bottomright',
                  pal=pal,
                  values=bins,
                  title=dict[["lg_map_legend"]],
