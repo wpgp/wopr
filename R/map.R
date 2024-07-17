@@ -132,7 +132,7 @@ map <- function(country, version,
                                      paste0('population/{z}/{x}/',ifelse(version_info[paste(country, version),'southern'],'{-y}','{y}'),'.png')),
                group='Population',
                layerId='tiles_population',
-               options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8),
+               options=tileOptions(minZoom=1, maxZoom=14, tms=FALSE, opacity=0.8, zIndex = 10),
                attribution='<a href="http://www.worldpop.org" target="_blank">WorldPop, University of Southampton</a>'
       )
   }
