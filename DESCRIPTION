@@ -16,14 +16,14 @@ Imports:
   leaflet, 
   leaflet.extras, 
   raster, 
-  RSQLite,
   sf,
+  stringi
+Suggests: 
+  RSQLite,
   shiny, 
   shinyWidgets,
   shinyjs,
-  stringi,
-  yaml
-Suggests: 
+  yaml,
   knitr, 
   rmarkdown
 VignetteBuilder: knitr
