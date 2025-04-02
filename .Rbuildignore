@@ -3,3 +3,5 @@
 wd
 .git*
 wopr.jpg
+^.*\.Rproj$
+^\.Rproj\.user$
