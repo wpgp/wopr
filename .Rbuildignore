@@ -1,5 +1,9 @@
+^renv$
+^renv\.lock$
 ^doc$
 ^Meta$
 wd
 .git*
 wopr.jpg
+^.*\.Rproj$
+^\.Rproj\.user$
